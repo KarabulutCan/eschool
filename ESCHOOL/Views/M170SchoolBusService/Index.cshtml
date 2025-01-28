@@ -1,0 +1,355 @@
+﻿@model ESCHOOL.ViewModels.SchoolViewModel
+@{
+    System.Globalization.CultureInfo.CurrentCulture = System.Globalization.CultureInfo.CreateSpecificCulture(@Model.SelectedCulture);
+    System.Globalization.CultureInfo.CurrentUICulture = System.Globalization.CultureInfo.CreateSpecificCulture(@Model.SelectedCulture);
+    var culture = System.Globalization.CultureInfo.CurrentCulture.ToString();
+}
+<!--#region head -->
+<head>
+    <meta charset="utf-8" />
+    <style>
+        html {
+            font-size: 13px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+    </style>
+    <title></title>
+    <link href="https://kendo.cdn.telerik.com/2021.2.616/styles/kendo.common.min.css" rel="stylesheet" />
+    <link rel="stylesheet" id="skin-css" href="@TempData["theme"]" />
+    <link rel="stylesheet" id="skin-css" href="@TempData["themeMobile"]" />
+    <script src="https://kendo.cdn.telerik.com/2021.2.616/js/jquery.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2021.2.616/js/kendo.all.min.js"></script>
+
+    <script src="@Url.Content("~/telerik/2021.2.616/js//cultures/kendo.culture." + culture + ".min.js")"></script>
+    <script src="@Url.Content("~/telerik/2021.2.616/js//messages/kendo.messages." + culture + ".min.js")"></script>
+
+    <script type="text/javascript">
+        kendo.culture("@culture");
+    </script>
+</head>
+<!--#endregion -->
+<body>
+    <div class="demo-section k-content fixed-top wide">
+        <div id="toolbarMenu"></div>
+    </div>
+
+    <br />
+    <br />
+    <br />
+    <br />
+    <div id="example">
+        <input type="hidden" asp-for="@Model.SchoolID" />
+        <input type="hidden" asp-for="@Model.UserPeriod" />
+
+        <div id="grid"></div>
+        <!--#region style -->
+        <style>
+            #grid .k-grid-toolbar {
+                padding: .6em 1.3em .6em .4em;
+            }
+
+            .k-grid-content {
+                max-height: 650px;
+            }
+
+            .k-header {
+                font-weight: bold !important;
+                font-size: 12px;
+            }
+            .category-label {
+                vertical-align: middle;
+                padding-right: .5em;
+            }
+
+            #category {
+                vertical-align: middle;
+            }
+
+            .refreshBtnContainer {
+                display: inline-block;
+            }
+
+            .toolbar {
+                float: left;
+            }
+        </style>
+        <!--#endregion -->
+    </div>
+    <!--#region toolbar -->
+    <style>
+        #logoId img {
+            width: 60px;
+        }
+    </style>
+    <script>
+        $(document).ready(function() {
+            $("#toolbarMenu").kendoToolBar({
+                items: [
+                    {
+                        template: "<img src='../Upload/Images/Logo.png' class='user-image' style='width:60px;'/>",
+                        overflow: "never",
+                    },
+                    { template: "<h4 style='padding-left:20px;'>@Model.UserPeriod  @ESCHOOL.Resources.Resource.InPeriod @ESCHOOL.Resources.Resource.SchoolBusServiceInformation</h4>" },
+                    { type: "spacer" },
+
+                    { type: "button", id: "back", text: "@ESCHOOL.Resources.Resource.Back", attributes: { style: "float: right" }, icon: "rewind" },
+                    { type: "separator" },
+
+                    { type: "button", id: "exit", text: "@ESCHOOL.Resources.Resource.Exit", attributes: { style: "float: right; margin-top: .4em;" }, icon: "logout" },
+                    { type: "separator" },
+                ],
+
+                click: function(e) {
+                    if (e.id == "exit")
+                        window.location.replace("/Home/index?userID=@Model.UserID&studentID=@Model.StudentID");
+                    else
+                        window.location.replace("/M210Student/AddOrEditStudent?studentID=" + "@Model.StudentID" + "&userID=@Model.UserID");
+                }
+            });
+            if (@Model.StudentID == 0) $("#back").hide();
+
+        });
+    </script>
+    <!--#endregion -->
+</body>
+<script>
+    record = 0;
+    $(document).ready(function() {
+        var crudServiceBaseUrl = "/M170SchoolBusService/",
+            dataSource = new kendo.data.DataSource({
+                transport: {
+                    read: {
+                        url: crudServiceBaseUrl + "SchoolBusServiceDataRead/" + "@Model.UserID" + "/" + "@Model.UserPeriod",
+                        dataType: "json"
+                    },
+                    update: {
+                        url: function(options) {
+                            var url = crudServiceBaseUrl + "SchoolBusServiceDataUpdate/" + options.models[0].id;
+                            return url;
+                        },
+                        complete: function(e) {
+                            showPopupNotification();
+                            $("#grid").data("kendoGrid").dataSource.read();
+                        },
+                        type: "post",
+                        dataType: "json",
+                    },
+
+                    destroy: {
+                        url: function(options) {
+                            var url = crudServiceBaseUrl + "SchoolBusServiceDataDelete/" + options.models[0].id;
+                            return url;
+                        },
+                        type: "post",
+                        dataType: "json",
+                        complete: function(e) {
+                            showPopupNotification();
+                        },
+                    },
+
+                    create: {
+                        url: function(options) {
+                            var url = crudServiceBaseUrl + "SchoolBusServiceDataCreate/" + options.models[0].id;
+                            return url;
+                        },
+                        type: "post",
+                        dataType: "json",
+                        complete: function(e) {
+                            showPopupNotification();
+                        },
+                    },
+
+                    parameterMap: function(options, operation) {
+                        if (operation !== "read" && options.models) {
+                            return { models: kendo.stringify(options.models) };
+                        }
+                    }
+                },
+                batch: true,
+                schema: {
+                    model: {
+                        id: "schoolBusServicesID",
+                        fields: {
+                            schoolBusServicesID: { editable: false, type: "number" },
+                            period: { editable: true, type: "string" },
+                            plateNo: { validation: { required: true } },
+                            driverName: { validation: { required: true } },
+                            busPhone: { validation: { required: true } },
+                            busRoute: { validation: { required: true } },
+                            busTeacher: { validation: { required: true } },
+                            busTeacherPhone: { validation: { required: false } },
+                            explanation: { validation: { required: false } },
+                            sortOrder: { type: "number" },
+                            isActive: { type: "boolean", defaultValue: true },
+                        }
+                    },
+                }
+            });
+
+        var first = 1;
+        var grid = $("#grid").kendoGrid({
+            dataSource: dataSource,
+            groupable: true,
+            navigatable: true,
+            resizable: true,
+            selectable: 'row',
+            toolbar: ["create", "cancel", "search", {
+                template: '<divclass="toolbar"><label class="periodcombo-label" for="periodcombo">@ESCHOOL.Resources.Resource.Period1&emsp;</label> <input type="select" id="periodcombo" style="width: 110px" /></div >',
+                className: "k-grid-custom",
+                imageClass: "k-add"
+            }],
+
+            columns: [
+                { title: "#", template: "#= ++record #", width: 40 },
+
+                { field: "plateNo", title: getByCulture('@culture', 'plateNo'), width: "90px", template: "#=plateNo#" },
+                { field: "driverName", title: getByCulture('@culture', 'driverName'), width: "80px", template: "#=driverName#" },
+                { field: "busPhone", title: getByCulture('@culture', 'busPhone'), width: "110px", template: "#=busPhone#" },
+                { field: "busRoute", title: getByCulture('@culture', 'busRoute'), width: "190px", template: "#=busRoute#" },
+                { field: "busTeacher", title: getByCulture('@culture', 'busTeacher'), width: "90px", template: "#=busTeacher#" },
+                { field: "busTeacherPhone", title: getByCulture('@culture', 'busTeacherPhone'), width: "110px", template: "#=busTeacherPhone#" },
+                { field: "explanation", title: getByCulture('@culture', 'explanation'), width: "100px", template: "#=explanation#" },
+                { field: "sortOrder", title: getByCulture('@culture', 'sort'), width: "60px", format: "?", template: "#=sortOrder#" },
+                { field: "isActive", title: getByCulture('@culture', 'status'), width: "60px", editor: customBoolEditor2, template: "<input  #if (isActive) { # checked='checked' # } # type='checkbox' disabled />", attributes: { style: "text-align:center" } },
+                { field: "Mask", hidden: true },
+                { command: [{ text: " ", name: "edit" }, { text: " ", name: "destroy" }], title: "&nbsp;" },
+            ],
+
+            dataBinding: function() {
+                record = 0;
+            },
+            editable: "inline",
+
+            edit: function(e) {
+                var grid = $('#grid').data('kendoGrid');
+
+                var items = e.sender.items();
+                items.each(function(index) {
+                    var dataItem = grid.dataItem('tr.k-grid-edit-row');
+                    var dropdownlist = $("#periodcombo").data("kendoDropDownList")
+                    dataItem.set("period", dropdownlist.text());
+                    dataItem.set("schoolID", "@Model.SchoolID");
+                });
+            }
+        });
+
+        var dropDown = grid.find("#periodcombo").kendoDropDownList({
+            dataTextField: "categoryName",
+            dataValueField: "categoryID",
+            optionLabel: "@Model.UserPeriod",
+            index: 0,
+            dataSource: {
+                type: "json",
+                severFiltering: true,
+                transport: {
+                    read: {
+                        url: "/M170SchoolBusService/PeriodDataRead",
+                        dataType: "json"
+                    },
+                }
+            },
+
+            change: function() {
+                var value = this.value();
+                var d = new Date();
+                var d1 = d.getFullYear();
+                var d2 = d1 + 1;
+                var period1 = d1 + "-" + d2;
+                var period2 = this.text();
+
+                if (first == 0) {
+                    $.ajax({
+                        type: "POST",
+                        url: '/M170SchoolBusService/SchoolBusServiceDataRead/' + "@Model.UserID" + "/" + this.text(),
+                        dataType: "json",
+                        traditional: true,
+                        success: function(result) {
+                            var grid = $("#grid").data("kendoGrid");
+                            var dataSource = new kendo.data.DataSource({ data: result });
+                            grid.setDataSource(dataSource);
+                            grid.dataSource.pageSize(20);
+                            grid.refresh();
+                        }
+                    });
+                }
+
+                if (period1 != period2) {
+                    $(".k-grid-add", "#grid").hide();
+                    $(".k-grid-cancel-changes", "#grid").hide();
+                    $(".k-grid-save-changes", "#grid").hide();
+                    var grid = $("#grid").data("kendoGrid");
+                    grid.hideColumn(11);
+                }
+                else {
+                    $(".k-grid-add", "#grid").show();
+                    $(".k-grid-cancel-changes", "#grid").show();
+                    $(".k-grid-save-changes", "#grid").show();
+                    var grid = $("#grid").data("kendoGrid");
+                    grid.showColumn(11);
+                }
+
+                first = 0;
+            },
+
+        }).data("kendoDropDownList");
+
+        dropDown.bind("dataBound", function() {
+            this.trigger("change");
+        });
+
+        function customBoolEditor1(container, options) {
+            $('<input class="k-checkbox" type="checkbox" name="isPasswordRequired" data-type="boolean" data-bind="checked:isPasswordRequired">').appendTo(container);
+        };
+        function customBoolEditor2(container, options) {
+            $('<input class="k-checkbox" type="checkbox" name="isActive" data-type="boolean" data-bind="checked:isActive">').appendTo(container);
+        };
+    });
+</script>
+
+<!--#endregion -->
+<span id="popupNotification"></span>
+<script>
+    function showPopupNotification() {
+        var popupNotification = $("#popupNotification").kendoNotification().data("kendoNotification");
+        var d = new Date();
+        popupNotification.show(kendo.toString(d, 'HH:MM:ss.') + kendo.toString(d.getMilliseconds(), "000"), "error");
+    };
+</script>
+<script>
+    var dictionary =
+    {
+        'tr-TR': {
+            titleMsg: 'Kullanıcı Mesajı:',
+            msgOk: 'Tamam',
+            plateNo: 'Plaka No',
+            driverName: 'Sürücü Adı',
+            busPhone: 'Servis Telefon',
+            busRoute: 'Güzergah',
+            busTeacher: 'Görevli Öğr.',
+            busTeacherPhone: 'Görevli Telefonu',
+            explanation: 'Açıklama',
+            sort: 'Sıra',
+            status: 'Durum'
+        },
+
+        'en-US': {
+            titleMsg: 'User message:',
+            msgOk: 'OK',
+            plateNo: 'Plate No',
+            driverName: 'Driver Name',
+            busPhone: 'Bus Phone',
+            busRoute: 'Bus Route',
+            busTeacher: 'Bus Teacher',
+            busTeacherPhone: 'Bus Teacher Phone',
+            explanation: 'Explanation',
+            sort: 'Sort',
+            status: 'Status'
+        },
+    }
+    function getByCulture(culture, word) {
+        return dictionary[culture][word]
+    }
+</script>
+<script>
+    window.history.replaceState('', '', window.location.pathname);
+</script>

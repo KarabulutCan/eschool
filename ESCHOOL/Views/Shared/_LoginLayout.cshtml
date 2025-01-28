@@ -1,0 +1,44 @@
+﻿@{
+    System.Globalization.CultureInfo.CurrentCulture = System.Globalization.CultureInfo.CreateSpecificCulture("tr-TR");
+    System.Globalization.CultureInfo.CurrentUICulture = System.Globalization.CultureInfo.CreateSpecificCulture("tr-TR");
+    var culture = System.Globalization.CultureInfo.CurrentCulture.ToString();
+}
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+        html {
+            font-size: 13px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+    </style>
+    <title>@ViewData["Title"] - ESCHOOL</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    @*<script src="https://kit.fontawesome.com/f2c0857980.js" crossorigin="anonymous"></script>*@
+    <script src="~/fontawesome/f2c0857980.js"></script>
+
+    <script src="@Url.Content("~/telerik/2021.2.616/js//cultures/kendo.culture." + culture + ".min.js")"></script>
+    <script src="~/telerik/2021.2.616/js//messages/kendo.messages.tr-TR.min.js"></script>
+
+    <script type="text/javascript">
+            kendo.culture("@culture");
+    </script>
+</head>
+<body>
+   
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @RenderSection("Scripts", required: false)
+
+</body>
+</html>
+

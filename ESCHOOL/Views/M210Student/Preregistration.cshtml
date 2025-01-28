@@ -1,0 +1,1012 @@
+﻿@model ESCHOOL.ViewModels.StudentViewModel
+@{
+    System.Globalization.CultureInfo.CurrentCulture = System.Globalization.CultureInfo.CreateSpecificCulture(@Model.SelectedCulture);
+    System.Globalization.CultureInfo.CurrentUICulture = System.Globalization.CultureInfo.CreateSpecificCulture(@Model.SelectedCulture);
+    var culture = System.Globalization.CultureInfo.CurrentCulture.ToString();
+}
+@addTagHelper *, Kendo.Mvc
+
+@{
+    var messages = new Dictionary<string, string>() { { "custom", "Please choose another Start Time." } };
+    var rules = new Dictionary<string, string>() { { "custom", "customFunction" } };
+}
+<meta charset="UTF-8">
+<!--#region head -->
+<head>
+    <style>
+        html {
+            font-size: 13px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+    </style>
+    <title></title>
+    <link href="https://kendo.cdn.telerik.com/2021.2.616/styles/kendo.common.min.css" rel="stylesheet" />
+    <link rel="stylesheet" id="skin-css" href="@TempData["theme"]" />
+    <link rel="stylesheet" id="skin-css" href="@TempData["themeMobile"]" />
+    <script src="https://kendo.cdn.telerik.com/2021.2.616/js/jquery.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2021.2.616/js/kendo.all.min.js"></script>
+
+    <script src="@Url.Content("~/telerik/2021.2.616/js//cultures/kendo.culture." + culture + ".min.js")"></script>
+    <script src="@Url.Content("~/telerik/2021.2.616/js//messages/kendo.messages." + culture + ".min.js")"></script>
+
+    <script type="text/javascript">
+        kendo.culture("@culture");
+    </script>
+</head>
+<!--#endregion -->
+<body data-spy="scroll" data-target=".navbar">
+    <form id="PreregistrationID" asp-controller="M210Student" asp-action="PreregistrationUpdate" asp-route-id="1" enctype="multipart/form-data" method="post">
+        <br />
+        <br />
+        <br />
+        <div class="demo-section k-content fixed-top">
+            <div id="toolbarMenu"></div>
+        </div>
+        <br />
+
+
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        @*Geri dönüşlerde null olmaması için*@
+        <input type="hidden" asp-for="@Model.Student.StudentID" />
+        <input type="hidden" asp-for="@Model.UserID" />
+        <input type="hidden" asp-for="@Model.Period" />
+        <input type="hidden" asp-for="@Model.SchoolID" />
+        <input type="hidden" asp-for="@Model.StudentClassroom" />
+        <input type="hidden" asp-for="@Model.SelectedCulture" />
+        <input type="hidden" id="isMenu" asp-for="@Model.IsMenu" />
+        <input type="hidden" id="classroomID" />
+        <input type="hidden" asp-for="@TempData["studentID"]" id="studentID" />
+        <input type="checkbox" style="display:none" asp-for="@Model.ViewIsNew" id="viewIsNew" />
+        <input type="checkbox" style="display:none" asp-for="@Model.ViewIsFirst" />
+
+        <input type="hidden" id="resultAmount" />
+        <input type="hidden" id="resultID" />
+        <input type="hidden" id="resultOnOff" value="false" />
+
+        <input type="hidden" id="selectedID" />
+        <input type="hidden" id="colInx" />
+
+        <br /> <br />
+
+        <div class="k-content row" style="padding-left:2px; padding-top: 20px;padding-bottom: 50px; border: thin solid rgb(120,120,120);">
+            <div class="col col-md-6 verticalLine" width:100%">
+                <h5 class="ra-well-title card-header top-left"> <kbd>@ESCHOOL.Resources.Resource.StudentInformation </kbd></h5>
+
+                <div class="row">
+                    <div class="col">
+                        <button type="button" id="btn1" onmouseover="IdChange(this)" onmouseout="IdChangeOld(this)" onclick="myFunction(this)">@ESCHOOL.Resources.Resource.IdNumber</button>
+                        <input asp-for="Student.IdNumber" id="id1" class="k-textbox" style="width: 26%;" maxlength="11" onfocus="IdReset(this)" onchange="buttonControl(this)" title="@ESCHOOL.Resources.Resource.TooltipId" required validationMessage=@ESCHOOL.Resources.Resource.RequiredField tabindex="1" autofocus autocomplete="off" />
+                    </div>
+                </div>
+
+                <div class="row" style="padding-top:15px;">
+                    <div class="col">
+                        <h6 class="card-title">@ESCHOOL.Resources.Resource.FirstName<a id="firstNameNone" style="float: right; color:red">*</a></h6>
+                        <input asp-for="Student.FirstName" id="firstName" class="k-textbox" style="font-weight: bold; width: 100%;" maxlength="30" required validationMessage=@ESCHOOL.Resources.Resource.RequiredField tabindex="2" />
+                    </div>
+
+                    <div class="col">
+                        <h6 class="card-title">@ESCHOOL.Resources.Resource.LastName<a id="lastNameNone" style="float: right; color:red">*</a></h6>
+                        <input asp-for="Student.LastName" id="lastName" class="k-textbox" style="font-weight: bold; width: 100%;" maxlength="30" required validationMessage=@ESCHOOL.Resources.Resource.RequiredField tabindex="3" />
+                    </div>
+                </div>
+                <div class="row" style="padding-top:15px;">
+                    <div class="col" id="gendertype">
+                        <label asp-for="Student.GenderTypeCategoryID" class="control-label"></label>
+                        <input asp-for="Student.GenderTypeCategoryID" id="genderTypeDropDown" class="text-section k-content" style="width: 100%;" tabindex="4" />
+                    </div>
+                    <div class="col" id="nationality">
+                        <label asp-for="Student.NationalityID" class="control-label"></label>
+                        <input asp-for="Student.NationalityID" id="nationalityTypeDropDown" class="text-section k-content" style="width: 100%;" required validationMessage=@ESCHOOL.Resources.Resource.RequiredField tabindex="5" />
+                    </div>
+                    <div class="col">
+                        <label asp-for="Student.DateOfBird" class="control-label"></label>
+                        <input asp-for="Student.DateOfBird" class="form-control" id="dateofbird" style="width: 100%;" tabindex="6" />
+                    </div>
+                    <div class="col">
+                        <label asp-for="StudentAddress.MobilePhone" class="control-label"></label><a style="float: right; color:red">*</a>
+                        <input asp-for="StudentAddress.MobilePhone" id="studentMobilePhone" class="k-textbox" style="width: 100%;" maxlength="15" tabindex="7" />
+                    </div>
+                </div>
+
+                <div class="row" style="padding-top:15px;">
+                    <div class="col">
+                        <label asp-for="Student.SchoolID" class="control-label"></label>
+                        <input asp-for="Student.SchoolID" id="schoolDropDown" style="width: 100%;" tabindex="8" />
+                    </div>
+                </div>
+
+
+                <div class="row" style="padding-top:15px;">
+                    <div class="col target" id="studentAddress1Target">
+                        <input asp-for="StudentAddress.StudentAddressID" hidden />
+                        <input asp-for="StudentAddress.StudentID" hidden />
+                        <input asp-for="Student.IsWebRegistration" hidden />
+                        
+
+                        <label asp-for="StudentAddress.Address1" class="control-label"></label>
+                        <textarea asp-for="StudentAddress.Address1" id="studentAddress1" title="@ESCHOOL.Resources.Resource.CopyPastMsg" class="k-textbox" style="width: 100%; height:50px;" text-wrap="normal" type="text" maxlength="100" required validationMessage=@ESCHOOL.Resources.Resource.RequiredField tabindex="9"></textarea>
+                    </div>
+                </div>
+
+                <div class="row" style="padding-top:15px;">
+                    <div class="col" id="city">
+                        <label asp-for="StudentAddress.CityParameterID1" class="control-label"></label>
+                        <input asp-for="StudentAddress.CityParameterID1" id="studentCityDropDown1" class="text-section k-content" style="width: 100%;" required validationMessage=@ESCHOOL.Resources.Resource.RequiredField tabindex="10" />
+                    </div>
+
+                    <div class="col" id="town">
+                        <label asp-for="StudentAddress.TownParameterID1" class="control-label"></label>
+                        <input asp-for="StudentAddress.TownParameterID1" id="studentTownDropDown1" class="text-section k-content" disabled="disabled" style="width: 100%;" required validationMessage=@ESCHOOL.Resources.Resource.RequiredField tabindex="11" />
+                    </div>
+
+                    <div class="col" id="zip">
+                        <label asp-for="StudentAddress.ZipCode1" class="control-label"></label>
+                        <input asp-for="StudentAddress.ZipCode1" id="studentZip1" class="k-textbox" style="width: 100%;" maxlength="12" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="col col-md-6" style="padding-left:10px;padding-right:20px; width:100%">
+                <h5 class="ra-well-title card-header top-left"> <kbd>@ESCHOOL.Resources.Resource.ParentInformation </kbd></h5>
+                &nbsp;
+                @*<div class="row">*@
+                <div class="row col-md-auto">
+                    <button type="button" id="btn2" onmouseover="IdChange(this)" onmouseout="IdChangeOld(this)" onclick="myFunction(this)">@ESCHOOL.Resources.Resource.IdNumber</button>
+                    <input asp-for="StudentParentAddress.IdNumber" id="id2" class="k-textbox" style="width: 26%;" maxlength="15" onfocus="IdReset(this)" title="@ESCHOOL.Resources.Resource.TooltipId" required validationMessage=@ESCHOOL.Resources.Resource.RequiredField maxlength="13" /><a style="padding-left:5px; float: right; color:red">*</a>
+                </div>
+                @* </div>*@
+
+                <div class="row col-md-auto" style="padding-top:15px;">
+                    <div>
+                        <label asp-for="Student.ParentName" class="control-label" style="width: 100%;"></label><a style="float: right; color:red">*</a>
+                        <input asp-for="Student.ParentName" id="parentName" class="k-textbox" style="width: 255px; " maxlength="50" title="@ESCHOOL.Resources.Resource.CopyPastMsg" maxlength="14" required validationMessage=@ESCHOOL.Resources.Resource.RequiredField />
+                    </div>
+
+                </div>
+
+                <div class="row" style="padding-top:15px;">
+                    <div class="col">
+                        <label asp-for="StudentParentAddress.ParentGenderTypeCategoryID" class="control-label"></label>
+                        <input asp-for="StudentParentAddress.ParentGenderTypeCategoryID" id="parentGenderTypeDropDown" class="text-section k-content" style="width: 100%;" maxlength="15" required validationMessage=@ESCHOOL.Resources.Resource.RequiredField />
+                    </div>
+                    <div class="col">
+                        <label asp-for="StudentParentAddress.MobilePhone" for="isSmsStudent" class="control-label"></label><a style="float: right; color:red">*</a>
+                        <input asp-for="StudentParentAddress.MobilePhone" id="phone_number4" class="k-textbox" style="width: 100%;" maxlength="16" required validationMessage=@ESCHOOL.Resources.Resource.RequiredField />
+                    </div>
+
+                    <div class="col">
+                        <label asp-for="StudentParentAddress.HomePhone" class="control-label"></label>
+                        <input asp-for="StudentParentAddress.HomePhone" id="phone_number2" class="k-textbox" style="width: 100%;" maxlength="17" />
+                    </div>
+
+                    <div class="col">
+                        <label asp-for="StudentParentAddress.WorkPhone" class="control-label"></label>
+                        <input asp-for="StudentParentAddress.WorkPhone" id="phone_number3" class="k-textbox" style="width: 100%;" maxlength="18" />
+                    </div>
+                </div>
+                <div class="row" style="padding-top:15px;">
+                    <div class="col">
+                        <label asp-for="StudentParentAddress.KinshipCategoryID" class="control-label"></label>
+                        <input asp-for="StudentParentAddress.KinshipCategoryID" id="kinshipDropDown" class="text-section k-content" style="width: 100%;" maxlength="19" />
+                    </div>
+                    <div class="col">
+                        <label asp-for="StudentParentAddress.ProfessionCategoryID" class="control-label"></label>
+                        <input asp-for="StudentParentAddress.ProfessionCategoryID" id="professionDropDown" class="text-section k-content" style="width: 100%;" maxlength="20" />
+                    </div>
+
+                    <div class="col">
+                        <label asp-for="StudentParentAddress.EMail" for="isEMailParent" class="control-label"></label>
+                        <input asp-for="StudentParentAddress.EMail" id="parentEMail" class="k-textbox" style="width: 100%;" type="email" maxlength="50" data-email-msg=@ESCHOOL.Resources.Resource.ValidEmail maxlength="21" />
+                    </div>
+                </div>
+
+                <div class="row" style="padding-top:15px;">
+                    <div class="col target" id="studentAddress1Target">
+                        <input asp-for="StudentParentAddress.StudentParentAddressID" hidden />
+                        <input asp-for="StudentParentAddress.StudentID" hidden />
+
+                        <label asp-for="StudentParentAddress.HomeAddress" class="control-label"></label>
+                        <textarea asp-for="StudentParentAddress.HomeAddress" id="parentHomeAddress" title="@ESCHOOL.Resources.Resource.CopyPastMsg" class="k-textbox" style="width: 100%; height:50px;" text-wrap="normal" type="text" maxlength="100" maxlength="22" required validationMessage=@ESCHOOL.Resources.Resource.RequiredField></textarea>
+                    </div>
+                </div>
+                <div class="row" style="padding-top:15px;">
+                    <div class="col">
+                        <label asp-for="StudentParentAddress.HomeCityParameterID" class="control-label"></label>
+                        <input asp-for="StudentParentAddress.HomeCityParameterID" id="parentHomeCityDropDown" class="text-section k-content" style="width: 100%;" maxlength="23" required validationMessage=@ESCHOOL.Resources.Resource.RequiredField />
+                    </div>
+
+                    <div class="col">
+                        <label asp-for="StudentParentAddress.HomeTownParameterID" class="control-label"></label>
+                        <input asp-for="StudentParentAddress.HomeTownParameterID" id="parentHomeTownDropDown" class="text-section k-content" disabled="disabled" style="width: 100%;" maxlength="24" required validationMessage=@ESCHOOL.Resources.Resource.RequiredField />
+                    </div>
+
+                    <div class="col">
+                        <label asp-for="StudentParentAddress.HomeZipCode" class="control-label"></label>
+                        <input asp-for="StudentParentAddress.HomeZipCode" id="parentHomeZip" class="k-textbox" style="width: 100%;" maxlength="10" maxlength="25" />
+                    </div>
+                </div>
+            </div>
+
+            <label style="display: inline-block; text-align: center; width: 100%; font-style:italic; padding-top:50px;">@ESCHOOL.Resources.Resource.PreregistrationMessage</label>
+
+        </div>
+
+        <script>
+            $(document).ready(function () {
+                if ("@Model.IsExplanationShow" == "True") {
+                    var tabstrip = $("#tabstrip").kendoTabStrip().data("kendoTabStrip")
+                    tabstrip.select(6);
+                }
+            });
+        </script>
+        <style>
+            .verticalLine {
+                /* border-right-width: 5px; solid black;*/
+                border-right: 1px solid gray;
+            }
+        </style>
+
+        <!--#endregion -->
+        <!--#region  style -->
+        <style>
+            #vertical {
+                height: 900px;
+                margin: 0 auto;
+            }
+
+            .critical {
+                background-color: #fdd;
+                color: black;
+            }
+
+            .warning {
+                background-color: #fda;
+                color: black;
+            }
+
+            .ok {
+                background-color: #ced;
+                color: black;
+            }
+
+            .critical2 {
+                color: #fdd;
+            }
+
+            .warning2 {
+                color: #fda;
+            }
+
+            .ok2 {
+                color: #ced;
+            }
+
+            .siblingColor {
+                font-weight: bold;
+                font-style: italic;
+            }
+
+            .k-upload-status {
+                display: none;
+            }
+
+            .ui-datepicker.ui-datepicker-inline {
+                width: 100% !important;
+            }
+
+            .toolbar {
+                float: right;
+            }
+
+            .customer-name {
+                display: inline-block;
+                vertical-align: middle;
+                line-height: 32px;
+                padding-left: 3px;
+            }
+
+            .k-window div.k-window-content {
+                overflow: hidden;
+            }
+
+            #right-pane {
+                overflow: hidden; /* Hide scrollbars */
+            }
+
+            .k-form-hint {
+                margin-top: 10px;
+            }
+
+        </style>
+        <!--#endregion -->
+        <!--#endregion -->
+
+    </form>
+
+    <script>
+        function checkParameter(e) {
+            var chk = document.getElementById("Prf1").checked;
+            if (chk) hideit();
+            else showit();
+            if ("@Model.SortType" == 2) $("#firstNameNone").show();
+            if ("@Model.SortType" == 3) $("#lastNameNone").show();
+            if ("@Model.Student.SiblingID" != 0) $("#siblingNone").show();
+        }
+
+        function hideit() {
+            document.getElementById("Ssl1").disabled = true;
+            document.getElementById("Ssl2").disabled = true;
+        }
+        function showit() {
+            document.getElementById("Ssl1").disabled = false;
+            document.getElementById("Ssl2").disabled = false;
+        }
+    </script>
+
+    <!--#region dictionary -->
+    <script>
+        var dictionary =
+        {
+            'tr-TR': {
+                select: 'Seç',
+                selectbankName: 'Banka Seçimini Yapınız.',
+                enterFee: 'Önce Öğrencinin Ücret Girişini Yapınız.',
+                enterValidAmount: 'Geçerli Bir Tutar Giriniz.',
+                selectclassroom: 'Öğrencinin Sınıfını Giriniz.',
+                feetableempty: 'Ücret tablosu girilmemiş.',
+                studentfeeempty: 'Öğrenci ücretleri girilmemiş.',
+                installmentControl: 'Taksit Toplamı Genel Toplama Eşit Olmalıdır.',
+                installmentControl1: 'Genel Toplam   :',
+                installmentControl2: 'Taksit Toplamı :',
+                exceeded1: 'Dikkat; Girilen Sınıfın Kontenjanı (',
+                exceeded11: ') ile Sınırlandırılmıştır',
+                exceeded2: 'Bu Sınıfta Mevcut (',
+                exceeded22: ') Öğrenci Bulunmaktadır.',
+                exceeded3: 'Sınıfın Kontenjanı Dolmuştur, Lütfen Başka Bir Sınıfa Kayıt Yapınız.',
+                titleMsg: 'Kullanıcı Mesajı:',
+                nameRequiredField: 'Ad ve Soyad girilmesi zorunlu alanlardır.',
+                requiredField2: 'Dikkat; Zorunlu Alanları Girmeniz Gerekmektedir..',
+                studentselection: 'Öğrenci Seçimi',
+                siblingselection: 'Kardeş/Grup Seçimi',
+                msgOk: 'Tamam',
+                exit: 'Çıkış',
+                schoolChange: 'Bu Öğrenci İçin Okul Değişliği Yapılacak...',
+                exitProgram: 'Kayıt Yapmadan Programdan Çıkıyorsunuz?',
+                schoolChangeCancel: 'Bu Öğrenci İçin Okul Değişliği İptal Edildi.'
+            },
+
+            'en-US': {
+                select: 'Select',
+                selectbankName: 'Select the bank name.',
+                enterFee: "'First Enter the Student's Fee",
+                enterValidAmount: 'Enter Valid Amount.',
+                selectclassroom: "Enter Student's Class.",
+                feetableempty: 'The wage table has not been entered.',
+                studentfeeempty: 'Enter student fees.',
+                installmentControl: 'Total Installment, Grand Total Should Be Equal.',
+                installmentControl1: 'Grand Total       :',
+                installmentControl2: 'Installment Total :',
+                exceeded1: 'Attention; Quota of the entered Classroom (',
+                exceeded11: ') ',
+                exceeded2: 'There are (',
+                exceeded22: ') Students İn the Classroom.',
+                exceeded3: 'Class has been filled, Please Register for Another Classroom.',
+                titleMsg: 'User message:',
+                nameRequiredField: 'First Name and Last Name are required fields.',
+                requiredField2: 'Attention; Required Fields Must Be Entered.',
+                studentselection: 'Student Selection',
+                siblingselection: 'Sibling/Group Selection',
+                msgOk: 'OK',
+                exit: 'Exit',
+                schoolChange: 'A School Change will be made for this Student...',
+                exitProgram: 'You are Exiting the Program Without Saving??',
+                schoolChangeCancel: 'School Change Has Been Canceled For This Student.'
+            },
+        }
+        function getByCulture(culture, word) {
+            return dictionary[culture][word]
+        }
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            $('body').kendoTooltip({
+                filter: '[title]:not([title=""])',
+                autoHide: true,
+                position: "top",
+                animation: {
+                    open: {
+                        effects: "zoom",
+                        duration: 150
+                    }
+                }
+            });
+        });
+    </script>
+    <!--#endregion -->
+    <!--#region toolbar -->
+    <style>
+        #logoId img {
+            width: 60px;
+        }
+    </style>
+
+    <!--#endregion -->
+
+    <script>
+        $(document).ready(function () {
+            $("#toolbarMenu").kendoToolBar({
+                items: [
+
+                    {
+                        template: "<img src='../Upload/Images/Logo.png' class='user-image' style='width:60px;'/>",
+                        overflow: "never",
+                    },
+
+                    { template: "<h4><label style='padding-left:20px;'>@ESCHOOL.Resources.Resource.PreRegistrationApplicationForm</label></h4>" },
+
+                    { type: "spacer" },
+
+                    { type: "separator" },
+
+                    { type: "button", id: "submit", text: "@ESCHOOL.Resources.Resource.Submit", icon: "save", enable: false },
+                    { type: "separator" },
+
+                    { type: "button", id: "exit", text: "@ESCHOOL.Resources.Resource.Exit", attributes: { style: "float: right" }, icon: "logout" },
+                ],
+                click: function (e) {
+                    //mehmet
+                    if (e.id == "submit") {
+                        var fName = document.getElementById("firstName").value;
+                        var lName = document.getElementById("lastName").value;
+
+                        var cont1 = document.getElementById("studentMobilePhone").value;
+                        var cont2 = document.getElementById("id2").value;
+                        var cont3 = document.getElementById("parentName").value;
+                        var cont4 = document.getElementById("phone_number4").value;
+
+                        if (fName == "" || lName == "") {
+                            msg = getByCulture('@culture', 'nameRequiredField');
+                            alert(msg);
+
+                            return;
+                        }
+                        if (cont1 == "" || cont2 == "" || cont3 == "" || cont4 == "") {
+                            msg = getByCulture('@culture', 'requiredField2');
+                            alert(msg);
+
+                            return;
+                        }
+
+                        $("#PreregistrationID")[0].submit();
+                        showPopupNotification();
+                    }
+
+                    if (e.id == "exit")
+                        window.location.replace("/M210Student/Login?id=0");
+                },
+            });
+        });
+    </script>
+
+</body>
+
+<!--#region fee and discount selecting, tex, datepicker -->
+<script>
+    $(function () {
+        $("#switch").kendoSwitch({
+            messages: {
+                checked: '<i class="fas fa-plus"></i><i class="fas fa-percent"></i></i>',
+                unchecked: '<i class="fas fa-toggle-off"></i>'
+            },
+            change: function (e) {
+                document.getElementById('resultOnOff').value = e.checked;
+            }
+        });
+    })
+</script>
+<script>
+    $(document).ready(function () {
+        $("#textbox").kendoTextBox({
+            placeholder: "Name..."
+        });
+    });
+</script>
+<script>
+    $("#dateofbird").kendoDatePicker({
+        format: "dd/MM/yyyy"
+    });
+</script>
+<!--#endregion -->
+<!--#region combo classroom, #status, gender, registration, payment  -->
+<script>
+    $(document).ready(function () {
+        $("#classroomDropDown").kendoDropDownList({
+            optionLabel: { classroomName: getByCulture('@culture', 'select'), classroomID: "0" },
+            dataTextField: "classroomName",
+            dataValueField: "classroomID",
+            filter: "contains",
+            dataSource: {
+                transport: {
+                    read: {
+                        dataType: "json",
+                        url: "/M210Student/ClassroomCombo/" + "@Model.UserID",
+                    }
+                }
+            },
+            change: function () {
+                var value = this.value();
+                if (value != 0) {
+                    $.ajax({
+                        type: "POST",
+                        url: '/M210Student/ClassromControl/' + "@Model.UserID" + "/" + value,
+                        dataType: "json",
+
+                        success: function (result) {
+                            document.getElementById('classroomID').value = value;
+                            if (result.isExceeded) {
+                                msg1 = getByCulture('@culture', 'exceeded1');
+                                msg11 = getByCulture('@culture', 'exceeded11');
+                                msg2 = getByCulture('@culture', 'exceeded2');
+                                msg22 = getByCulture('@culture', 'exceeded22');
+                                msg3 = getByCulture('@culture', 'exceeded3');
+                                str = msg1 + result.quota + msg11 + "\n" + msg2 + result.isExisting + msg22 + "\n" + msg3;
+                                alert(str);
+                            }
+                        },
+                        error: function (httpRequest, textStatus, errorThrown) {
+                            alert("Error: " + textStatus + " " + errorThrown + " " + httpRequest);
+                        }
+                    });
+                };
+            },
+        });
+    });
+
+    $(document).ready(function () {
+        $("#schoolDropDown").kendoDropDownList({
+            optionLabel: { companyName: getByCulture('@culture', 'select'), schoolID: "0" },
+            dataTextField: "companyName",
+            dataValueField: "schoolID",
+            filter: "contains",
+            dataSource: {
+                transport: {
+                    read: {
+                        dataType: "json",
+                        url: "/M220Student/SchoolCombo",
+                    }
+                }
+            },
+            //change: function (e) {
+            //    msg = getByCulture('@culture', 'schoolChange');
+            //    kendo.confirm(msg)
+            //        .then(function () {
+            //            $('body').addClass('waiting');
+            //            $('html,body').css('cursor', 'wait');
+            //            $('cancel').addClass('disabled');
+            //            okSchoolChange();
+            //            $('body').removeClass('waiting');
+            //            $('html,body').css('cursor', 'default');
+            //        }, function () {
+            //            msgCancel = getByCulture('@culture', 'schoolChangeCancel');
+            //            kendo.alert(msgCancel);
+            //            var ddl1 = @Model.SchoolID;
+            //            var ddl2 = $("#schoolDropDown").data("kendoDropDownList");
+            //            ddl2.value(ddl1);
+            //        });
+            //}
+        });
+        //if ('@TempData["newYear"]' == 1)
+        //    $('#schoolDropDown').data('kendoDropDownList').enable(true);
+    });
+
+    function okSchoolChange() {
+        document.getElementById('isMenu').value = 9;
+        $("#PreregistrationID").submit();
+    }
+
+    $(document).ready(function () {
+        var isNewBool = document.getElementById('viewIsNew').checked;
+        $("#statusDropDown").kendoDropDownList({
+            index: 0,
+            dataTextField: "@Model.CategoryName2",
+            dataValueField: "categoryID",
+            dataSource: {
+                transport: {
+                    read: {
+                        dataType: "json",
+                        url: "/M210Student/StatuCombo/" + isNewBool + "/" + "@Model.UserID"
+                    }
+                }
+            }
+        });
+
+    });
+
+    $(document).ready(function () {
+        $("#genderTypeDropDown").kendoDropDownList({
+            index: 0,
+            dataTextField: "@Model.CategoryName2",
+            dataValueField: "categoryID",
+            dataSource: {
+                transport: {
+                    read: {
+                        dataType: "json",
+                        url: "/M210Student/GenderTypeCombo"
+                    }
+                }
+            },
+            change: function () {
+                var result = document.getElementById("studentPicture").value;
+                if (result == "male.jpg" || result == "female.jpg") {
+                    var value = this.value();
+                    var txt = this.text();
+                    if (txt == "Erkek" || txt == "Male")
+                        $('#imgpreviewStudent').attr('src', '@Url.Content("~/Upload/Students/male.JPG")');
+                    else
+                        $('#imgpreviewStudent').attr('src', '@Url.Content("~/Upload/Students/female.JPG")');
+                }
+
+            }
+
+        });
+    });
+
+    $(document).ready(function () {
+        $("#parentGenderTypeDropDown").kendoDropDownList({
+            index: 0,
+            dataTextField: "@Model.CategoryName2",
+            dataValueField: "categoryID",
+            dataSource: {
+                transport: {
+                    read: {
+                        dataType: "json",
+                        url: "/M210Student/GenderTypeCombo"
+                    }
+                }
+            },
+            change: function () {
+                var value = this.value();
+                var txt = this.text();
+                if (txt == "Erkek" || txt == "Male")
+                    $('#imgpreviewParent').attr('src', '@Url.Content("~/Upload/Parents/male.JPG")');
+                else
+                    $('#imgpreviewParent').attr('src', '@Url.Content("~/Upload/Parents/female.JPG")');
+            }
+
+        });
+    });
+
+    $(document).ready(function () {
+        $("#registrationTypeDropDown").kendoDropDownList({
+            index: 0,
+            dataTextField: "@Model.CategoryName2",
+            dataValueField: "categoryID",
+            dataSource: {
+                transport: {
+                    read: {
+                        dataType: "json",
+                        url: "/M210Student/RegistrationTypeCombo"
+                    }
+                }
+            }
+        });
+    });
+
+    $(document).ready(function () {
+        $("#bloodGroupDropDown").kendoDropDownList({
+            optionLabel: { "@Model.CategoryName2": getByCulture('@culture', 'select'), categoryID: "0" },
+            dataTextField: "@Model.CategoryName2",
+            dataValueField: "categoryID",
+            dataSource: {
+                transport: {
+                    read: {
+                        dataType: "json",
+                        url: "/M210Student/BloodGroupTypeCombo"
+                    }
+                }
+            }
+        });
+    });
+
+    $(document).ready(function () {
+        $("#nationalityTypeDropDown").kendoDropDownList({
+            optionLabel: { "@Model.CategoryName2": getByCulture('@culture', 'select'), categoryID: "0" },
+            dataTextField: "@Model.CategoryName2",
+            dataValueField: "categoryID",
+            dataSource: {
+                transport: {
+                    read: {
+                        dataType: "json",
+                        url: "/M210Student/NationalityTypeCombo"
+                    }
+                }
+            }
+        });
+    });
+
+</script>
+
+<script>
+    $(document).ready(function () {
+        var studentCityDropDown1 = $("#studentCityDropDown1").kendoDropDownList({
+            optionLabel: { "@Model.CategoryName2": getByCulture('@culture', 'select'), categoryID: "0" },
+            dataTextField: "@Model.CategoryName2",
+            dataValueField: "categoryID",
+            filter: "contains",
+            dataSource: {
+                transport: {
+                    read: {
+                        dataType: "json",
+                        url: "/M210Student/CityCombo"
+                    }
+                }
+            }
+        }).data("kendoDropDownList");
+
+        $("#studentTownDropDown1").kendoDropDownList({
+            autoBind: false,
+            cascadeFrom: "studentCityDropDown1",
+            optionLabel: { "@Model.CategoryName2": getByCulture('@culture', 'select'), categoryID: "0" },
+            dataTextField: "@Model.CategoryName2",
+            dataValueField: "categoryID",
+            dataSource: {
+                serverFiltering: true,
+                transport: {
+                    read: {
+                        dataType: "json",
+                        url: "/M210Student/TownCombo/",
+                        data: function (e) {
+                            return { id: studentCityDropDown1.value() }
+                        }
+                    }
+                }
+            }
+        }).data("kendoDropDownList");
+    });
+
+    $(document).ready(function () {
+        var parentHomeCityDropDown = $("#parentHomeCityDropDown").kendoDropDownList({
+            optionLabel: { "@Model.CategoryName2": getByCulture('@culture', 'select'), categoryID: "0" },
+            dataTextField: "@Model.CategoryName2",
+            dataValueField: "categoryID",
+            filter: "contains",
+            dataSource: {
+                transport: {
+                    read: {
+                        dataType: "json",
+                        url: "/M210Student/CityCombo"
+                    }
+                }
+            }
+        }).data("kendoDropDownList");
+
+        $("#parentHomeTownDropDown").kendoDropDownList({
+            autoBind: false,
+            cascadeFrom: "parentHomeCityDropDown",
+            optionLabel: { "@Model.CategoryName2": getByCulture('@culture', 'select'), categoryID: "0" },
+            dataTextField: "@Model.CategoryName2",
+            dataValueField: "categoryID",
+            dataSource: {
+                serverFiltering: true,
+                transport: {
+                    read: {
+                        dataType: "json",
+                        url: "/M210Student/TownCombo/",
+                        data: function (e) {
+                            return { id: parentHomeCityDropDown.value() }
+                        }
+                    }
+                }
+            }
+        }).data("kendoDropDownList");
+    });
+
+    $(document).ready(function () {
+        $("#kinshipDropDown").kendoDropDownList({
+            optionLabel: { "@Model.CategoryName2": getByCulture('@culture', 'select'), categoryID: "0" },
+            dataTextField: "@Model.CategoryName2",
+            dataValueField: "categoryID",
+            dataSource: {
+                transport: {
+                    read: {
+                        dataType: "json",
+                        url: "/M210Student/KinshipCombo"
+                    }
+                }
+            }
+        });
+    });
+
+    $(document).ready(function () {
+        $("#professionDropDown").kendoDropDownList({
+            optionLabel: { "@Model.CategoryName2": getByCulture('@culture', 'select'), categoryID: "0" },
+            dataTextField: "@Model.CategoryName2",
+            dataValueField: "categoryID",
+            filter: "contains",
+            dataSource: {
+                transport: {
+                    read: {
+                        dataType: "json",
+                        url: "/M210Student/ProfessionCombo"
+                    }
+                }
+            }
+        });
+    });
+</script>
+
+
+<!--#endregion -->
+<!--#region script upload -->
+<script>
+    var previewingStudent = function (event) {
+        var result = document.getElementById("imgpreviewStudent")
+        result.src = URL.createObjectURL(event.target.files[0]);
+    };
+    var previewingParent = function (event) {
+        var result = document.getElementById("imgpreviewParent")
+        result.src = URL.createObjectURL(event.target.files[0]);
+    };
+</script>
+
+<script>
+    $(document).ready(function () {
+        $('#M210StudentID').submit(function () {
+            $('#M210StudentID').find(" [required=\"required\"]").attr("required", false);
+            $(".needValidation").attr("required", true);
+        });
+        var validator = $("#M210StudentID").kendoValidator().data("kendoValidator"),
+            status = $(".status");
+    });
+</script>
+
+<!--#endregion -->
+<span id="popupNotification"></span>
+<script>
+    function showPopupNotification() {
+        var popupNotification = $("#popupNotification").kendoNotification().data("kendoNotification");
+        var d = new Date();
+        popupNotification.show(kendo.toString(d, 'HH:MM:ss.') + kendo.toString(d.getMilliseconds(), "000"), "error");
+    };
+</script>
+
+<script>
+    $(document).ready(function () {
+        $("#okButton").kendoButton({
+            icon: "check"
+        });
+        $("#btn1").kendoButton({
+            icon: "notification"
+        });
+        $("#btn2").kendoButton({
+            icon: "notification"
+        });
+    });
+</script>
+
+<script>
+    var ID, btn, odd = 0, even = 0, result, i, j, z, tcTotal = 0;
+    function myFunction(e) {
+        btn = e.id;
+        if (btn == "btn1") { IDT = "#id1", ID1 = "id1" }
+        else
+            if (btn == "btn2") { IDT = "#id2", ID1 = "id2" }
+
+        ID = document.querySelector(IDT);
+        odd = 0, even = 0, tcTotal = 0
+        for (i = 0; i < 9; i += 2) {
+            odd += Number(ID.value[i]);
+        }
+
+        odd *= 7;
+        for (j = 1; j < 8; j += 2) {
+            even += Number(ID.value[j]);
+        }
+
+        result = Math.abs(odd - even);
+        for (z = 0; z < 10; z++) {
+            tcTotal += Number(ID.value[z]);
+        }
+        if (ID.value.length !== 11) {
+            idFalse()
+        }
+        else
+            if (result % 10 != Number(ID.value[9])) {
+                idFalse()
+            } else if (tcTotal % 10 != Number(ID.value[10])) {
+                idFalse()
+            } else {
+                idTrue()
+            }
+    };
+
+    function idFalse() {
+        document.getElementById(ID1).style.color = "white";
+        document.getElementById(ID1).style.backgroundColor = "red";
+    };
+    function idTrue() {
+        document.getElementById(ID1).style.color = "white";
+        document.getElementById(ID1).style.backgroundColor = "green";
+    };
+
+    function IdChange(e) {
+        document.getElementById(e.id).innerHTML = '<i class = "fa fa-spinner fa-spin"></i>@ESCHOOL.Resources.Resource.IdControl';
+    };
+    function IdChangeOld(e) {
+        document.getElementById(e.id).innerHTML = '<i class = "fa fa-bell"></i>@ESCHOOL.Resources.Resource.IdNumber';
+    };
+
+    function IdReset(e) {
+        btn = e.id;
+        if (btn == "btn1") ID1 = "id1"
+        else if (btn == "btn2") ID1 = "id2"
+
+        document.getElementById(ID1).style.color = "black";
+        document.getElementById(ID1).style.backgroundColor = "white";
+    };
+
+    function buttonControl() {
+        checkFunction();
+    };
+
+    var ID, btn, odd = 0, even = 0, result, i, j, z, tcTotal = 0;
+    function checkFunction(e) {
+        btn = "btn1";
+        if (btn == "btn1") { IDT = "#id1", ID1 = "id1" }
+        else
+            if (btn == "btn2") { IDT = "#id2", ID1 = "id2" }
+
+        ID = document.querySelector(IDT);
+        odd = 0, even = 0, tcTotal = 0
+        for (i = 0; i < 9; i += 2) {
+            odd += Number(ID.value[i]);
+        }
+
+        odd *= 7;
+        for (j = 1; j < 8; j += 2) {
+            even += Number(ID.value[j]);
+        }
+
+        result = Math.abs(odd - even);
+        for (z = 0; z < 10; z++) {
+            tcTotal += Number(ID.value[z]);
+        }
+        if (ID.value.length !== 11) {
+            idFalse()
+        }
+        else
+            if (result % 10 != Number(ID.value[9])) {
+                idFalse()
+            } else if (tcTotal % 10 != Number(ID.value[10])) {
+                idFalse()
+                var toolbar = $("#toolbarMenu").data("kendoToolBar");
+                toolbar.enable("#submit", false);
+            } else {
+                idTrue()
+                var toolbar = $("#toolbarMenu").data("kendoToolBar");
+                toolbar.enable("#submit", true);
+                PreregisterRead();
+
+            }
+    };
+</script>
+
+<script>
+    function PreregisterRead() {
+        var idNumber = document.getElementById("id1").value;
+        $.ajax({
+            url: '/M210Student/PreregistrationRead/' + idNumber,
+            type: "post",
+            dataType: "json",
+            success: function (result) {
+                if (result.studentID > 0)
+                    window.location.replace("/M210Student/Preregistration?studentID=" + result.studentID);
+            }
+        });
+    }
+</script>
+<script>
+    window.history.replaceState('', '', window.location.pathname);
+</script>

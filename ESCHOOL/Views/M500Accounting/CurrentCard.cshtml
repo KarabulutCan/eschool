@@ -1,0 +1,1352 @@
+﻿@model ESCHOOL.ViewModels.AccountingViewModel
+@{
+    System.Globalization.CultureInfo.CurrentCulture = System.Globalization.CultureInfo.CreateSpecificCulture(@Model.SelectedCulture);
+    System.Globalization.CultureInfo.CurrentUICulture = System.Globalization.CultureInfo.CreateSpecificCulture(@Model.SelectedCulture);
+
+    var culture = System.Globalization.CultureInfo.CurrentCulture.ToString();
+}
+<!--#region head -->
+<head>
+    <style>
+        html {
+            font-size: 13px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+    </style>
+    <title></title>
+    <link href="https://kendo.cdn.telerik.com/2021.2.616/styles/kendo.common.min.css" rel="stylesheet" />
+    <link rel="stylesheet" id="skin-css" href="@TempData["theme"]" />
+    <link rel="stylesheet" id="skin-css" href="@TempData["theme"]" />
+    <link rel="stylesheet" id="skin-css" href="@TempData["themeMobile"]" />
+    <script src="https://kendo.cdn.telerik.com/2021.2.616/js/jquery.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2021.2.616/js/kendo.all.min.js"></script>
+    <script src="~/telerik/2021.2.616/js/jszip.min.js"></script>
+    <script src="@Url.Content("~/telerik/2021.2.616/js//cultures/kendo.culture." + culture + ".min.js")"></script>
+    <script src="@Url.Content("~/telerik/2021.2.616/js//messages/kendo.messages." + culture + ".min.js")"></script>
+
+    <script type="text/javascript">
+        kendo.culture("@culture");
+    </script>
+</head>
+<!--#endregion -->
+<body data-spy="scroll" data-target=".navbar" onload="tabstripDisabled()">
+    <form id="M500AccountingID" asp-controller="M500Accounting" asp-action="CurrentCard" asp-route-id="@Model.UserID&AccountCodeDetailID&AccountCodeID" enctype="multipart/form-data" method="post">
+        <div class="demo-section k-content fixed-top wide">
+            <div id="toolbarMenu"></div>
+        </div>
+
+        <br /><br /><br />
+
+        <!--#region hidden -->
+        @*Geri dönüşlerde null olmaması için*@
+        <input type="hidden" asp-for="@Model.Period" />
+        <input type="hidden" asp-for="@Model.UserID" />
+        <input type="hidden" asp-for="@Model.SchoolID" />
+        <input type="hidden" asp-for="@Model.VoucherTypeID" />
+        <input type="hidden" asp-for="@TempData["studentID"]" id="studentID" />
+
+        <input type="hidden" id="accountCode" />
+        <input type="hidden" id="accountName" />
+
+        <br />
+
+        <!--#region panelbarHelp -->
+        <ul id="panelbarHelp" style="display: none;">
+            <li>
+                <span class="k-link">@ESCHOOL.Resources.Resource.Help</span>
+                <div class="k-card-body" style="padding-left:15px;">
+                    <p><strong>@ESCHOOL.Resources.Resource.CurrentCardMsg0</strong></p>
+                    <p>@ESCHOOL.Resources.Resource.CurrentCardMsg1</p>
+                    <p>@ESCHOOL.Resources.Resource.CurrentCardMsg2</p>
+                    <p>@ESCHOOL.Resources.Resource.CurrentCardMsg3</p>
+                    <p>@ESCHOOL.Resources.Resource.CurrentCardMsg4</p>
+                    <p>@ESCHOOL.Resources.Resource.CurrentCardMsg5</p>
+                    <p>@ESCHOOL.Resources.Resource.CurrentCardMsg6</p>
+                    <br />
+                </div>
+                <style>
+                    #panelbarHelp {
+                        width: 100%;
+                        /*     max-width: none;*/
+                        margin: 0 auto;
+                    }
+                </style>
+
+                <script>
+                    $(document).ready(function () {
+                        $("#panelbarHelp").kendoPanelBar({
+                            animation: {
+                                collapse: {
+                                    duration: 500,
+                                    effects: "fadeOut"
+                                },
+                                expand: {
+                                    duration: 500,
+                                    effects: "expandVertical fadeIn"
+                                }
+                            }
+                        });
+                    });
+                </script>
+            </li>
+        </ul>
+        <!--#endregion -->
+        <div id="example">
+            <input type="hidden" asp-for="@Model.SchoolID" />
+            <input type="hidden" asp-for="@Model.Period" />
+
+            <div class="form-horizontal k-content" style="border: thin solid rgb(120,120,120); padding-left:1px; padding-top:1px; padding-bottom:1px;">
+                <div class="container-flued">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col col-md-6">
+                                @*  <div>*@
+                                <div id="gridCurrentCard"></div>
+                                @*</div>*@
+
+                            </div>
+
+                            <div class="col  col-md-6">
+                                <div id="tabstrip" style="font-weight:bold">
+                                    <ul>
+                                        <li class="k-state-active">
+                                            @ESCHOOL.Resources.Resource.General
+                                        </li>
+                                        <li>
+                                            @ESCHOOL.Resources.Resource.Bank
+                                        </li>
+                                        <li>
+                                            @ESCHOOL.Resources.Resource.InvoiceAddress
+                                        </li>
+                                    </ul>
+
+                                    <div id="General">
+                                        <div class="row">
+                                            <div class="col">
+                                                <input type="hidden" asp-for="@Model.CategoryName" />
+                                                <input type="hidden" asp-for="AccountCodesDetail.AccountCodeDetailID" id="accountCodeDetailId" />
+                                                <input type="hidden" asp-for="AccountCodesDetail.AccountCodeID" id="accountCodeId" />
+                                                <input type="hidden" asp-for="SelectedCulture" />
+                                                <input type="hidden" asp-for="IsPermission" />
+
+                                                <label asp-for="AccountCodesDetail.AuthorizedPersonName" class="control-label;"></label>
+                                                <input asp-for="AccountCodesDetail.AuthorizedPersonName" id="authorizedPersonNameId1" class="k-textbox" style="width: 340px;" disabled />
+                                            </div>
+
+                                            <div class="col">
+                                                <label asp-for="AccountCodesDetail.Mobile" class="control-label;"></label>
+                                                <input asp-for="AccountCodesDetail.Mobile" id="mobile1Id" class="k-textbox" style="width: 100px;" maxlength="15" disabled />
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col">
+                                                <label asp-for="AccountCodesDetail.InvoiceTitle" class="control-label"></label>
+                                                <input asp-for="AccountCodesDetail.InvoiceTitle" id="invoiceTitleId1" class="k-textbox" style="width: 340px;" disabled></>
+                                            </div>
+
+                                            <div class="col">
+                                                <label asp-for="AccountCodesDetail.Phone1" class="control-label"></label>
+                                                <input asp-for="AccountCodesDetail.Phone1" id="phoneId" class="k-textbox" style="width: 100px;" maxlength="15" disabled />
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div id="Bank">
+                                        <div class="row">
+                                            <div class="col">
+                                                <label asp-for="AccountCodesDetail.BankName1" class="control-label"></label>
+                                                <input asp-for="AccountCodesDetail.BankName1" id="bankNameId1" class="k-textbox" style="width: 100%; " maxlength="50" />
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col">
+                                                <label asp-for="AccountCodesDetail.BankIBAN1" class="control-label;"></label>
+                                                <input asp-for="AccountCodesDetail.BankIBAN1" id="bankIBANId1" class="k-textbox" style="width: 100%;" maxlength="26" />
+                                            </div>
+                                        </div>
+                                        <hr />
+
+                                        <div class="row">
+                                            <div class="col">
+                                                <label asp-for="AccountCodesDetail.BankName2" class="control-label;"></label>
+                                                <input asp-for="AccountCodesDetail.BankName2" id="bankNameId2" class="k-textbox" style="width: 100%;" maxlength="50" />
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col">
+                                                <label asp-for="AccountCodesDetail.BankIBAN2" class="control-label;"></label>
+                                                <input asp-for="AccountCodesDetail.BankIBAN2" id="bankIBANId2" class="k-textbox" style="width: 100%;" maxlength="26" />
+                                            </div>
+                                        </div>
+                                        <hr />
+
+                                        <div class="row">
+                                            <div class="col">
+                                                <label asp-for="AccountCodesDetail.Explanation" class="control-label"></label>
+                                                <textarea asp-for="AccountCodesDetail.Explanation" id="explanationId" class="k-textbox" style="width: 100%; height:80px;" text-wrap="normal" type="text" maxlength="250"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div id="InvoiceAddress">
+                                        <div class="row">
+                                            <div class="col">
+                                                <label asp-for="AccountCodesDetail.AuthorizedPersonName" class="control-label"></label>
+                                                <input asp-for="AccountCodesDetail.AuthorizedPersonName" id="authorizedPersonNameId2" class="k-textbox" style="width: 100%; " maxlength="50" />
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col">
+                                                <label asp-for="AccountCodesDetail.InvoiceTitle" class="control-label"></label>
+                                                <textarea asp-for="AccountCodesDetail.InvoiceTitle" id="invoiceTitleId2" class="k-textbox" style="width: 100%; height:60px;" text-wrap="normal" type="text" maxlength="250"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="row target" id="invoiceAddressTarget">
+                                            <div class="col">
+                                                <label asp-for="AccountCodesDetail.InvoiceAddress" class="control-label"></label>
+                                                <textarea asp-for="AccountCodesDetail.InvoiceAddress" id="invoiceAddressId" class="k-textbox" style="width: 100%; height:60px;" text-wrap="normal" type="text" maxlength="250"></textarea>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col">
+                                                <label asp-for="AccountCodesDetail.InvoiceCityParameterID" class="control-label"></label>
+                                                <input asp-for="AccountCodesDetail.InvoiceCityParameterID" id="invoiceCityDropDown" class="text-section k-content" style="width: 100%;" />
+                                            </div>
+
+                                            <div class="col">
+                                                <label asp-for="AccountCodesDetail.InvoiceTownParameterID" class="control-label"></label>
+                                                <input asp-for="AccountCodesDetail.InvoiceTownParameterID" id="invoiceTownDropDown" class="text-section k-content" disabled="disabled" style="width: 100%;" />
+                                            </div>
+
+                                            <div class="col">
+                                                <label asp-for="AccountCodesDetail.InvoiceCountry" class="control-label"></label>
+                                                <input asp-for="AccountCodesDetail.InvoiceCountry" id="invoiceCountryId" class="k-textbox" style="width: 100%; " />
+                                            </div>
+
+                                            <div class="col">
+                                                <label asp-for="AccountCodesDetail.InvoiceZipCode" class="control-label"></label>
+                                                <input asp-for="AccountCodesDetail.InvoiceZipCode" id="invoiceZipId" class="k-textbox" style="width: 100%;" maxlength="10" />
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col">
+                                                <label asp-for="AccountCodesDetail.Mobile" class="control-label"></label>
+                                                <input asp-for="AccountCodesDetail.Mobile" id="mobile2Id" class="k-textbox" style="width: 100%;" maxlength="15" />
+                                            </div>
+
+                                            <div class="col">
+                                                <label asp-for="AccountCodesDetail.Phone1" class="control-label"></label>
+                                                <input asp-for="AccountCodesDetail.Phone1" id="phone1Id" class="k-textbox" style="width: 100%;" maxlength="15" />
+                                            </div>
+                                            <div class="col">
+                                                <label asp-for="AccountCodesDetail.Phone2" class="control-label"></label>
+                                                <input asp-for="AccountCodesDetail.Phone2" id="phone2Id" class="k-textbox" style="width: 100%;" maxlength="15" />
+                                            </div>
+
+                                            <div class="col">
+                                                <label asp-for="AccountCodesDetail.Fax" class="control-label"></label>
+                                                <input asp-for="AccountCodesDetail.Fax" id="faxId" class="k-textbox" style="width: 100%;" maxlength="15" />
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col">
+                                                <label asp-for="AccountCodesDetail.InvoiceTaxOffice" class="control-label"></label>
+                                                <input asp-for="AccountCodesDetail.InvoiceTaxOffice" id="invoiceTaxOfficeId" class="k-textbox" style="width: 100%; " maxlength="50" />
+                                            </div>
+
+                                            <div class="col">
+                                                <label asp-for="AccountCodesDetail.InvoiceTaxNumber" class="control-label">@ESCHOOL.Resources.Resource.TaxNumberOrId</label>
+                                                <input asp-for="AccountCodesDetail.InvoiceTaxNumber" id="invoiceTaxNumberId" class="k-textbox" style="width: 100%;" maxlength="20" title="@ESCHOOL.Resources.Resource.InvoiceTaxNumberOrId" />
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col">
+                                                <label asp-for="AccountCodesDetail.EMail" class="control-label"></label>
+                                                <input asp-for="AccountCodesDetail.EMail" id="emailId" class="k-textbox" style="width: 100%;" maxlength="50" />
+                                            </div>
+
+                                            <div class="col">
+                                                <label asp-for="AccountCodesDetail.WebAddress" class="control-label"></label>
+                                                <input asp-for="AccountCodesDetail.WebAddress" id="webAddressId" class="k-textbox" style="width: 100%;" maxlength="50" />
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col">
+                                                <label asp-for="AccountCodesDetail.Notes" class="control-label"></label>
+                                                <textarea asp-for="AccountCodesDetail.Notes" id="notesId" class="k-textbox" style="width: 100%; height:80px;" text-wrap="normal" type="text" maxlength="250"></textarea>
+                                            </div>
+                                        </div>
+
+                                        <h5 class="ra-well-title card-header top-left"> <kbd>@ESCHOOL.Resources.Resource.EInvoiceInformation </kbd></h5>
+                                        <div class="form-group">
+                                            <label class="control-label">@ESCHOOL.Resources.Resource.InvoiceProfile</label>
+                                            <div class="row">
+                                                &nbsp; &nbsp;
+                                                <div class="custom-control custom-radio">
+                                                    <input type="radio" asp-for="AccountCodesDetail.InvoiceProfile" class="k-radio" id="Prf1" value="true" onclick="hideit()" />
+                                                    <label class="k-radio-label" for="Prf1">@ESCHOOL.Resources.Resource.EArchive</label>
+                                                </div>
+                                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                                <div class="custom-control custom-radio">
+                                                    <input type="radio" asp-for="AccountCodesDetail.InvoiceProfile" class="k-radio" id="Prf2" value="false" onclick="showit()" />
+                                                    <label class="k-radio-label" for="Prf2">@ESCHOOL.Resources.Resource.EInvoice</label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label">@ESCHOOL.Resources.Resource.InvoiceType</label>
+                                            <div class="row">
+                                                &nbsp; &nbsp;
+                                                <div class="custom-control custom-radio">
+                                                    <input type="radio" asp-for="AccountCodesDetail.InvoiceTypeParameter" class="k-radio" id="Ssl1" value="0" />
+                                                    <label class="k-radio-label" for="Ssl1">@ESCHOOL.Resources.Resource.BasicInvoice</label>
+                                                </div>
+                                                &nbsp;
+                                                <div class="custom-control custom-radio">
+                                                    <input type="radio" asp-for="AccountCodesDetail.InvoiceTypeParameter" class="k-radio" id="Ssl2" value="1" />
+                                                    <label class="k-radio-label" for="Ssl2">@ESCHOOL.Resources.Resource.CommercialInvoice</label>
+                                                </div>
+                                                &nbsp;
+                                                <div class="custom-control custom-radio">
+                                                    <input type="radio" asp-for="AccountCodesDetail.InvoiceTypeParameter" class="k-radio" id="Ssl3" value="2" />
+                                                    <label class="k-radio-label" for="Ssl3">@ESCHOOL.Resources.Resource.ExceptionInvoice</label>
+                                                </div>
+                                                &nbsp;
+                                                <div class="custom-control custom-radio">
+                                                    <input type="radio" asp-for="AccountCodesDetail.InvoiceTypeParameter" class="k-radio" id="Ssl4" value="3" />
+                                                    <label class="k-radio-label" for="Ssl4">@ESCHOOL.Resources.Resource.SalesInvoice</label>
+                                                </div>
+                                                &nbsp; &nbsp;
+                                            </div>
+                                            <div class="col">
+                                                <div class="row rightAlign" style="float: right; margin-right:20px; padding-top:20px;">
+                                                    <p>
+                                                        <button type="button" id="save" style="width:90px;" onclick="formclick()">@ESCHOOL.Resources.Resource.Submit</button>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <script>
+                                                $(document).ready(function () {
+                                                    $("#save").kendoButton({
+                                                        icon: "save",
+                                                    });
+                                                });
+                                            </script>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <style>
+                                    #tabstrip .k-content {
+                                        overflow: hidden;
+                                    }
+
+                                    #tabstrip h2 {
+                                        font-weight: lighter;
+                                        font-size: 5em;
+                                        line-height: 1;
+                                        padding: 0 0 0 0;
+                                        margin: 0;
+                                    }
+
+                                        #tabstrip h2 span {
+                                            background: none;
+                                            padding-left: 1px;
+                                            font-size: .3em;
+                                            vertical-align: top;
+                                        }
+
+                                    #tabstrip p {
+                                        margin: 0;
+                                        padding: 0;
+                                    }
+                                </style>
+
+                                <script>
+                                    $(document).ready(function () {
+                                        $("#tabstrip").kendoTabStrip({
+                                            animation: {
+                                                open: {
+                                                    effects: "fadeIn"
+                                                }
+                                            }
+                                        });
+                                    });
+                                </script>
+
+                                <div class="row" style="padding-top:2px; padding-left:30px;">
+                                    <div class="row">
+                                        <label class="control-label" style="width: 40px;">@ESCHOOL.Resources.Resource.Date</label>
+                                        <input type="date" id="transactiondate1" class="form-control" style="width: 110px;" />
+                                        &nbsp; &nbsp;
+                                        @*<label class="control-label" style="width: 60px;">@ESCHOOL.Resources.Resource.VoucherNo</label>*@
+                                        <span class="k-button k-flat k-primary" id="newVoucherId" style="width: 90px; height:30px;">@ESCHOOL.Resources.Resource.NewVoucherNo</span>
+                                        <input asp-for="VoucherNo" id="voucherNo" type="number" min="1" style="width: 80px;" onSpin="accountSeq()" disabled />
+                                        <script>
+                                            function onSpin() {
+                                                accountSeq();
+                                            }
+                                            $("#voucherNo").kendoNumericTextBox({
+                                                spin: onSpin,
+                                                format: "#"
+                                            });
+
+                                            var input = document.getElementById("voucherNo");
+                                            input.addEventListener("keyup", function (event) {
+                                                if (event.keyCode === 13) {
+                                                    accountSeq();
+                                                }
+                                            });
+                                        </script>
+
+                                        &nbsp; &nbsp;
+                                        <button type="button" id="calculator" style="width:90px;" onclick="window.open('Calculator:///', '_blank', 'noreferrer')">@ESCHOOL.Resources.Resource.Calculator</button>
+                                        <button type="button" id="invoiceStart" style="width:90px;" disabled>@ESCHOOL.Resources.Resource.Invoice</button>
+                                    </div>
+                                    <script>
+                                        $(document).ready(function () {
+                                            $("#calculator").kendoButton({
+                                                icon: "calculator"
+                                            });
+                                        });
+                                        $(document).ready(function () {
+                                            $("#invoiceStart").kendoButton({
+                                                icon: "file-data"
+                                            });
+                                        });
+                                    </script>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <div id="grid" style="width:1110px;"></div>
+            <div class="form-horizontal k-content" style="padding-left: 15px; padding-right: 15px;  padding-bottom:5px; border: thin solid rgb(120,120,120);">
+                <div id="gridDiv1" class="row">
+                    <div style="width:40px;">
+                    </div>
+                    <div style="width:180px">
+                    </div>
+                    <div style="width:200px">
+                    </div>
+                    <div style="width:80px">
+                    </div>
+                    <div style="width:70px">
+                    </div>
+
+                    <div style="width: 190px;">
+                        <label class="control-label" style="font-weight: bold; float: right; padding-right: 10px; "> @ESCHOOL.Resources.Resource.Total</label>
+                    </div>
+                    <div style="width: 112px;">
+                        <input id="totalDebt" class="form-control" style="font-weight: bold; text-align:right;" readonly />
+                    </div>
+                    <div style="width:111px">
+                        <input id="totalCredit" class="form-control" style="font-weight: bold; text-align:right;" readonly />
+                    </div>
+                    <div style="width:111px">
+                        <input id="totalBalance" class="form-control" style="font-weight: bold; text-align:right;" readonly />
+                    </div>
+                </div>
+
+                <!--#region style -->
+                <style>
+                    #grid .k-grid-toolbar {
+                        padding: .6em 1.3em .6em .4em;
+                    }
+
+                    #grid .k-grid tbody tr {
+                        height: 50px;
+                    }
+
+                    .k-grid-content {
+                        max-height: 540px;
+                        padding: 0;
+                    }
+
+                    .category-label {
+                        vertical-align: middle;
+                        padding-right: .5em;
+                    }
+
+                    #category {
+                        vertical-align: middle;
+                    }
+
+                    .refreshBtnContainer {
+                        display: inline-block;
+                    }
+
+                    .toolbar {
+                        float: left;
+                    }
+
+                    form label {
+                        font-weight: bold;
+                        font-size: 12px;
+                    }
+
+                    .k-header {
+                        font-weight: bold !important;
+                        font-size: 12px;
+                    }
+                </style>
+            </div>
+            <!--#endregion -->
+        </div>
+
+
+        <!--#region grid VoucherNoControl -->
+        <script>
+            function onChangeVoucherNo(arg) {
+                var grid = $("#gridVoucherNo").data("kendoGrid");
+                var selectedItem = grid.dataItem(grid.select());
+                var ID = selectedItem.voucherNo
+                document.getElementById('voucherNo').value = ID;
+                var numerictextbox = $("#voucherNo").data("kendoNumericTextBox");
+                numerictextbox.focus();
+                accountSeq();
+            }
+
+            var voucherNo = document.getElementById('voucherNo').value;
+            $(document).ready(function () {
+                dataSource = new kendo.data.DataSource({
+                    transport: {
+                        read: {
+                            url: '/M500Accounting/VoucherNoControl/' + "@Model.UserID" + "/" + voucherNo,
+                            dataType: "json"
+                        },
+
+                        parameterMap: function (options, operation) {
+                            if (operation !== "read" && options.models) {
+                                return { models: kendo.stringify(options.models) };
+                            }
+                        }
+                    },
+                    batch: true,
+                    schema: {
+                        model: {
+                            id: "viewModelId",
+                            fields: {
+                                viewModelId: { editable: false, type: "number" },
+                                voucherNo: { editable: false, type: "number" }
+                            }
+                        }
+                    }
+                });
+
+                $("#gridVoucherNo").kendoGrid({
+                    dataSource: dataSource,
+                    /* pageable: false,*/
+                    autoBind: false,
+                    resizable: true,
+                    height: 125,
+                    width: 130,
+                    selectable: 'row',
+                    change: onChangeVoucherNo,
+                    columns: [
+                        { field: "viewModelId", title: "#", width: "20px", height: "10px", template: "#=viewModelId#" },
+                        { field: "voucherNo", title: "@ESCHOOL.Resources.Resource.VoucherNo", width: "80px", height: "10px", template: "#=voucherNo#" },
+                    ],
+                    editable: "inline",
+
+                });
+            })
+
+        </script>
+        <!--#endregion -->
+
+    </form>
+
+    <script>
+        var dictionary =
+        {
+            'tr-TR': {
+                select: 'Seç',
+                selectbankName: 'Banka Seçimini Yapınız.',
+                delete: "Bu Muhasebe Fişine Ait Kayıtlar Silinecek, Emin misiniz?",
+                total: "Toplam",
+                itemsfound: "kayıt bulundu",
+                newVoucher: "Yeni Bir Fiş Numarası Verilecek, Emin misiniz?",
+                voucherTransaction: "Bu Fiş İşlenecek, Emin misiniz?",
+                subCategory: "Girilen Hesabın Alt Hesabı Var.",
+                titleMsg: 'Kullanıcı Mesajı:',
+                msgOk: 'Tamam',
+                accountingCode: 'Muhasebe Kodu',
+                accountingCodeName: 'Muhasebe Adı',
+                code: 'Kodu',
+                processType: 'İşlem Tipi',
+                voucherNo: 'Fiş No',
+                accountDate: 'Fiş Tarihi',
+                no: 'No',
+                date: 'Tarih',
+                explanation: 'Açıklama',
+                debt: 'Borç',
+                credit: 'Alacak',
+                balance: 'Bakiye',
+                warningTaxNumber: 'Fatura Bilgileri Girilmemiş.',
+                invoiceStart: 'Fatura Kesilecek, Emin misiniz?',
+                taxNoOrId: 'Vergi/TC.No'
+            },
+
+            'en-US': {
+                select: 'Select',
+                selectbankName: 'Select the bank name.',
+                delete: "Are you sure, All Records of this Accounting slip will be deleted?",
+                total: "Total",
+                itemsfound: "items found",
+                newVoucher: "Are you sure? A New Receipt Number Will Be Given.",
+                voucherTransaction: "Are you sure? This Receipt will be processed.",
+                subCategory: "The account entered has a sub-account.",
+                titleMsg: 'User message:',
+                msgOk: 'OK',
+                accountingCode: 'Accounting Code',
+                accountingCodeName: 'Accounting Name',
+                code: 'Code',
+                processType: 'Process Type',
+                voucherNo: 'Fiş No',
+                accountDate: 'Fiş Tarih',
+                no: 'No',
+                date: 'Date',
+                explanation: 'Explanation',
+                debt: 'Debt',
+                credit: 'Credit',
+                balance: 'Balance',
+                warningTaxNumber: 'Invoice Information Not Entered.',
+                invoiceStart: 'The invoice will be printed, are you sure?',
+                taxNoOrId: 'TaxNo/Id'
+            },
+        }
+        function getByCulture(culture, word) {
+            return dictionary[culture][word]
+        }
+    </script>
+    <!--#region toolbar -->
+    <style>
+        #logoId img {
+            width: 60px;
+        }
+
+        #gridCurrentCard .k-grid-content {
+            height: 105px;
+            max-height: 105px;
+            padding: 0;
+        }
+
+    </style>
+    <script>
+        $(document).ready(function () {
+            $("#toolbarMenu").kendoToolBar({
+                items: [
+                    {
+                        template: "<img src='../Upload/Images/Logo.png' class='user-image' style='width:60px;'/>",
+                        overflow: "never",
+                    },
+                    { template: "<h4 style='padding-left:20px;'>@ESCHOOL.Resources.Resource.CurrentCardEntryTransactions</h4>" },
+                    { type: "spacer" },
+
+                    { type: "button", id: "plan", text: "@ESCHOOL.Resources.Resource.AccountPlan", icon: "dictionary-add" },
+                    { type: "separator" },
+
+                    { type: "button", id: "currentCardList", text: "@ESCHOOL.Resources.Resource.CurrentCardList", icon: "file-txt" },
+                    { type: "separator" },
+
+                    { type: "button", id: "currentCardTotalDebtList", text: "@ESCHOOL.Resources.Resource.CurrentCardTotalDebtList", icon: "page-footer-section" },
+                    { type: "separator" },
+
+                    { type: "button", id: "help", text: "@ESCHOOL.Resources.Resource.Help", icon: "help" },
+                    { type: "separator" },
+
+                    { type: "button", id: "back", text: "@ESCHOOL.Resources.Resource.Back", attributes: { style: "float: right" }, icon: "rewind" },
+                    { type: "separator" },
+
+                    { type: "button", id: "exit", text: "@ESCHOOL.Resources.Resource.Exit", attributes: { style: "float: right; margin-top: .4em;" }, icon: "logout" },
+                    { type: "separator" },
+                ],
+
+                click: function (e) {
+                    if (e.id == "exit" || e.id == "back") {
+                        if (e.id == "exit")
+                            window.location.replace("/Home/index?userID=@Model.UserID");
+                        else
+                            window.location.replace("/M210Student/AddOrEditStudent?studentID=" + @Model.StudentID + "&userID=@Model.UserID");
+                    }
+
+                    if (e.id == "plan")
+                        window.location.replace("/M500Accounting/Plan?userID=@Model.UserID&viewModelID=999999");
+
+                    if (e.id == "help") {
+                        var myWindow = $("#panelbarHelp").show();
+                        var panelBar = $("#panelbarHelp").data("kendoPanelBar");
+                        panelBar.select(panelBar.element.children("li").eq(0));
+                        panelBar._selected[0].style.display = 'block';
+                        var item = panelBar.select();
+                        panelBar.expand(item);
+                    }
+
+                    if (e.id == "accountingReceipt")
+                        window.location.replace("/ListPanel/list501?userID=@Model.UserID&msg=0&exitID=3");
+                    if (e.id == "trialBalance")
+                        window.location.replace("/ListPanel/list503?userID=@Model.UserID&msg=0&exitID=3");
+                    if (e.id == "currentCardList")
+                        window.location.replace("/ListPanel/list505?userID=@Model.UserID&msg=0&exitID=7");
+                    if (e.id == "currentCardTotalDebtList")
+                        window.location.replace("/ListPanel/list506?userID=@Model.UserID&msg=0&exitID=7");
+                }
+            });
+            if (@Model.StudentID == 0) $("#back").hide();
+            if ("@Model.IsPermission" == 'False') permissionsControl();
+        });
+    </script>
+    <!--#endregion -->
+
+
+</body>
+<div id="alert"></div>83106.bak
+<script>
+    function permissionsControl() {
+        msg = getByCulture('@culture', 'msgOk');
+        showAlert(msg);
+    };
+
+    function showAlert(message) {
+        msg = getByCulture('@culture', 'titleMsg');
+        $("#alert").kendoAlert({
+            title: msg,
+            content: "<strong>@ESCHOOL.Resources.Resource.PermissionMsg</strong>",
+            messages: {
+                okText: message
+            },
+            actions: [{
+                text: "#: messages.okText #",
+                action: function (e) {
+                    window.location.replace("/Home/index?userID=@Model.UserID");
+                }
+            }]
+        }).data("kendoAlert").open();
+    };
+</script>
+<!--#region grid accounting -->
+
+<script>
+    Date.prototype.toJSON = function () {
+        return kendo.toString(this, "yyyy-MM-ddTHH:mm:ss.000Z");
+    }
+    Date.prototype.toUTC = function () {
+        return new Date(this.getTime() + this.getTimezoneOffset() * 60000);
+    }
+
+    record = 0;
+    var voucherNo = document.getElementById('voucherNo').value;
+
+    $(document).ready(function () {
+        var crudServiceBaseUrl = "/M500Accounting/",
+            dataSource = new kendo.data.DataSource({
+                transport: {
+                    read: {
+                        url: crudServiceBaseUrl + "AccountingDataRead2/" + "@Model.UserID" + "/" + "100",
+                        dataType: "json"
+                    },
+                    update: {
+                        url: function (options) {
+                            var url = crudServiceBaseUrl + "AccountingDataUpdate/" + options.models[0].id;
+                            return url;
+                        },
+                        type: "post",
+                        dataType: "jsonp",
+                        complete: function (e) {
+                            showPopupNotification();
+                            $("#grid").data("kendoGrid").dataSource.read();
+                        },
+                    },
+
+                    destroy: {
+                        url: function (options) {
+                            var url = crudServiceBaseUrl + "AccountingDataDelete/" + options.models[0].id;
+                            return url;
+                        },
+                        type: "post",
+                        dataType: "jsonp",
+                        complete: function (e) {
+                            showPopupNotification();
+                            $("#grid").data("kendoGrid").dataSource.read();
+                        },
+                    },
+
+                    create: {
+                        url: function (options) {
+                            var url = crudServiceBaseUrl + "AccountingDataCreate/" + options.models[0].id + "/" + "@Model.UserID" + "/" + document.getElementById('voucherNo').value + "/" + "@Model.VoucherTypeID";
+                            return url;
+                        },
+                        type: "post",
+                        dataType: "jsonp",
+                        complete: function (e) {
+                            $("#grid").data("kendoGrid").dataSource.read();
+                            showPopupNotification();
+                        },
+                    },
+
+                    parameterMap: function (options, operation) {
+                        if (operation !== "read" && options.models) {
+                            return { models: kendo.stringify(options.models) };
+                        }
+                    }
+                },
+
+                change: function (e) {
+                    if (e.action == "add") {
+                        var newItem = e.items[0];
+                        if (this.filter() != undefined) {
+                            var filter = this.filter().filters;
+                            var i = filter.length;
+                            while (i--) {
+                                filterValue = filter[i].value;
+                                filterField = filter[i].field;
+                                switch (filterField) {
+                                    case "accountCodeName":
+                                        newItem.set("accountCodeName", filterValue);
+                                        break;
+                                    default:
+                                        newItem[filterField] = filterValue;
+                                }
+                            }
+                        }
+                    }
+                },
+
+                batch: true,
+                //pageSize: 20,
+                sortable: true,
+                resizable: true,
+
+                schema: {
+                    model: {
+                        id: "accountingID",
+                        fields: {
+                            accountingID: { editable: false, type: "number" },
+                            schoolID: { editable: false, type: "number" },
+                            period: { editable: false, type: "string" },
+                            voucherTypeID: { editable: true, type: "number" },
+                            voucherNo: { editable: true, type: "number" },
+                            accountDate: { editable: true, type: "date" },
+                            accountCode: { type: "string" },
+                            accountCodeName: { editable: true, type: "string" },
+                            codeTypeName: { editable: true, type: "string", defaultValue: " ", validation: { required: false } },
+                            documentNumber: { editable: true, type: "string" },
+                            documentDate: { editable: true, type: "date" },
+                            explanation: { type: "string" },
+                            debt: { editable: true, type: "number" },
+                            credit: { editable: true, type: "number" },
+                            balance: { editable: false, type: "number" },
+                            sortOrder: { type: "number" },
+
+                            processTypeName: { type: "string" },
+                            taxNoOrId: { editable: true, type: "string" },
+
+                            isTransaction: { type: "boolean", defaultValue: false },
+
+                            accountCode: {
+                                accountCodeID: 0,
+                                accountCode: 0,
+                                accountCodeName: '',
+                                isCurrentCard: true,
+                                isActive: true
+                            },
+                            parameter: {
+                                categoryID: 0,
+                                categorySubID: 0,
+                                categoryName: '',
+                                categoryLevel: '',
+                                sortOrder: 0,
+                                isActive: true,
+                                isProtected: true,
+                                nationalityCode: ''
+                            }
+                        },
+                    },
+                },
+            });
+
+        var first = 1;
+        var grid = $("#grid").kendoGrid({
+            dataSource: dataSource,
+            navigatable: true,
+            //pageable: true,
+            selectable: 'row',
+            height: '380px',
+            resizable: true,
+            autoBind: false,
+            //"periodCombo" iptal edildi, "CodeTypeID" ve "footerTemplate" den dolayı "grid.setDataSource(dataSource);" komutu ekranın çalışmasını bozmaktadır.
+            //Daha iyi bir çözüm bulana kadar iptal edilmiştir.
+            toolbar: [{
+                template: '<div> <a class="k-button" onclick="return accountSeq()" ><i class="k-icon k-i-reload"></i></a> </div>',
+                className: "k-grid-custom",
+                imageClass: "k-add"
+            }, "create", "cancel", "save", "search", "excel"],
+            excelExport: function (e) {
+                e.workbook.fileName = "ExcelAccount-" + kendo.toString(new Date, "yyyy/MM/dd HH:mm") + ".xlsx";
+            },
+
+            columns: [
+                { title: "#", template: "#= ++record #", width: 35 },
+                { field: "accountDate", title: getByCulture('@culture', 'accountDate'), width: "110px", format: "{0:dd.MM.yyyy}", template: '#= kendo.toString(kendo.parseDate(accountDate), "dd.MM.yyyy")#' },
+                
+                { field: "voucherNo", title: getByCulture('@culture', 'voucherNo'), width: "70px", template: "#=voucherNo#" },
+                { field: "processTypeName", title: getByCulture('@culture', 'processType'), width: "80px", editor: ProcessTypeDropDown, template: "#=processTypeName#" },
+
+                { field: "documentNumber", title: getByCulture('@culture', 'no'), width: "60px", template: "#=documentNumber#" },
+                { field: "documentDate", title: getByCulture('@culture', 'date'), width: "110px", format: "{0:dd.MM.yyyy}", template: '#= kendo.toString(kendo.parseDate(documentDate), "dd.MM.yyyy")#' },
+                { field: "taxNoOrId", title: getByCulture('@culture', 'taxNoOrId'), width: "95px", template: "#if(taxNoOrId === null){#  #}else{# #=taxNoOrId#  #}#", attributes: { style: "text-align:right" } },
+                { field: "explanation", title: getByCulture('@culture', 'explanation'), width: "215px", template: "#=explanation#" },
+                { field: "debt", title: getByCulture('@culture', 'debt'), width: "105px", template: "#if(debt == 0){#  #}else{# #=kendo.toString(debt,'n')# #}#", attributes: { style: "text-align:right" } },
+                { field: "credit", title: getByCulture('@culture', 'credit'), width: "105px", template: "#if(credit == 0){#  #}else{# #=kendo.toString(credit,'n')# #}#", attributes: { style: "text-align:right" } },
+                { field: "balance", title: getByCulture('@culture', 'balance'), width: "105px", template: "#if(balance == 0){#  #}else{# #=kendo.toString(balance,'n')# #}#", attributes: { style: "text-align:right" } },
+
+                { field: "period", width: "0px" },
+                { field: "schoolID", width: "0px" },
+                { field: "accountingID", width: "0px" },
+                { field: "accountCode", width: "0px" },
+
+                //{ command: ["edit", "destroy"], title: "&nbsp;", width: "180px" }
+                { command: ["destroy"], title: "&nbsp;", width: "100px" }
+
+            ],
+            editable: true,
+
+            edit: function (e) {
+                //var tc = document.getElementById('invoiceTaxNumberId').value;
+                //if (tc == null || tc == "") {
+                //    msg = getByCulture('@culture', 'warningTaxNumber');
+                //    alert(msg);
+                //    $("#invoiceStart").data("kendoButton").enable(false);
+                //}
+                //else $("#invoiceStart").data("kendoButton").enable(true);
+
+                e.container.find("input[name=taxNoOrId]").attr("maxlength", 30);
+
+                var date = $("#transactiondate1").data("kendoDatePicker").value();
+                var voucherNumber = document.getElementById('voucherNo').value;
+                var accountCode = document.getElementById('accountCode').value;
+                var accountName = document.getElementById('accountName').value;
+                var grid = $('#grid').data('kendoGrid');
+                var items = e.sender.items();
+                items.each(function (index) {
+                    var dataItem = grid.dataItem('tr.k-grid-edit-row');
+                    var getDate = dataItem.get("accountDate");
+                    var getVoucherNumber = dataItem.get("voucherNo");
+
+
+
+                    if (getDate != date) dataItem.set("accountDate", getDate);
+                    else dataItem.set("accountDate", date);
+                    if (getVoucherNumber == null || getVoucherNumber == "")
+                        dataItem.set("voucherNo", voucherNumber);
+                    else dataItem.set("voucherNo", getVoucherNumber);
+
+                    dataItem.set("accountCode", accountCode);
+                    dataItem.set("accountCodeName", accountName);
+                });
+            },
+            dataBinding: function () {
+                record = 0;
+                //record = (this.dataSource.page() - 1) * this.dataSource.pageSize();
+                this.trigger('dataBound');
+            },
+            dataBound: function (e) {
+                balanceCalculate(e);
+            },
+
+            change: function (e) {
+                var tax1 = document.getElementById('invoiceTaxOfficeId').value;
+                var tax2 = document.getElementById('invoiceTaxNumberId').value;
+                if (tax1 == null || tax1 == "" || tax2 == null || tax2 == "") {
+                    //msg = getByCulture('@culture', 'warningTaxNumber');
+                    //alert(msg);
+                    $("#invoiceStart").data("kendoButton").enable(false);
+                }
+                else $("#invoiceStart").data("kendoButton").enable(true);
+            }
+        });
+
+        function ProcessTypeDropDown(container, options) {
+            $('<input required name="' + options.field + '"/>')
+                .appendTo(container)
+                .kendoDropDownList({
+                    //optionLabel: { categoryID: 0, categoryName: " " },
+                    autoBind: false,
+                    valuePrimitive: true,
+                    dataTextField: "@Model.CategoryName",
+                    dataValueField: "categoryName",
+                    index: -1,
+                    dataSource: {
+                        dataType: "json",
+                        transport: {
+                            read: "/M500Accounting/ProcessTypeDataRead"
+                        }
+                    }
+                });
+        };
+
+        var grid = $("#grid").data("kendoGrid");
+        grid.hideColumn(11);
+        grid.hideColumn(12);
+        grid.hideColumn(13);
+        grid.hideColumn(14);
+    });
+
+    function balanceCalculate(e) {
+        var debt = 0;
+        var credit = 0;
+        var balance = 0;
+
+        var $grid = $('#grid');
+        var kendo = $grid.data().kendoGrid;
+        var data = kendo.dataSource.data();
+
+        for (var i = 0; i < data.length; i++) {
+            debt += parseFloat(data[i].debt);
+            credit += parseFloat(data[i].credit);
+        }
+        balance = debt - credit;
+        //if (debt > credit) {
+        //    balance = debt - credit;
+        //}
+        //else {
+        //    creditBalance = credit - debt;
+        //    debtBalance = 0;
+        //}
+
+        document.getElementById('totalDebt').value = debt.toFixed(2);
+        document.getElementById('totalCredit').value = credit.toFixed(2);
+        document.getElementById('totalBalance').value = balance.toFixed(2);
+    }
+
+    $("#newVoucherId").on("click", function () {
+        msg = getByCulture('@culture', 'newVoucher');
+        kendo.confirm(msg)
+            .then(function () {
+                $('body').addClass('waiting');
+                $('html,body').css('cursor', 'wait');
+                $('newVoucherId').addClass('disabled');
+                voucherNewControl();
+                /*updateSystemCache();*/
+                $('body').removeClass('waiting');
+                $('html,body').css('cursor', 'default');
+            }, function () {
+                //kendo.alert("You chose to Cancel action.");
+            });
+    });
+
+    function voucherNewControl() {
+        var voucherNo = document.getElementById('voucherNo').value;
+        $.ajax({
+            type: "POST",
+            url: '/M500Accounting/NewVoucherDataRead/' + "@Model.UserID",
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            success: function (result) {
+                document.getElementById('voucherNo').value = result.voucherNo;
+                var numerictextbox = $("#voucherNo").data("kendoNumericTextBox");
+                numerictextbox.focus();
+
+                accountSeq();
+            },
+        });
+    }
+
+</script>
+
+<script>
+    function voucherControl() {
+        var voucherNo = document.getElementById('voucherNo').value;
+        $.ajax({
+            type: "POST",
+            url: '/M500Accounting/VoucherNoControl/' + "@Model.UserID" + "/" + voucherNo,
+            dataType: "json",
+            complete: function (e) {
+                $("#gridVoucherNo").data("kendoGrid").dataSource.read();
+            },
+        });
+    }
+</script>
+
+<script>
+    $("#transactiondate1").kendoDatePicker({
+        format: "dd/MM/yyyy"
+    });
+    var datepicker = $("#transactiondate1").data("kendoDatePicker");
+    datepicker.value(new Date());
+</script>
+<!--#endregion -->
+<span id="popupNotification"></span>
+<script>
+    function showPopupNotification() {
+        var popupNotification = $("#popupNotification").kendoNotification().data("kendoNotification");
+        var d = new Date();
+        popupNotification.show(kendo.toString(d, 'HH:MM:ss.') + kendo.toString(d.getMilliseconds(), "000"), "error");
+    };
+</script>
+
+<script type="text/javascript">
+    function currentCardRead(param1, param2) {
+        dummy = 'error: myError, someOtherProperty = property';  //this of course assumes that 'myError' and 'property' exist
+        $.ajax({
+            type: 'GET', //i changed this because it actually probably better suits the nature of your request
+            url: "/M500Accounting/currentCardRead?userID=" + "@Model.UserID" + "&accountCodeDetailID=" + param1 + "&accountCodeID=" + param2,
+            cache: false, //(probably)
+            dataType: 'json', //(probably)
+            data: dummy,  //json object with any data you might want to use
+
+            success: function (result) {
+                document.getElementById('accountCodeDetailId').value = param1;
+                document.getElementById('accountCodeId').value = param2;
+
+                document.getElementById('authorizedPersonNameId1').value = result.authorizedPersonName;
+                document.getElementById('authorizedPersonNameId2').value = result.authorizedPersonName;
+                document.getElementById('mobile1Id').value = result.mobile;
+                document.getElementById('phoneId').value = result.phone1;
+
+
+                document.getElementById('bankNameId1').value = result.bankName1;
+                document.getElementById('bankIBANId1').value = result.bankIBAN1;
+                document.getElementById('bankNameId2').value = result.bankName2;
+                document.getElementById('bankIBANId2').value = result.bankIBAN2;
+                document.getElementById('explanationId').value = result.explanation;
+
+                document.getElementById('invoiceTitleId1').value = result.invoiceTitle;
+                document.getElementById('invoiceTitleId2').value = result.invoiceTitle;
+                document.getElementById('invoiceAddressId').value = result.invoiceAddress;
+
+                document.getElementById('invoiceTaxOfficeId').value = result.invoiceTaxOffice;
+                document.getElementById('invoiceTaxNumberId').value = result.invoiceTaxNumber;
+                $(invoiceCityDropDown).data().kendoDropDownList.value(result.invoiceCityDropDown);
+                $(invoiceTownDropDown).data().kendoDropDownList.value(result.invoiceTownDropDown);
+
+                document.getElementById('invoiceCountryId').value = result.invoiceCountry;
+                document.getElementById('invoiceZipId').value = result.invoiceZip;
+                document.getElementById('mobile2Id').value = result.mobile;
+                document.getElementById('phone1Id').value = result.phone1;
+                document.getElementById('phone2Id').value = result.phone2;
+                document.getElementById('faxId').value = result.fax;
+                document.getElementById('emailId').value = result.eMail;
+                document.getElementById('webAddressId').value = result.webAddress;
+                document.getElementById('notesId').value = result.notes;
+
+                if (result.invoiceProfile)
+                    document.getElementById('Prf1').checked = true;
+                else document.getElementById('Prf2').checked = true;
+
+                if (result.invoiceTypeParameter == 0 || result.invoiceTypeParameter == null)
+                    document.getElementById('Ssl1').checked = true;
+                if (result.invoiceTypeParameter == 1) document.getElementById('Ssl2').checked = true;
+                if (result.invoiceTypeParameter == 2) document.getElementById('Ssl3').checked = true;
+                if (result.invoiceTypeParameter == 3) document.getElementById('Ssl4').checked = true;
+
+
+
+            },
+        });
+    }
+</script>
+
+<script>
+    function onChange(arg) {
+        var grid = $("#gridCurrentCard").data("kendoGrid");
+        var selectedItem = grid.dataItem(grid.select());
+        var ID = selectedItem.accountCodeID
+        var param1 = selectedItem.accountCodeDetailID;
+        var param2 = selectedItem.accountCodeID;
+        var accountCode = selectedItem.accountCode;
+        var accountName = selectedItem.accountCodeName;
+        document.getElementById('accountCode').value = accountCode;
+        document.getElementById('accountName').value = accountName;
+
+        var tabStrip = $("#tabstrip").kendoTabStrip().data("kendoTabStrip");
+        tabStrip.enable(tabStrip.tabGroup.children().eq(0), true);
+        tabStrip.enable(tabStrip.tabGroup.children().eq(1), true);
+        tabStrip.enable(tabStrip.tabGroup.children().eq(2), true);
+        currentCardRead(param1, param2);
+
+
+        var grid = $("#grid").data("kendoGrid");
+        grid.dataSource.options.transport.read.url = "/M500Accounting/AccountingDataRead2/" + "@Model.UserID" + "/" + document.getElementById('accountCode').value;
+        grid.dataSource.read();
+        //grid.refresh();
+
+    };
+
+    var isSelect = false;
+    var record1 = 0;
+    $(document).ready(function () {
+        var crudServiceBaseUrl = "/M500Accounting/",
+            dataSource = new kendo.data.DataSource({
+                transport: {
+                    read: {
+                        url: crudServiceBaseUrl + "GridAccountCodetDataRead/" + "@Model.UserID",
+                        dataType: "json"
+                    },
+                    parameterMap: function (options, operation) {
+                        if (operation !== "read" && options.models) {
+                            return { models: kendo.stringify(options.models) };
+                        }
+                    }
+                },
+                batch: true,
+                schema: {
+                    model: {
+                        id: "accountCodeID",
+                        fields: {
+                            accountCode: { editable: false, type: "string" },
+                            accountCodeName: { editable: false, type: "string" },
+                            accountCodeID: { editable: false, type: "number" },
+                            accountCodeDetailID: { editable: false, type: "number" },
+                        }
+                    }
+                },
+            });
+
+        var first = 1;
+        var grid = $("#gridCurrentCard").kendoGrid({
+            dataSource: dataSource,
+            resizable: true,
+            sortable: true,
+            selectable: 'row',
+            change: onChange,
+            toolbar: ["search"],
+            columns: [
+                { title: "#", template: "#= ++record1 #", width: 30 },
+                { field: "accountCodeName", title: "@ESCHOOL.Resources.Resource.Name", footerTemplate: "#= sumCurrentCard(1) #", width: "320px", },
+                { field: "accountCode", title: "@ESCHOOL.Resources.Resource.AccountCode", width: "150px", },
+                { field: "accountCodeDetailID" },
+                { field: "accountCodeID" },
+            ],
+            dataBinding: function () {
+                record1 = 0;
+            },
+            dataBound: function (e) {
+                grid.select("tr:eq(0)");
+            },
+        });
+        var grid = $("#gridCurrentCard").data("kendoGrid");
+        grid.hideColumn(3);
+        grid.hideColumn(4);
+    })
+    function sumCurrentCard(e) {
+        var total = 0;
+        var $grid = $('#gridCurrentCard');
+        var kendo = $grid.data().kendoGrid;
+        var data = kendo.dataSource.data();
+        var amount = 0;
+        for (var i = 0; i < data.length; i++) {
+            if (e == 1) amount += 1;
+            if (amount == NaN) {
+                amount = 0;
+            }
+        }
+        total = amount;
+        return total;
+    }
+</script>
+
+<script>
+    $(document).ready(function () {
+        var invoiceCityDropDown = $("#invoiceCityDropDown").kendoDropDownList({
+            optionLabel: { "@Model.CategoryName": getByCulture('@culture', 'select'), categoryID: "0" },
+            dataTextField: "@Model.CategoryName",
+            dataValueField: "categoryID",
+            filter: "contains",
+            dataSource: {
+                transport: {
+                    read: {
+                        dataType: "json",
+                        url: "/M500Accounting/CityCombo"
+                    }
+                }
+            }
+        }).data("kendoDropDownList");
+
+        $("#invoiceTownDropDown").kendoDropDownList({
+            autoBind: false,
+            cascadeFrom: "invoiceCityDropDown",
+            optionLabel: { "@Model.CategoryName": getByCulture('@culture', 'select'), categoryID: "0" },
+            dataTextField: "@Model.CategoryName",
+            dataValueField: "categoryID",
+            dataSource: {
+                serverFiltering: true,
+                transport: {
+                    read: {
+                        dataType: "json",
+                        url: "/M500Accounting/TownCombo/",
+                        data: function (e) {
+                            return { id: invoiceCityDropDown.value() }
+                        }
+                    }
+                }
+            }
+        }).data("kendoDropDownList");
+    });
+</script>
+
+<script>
+    function formclick(e) {
+        showPopupNotification();
+        //$("form").submit();
+        $("#M500AccountingID")[0].submit();
+        //var grid1 = $("#gridFees").data("kendoGrid");
+        //grid1.saveChanges();
+        //var grid2 = $("#gridServices").data("kendoGrid");
+        //grid2.saveChanges();
+    }
+</script>
+<script>
+    function tabstripDisabled() {
+        var tabstrip = $("#tabstrip").data("kendoTabStrip");
+        var items = tabstrip.items();
+        tabstrip.disable(items);
+    }
+</script>
+
+
+<script>
+    $("#invoiceStart").on("click", function () {
+        msg = getByCulture('@culture', 'invoiceStart');
+        kendo.confirm(msg)
+            .then(function () {
+                $('body').addClass('waiting');
+                $('html,body').css('cursor', 'wait');
+                $('cancel').addClass('disabled');
+                okInvoiceStart();
+                $('body').removeClass('waiting');
+                $('html,body').css('cursor', 'default');
+            }, function () {
+                //kendo.alert("You chose to Cancel action.");
+            });
+    });
+
+    function okInvoiceStart() {
+        showPopupNotification();
+        InvoiceProccessStart();
+    }
+
+    function InvoiceProccessStart() {
+        var grid = $("#grid").data("kendoGrid");
+        var selectedItem = grid.dataItem(grid.select());
+        var accountingID = selectedItem.accountingID
+        var accountCode = selectedItem.accountCode
+        //window.location.replace("/M400Invoice/InvoiceManually?userID=@Model.UserID&accountCode=" + "121" + "&studentInvoiceID=" + 881);
+        window.location.replace("/M400Invoice/InvoiceCurrentCard?userID=@Model.UserID&accountCode=" + accountCode + "&accountingID=" + accountingID);
+    }
+</script>
+<script>
+    window.history.replaceState('', '', window.location.pathname);
+</script>

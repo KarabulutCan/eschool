@@ -1,0 +1,325 @@
+﻿@model ESCHOOL.ViewModels.SchoolViewModel
+
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<!DOCTYPE html>
+@{
+    System.Globalization.CultureInfo.CurrentCulture = System.Globalization.CultureInfo.CreateSpecificCulture(@Model.SelectedCulture);
+    System.Globalization.CultureInfo.CurrentUICulture = System.Globalization.CultureInfo.CreateSpecificCulture(@Model.SelectedCulture);
+    var culture = System.Globalization.CultureInfo.CurrentCulture.ToString();
+}
+<head>
+    <style>
+        html {
+            font-size: 13px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+    </style>
+    <title></title>
+    <link href="~/telerik/2021.2.616/styles/kendo.common.min.css" rel="stylesheet" />
+    <link rel="stylesheet" id="skin-css" href="@TempData["theme"]" />
+    <link rel="stylesheet" id="skin-css" href="@TempData["themeMobile"]" />
+
+    <script src="~/telerik/2021.2.616/js/jquery.min.js"></script>
+    <script src="~/telerik/2021.2.616/js/kendo.all.min.js"></script>
+
+    <script src="@Url.Content("~/telerik/2021.2.616/js//cultures/kendo.culture." + culture + ".min.js")"></script>
+    <script src="~/telerik/2021.2.616/js//messages/kendo.messages.tr-TR.min.js"></script>
+
+    <script type="text/javascript">
+        kendo.culture("@culture");
+    </script>
+    @{
+        Layout = "_LoginLayout";
+    }
+</head>
+
+
+<body>
+    <div class="container">
+        <div class="row main">
+            <div class="panel-heading">
+                <div class="panel-title text-center">
+                    <center>
+                        <img src="~/Upload/Images/Logo.png" />
+                        <h3 class="title">Ncs.Net Computer</h3>
+                        <h4 style="padding-left:15px;"><a class="navbar-brand" href="https://www.ncs.com.tr" target="_blank" style="color:#f5f5f5;"> www.ncs.com.tr </a></h4>
+                        <h4 style="padding-left:15px;"><a class="navbar-brand" href="mailto:info@ncs.com.tr" target="_blank" style="color:#f5f5f5;"> info@ncs.com.tr </a></h4>
+                    </center>
+                </div>
+            </div>
+            <div class="main-center box form">
+                <form id="userForm" asp-controller="Login" asp-action="UserControlDataRead" enctype="multipart/form-data" method="post">
+
+                    <div>
+                        <center>
+                            <span>  <img src="~/Upload/Menu/Student.png" style="height: 50px; width: 50px;" alt="logo" /> </span><br />
+                            <h2 class="title" style="padding-left: 10px; margin-top: 10px; margin-bottom: 10px; color:#f5f5f5 ">E-School</h2>
+                        </center>
+                    </div>
+
+                    <div class="form-group" style="display: none;">
+                        <label for="schoolCodeId" class="cols-sm-2 control-label">@ESCHOOL.Resources.Resource.SchoolCode</label>
+                        <div class="cols-sm-10">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-home"></i></span>
+                                <input asp-for="@Model.SchoolID" type="text" class="form-control" name="schoolCode" id="schoolCodeId" placeholder="@ESCHOOL.Resources.Resource.SchoolCode" required validationMessage=@ESCHOOL.Resources.Resource.ValidNumber />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="userNameId" class="cols-sm-2 control-label">@ESCHOOL.Resources.Resource.UserName</label>
+                        <div class="cols-sm-10">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                <input type="text" class="form-control" name="userName" id="userNameId" placeholder="@ESCHOOL.Resources.Resource.EnterYourUsername" required validationMessage=@ESCHOOL.Resources.Resource.ValidNumber />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="passwordId" class="cols-sm-2 control-label">@ESCHOOL.Resources.Resource.Password</label>
+                        <div class="cols-sm-10">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-lock" aria-hidden="true"></i></span>
+                                <input type="password" class="form-control" name="password" id="passwordId" placeholder="@ESCHOOL.Resources.Resource.EnterYourPassword" required />
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-lg btn-block login-button" onclick="loginControl()">@ESCHOOL.Resources.Resource.Login</button>
+                    </div>
+                    <div class="row" style="height:0px;">
+                        <p style="padding-left:85px;"><a class="navbar-brand" onclick="popup1();" href="#" style="color:white; font-size:smaller">@ESCHOOL.Resources.Resource.NewVersion</a></p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="assets/js/bootstrap.js"></script>
+
+    <script>
+        function loginControl(e) {
+            var schoolCode = document.getElementById("schoolCodeId").value;
+            // var userName = document.getElementById("userNameId").value;
+            var password = document.getElementById("passwordId").value;
+            $('#userForm').submit(function () {
+                $.ajax({
+                    url: $('#userForm').attr('action'),
+                    type: 'POST',
+                    data: $('#userForm').serialize(),
+                    success: function (data) {
+                        if (data.isUserExist == true && data.isPasswordExist == true && data.isWorkingHours == true && data.isActive == true) {
+                            window.location.replace("/Home/index?userName=" + data.userName + "&password=" + password);
+                        }
+                        else {
+                            if (data.isUserExist == false) {
+                                msg = getByCulture('@culture', 'incorrectUser');
+                                alert(msg);
+                            }
+                            else if (data.isPasswordExist == false) {
+                                msg = getByCulture('@culture', 'incorrectPassword');
+                                alert(msg);
+                            }
+                            else if (data.isActive == false) {
+                                msg = getByCulture('@culture', 'unauthorizedUser');
+                                alert(msg);
+                            }
+                            else if (data.isWorkingHours == false) {
+                                msg = getByCulture('@culture', 'incorrectHours');
+                                alert(msg);
+                            }
+                            window.location.replace("/Login/Users?schoolCode=" + schoolCode);
+                        }
+                    }
+                });
+                return false;
+            });
+
+        }
+    </script>
+</body>
+<style>
+    /*    body, html {
+                                                            height: 100%;
+                                                            background-repeat: no-repeat;
+                                                            background-color: #d3d3d3;
+                                                            font-family: 'Oxygen', sans-serif;
+                                                        }
+                                                    */
+    .shadow {
+        text-shadow: 2px 2px #20202088;
+    }
+
+
+    body {
+        margin: 0;
+        padding: 0;
+        background-image: url(https:../Upload/Login/User.jpg);
+        background-size: cover;
+        font-family: 'Oxygen', sans-serif;
+    }
+
+    .box {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 25rem;
+        padding: 2.5rem;
+        box-sizing: border-box;
+        /*background: rgba(0, 0, 0, 0.5);*/
+        background: rgba(255,255,255, 0.5);
+        border-radius: 0.625rem;
+    }
+
+    .form {
+        /*                width: 350px;
+                                                        height: 450px;*/
+        background-color: rgba(186, 189, 189, 0.3);
+        box-shadow: 0 5px 30px black;
+    }
+
+    .main {
+        margin-top: 70px;
+    }
+
+    h1.title {
+        font-size: 50px;
+        font-family: 'Passion One', cursive;
+        font-weight: 400;
+    }
+
+    hr {
+        width: 10%;
+        color: #fff;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    label {
+        margin-bottom: 15px;
+    }
+
+    input,
+    input::-webkit-input-placeholder {
+        font-size: 11px;
+        padding-top: 3px;
+    }
+
+    .main-center {
+        margin-top: 30px;
+        margin: 0 auto;
+        max-width: 330px;
+        padding: 40px 40px;
+    }
+
+    .login-button {
+        margin-top: 5px;
+    }
+
+    .login-register {
+        font-size: 11px;
+        text-align: center;
+    }
+</style>
+<script>
+    var dictionary =
+    {
+        'tr-TR': {
+            incorrectUser: 'Hatalı Kullanıcı Girişi.',
+            incorrectPassword: 'Hatalı Şifre Girişi.',
+            incorrectHours: 'Giriş yaptığınız çalışma saatlerinde kullanım yetkiniz bulunmamaktadır.',
+            unauthorizedUser: 'Giriş İzniniz Bulunmamaktadır.',
+        },
+
+        'en-US': {
+            incorrectUser: 'Incorrect User Entry',
+            incorrectPassword: 'Incorrect Password Entry',
+            incorrectHours: 'You are not authorized to use during the working hours you log in.',
+            unauthorizedUser: 'You do not Have Permission to Login.',
+        },
+    }
+    function getByCulture(culture, word) {
+        return dictionary[culture][word]
+    }
+</script>
+
+<div id="windowpopup1TR" style="display: none;">
+    <p>
+        <strong>YENİ VERSİYON HAKKINDA</strong>
+    </p>
+
+    <p style="text-align: justify"><strong><u>11.01.2025</u></strong></p>
+    <p style="text-align: justify">- İcra İşlemleri Test Edildi.</p>
+
+    <p style="text-align: justify"><strong><u>08.01.2025</u></strong></p>
+    <p style="text-align: justify">- Ücret listelerinde, Ücret durum listesinde Borç yoksa, listede çıkmasın seçeneği düzeltildi.</p>
+    <p style="text-align: justify">- Cari kart giriş işlemlerinde Hesap Adı ve Muhasebe kodu başlıklarına sıralama fonksiyonu eklenedi.</p>
+    <p style="text-align: justify">- Manuel fatura kesiminde sıfır (0) KDV girişlerinde işlem yapılamıyordu, düzeltildi.</p>
+
+</div>
+<div id="windowpopup1US" style="display: none;">
+    <p style="text-align: center;">
+        <strong>ABOUT THE NEW VERSION</strong>
+    </p>
+
+</div>
+
+<style>
+    .k-window-titlebar {
+        color: var(--kendo-color-on-dark, #ffffff);
+        background-color: var(--kendo-color-dark, #036d00);
+    }
+
+    .k-window {
+        color: var(--kendo-color-on-dark, #ffffff);
+        background-color: var(--kendo-color-dark, #3d3d3d);
+    }
+
+    $('.k-window').addClass('k-window-dark')
+</style>
+
+<script>
+    function popup1() {
+        lang = "@Model.SelectedCulture";
+        //lang = "en-US";
+        win = "#windowpopup1TR";
+        if (lang == "en-US") win = "#windowpopup1US";
+
+        var myWindow = $(win),
+            undo = $("#undo");
+
+        undo.click(function () {
+            myWindow.data("kendoWindow").open();
+            undo.fadeOut();
+        });
+
+        function onClose() {
+            undo.fadeIn();
+        }
+
+        myWindow.kendoWindow({
+            width: "800px",
+            height: "800px",
+            title: getByCulture('@culture', 'termOfUse'),
+            visible: false,
+            actions: [
+                "Close"
+            ],
+            close: onClose
+        }).data("kendoWindow").center().open();
+    }
+</script>
+
+<script>
+    window.history.replaceState('', '', window.location.pathname);
+</script>

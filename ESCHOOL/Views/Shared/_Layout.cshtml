@@ -1,0 +1,90 @@
+﻿@{
+    //System.Globalization.CultureInfo.CurrentCulture = System.Globalization.CultureInfo.CreateSpecificCulture("tr-TR");
+    //System.Globalization.CultureInfo.CurrentUICulture = System.Globalization.CultureInfo.CreateSpecificCulture("tr-TR");
+    var culture = System.Globalization.CultureInfo.CurrentCulture.ToString();
+}
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+        html {
+            font-size: 13px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+    </style>
+    <title>@ViewData["Title"] - ESCHOOL</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <script src="~/fontawesome/f2c0857980.js"></script>
+
+    <script src="@Url.Content("~/telerik/2021.2.616/js//cultures/kendo.culture." + culture + ".min.js")"></script>
+    <script src="~/telerik/2021.2.616/js//messages/kendo.messages.tr-TR.min.js"></script>
+
+    <script type="text/javascript">
+        kendo.culture("@culture");
+    </script>
+
+    <style>
+        body {
+            background-color: @TempData["color"];
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            <div class="row">
+                <div class="col col-md-3" style="float: left;">
+                    <a href="https://www.ncs.com.tr"  target="_blank" >
+                        <img src="~/Upload/Images/Quality.png" style="width:50px;" />
+                    </a>
+                    &copy; 2021 - E-School &nbsp;
+                </div>
+
+                <div class="col col-md-6 textLabel">
+                    <label class="control-label" style="color:forestgreen">@TempData["SchoolName"]</label>
+                </div>
+
+                <div class="col col-md-3" style="float: right;">
+                    <strong>
+                        <label class="control-label">@TempData["Period"] - @TempData["Date"]</label>
+                    </strong>
+                    <img src="~/Upload/Images/NumberOne.png" style="width:50px;" />
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @RenderSection("Scripts", required: false)
+
+    <script>
+        $("#userDateID").kendoDatePicker({
+            format: "dd/MM/yyyy"
+        });
+
+        $("#divheader").show(2000);
+    </script>
+    <style>
+        .textLabel {
+            width: 150px;
+            overflow: hidden;
+            text-align: center;
+            /*  font-family:'MS Gothic'*/
+        }
+    </style>
+
+</body>
+</html>
+

@@ -1,0 +1,997 @@
+﻿@model ESCHOOL.ViewModels.SchoolViewModel
+@{
+    System.Globalization.CultureInfo.CurrentCulture = System.Globalization.CultureInfo.CreateSpecificCulture(@Model.SelectedCulture);
+    System.Globalization.CultureInfo.CurrentUICulture = System.Globalization.CultureInfo.CreateSpecificCulture(@Model.SelectedCulture);
+    var culture = System.Globalization.CultureInfo.CurrentCulture.ToString();
+}
+<html>
+<head>
+    <style>
+        html {
+            font-size: 13px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+    </style>
+    <title></title>
+
+    <link href="https://kendo.cdn.telerik.com/2021.2.616/styles/kendo.common.min.css" rel="stylesheet" />
+    <link rel="stylesheet" id="skin-css" href="@TempData["theme"]" />
+    <link rel="stylesheet" id="skin-css" href="@TempData["themeMobile"]" />
+    <script src="https://kendo.cdn.telerik.com/2021.2.616/js/jquery.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2021.2.616/js/kendo.all.min.js"></script>
+
+    <script src="@Url.Content("~/telerik/2021.2.616/js//cultures/kendo.culture." + culture + ".min.js")"></script>
+    <script src="@Url.Content("~/telerik/2021.2.616/js//messages/kendo.messages." + culture + ".min.js")"></script>
+
+    <script type="text/javascript">
+        kendo.culture("@culture");
+    </script>
+    @{
+        Layout = "_MenuLayout";
+    }
+    <style type="text/css">
+        a:visited {
+            color: dodgerblue;
+        }
+
+        a:hover {
+            color: yellowgreen;
+        }
+
+        a:active {
+            color: red;
+        }
+    </style>
+
+</head>
+
+<body id="formID" class="k-content" style='background-image: url(../Upload/Users/@Model.UserViewPicture); background-size: 100% 92%; background-repeat: no-repeat; background-attachment: fixed; '>
+    <input type="hidden" asp-for="@Model.UserID" id="userID" />
+    <input type="hidden" asp-for="@Model.SchoolID" id="schoolID" />
+    <form>
+        <div id="div1" style="display: none; padding-left:30px; padding-right:30px; padding-bottom:15px; background-image: url(https:../Upload/Login/Paper.jpg); background-repeat: no-repeat; background-attachment: fixed; background-size: 100% 92%; color:black;">
+            <br id="divbr1" style="display: none;" />
+            <div class="row" style="height:12rem;">
+                <div class="row col-md-12 card-header top-left">
+                    <div class="col col-md-2">
+                        <div>
+                            <label class="control-label">@ESCHOOL.Resources.Resource.Period</label>
+                            <div class="text-section k-content">
+                                <input asp-for="UserPeriod" id="periodDropDown" style="width: 100%;" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col col-md-2">
+                        <div id="paymentDate">
+                            <label class="control-label">@ESCHOOL.Resources.Resource.Date</label>
+                            <div class="text-section k-content">
+                                <input asp-for="UserDate" id="userDate" class="form-control" style="width: 100%;" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col col-md-6">
+                        <div>
+                            <label class="control-label">@ESCHOOL.Resources.Resource.School</label>
+                            <div class="text-section k-content">
+                                <input asp-for="SchoolID" id="schoolDropDown" style="width: 100%;" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col col-md-2">
+                        <div style="float: right; padding-top: 5px;">
+                            <label class="control-label"></label>
+                            <p>
+                                <button type="button" id="saveId" style="height: 30px; width: 90px;" onclick="saveChanges()">@ESCHOOL.Resources.Resource.Submit</button>
+                            </p>
+                        </div>
+                        <script>
+                            $(document).ready(function () {
+                                $("#saveId").kendoButton({
+                                    icon: "save",
+                                });
+                            });
+                        </script>
+                    </div>
+                </div>
+                <div class="row col-md-12 card-header top-left">
+                    <div class="col col-md-2">
+                        <div>
+                            <label class="control-label">@ESCHOOL.Resources.Resource.NewPeriod2</label>
+                            <div class="text-section k-content">
+                                <input asp-for="@Model.NewPeriod" style="width: 100%;" disabled />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col col-md-2">
+                        <div>
+                            <label class="control-label">@ESCHOOL.Resources.Resource.Theme</label>
+                            <div class="text-section k-content">
+                                <input asp-for="SelectedTheme" id="themeChooserMenu" class="themeChooserMenu" style="width: 100%;" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col col-md-4">
+                    </div>
+                    <div class="col col-md-4">
+                        <div style="float: right; padding-top: 5px;">
+                            <label class="control-label"></label>
+                            <p>
+                                &copy; @TempData["eSchool"] @TempData["LastVersion"]
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div id="div2" class="ncsVersion" style="display: none; padding-left:50px; padding-right:30px; padding-bottom:5px; background-image: url(https:../Upload/Login/Paper.jpg); background-repeat: no-repeat; background-attachment: fixed; background-size: 100% 92%; color:black;">
+            <br id="divbr2" style="display: none;" />
+            <div class="row" style="max-height:55rem;">
+                <div class="row" style="padding-top:10px;">
+                    <img src="~/Upload/Images/Logo.png" style="height:35px;" />
+                    &copy; <h5 class="title"> Ncs.Net Computer</h5>
+                    <h6 style="padding-left:15px;"><a href="https://www.ncs.com.tr" target="_blank" style="color:blue;"> www.ncs.com.tr </a></h6>
+                    <h6 style="padding-left:15px;"><a href="mailto:info@ncs.com.tr" target="_blank" style="color:blue;"> info@ncs.com.tr </a></h6>
+                </div>
+
+                <div class="row col-md-12 card-header top-left">
+                    <div class="container-flued">
+                        <div class="card-body">
+                            <p><strong>@ESCHOOL.Resources.Resource.PrgMsg01</strong></p>
+                            <p><strong>@ESCHOOL.Resources.Resource.PrgMsg02</strong></p>
+
+                            <h6 class="card-title">@ESCHOOL.Resources.Resource.PrgMsg03</h6>
+                            <h6 class="card-title">@ESCHOOL.Resources.Resource.PrgMsg04</h6>
+                            <h6 class="card-title">@ESCHOOL.Resources.Resource.PrgMsg05</h6>
+                            <h6 class="card-title">@ESCHOOL.Resources.Resource.PrgMsg06</h6>
+                            <h6 class="card-title">@ESCHOOL.Resources.Resource.PrgMsg07</h6>
+                            <h6 class="card-title">@ESCHOOL.Resources.Resource.PrgMsg08</h6>
+                            <h6 class="card-title">@ESCHOOL.Resources.Resource.PrgMsg09</h6>
+                            <h6 class="card-title">@ESCHOOL.Resources.Resource.PrgMsg10</h6>
+                            <h6 class="card-title">@ESCHOOL.Resources.Resource.PrgMsg11</h6>
+                            <h6 class="card-title">@ESCHOOL.Resources.Resource.PrgMsg12</h6>
+                            <hr />
+                            <h6 class="card-title">@ESCHOOL.Resources.Resource.PrgMsg13</h6>
+                            <h6 class="card-title">@ESCHOOL.Resources.Resource.PrgMsg14</h6>
+                            <hr />
+                            <p><strong>@ESCHOOL.Resources.Resource.PrgMsg15</strong></p>
+                            <h6 class="card-title">@ESCHOOL.Resources.Resource.PrgMsg16</h6>
+                            <h6 class="card-title">@ESCHOOL.Resources.Resource.PrgMsg17</h6>
+                            <h6 class="card-title">@ESCHOOL.Resources.Resource.PrgMsg18</h6>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="display: inline-block; text-align: right; width: 100%; padding-right:20px; color:red;font-style:italic;">
+                    <strong>@Model.UserName</strong>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            $('#ncsNews').kendoExpansionPanel({
+                title: '@TempData["eSchool"]',
+                subTitle: '@TempData["LastVersion"]',
+            });
+        </script>
+        <style>
+            h1 {
+                color: black;
+            }
+
+            div.ncsVersion {
+                margin: 5px;
+                padding: 15px;
+                overflow: auto;
+                text-align: justify;
+            }
+        </style>
+
+        <div id="megaStore1" style="height:20px; width:100%">
+            <ul id="menu" style="height:40px;">
+                <li>
+                    <span class="k-icon k-i-gears"></span>
+                    @ESCHOOL.Resources.Resource.Operator
+                    <ul style="padding-bottom: 20px;">
+                        <li>
+                            <div id="template" style="padding: 10px;">
+                                <h2>@ESCHOOL.Resources.Resource.UserInformationEntry</h2>
+                                <ol>
+                                    <li>
+                                        <a href='../M900Users/index?prgUserID=@Model.UserID'>@ESCHOOL.Resources.Resource.UserInformationEntry</a>
+                                        <ul style="padding-left: 20px;">
+                                            <li>@ESCHOOL.Resources.Resource.UserIdentification</li>
+                                            <li>@ESCHOOL.Resources.Resource.UserPermissions</li>
+                                            <li>@ESCHOOL.Resources.Resource.ChangingMenuPicture</li>
+                                        </ul>
+                                    </li>
+                                </ol>
+                                <ol>
+                                    <img src="~/Upload/Menu/Users.png" alt="Users" width="50" style="margin: 1px 1px 1px 90px;" />
+                                </ol>
+                            </div>
+                        </li>
+                        <li class="k-separator"></li>
+
+                        <li>
+                            <div id="template" style="padding: 10px;">
+                                <h2>@ESCHOOL.Resources.Resource.AuditTrial</h2>
+                                <ol>
+                                    <li>
+                                        <a href='../M905UsersLog/index?userID=@Model.UserID&period=@Model.UserPeriod'>@ESCHOOL.Resources.Resource.AuditTrial</a>
+                                        <ul style="padding-left: 20px;">
+                                            <li>@ESCHOOL.Resources.Resource.UserAction</li>
+                                            <li>@ESCHOOL.Resources.Resource.ProcessControlbyGrouping</li>
+                                        </ul>
+                                    </li>
+                                </ol>
+                                <ol>
+                                    <img src="~/Upload/Menu/AuditTrial.png" alt="AuditTrial" width="80" style="margin: 1px 1px 1px 50px;" />
+                                </ol>
+                            </div>
+                        </li>
+
+                        <li>
+                            <div id="template" style="padding: 10px; padding-bottom: 10px;">
+                                <h2>@ESCHOOL.Resources.Resource.Design</h2>
+                                <ol>
+                                    <li>
+                                        <a onclick="return contract_click()" href=''>@ESCHOOL.Resources.Resource.ContractDesignProgram</a>  <br />
+                                    </li>
+
+                                    <li>
+                                        <a onclick="return kvkk_click()" href=''>@ESCHOOL.Resources.Resource.Kvkk</a>  <br />
+                                    </li>
+
+                                    <li>
+                                        <a onclick="return invoice_click()" href=''>@ESCHOOL.Resources.Resource.InvoiceDesignProgram</a>
+                                    </li>
+                                </ol>
+                                <ol>
+                                    <img src="~/Upload/Menu/Design.png" alt="Design" width="50" style="margin: 1px 1px 1px 95px;" />
+                                </ol>
+                            </div>
+                        </li>
+
+                        <li>
+                            <div id="template" style="padding: 10px; padding-bottom: 10px;">
+                                <h2>@ESCHOOL.Resources.Resource.NewPeriodTransfer</h2>
+                                <ol>
+                                    <li>
+                                        <a href='../M990NewPeriodTransfer/NewPeriodTransfer?userID=@Model.UserID&msg=0'>@ESCHOOL.Resources.Resource.NewPeriodTransfer</a>
+                                        <ul style="padding-left: 20px;">
+                                            <li>@ESCHOOL.Resources.Resource.SerialNumberReset</li>
+                                            <li>@ESCHOOL.Resources.Resource.RegistrationDateisUpdated</li>
+                                            <li>@ESCHOOL.Resources.Resource.Commentsaredeleted</li>
+                                            <li>@ESCHOOL.Resources.Resource.UpdatesRegistrationFormtoRegistrationRenewal</li>
+                                            <li>@ESCHOOL.Resources.Resource.AuditTrailReset</li>
+                                        </ul>
+                                    </li>
+                                </ol>
+                                <ol style=padding-left:15px;>
+                                    <img src="~/Upload/Menu/Transfer.png" alt="Transfer" width="55" style="margin: 30px 1px 1px 20px;" />
+                                </ol>
+                            </div>
+                        </li>
+
+                        <li>
+                            <div id="template" style="padding: 5px;">
+                                <h2>@ESCHOOL.Resources.Resource.DatabaseBackup</h2>
+                                <ol>
+                                    <li>
+                                        <a href='../ListPanel/List600?userID=@Model.UserID&isScuccess=0&file='>@ESCHOOL.Resources.Resource.DatabaseBackup1</a>
+                                        <ul style="padding-left: 20px;">
+                                            <li>@ESCHOOL.Resources.Resource.BackupMsg</li>
+                                        </ul>
+                                    </li>
+                                </ol>
+                                <ol>
+                                    <img src="~/Upload/Menu/Backup.png" alt="Users" width="55" style="margin: 1px 1px 1px 1px;" />
+                                </ol>
+                            </div>
+                        </li>
+                    </ul>
+                <li>
+                <li>
+                    <span class="k-icon k-i-home"></span>
+                            @ESCHOOL.Resources.Resource.School
+                    <ul style="padding-bottom: 20px;">
+                        <li>
+                            <div id="template" style="padding: 10px;">
+                                <h2>@ESCHOOL.Resources.Resource.SchoolInstitutionTransactions</h2>
+                                <ol>
+                                    <li>
+                                        <a href='../M110SchoolInfo/index?userID=@Model.UserID&studentID=0' style="font-weight: 600;">@ESCHOOL.Resources.Resource.SchoolInformationEntry</a>
+                                        <ul style="padding-left: 20px;">
+                                            <li>@ESCHOOL.Resources.Resource.SchoolInstitutionInformation</li>
+                                            <li>@ESCHOOL.Resources.Resource.MenuSchool1</li>
+                                            <li>@ESCHOOL.Resources.Resource.MenuSchool2</li>
+                                        </ul>
+                                    </li>
+                                </ol>
+                                <ol>
+                                    <img src="~/Upload/Menu/School.png" alt="School" width="70" style="margin: 20px 1px 1px 45px;" />
+                                </ol>
+                            </div>
+                        </li>
+                        <li class="k-separator"></li>
+                        <li>
+                            <div id="template" style="padding: 10px;">
+                                <h2>@ESCHOOL.Resources.Resource.SchoolAgenda</h2>
+                                <ol>
+                                    <li>
+                                        <a href='../M110SchoolInfo/SchoolTask?userID=@Model.UserID&taskTypeID=1' style="font-weight: 600;">@ESCHOOL.Resources.Resource.Events</a>
+                                    </li>
+                                    <li>
+                                        <a href='../M110SchoolInfo/SchoolTask?userID=@Model.UserID&taskTypeID=2' style="font-weight: 600;">@ESCHOOL.Resources.Resource.FoodMenu</a>
+                                    </li>
+                                    <li>
+                                        <a href='../M110SchoolInfo/SchoolTask?userID=@Model.UserID&taskTypeID=3' style="font-weight: 600;">@ESCHOOL.Resources.Resource.ClassTimetable</a>
+                                    </li>
+                                    <li>
+                                        <a href='../M210Student/Guidance?userID=@Model.UserID&StudentIDID=0&TaskTypeID=2' style="font-weight: 600;">@ESCHOOL.Resources.Resource.Guidance</a>
+                                    </li>
+                                    <li>
+                                        <a href='../M950Absenteeism/Index?userID=@Model.UserID' style="font-weight: 600;">@ESCHOOL.Resources.Resource.StudentAbsenceEntry1</a>
+                                    </li>
+                                </ol>
+                                <ol>
+                                    <img src="~/Upload/Menu/School2.png" alt="School" width="70" style="margin: 1px 1px 1px 80px;" />
+                                </ol>
+
+                            </div>
+                        </li>
+                        <li class="k-separator"></li>
+                        <li>
+                            <div id="template" style="padding: 10px; padding-bottom: 10px;">
+                                <h2>@ESCHOOL.Resources.Resource.ClassroomDefinitions</h2>
+                                <ol>
+                                    <li>
+                                        <a href='../M120Classroom/index?userID=@Model.UserID' style="font-weight: 600;">@ESCHOOL.Resources.Resource.ClassroomDefinitions</a>
+                                        <ul style="padding-left: 20px;">
+                                            <li>@ESCHOOL.Resources.Resource.ClassroomName</li>
+                                            <li>@ESCHOOL.Resources.Resource.CategoryName</li>
+                                        </ul>
+                                    </li>
+                                    &nbsp
+                                    <li>
+                                        <a href='../M130SchoolFee/index?userID=@Model.UserID' style="font-weight: 600;">@ESCHOOL.Resources.Resource.FeeEntriesbyClassType</a>
+                                        <ul style="padding-left: 20px;">
+                                            <li>@ESCHOOL.Resources.Resource.ClassroomType</li>
+                                            <li>@ESCHOOL.Resources.Resource.CategoryName</li>
+                                            <li>@ESCHOOL.Resources.Resource.Fees</li>
+                                        </ul>
+                                    </li>
+
+                                </ol>
+                                <ol>
+                                    <img src="~/Upload/Menu/ClassroomFees.png" alt="ClassroomFees" width="75" style="margin: 10px 1px 1px 10px; padding-top:25px;" />
+                                </ol>
+                            </div>
+                        </li>
+
+                        <li class="k-separator"></li>
+
+                        <li>
+                            <div id="template" style="padding: 10px; padding-bottom: 10px;">
+                                <h2>@ESCHOOL.Resources.Resource.AppliedDiscounts</h2>
+
+                                <ol>
+                                    <li>
+                                        <a href='../M140DiscountTable/index?userID=@Model.UserID' style="font-weight: 600;">@ESCHOOL.Resources.Resource.DiscountEntries</a>
+                                        <ul style="padding-left: 20px;">
+                                            <li>@ESCHOOL.Resources.Resource.DiscountDefinition</li>
+                                            <li>@ESCHOOL.Resources.Resource.DiscountPercentageAndAmountEntries</li>
+                                        </ul>
+                                    </li>
+                                </ol>
+                                <ol style=padding-left:15px;>
+                                    <img src="~/Upload/Menu/Discount.png" alt="Discount" width="70" />
+                                </ol>
+                            </div>
+                        </li>
+
+                        <li class="k-separator"></li>
+                        <li><a src="~/Upload/Menu/parent.png" href='../M150Bank/index?userID=@Model.UserID'>&nbsp<span class="k-icon k-i-bold"></span>@ESCHOOL.Resources.Resource.BankRecords</a></li>
+                        <li class="k-separator"></li>
+                        <li><a href='../M160Parameter/index?userID=@Model.UserID'>&nbsp<span class="k-icon k-i-parameters"></span>@ESCHOOL.Resources.Resource.ParametersUsedintheProgram</a></li>
+                        <li class="k-separator"></li>
+                        <li><a href='../M160Parameter/indexMarkers?userID=@Model.UserID'>&nbsp<span class="k-icon k-i-parameters"></span>@ESCHOOL.Resources.Resource.Markers</a></li>
+                        <li class="k-separator"></li>
+
+                        <li><a href='../M170SchoolBusService/index?userID=@Model.UserID'><span class="fas fa-bus">&nbsp&nbsp</span>@ESCHOOL.Resources.Resource.SchoolBusEntries</a></li>
+
+                    </ul>
+                <li>
+
+                <li>
+                    <span class="k-icon k-i-user"></span>
+                    <strong>@ESCHOOL.Resources.Resource.Student</strong>
+                    <ul style="padding-bottom: 20px;">
+                        <li>
+                            <div id="template" style="padding: 10px;">
+                                <h2>@ESCHOOL.Resources.Resource.StudentTransactions</h2>
+                                <ol>
+                                    <li>
+                                        <a href='../M210Student/index?userID=@Model.UserID' style="font-weight: 600;">@ESCHOOL.Resources.Resource.StudentInformationRecord</a>
+                                        <ul style="padding-left: 20px;">
+                                            <li>@ESCHOOL.Resources.Resource.StudentGeneralAddressParent</li>
+                                            <li>@ESCHOOL.Resources.Resource.FeeEntries</li>
+                                            <li>@ESCHOOL.Resources.Resource.DiscountEntries</li>
+                                            <li>@ESCHOOL.Resources.Resource.InstallmentEntries</li>
+                                        </ul>
+                                    </li>
+                                    &nbsp
+
+                                    <li>
+                                        <a href='../M300Collections/Collections?userID=@Model.UserID&studentID=0&isMenu=0' style="font-weight: 600;">@ESCHOOL.Resources.Resource.StudentCardCollectionTransactions</a>
+                                        <ul style="padding-left: 20px;">
+                                            <li>@ESCHOOL.Resources.Resource.PaymentRecord</li>
+                                            <li>@ESCHOOL.Resources.Resource.NewInstallment</li>
+                                            <li>@ESCHOOL.Resources.Resource.InstallmentDivision</li>
+                                            <li>@ESCHOOL.Resources.Resource.ChangeInstallment</li>
+                                            <li>@ESCHOOL.Resources.Resource.PaymentCancellation</li>
+                                            <li>@ESCHOOL.Resources.Resource.Receipt</li>
+                                        </ul>
+                                    </li>
+                                    &nbsp
+
+                                    <li>
+                                        <a href='../M310PositionChanges/PositionChanges?userID=@Model.UserID&studentID=0&isMenu=2' style="font-weight: 600;">@ESCHOOL.Resources.Resource.PositionChange</a>
+                                        <ul style="padding-left: 20px;">
+                                            <li>@ESCHOOL.Resources.Resource.AtTheBank</li>
+                                            <li>@ESCHOOL.Resources.Resource.Giro</li>
+                                            <li>@ESCHOOL.Resources.Resource.Distraint</li>
+                                            <li>@ESCHOOL.Resources.Resource.Protest</li>
+                                            <li>@ESCHOOL.Resources.Resource.ListByPositions</li>
+                                        </ul>
+                                    </li>
+                                    &nbsp
+
+                                    <li>
+                                        <a href='../M800SmsEMail/SmsEmail?userID=@Model.UserID' style="font-weight: 600;">@ESCHOOL.Resources.Resource.SmsandEMailTransactions</a>
+                                        <ul style="padding-left: 20px;">
+                                            <li>@ESCHOOL.Resources.Resource.ToMobilePhone</li>
+                                            <li>@ESCHOOL.Resources.Resource.ToEmailAddress</li>
+                                        </ul>
+                                    </li>
+                                    &nbsp
+
+                                </ol>
+                                &nbsp
+                                <ol>
+                                    <img src="~/Upload/Menu/Student.png" alt="Student" width="70" style="margin: 10px 1px 1px 20px;" />
+                                </ol>
+                                <ol>
+                                    <img src="~/Upload/Menu/Collection.png" alt="Collection" width="70" style="margin: 20px 1px 1px 10px;" />
+                                </ol>
+                                <ol>
+                                    <img src="~/Upload/Menu/PositionChange.png" alt="PositionChange" width="70" style="margin: 50px 1px 1px 10px;" />
+                                </ol>
+                                <ol>
+                                    <img src="~/Upload/Menu/Sms.png" alt="Sms" width="90" style="margin: 50px 1px 1px 1px;" />
+                                </ol>
+                                &nbsp
+                            </div>
+                        </li>
+
+                    </ul>
+                </li>
+
+                <li>
+                    <span class="k-icon k-i-file-data"></span>
+                                    @ESCHOOL.Resources.Resource.Invoice
+                    <ul style="padding-bottom: 20px;">
+                        <li>
+                            <div id="template" style="padding: 10px;">
+                                <h2>@ESCHOOL.Resources.Resource.InvoiceTransactions</h2>
+                                <ol>
+                                    <li>
+                                        <a href='../M400Invoice/InvoicePlan?userID=@Model.UserID&studentID=0' style="font-weight: 600;">@ESCHOOL.Resources.Resource.InvoiceEntryProcesses</a>
+                                        <ul style="padding-left: 20px;">
+                                            <li>@ESCHOOL.Resources.Resource.PrepareaNewPlan</li>
+                                            <li>@ESCHOOL.Resources.Resource.DetailShow</li>
+                                            <li>@ESCHOOL.Resources.Resource.PlannedInvoicePrinting</li>
+                                            <li>@ESCHOOL.Resources.Resource.UnplannedInvoicePrinting</li>
+                                        </ul>
+                                    </li>
+                                    &nbsp
+
+                                    <li>
+                                        <a href='../M400Invoice/InvoiceManually?userID=@Model.UserID' style="font-weight: 600;">@ESCHOOL.Resources.Resource.InvoiceProgram</a>
+                                        <ul style="padding-left: 20px;">
+                                            <li>@ESCHOOL.Resources.Resource.ManualBilling</li>
+                                            <li>@ESCHOOL.Resources.Resource.EditingWithholdingonInvoice</li>
+                                        </ul>
+                                    </li>
+                                    &nbsp
+
+                                    <li>
+                                        <a href="../M400Invoice/InvoiceBatch?userID=@Model.UserID&studentID=0&dateString=null&isLoop=false" style="font-weight: 600;">@ESCHOOL.Resources.Resource.BatchInvoicePrinting</a>
+                                        <ul style="padding-left: 20px;">
+                                            <li>@ESCHOOL.Resources.Resource.Invoiceprintingbyclass</li>
+                                            <li>@ESCHOOL.Resources.Resource.Invoiceprintingbyschool</li>
+                                            <li>@ESCHOOL.Resources.Resource.SingleGroupAll</li>
+                                            &nbsp
+                                        </ul>
+                                    </li>
+                                </ol>
+                                &nbsp
+                                &nbsp
+                                <ol>
+                                    <img src="~/Upload/Menu/invoice.png" width="70" alt="invoice" style="margin: 20px 1px 1px 1px;" />
+                                </ol>
+                                <ol style="padding-top:30px;">
+                                    <img src="~/Upload/Menu/BatchInvoice.png" width="70" alt="BatchInvoice" style="margin: 20px 1px 1px 1px;" />
+                                </ol>
+
+                            </div>
+                        </li>
+                        <li class="k-separator"></li>
+                        <li>
+                        <li><a href='../ListPanel/List301?userID=@Model.UserID'><span class="k-icon k-i-filter-add-expression"></span>@ESCHOOL.Resources.Resource.InvoicedNotInvoicedCancelledInvoicesList</a></li>
+                        <li><a href='../ListPanel/List305?userID=@Model.UserID'><span class="k-icon k-i-filter-add-group"></span>@ESCHOOL.Resources.Resource.InvoicedNotInvoicedCancelledInvoicesListDetailed</a></li>
+                        <li class="k-separator"></li>
+                        <li><a href='../ListPanel/List310?userID=@Model.UserID'><span class="k-icon k-i-list-unordered"></span>@ESCHOOL.Resources.Resource.InvoiceListbyTotalAmounts</a></li>
+                        <li class="k-separator"></li>
+                        <li onclick="waitProgress()"><a href='../ListPanel/List320?userID=@Model.UserID'><span class="k-icon k-i-aggregate-fields"></span>@ESCHOOL.Resources.Resource.StudentInvoicesList</a></li>
+                    </ul>
+                </li>
+
+                <li>
+                    <span class="k-icon k-i-file-txt"></span>
+                                    @ESCHOOL.Resources.Resource.FeeLists
+                    <ul style="padding-bottom: 20px;">
+                        <li>
+                            <span class="k-icon k-i-group-box"></span>@ESCHOOL.Resources.Resource.Fees
+                            <ul style="padding-bottom: 20px;">
+                                <li><a href='../ListPanel/List101?userID=@Model.UserID&studentID=0&msg=0&exitID=0'>@ESCHOOL.Resources.Resource.StudentFeeStatusList</a></li>
+                                <li class="k-separator"></li>
+
+
+                                <li>
+                                    <span class="k-icon k-i-categorize"></span>@ESCHOOL.Resources.Resource.StockLists
+                                    <ul>
+                                        <li><a href='../ListPanel/List114?userID=@Model.UserID&studentID=0&msg=0&exitID=0'>@ESCHOOL.Resources.Resource.StudentFeeStatusListSubDetailed</a></li>
+                                        <li class="k-separator"></li>
+                                        <li><a href='../ListPanel/List116?userID=@Model.UserID&studentID=0&msg=0&exitID=0'>@ESCHOOL.Resources.Resource.StockList</a></li>
+                                        <li class="k-separator"></li>
+                                    </ul>
+                                </li>
+
+                                <li><a href='../ListPanel/List102?userID=@Model.UserID&msg=0'>@ESCHOOL.Resources.Resource.CashPaymentsList</a></li>
+                                <li class="k-separator"></li>
+
+                                <li><a href='../ListPanel/List103?userID=@Model.UserID&msg=0'>@ESCHOOL.Resources.Resource.StudentDiscountList</a></li>
+                                <li class="k-separator"></li>
+
+                                <li><a href='../ListPanel/List104?userID=@Model.UserID&msg=0'>@ESCHOOL.Resources.Resource.ListsByFees</a></li>
+                                <li class="k-separator"></li>
+
+                                <li><a href='../ListPanel/List105?userID=@Model.UserID&msg=0'>@ESCHOOL.Resources.Resource.ListsByFeesPaidNormal</a></li>
+                            </ul>
+                        </li>
+                        <li class="k-separator"></li>
+                        <li>
+                            <span class="k-icon k-i-dollar"></span>@ESCHOOL.Resources.Resource.Collection
+                            <ul style="padding-bottom: 20px;">
+                                <li><a href='../ListPanel/List107?userID=@Model.UserID&msg=0'>@ESCHOOL.Resources.Resource.CollectionList&nbsp;&nbsp;&nbsp;<span class="k-icon k-i-select-all" style="float:right;"></span></a></li>
+                                <li><a href='../ListPanel/List108?userID=@Model.UserID&msg=0'>@ESCHOOL.Resources.Resource.CollectionListByMonths</a></li>
+                                <li><a href='../ListPanel/List109?userID=@Model.UserID&msg=0'>@ESCHOOL.Resources.Resource.StudentTotalDebtList&nbsp;&nbsp;&nbsp;<span class="k-icon k-i-select-all" style="float:right;"></span></a></li>
+                                <li><a href='../ListPanel/List115?userID=@Model.UserID&msg=0'>@ESCHOOL.Resources.Resource.SiblingGroupStudentTotalDebtList&nbsp;&nbsp;&nbsp;</a></li>
+                            </ul>
+                        </li>
+                        <li class="k-separator"></li>
+                        <li>
+                            <span class="k-icon k-i-file-mdb"></span>@ESCHOOL.Resources.Resource.MonthlyLists
+                            <ul style="padding-bottom: 20px;">
+                                <li><a href='../ListPanel/List110?userID=@Model.UserID&msg=0'>@ESCHOOL.Resources.Resource.MonthlyPaymentList</a></li>
+                                <li><a href='../ListPanel/List111?userID=@Model.UserID&msg=0&prg=1'>@ESCHOOL.Resources.Resource.PaymentListbyMonth</a></li>
+                                <li><a href='../ListPanel/List111?userID=@Model.UserID&msg=0&prg=2'>@ESCHOOL.Resources.Resource.PaymentStatusListbyMonth</a></li>
+                            </ul>
+                        </li>
+                        <li class="k-separator"></li>
+                        <li><a href='../ListPanel/List112?userID=@Model.UserID&msg=0&prg=1'><span class="k-icon k-i-file-ppt"></span>@ESCHOOL.Resources.Resource.ChecksAndBondsByPositions</a></li>
+                        <li><a href='../ListPanel/List112?userID=@Model.UserID&msg=0&prg=2'><span class="k-icon k-i-file-ppt"></span>@ESCHOOL.Resources.Resource.ChecksAndBondsByPositionsDetailed</a></li>
+                        <li class="k-separator"></li>
+
+                        <li><a href='../ListPanel/List113?userID=@Model.UserID&msg=0&prg=2'><span class="k-icon k-i-detail-section"></span>@ESCHOOL.Resources.Resource.CheckAndBondNumbersList</a></li>
+
+                        <li class="k-separator"></li>
+
+                        <li><a href='../ListPanel/List106?userID=@Model.UserID'><span class="k-icon k-i-inherited"></span>@ESCHOOL.Resources.Resource.IncomeDistributionTable&nbsp;&nbsp;&nbsp;<span class="k-icon k-i-select-all" style="float:right;"></span></a></li>
+                    </ul>
+                </li>
+
+                <li>
+                    <span class="k-icon k-i-file-add"></span>
+                                    @ESCHOOL.Resources.Resource.Lists
+
+                    <ul style="padding-bottom: 20px;">
+                        <li onclick="waitProgress()"><a href='../ListPanel/List201?userID=@Model.UserID'>&nbsp<span class="k-icon k-i-file-txt"></span>@ESCHOOL.Resources.Resource.ClassroomList</a></li>
+
+                        <li class="k-separator"></li>
+                        <li><a href='../ListPanel/List202?userID=@Model.UserID&schoolID=@Model.SchoolID'>&nbsp<span class="k-icon k-i-file-add"></span>@ESCHOOL.Resources.Resource.StudentTotalsbyClassrooms</a></li>
+                        <li><a href='../ListPanel/List203?userID=@Model.UserID'>&nbsp<span class="k-icon k-i-form-element"></span>@ESCHOOL.Resources.Resource.ListofStudentsbyEnrollmentTypeandStatus</a></li>
+                        <li><a href='../ListPanel/List210?userID=@Model.UserID'>&nbsp<span class="k-icon k-i-table-align-remove"></span>@ESCHOOL.Resources.Resource.StudentsWhoDoNotReregister</a></li>
+                        <li class="k-separator"></li>
+
+                        <li onclick="waitProgress()"><a href='../ListPanel/List204?userID=@Model.UserID&studentID=0&0'>&nbsp<span class="k-icon k-i-page-footer-section"></span>@ESCHOOL.Resources.Resource.StudentCard</a></li>
+                        <li onclick="waitProgress()"><a href='../ListPanel/List205?userID=@Model.UserID&studentID=0&0'>&nbsp<span class="k-icon k-i-file-ascx"></span>@ESCHOOL.Resources.Resource.StudentCardandInvoiceInformation</a></li>
+
+                        <li class="k-separator"></li>
+                        <li onclick="waitProgress()"><a href='../ListPanel/List207?userID=@Model.UserID&studentID=0&0'>&nbsp<span class="k-icon k-i-file-data"></span>@ESCHOOL.Resources.Resource.StudentRegistrationRenewalFormAndInvoiceInformationList</a></li>
+                        <li class="k-separator"></li>
+
+                        <li onclick="waitProgress()"><a href='../reporting/index/M208SchoolBusClassroomLists/0/0?userID=@Model.UserID&period="@Model.UserPeriod"&language="@Model.SelectedCulture"&schoolID=@Model.SchoolID&schoolCode=@Model.SelectedSchoolCode'><span class="fas fa-bus">&nbsp&nbsp</span>@ESCHOOL.Resources.Resource.SchoolTransportServiceList</a></li>
+                        <li onclick="waitProgress()"><a href='../reporting/index/M209SchoolBusByStatus/0/0?userID=@Model.UserID&period="@Model.UserPeriod"&language="@Model.SelectedCulture"&schoolID=@Model.SchoolID&schoolCode=@Model.SelectedSchoolCode&statuCategoryID=@Model.StatuCategoryID'>&nbsp<span class="k-icon k-i-arrows-swap"></span>@ESCHOOL.Resources.Resource.SchoolServiceListByTransportStatus</a></li>
+                        <li class="k-separator"></li>
+
+                        <li><a href='../M910Multipurpose/MultipurposeList?userID=@Model.UserID'>&nbsp<span class="k-icon k-i-file-excel"></span>@ESCHOOL.Resources.Resource.MultipurposeLists</a></li>
+                    </ul>
+                </li>
+
+                <li>
+                    <span class="k-icon k-i-filter-add-expression"></span>
+                                    @ESCHOOL.Resources.Resource.Accountancy
+                    <ul style="padding-bottom: 20px;">
+                        <li>
+                            <div id="template" style="padding: 20px;">
+                                <h2>@ESCHOOL.Resources.Resource.AccountingTransactions</h2>
+                                <ol>
+                                    <li>
+                                        <a href='../M500Accounting/CurrentCard?userID=@Model.UserID&studentID=0' style="font-weight: 600;">@ESCHOOL.Resources.Resource.CurrentCardEntryTransactions</a>
+                                        <ul style="padding-left: 20px;">
+                                            <li>@ESCHOOL.Resources.Resource.AccountPlanRecord</li>
+                                            <li>@ESCHOOL.Resources.Resource.CurrentCardList</li>
+                                            <li>@ESCHOOL.Resources.Resource.CurrentCardTotalDebtList</li>
+                                        </ul>
+                                    </li>
+                                    &nbsp
+                                    <li>
+                                        <a href='../M500Accounting/index?userID=@Model.UserID&studentID=0' style="font-weight: 600;">@ESCHOOL.Resources.Resource.AccountancySlipRecord</a>
+                                        <ul style="padding-left: 20px;">
+                                            <li>@ESCHOOL.Resources.Resource.AccountancySlipRecord</li>
+                                            <li>@ESCHOOL.Resources.Resource.VoucherTransaction</li>
+                                            <li>@ESCHOOL.Resources.Resource.VoucherControl</li>
+                                            <li>@ESCHOOL.Resources.Resource.BalanceControl</li>
+                                        </ul>
+                                    </li>
+                                    &nbsp
+                                    <li>
+                                        <a href='../M500Accounting/Plan?userID=@Model.UserID' style="font-weight: 600;">@ESCHOOL.Resources.Resource.AccountPlanRecord</a>
+                                        <ul style="padding-left: 20px;">
+                                            <li>@ESCHOOL.Resources.Resource.AccountCode</li>
+                                            <li>@ESCHOOL.Resources.Resource.AccountCodeName</li>
+                                        </ul>
+                                    </li>
+
+                                </ol>
+                                <ol style="padding-top:40px;">
+                                    <img src="~/Upload/Menu/Account.png" alt="accounting" width="80" style="margin: 1px 1px 1px 30px;" />
+                                </ol>
+                            </div>
+                        </li>
+
+                        <li class="k-separator"></li>
+                        <li>
+                            <span>&nbsp</span><span class="k-icon k-i-js"></span>@ESCHOOL.Resources.Resource.Lists
+                            <ul style="padding-bottom: 20px;">
+                                <li><a href='../ListPanel/list501?userID=@Model.UserID&msg=0&exitID=0'><span class="k-icon k-i-file-presentation"></span>@ESCHOOL.Resources.Resource.AccountingReceipt</a></li>
+                                <li class="k-separator"></li>
+                                <li><a href='../ListPanel/List500?userID=@Model.UserID&studentID=0&msg=0&exitID=0'><span class="k-icon k-i-clock"></span>@ESCHOOL.Resources.Resource.DailyCashSheet</a></li>
+                                <li class="k-separator"></li>
+                                <li><a href='../ListPanel/List503?userID=@Model.UserID&msg=0&exitID=0'><span class="k-icon k-i-file-data"></span>@ESCHOOL.Resources.Resource.TrialBalance</a></li>
+                                <li><a href='../ListPanel/List502?userID=@Model.UserID&studentID=0&msg=0&exitID=0'><span class="k-icon k-i-page-footer-section"></span>@ESCHOOL.Resources.Resource.AccountancyList</a></li>
+                                <li class="k-separator"></li>
+                                <li><a href='../ListPanel/List504?userID=@Model.UserID&studentID=0&msg=0&exitID=0'><span class="k-icon k-i-file-psd"></span>@ESCHOOL.Resources.Resource.AccountPlanList</a></li>
+                                <li class="k-separator"></li>
+                                <li><a href='../ListPanel/List505?userID=@Model.UserID&studentID=0&msg=0&exitID=8'><span class="k-icon k-i-file-txt"></span>@ESCHOOL.Resources.Resource.CurrentCardList</a></li>
+                                <li><a href='../ListPanel/List506?userID=@Model.UserID&studentID=0&msg=0&exitID=8'><span class="k-icon k-i-page-footer-section"></span>@ESCHOOL.Resources.Resource.CurrentCardTotalDebtList</a></li>
+                            </ul>
+                        </li>
+                        <li class="k-separator"></li>
+                        <li><a href='../M500Accounting/ExportInvoiceToExcel?userID=@Model.UserID&studentID=0' style="font-weight: 600;">&nbsp<span class="k-icon k-i-file-excel"></span>@ESCHOOL.Resources.Resource.ExportInvoicestoExcel</a></li>
+                        <li class="k-separator"></li>
+                        <li class="k-separator"></li>
+                        <li><a href='../M500Accounting/ExportAccountingToExcel?userID=@Model.UserID&studentID=0' style="font-weight: 600;">&nbsp<span class="k-icon k-i-file-excel"></span>@ESCHOOL.Resources.Resource.ExportAccountingFiletoExcel</a></li>
+                        <li class="k-separator"></li>
+                        <li><a href='../M995AccountingClosingAndOpening/AccountingClosingAndOpening?userID=@Model.UserID&msg=0'>&nbsp<span class="k-icon k-i-export"></span>@ESCHOOL.Resources.Resource.AccountingPeriodClosingAndOpeningTransaction</a></li>
+                    </ul>
+                </li>
+                <li style="float:right;" id="exitId" onclick="exitProgram()"> <span class="k-icon k-i-logout"></span>@ESCHOOL.Resources.Resource.Exit</li>
+
+                <li style="float:right;" id="helpId" onclick="helpShow()"> <span class="k-icon k-i-help"></span>@ESCHOOL.Resources.Resource.Help</li>
+                <li style="float: right; display: none;" id="helpcloseId" onclick="helpShowClose()"><span class="k-icon k-i-close"></span>@ESCHOOL.Resources.Resource.Close</li>
+
+                <li style="float:right;" id="changeId" onclick="changeShow()"> <span class="k-icon k-i-gear"></span>@ESCHOOL.Resources.Resource.Change</li>
+                <li style="float: right; display: none;" id="closeId" onclick="changeShowClose()"><span class="k-icon k-i-close"></span>@ESCHOOL.Resources.Resource.Close</li>
+            </ul>
+        </div>
+
+        <script>
+            $(document).ready(function () {
+                var menu = $("#menu").kendoMenu({
+                    animation: { open: { effects: "fadeIn" } }
+                });
+            });
+        </script>
+
+        <script>
+            $(document).ready(function () {
+                $("#periodDropDown").kendoDropDownList({
+                    dataTextField: "categoryName",
+                    dataValueField: "categoryName",
+                    dataSource: {
+                        transport: {
+                            read: {
+                                dataType: "json",
+                                url: "/Home/PeriodDataRead/" + "2",
+                            }
+                        }
+                    },
+                });
+
+                $("#schoolDropDown").kendoDropDownList({
+                    dataTextField: "companyName",
+                    dataValueField: "schoolID",
+                    autoWidth: true,
+                    dataSource: {
+                        transport: {
+                            read: {
+                                dataType: "json",
+                                url: "/Home/SchoolDataRead/" + "@Model.UserID",
+                            }
+                        }
+                    },
+                });
+
+            });
+        </script>
+
+        <script>
+            $("#userDate").kendoDatePicker({
+                format: "dd/MM/yyyy"
+            });
+            var datepicker = $("#userDate").data("kendoDatePicker");
+        </script>
+
+        <style>
+            .k-menu {
+                /*  background-color: #fcfffd;*/
+                /*background-color: rgb(139, 181, 76);*/
+            }
+
+            #menu h2 {
+                font-size: 1em;
+                text-transform: uppercase;
+                padding: 5px 10px;
+            }
+
+            #template img {
+                margin: 5px 20px 0 0;
+                float: left;
+            }
+
+            #template {
+                width: 410px;
+            }
+
+                #template ol {
+                    float: left;
+                    margin: 0 0 0 30px;
+                    padding: 10px 10px 0 10px;
+                }
+
+                #template:after {
+                    content: ".";
+                    display: block;
+                    height: 0;
+                    clear: both;
+                    visibility: hidden;
+                }
+
+                #template .k-button {
+                    float: left;
+                    clear: left;
+                    margin: 5px 0 5px 12px;
+                }
+
+            form label {
+                font-weight: bold;
+                font-size: 12px;
+            }
+        </style>
+
+        <script>
+            function changeShow() {
+                $("#divbr1").show(500);
+                $("#div1").show(500);
+                $("#changeId").hide(500);
+                $("#closeId").show(500);
+            }
+            function changeShowClose() {
+                $("#div1").hide(500);
+                $("#divbr").hide(500);
+                $("#changeId").show(500);
+                $("#closeId").hide(500);
+            }
+
+            function helpShow() {
+                $("#divbr2").show(500);
+                $("#div2").show(500);
+                $("#helpId").hide(500);
+                $("#helpcloseId").show(500);
+            }
+            function helpShowClose() {
+                $("#div2").hide(500);
+                $("#divbr2").hide(500);
+                $("#helpId").show(500);
+                $("#helpcloseId").hide(500);
+            }
+            function saveChanges() {
+                var dropdownlist = $("#periodDropDown").data("kendoDropDownList");
+                var period = dropdownlist.text();
+
+                var schoolCode = document.getElementById("schoolDropDown").value;
+                var themeChooser = document.getElementById("themeChooserMenu").value;
+
+                var date = $("#userDate").data("kendoDatePicker").value();
+                var dateString = kendo.toString(date, "dd-MM-yyyy");
+
+                var theme = $("#themeChooserMenu").data("kendoDropDownList");
+                var themeChooser = theme.value();
+
+                $.ajax({
+                    type: "POST",
+                    url: '/Home/UserSaveChanges/' + @Model.UserID + "/" + period + "/" + schoolCode + "/" + dateString + "/" + themeChooser,
+                    dataType: "json",
+                    success: function (result) {
+                        changeShowClose();
+                        window.location.replace("/Home/index?UserID=@Model.UserID");
+                    }
+                });
+            }
+        </script>
+
+        <script>
+            function contract_click() {
+                var formName = "Agreement" + "@Model.SelectedSchoolCode" + "-" + "@Model.UserPeriod";
+                window.location.replace("/reporting/Designer/" + formName + "/" + "@Model.StudentID" + "/" + "1" + "?userID=@Model.UserID&language=" + '"' + "@Model.SelectedCulture" + '"' + "&schoolID=@Model.SchoolID" + "&period=@Model.UserPeriod" + "&studentID=@Model.StudentID" + "&schoolCode=@Model.SelectedSchoolCode" + "&cs=" + '"' + "@Model.ConnectionString" + '"');
+                return false;
+            }
+            function kvkk_click() {
+                var formName = "KVKK" + "@Model.SelectedSchoolCode";
+                window.location.replace("/reporting/Designer/" + formName + "/" + "@Model.StudentID" + "/" + "1" + "?userID=@Model.UserID&cs=" + '"' + "@Model.ConnectionString" + '"' + "&wwwRootPath=@Model.wwwRootPath");
+                return false;
+            }
+
+            function invoice_click() {
+                var formName = "Invoices" + "@Model.SelectedSchoolCode" + "-" + "@Model.SchoolID";
+                window.location.replace("/reporting/Designer/" + formName + "/" + "@Model.StudentID" + "/" + "1" + "?userID=@Model.UserID&language=" + '"' + "@Model.SelectedCulture" + '"' + "&schoolID=@Model.SchoolID" + "&studentID=@Model.StudentID" + "&schoolCode=@Model.SelectedSchoolCode" + "&cs=" + '"' + "@Model.ConnectionString" + '"');
+                return false;
+            }
+        </script>
+
+        <script>
+            function exitProgram() {
+                kendo.ui.progress($(document.body), true);
+                $.ajax({
+                    type: "POST",
+                    url: '/Home/ExitProgram/' + @Model.UserID,
+                    dataType: "json",
+                    success: function (result) {
+                        window.location.replace("/Login/Login");
+                    }
+                });
+            }
+        </script>
+
+
+        <script>
+            function waitProgress() {
+                $('#loader-pulsing').kendoLoader({ type: 'pulsing' });
+                $('#loader-infinite-spinner').kendoLoader({ type: 'infinite-spinner' });
+                $('#loader-converging-spinner').kendoLoader({ type: 'converging-spinner' });
+            }
+        </script>
+        <div class="vertical-center">
+            <span id="loader-pulsing"></span>
+            <span id="loader-infinite-spinner"></span>
+            <span id="loader-converging-spinner"></span>
+        </div>
+        <style>
+            .vertical-center {
+                margin: 0;
+                position: absolute;
+                top: 60%;
+                left: 50%;
+                -ms-transform: translate(-50%, -50%);
+                transform: translate(-50%, -50%);
+            }
+        </style>
+
+        <script>
+            $(function () {
+                $(document.body).addClass("k-content");
+                // theme chooser dropdown
+                $(".themeChooserMenu").kendoDropDownList({
+                    dataSource: [
+                        { text: "Default", value: "default" },
+                        { text: "Blue Opal", value: "blueopal" },
+                        { text: "Bootstrap", value: "bootstrap" },
+                        { text: "Silver", value: "silver" },
+                        { text: "Uniform", value: "uniform" },
+                        { text: "Metro", value: "metro" },
+                        { text: "Black", value: "black" },
+                        { text: "Metro Black", value: "metroblack" },
+                        { text: "High Contrast", value: "highcontrast" },
+                        { text: "Moonlight", value: "moonlight" },
+                        { text: "Flat", value: "flat" },
+
+                        { text: "Fiori", value: "fiori" },
+                        { text: "Material", value: "material" },
+                        { text: "Office 365", value: "office365" },
+                    ],
+                    dataTextField: "text",
+                    dataValueField: "value",
+                    change: function (e) {
+                        var theme = (this.value() || "default").toLowerCase();
+                        changeTheme(theme);
+                    }
+                });
+
+                // loads new stylesheet
+                function changeTheme(skinName, animate) {
+                    var doc = document,
+                        kendoLinks = $("link[href*='kendo.']"),
+                        commonLink = kendoLinks.filter("[href*='kendo.common']"),
+                        skinLink = kendoLinks.filter(":not([href*='kendo.common'])"),
+                        href = location.href,
+                        skinRegex = /kendo\.\w+(\.min)?\.css/i,
+                        extension = skinLink.attr("rel") === "stylesheet" ? ".css" : ".less",
+                        newSkinUrl = skinLink.attr("href").replace(skinRegex, "kendo." + skinName + "$1" + extension);
+
+                    function preloadStylesheet(file, callback) {
+                        var element = $("<link rel='stylesheet' href='" + file + "' \/>").appendTo("head");
+
+                        setTimeout(function () {
+                            callback();
+                            element.remove();
+                        }, 100);
+                    }
+
+                    function replaceTheme() {
+                        var browser = kendo.support.browser,
+                            oldSkinName = $(doc).data("kendoSkin"),
+                            newLink;
+
+                        if (browser.msie && browser.version < 10) {
+                            newLink = doc.createStyleSheet(newSkinUrl);
+                        } else {
+                            newLink = skinLink.eq(0).clone().attr("href", newSkinUrl);
+                            newLink.insertBefore(skinLink[0]);
+                        }
+
+                        skinLink.remove();
+
+                        $(doc.documentElement).removeClass("k-" + oldSkinName).addClass("k-" + skinName);
+                    }
+
+                    if (animate) {
+                        preloadStylesheet(url, replaceTheme);
+                    } else {
+                        replaceTheme();
+                    }
+                };
+
+            });
+        </script>
+        <script>
+            window.history.replaceState('', '', window.location.pathname);
+        </script>
+    </form>
+</body>
+</html>

@@ -1,0 +1,1533 @@
+﻿@model ESCHOOL.ViewModels.StudentViewModel
+@{
+    System.Globalization.CultureInfo.CurrentCulture = System.Globalization.CultureInfo.CreateSpecificCulture(@Model.SelectedCulture);
+    System.Globalization.CultureInfo.CurrentUICulture = System.Globalization.CultureInfo.CreateSpecificCulture(@Model.SelectedCulture);
+    var culture = System.Globalization.CultureInfo.CurrentCulture.ToString();
+}
+@addTagHelper *, Kendo.Mvc
+
+@{
+    var messages = new Dictionary<string, string>() { { "custom", "Please choose another Start Time." } };
+    var rules = new Dictionary<string, string>() { { "custom", "customFunction" } };
+}
+<!--#region head -->
+<html>
+<head>
+    <style>
+        html {
+            font-size: 13px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+    </style>
+    <title></title>
+    <link href="https://kendo.cdn.telerik.com/2021.2.616/styles/kendo.common.min.css" rel="stylesheet" />
+    <link rel="stylesheet" id="skin-css" href="@TempData["theme"]" />
+    <link rel="stylesheet" id="skin-css" href="@TempData["themeMobile"]" />
+    <script src="https://kendo.cdn.telerik.com/2021.2.616/js/jquery.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2021.2.616/js/kendo.all.min.js"></script>
+
+    <script src="@Url.Content("~/telerik/2021.2.616/js//cultures/kendo.culture." + culture + ".min.js")"></script>
+    <script src="@Url.Content("~/telerik/2021.2.616/js//messages/kendo.messages." + culture + ".min.js")"></script>
+
+    <script type="text/javascript">
+        kendo.culture("@culture");
+    </script>
+</head>
+<!--#endregion -->
+<body data-spy="scroll" data-target=".navbar" onload="waitProgress();">
+    <br />
+    @if (ViewBag.IsSuccess == true)
+    {
+        <br />
+        <br />
+        <br />
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>@ESCHOOL.Resources.Resource.Warning</strong>@ESCHOOL.Resources.Resource.ValidationError<br />
+            <a asp-contoller="M400Invoice" asp-action="InvoiceBatch" asp-route-id="@Model.UserID&@Model.StudentID">@ESCHOOL.Resources.Resource.ClickToContinue</a>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
+    @if (@Model.IsSuccess == true)
+    {
+        <br />
+        <br />
+        <br />
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>@ESCHOOL.Resources.Resource.Warning</strong>@ESCHOOL.Resources.Resource.ValidationError8<br />
+            <a href="/M110SchoolInfo/index?@Model.UserID">@ESCHOOL.Resources.Resource.ClickToContinue</a>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
+
+    @if (@Model.IsSuccess3 == false)
+    {
+        <br />
+        <br />
+        <br />
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>@ESCHOOL.Resources.Resource.Warning</strong>@ESCHOOL.Resources.Resource.EArchiveMsg<br />
+        </div>
+    }
+    @*Notification*@
+    <span id="popupNotification"></span>
+    @*    <div id="appendto" class="demo-section k-content"></div>*@
+    <script>
+        function showPopupNotification() {
+            var popupNotification = $("#popupNotification").kendoNotification().data("kendoNotification");
+            var d = new Date();
+            popupNotification.show(kendo.toString(d, 'HH:MM:ss.') + kendo.toString(d.getMilliseconds(), "000"), "error");
+        };
+    </script>
+
+    <span id="staticNotification"></span>
+    <div id="popup" style="display: none;">
+        <br /><br /><br />
+        <div id="appendto"></div>
+    </div>
+    <script>
+        var staticNotification = $("#staticNotification").kendoNotification({
+            appendTo: "#appendto",
+            autoHideAfter: 5000,
+            position: { top: 60, left: 70 },
+
+        }).data("kendoNotification");
+        function showStaticNotification() {
+            $("#popup").show(500);
+            msg1 = "@ESCHOOL.Resources.Resource.TaxNoNotEntered";
+            staticNotification.show(msg1, "error");
+            var container = $(staticNotification.options.appendTo);
+            container.scrollTop(container[0].scrollHeight);
+            closepopup();
+        };
+    </script>
+    <script>
+        function closepopup() {
+            setTimeout(function () {
+                $("#popup").hide(500);
+            }, 5000);
+        }
+    </script>
+
+    <!--#region toolbar -->
+    <style>
+        #logoId img {
+            width: 60px;
+        }
+    </style>
+    <script>
+        $(document).ready(function () {
+            $("#toolbarMenu").kendoToolBar({
+                items: [
+                    {
+                        template: "<img src='../Upload/Images/Logo.png' class='user-image' style='width:60px;'/>",
+                        overflow: "never",
+                    },
+                    { template: "<h4 style='padding-left:20px;'>@ESCHOOL.Resources.Resource.BatchInvoicePrinting</h4>" },
+                    { type: "spacer" },
+
+                    { type: "button", id: "result", text: "@ESCHOOL.Resources.Resource.TransactionResult", icon: "spell-checker" },
+                    { type: "separator" },
+
+                    { type: "button", id: "help", text: "@ESCHOOL.Resources.Resource.Help", icon: "help" },
+                    { type: "separator" },
+
+                    { type: "button", id: "back", text: "@ESCHOOL.Resources.Resource.Back", icon: "rewind" },
+                    { type: "separator" },
+
+                    { type: "button", id: "exit", text: "@ESCHOOL.Resources.Resource.Exit", icon: "logout" },
+                    { type: "separator" },
+                ],
+
+                click: function (e) {
+                    if (e.id == "exit" || e.id == "back") {
+                        if (studentID > 0)
+                            $.ajax({
+                                url: '/M400Invoice/TempDataDelete/' + "@Model.StudentID",
+                                type: "post",
+                                dataType: "json"
+                            });
+                        if (e.id == "exit")
+                            window.location.replace("/Home/index?userID=@Model.UserID");
+                        else
+                            window.location.replace("/M210Student/AddOrEditStudent?studentID=" + @Model.StudentID + "&userID=@Model.UserID");
+                    }
+
+                    if (e.id == "result") {
+                        div1EInvoiceShow();
+                    }
+
+                    if (e.id == "help") {
+                        var myWindow = $("#panelbarHelp").show();
+                        var panelBar = $("#panelbarHelp").data("kendoPanelBar");
+                        panelBar.select(panelBar.element.children("li").eq(0));
+                        panelBar._selected[0].style.display = 'block';
+                        var item = panelBar.select();
+                        panelBar.expand(item);
+                    }
+                }
+            });
+            if (@Model.StudentID == 0) $("#back").hide();
+            if ("@Model.IsPermission" == 'False') permissionsControl();
+        });
+    </script>
+    <script>
+        function div1EInvoiceClose() {
+            $("#div1EInvoiceResult").hide(500);
+        };
+
+        function div1EInvoiceShow() {
+            $("#div1EInvoiceResult").show(500);
+
+            var grid = $("#gridResults").data("kendoGrid");
+            grid.dataSource.options.transport.read.url = "/M400Invoice/GridResultDataRead/" + "@Model.UserID";
+            grid.dataSource.read();
+            grid.refresh();
+        };
+    </script>
+
+
+    <div id="alert"></div>
+    <script>
+        function permissionsControl() {
+            msg = getByCulture('@culture', 'msgOk');
+            showAlert(msg);
+        };
+
+        function showAlert(message) {
+            msg = getByCulture('@culture', 'titleMsg');
+            $("#alert").kendoAlert({
+                title: msg,
+                content: "<strong>@ESCHOOL.Resources.Resource.PermissionMsg</strong>",
+                messages: {
+                    okText: message
+                },
+                actions: [{
+                    text: "#: messages.okText #",
+                    action: function (e) {
+                        window.location.replace("/Home/index?userID=@Model.UserID");
+                    }
+                }]
+            }).data("kendoAlert").open();
+        };
+    </script>
+    <!--#endregion -->
+
+    <form id="M400Invoice" asp-controller="M400Invoice" asp-action="InvoiceBatchStart" enctype="multipart/form-data" method="post">
+        <div class="demo-section k-content fixed-top wide">
+            <div id="toolbarMenu"></div>
+        </div>
+        <br />
+
+        <script id="template" type="text/x-kendo-template">
+            <span class="k-textbox k-grid-search k-display-flex"  style="width:50%;">
+                <input autocomplete="off" placeholder=@ESCHOOL.Resources.Resource.Search class="k-input">
+                <span class="k-input-icon">
+                    <span class="k-icon k-i-search" style="float:right"></span>
+                </span>
+            </span>
+
+            <div class="toolbar" style="float:left"><label  for="classroomDropDown"></label> <input type="select" id="classroomDropDown" style="width: 150px" /></div >
+        </script>
+
+        @*        <br /><br /><br /><br /><br /><br /><br />*@
+
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <!--#region hidden -->
+        @*Geri dönüşlerde null olmaması için*@
+        <input type="hidden" asp-for="@Model.Student.StudentID" />
+        <input type="hidden" asp-for="@Model.StudentID" />
+        <input type="hidden" asp-for="@Model.UserID" />
+        <input type="hidden" asp-for="@Model.Period" />
+        <input type="hidden" asp-for="@Model.Student.SchoolID" />
+        <input type="hidden" asp-for="@Model.SchoolID" />
+        <input type="hidden" asp-for="@Model.Student.SiblingID" />
+        <input type="hidden" asp-for="@Model.PSerialNumber.PSerialNumberID" />
+
+        <input type="hidden" asp-for="@TempData["studentID"]" id="studentID" />
+        <input type="hidden" id="installmentID" />
+        <input type="hidden" id="total" />
+        <input type="hidden" id="maxTotal" />
+        <input type="hidden" id="batchStartID" value="0" />
+
+        <!--#endregion -->
+        <br /> <br />
+        <!--#region panelbarHelp -->
+        <ul id="panelbarHelp" style="display: none;">
+            <li>
+                <span class="k-link">@ESCHOOL.Resources.Resource.Help</span>
+                <div class="k-card-body" style="padding-left:15px;">
+                    <p><strong>@ESCHOOL.Resources.Resource.CollectionMsg</strong></p>
+                    <p>@ESCHOOL.Resources.Resource.InvoiceBatchMsg100</p>
+                    <p>@ESCHOOL.Resources.Resource.InvoiceBatchMsg101</p>
+                    <p>@ESCHOOL.Resources.Resource.InvoiceBatchMsg102</p>
+                    <p>@ESCHOOL.Resources.Resource.InvoiceBatchMsg103</p>
+                    <p>@ESCHOOL.Resources.Resource.InvoiceBatchMsg104</p>
+                    <br />
+                </div>
+                <style>
+                    #panelbarHelp {
+                        width: 100%;
+                        /*     max-width: none;*/
+                        margin: 0 auto;
+                    }
+                </style>
+
+                <script>
+                    $(document).ready(function () {
+                        $("#panelbarHelp").kendoPanelBar({
+                            animation: {
+                                collapse: {
+                                    duration: 500,
+                                    effects: "fadeOut"
+                                },
+                                expand: {
+                                    duration: 500,
+                                    effects: "expandVertical fadeIn"
+                                }
+                            }
+                        });
+                    });
+                </script>
+            </li>
+        </ul>
+        <!--#endregion -->
+
+        <div id="div1EInvoiceResult" class="row" style="display: none;">
+            <div>
+                <div class="row">
+                    <span class="k-card-action"><span class="k-button k-flat k-primary" id="resuldCloseid" style="height: 30px; width: 80px" onclick="div1EInvoiceClose()">@ESCHOOL.Resources.Resource.Close</span></span>
+                </div>
+                <script>
+                    $(document).ready(function () {
+                        $("#resuldCloseid").kendoButton({
+                            icon: "close",
+                        });
+                    });
+                </script>
+
+                <div id="gridResults" style="max-width:1140px; padding:5px;"></div>
+            </div>
+            <h5 class="ra-well-title card-header top-left" style="padding-top: 2px; padding-bottom:2px;"> <kbd>  @ESCHOOL.Resources.Resource.TransactionResult</kbd></h5>
+        </div>
+
+        <div class="row" style="border: thin solid rgb(120,120,120); padding-top:2px; padding-bottom:15px;">
+            <section class="col order-1 col-md-5">
+                <h5 class="ra-well-title card-header top-left" style="padding-top: 2px; padding-bottom:2px;"> <kbd>  @ESCHOOL.Resources.Resource.Students</kbd></h5>
+                <div>
+                    <div id="gridStudents"></div>
+                </div>
+
+            </section>
+
+            <div class="col order-2 col-md-2 ra-well-title card-header k-content">
+                <div class="col" id="center">
+                    <div id="wrap" class="row" style="height:8rem; width: 8rem; position:center">
+                        <div class="card">
+                            <img id="imgpreviewStudent" name="imgStudent" src="@("~/Upload/Students/default.png")" asp-append-version="true" class="img-fluid img-thumbnail" />
+                        </div>
+                    </div>
+                </div>
+                <hr class="space-1" />
+                <div>
+                    <ul id="fieldlist">
+                        <li>
+                            <h6>@ESCHOOL.Resources.Resource.StudentName</h6>
+                            <input id="name" style="text-align: center" disabled />
+                        </li>
+                        <li>
+                            <h6>@ESCHOOL.Resources.Resource.RegistrationStatus</h6>
+                            <input id="statuCategory" style="text-align: center" disabled />
+                        </li>
+                        <li>
+                            <input id="registrationTypeCategory" style="text-align: center" disabled />
+                        </li>
+                        <li>
+                            <input id="dateOfRegistration" style="text-align: center" disabled />
+                        </li>
+
+                        <li>
+                            <h6>@ESCHOOL.Resources.Resource.IssuedInvoice</h6>
+                            <input id="cutInvoiceId" style="text-align: center" disabled />
+                        </li>
+                        <li>
+                            <h6>@ESCHOOL.Resources.Resource.UnissuedInvoice</h6>
+                            <input id="uncutInvoiceId" style="text-align: center" disabled />
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <section class="col order-3 col-md-5">
+                <h5 class="ra-well-title card-header top-left" style="padding-top:2px; padding-bottom:2px;"> <kbd>@ESCHOOL.Resources.Resource.Fees</kbd></h5>
+                <div id="gridFees"></div>
+                <style>
+                    #gridFees td {
+                        padding: 1px;
+                    }
+                </style>
+
+                <h5 class="ra-well-title card-header top-left" style="padding-top: 2px; padding-bottom: 2px;"> <kbd>@ESCHOOL.Resources.Resource.Installments</kbd></h5>
+                <div id="gridInstallments"></div>
+                <style>
+                    #gridInstallments td {
+                        padding: 1px;
+                    }
+                </style>
+                <div class="row leftAlign" style="float: left; padding-left: 15px; height:20px; padding-top: 2px; padding-bottom:2px;">
+                    <p>
+                        <button type="button" id="calculator" onclick="window.open('Calculator:///', '_blank', 'noreferrer')">@ESCHOOL.Resources.Resource.Calculator</button>
+                    </p>
+                </div>
+                <script>
+                    $(document).ready(function () {
+                        $("#calculator").kendoButton({
+                            icon: "calculator"
+                        });
+                    });
+                </script>
+                <div class="row" style="float:right; margin-right:0px; height:20px; padding-top: 2px;">
+                    <div class="row rightAlign" style="padding-right:20px;">
+                        <div>
+                            <label class="k-content" style="padding:5px;">@ESCHOOL.Resources.Resource.InvoiceDate&nbsp;</label>
+                        </div>
+                        <div>
+                            <input type="date" id="batchinvoicedate" class="form-control" style="width: 130px;" readonly title="@ESCHOOL.Resources.Resource.InvoiceDateMsg" />
+                        </div>
+                    </div>
+                    <p>
+                        <button type="button" id="batchStart" style="width: 100px;" disabled>@ESCHOOL.Resources.Resource.Invoice</button>
+                    </p>
+                    <script>
+                        $(document).ready(function () {
+                            $("#batchStart").kendoButton({
+                                icon: "aggregate-fields"
+                            });
+                        });
+                    </script>
+                </div>
+            </section>
+        </div>
+
+        <!--#region style -->
+        <style>
+            #middle-pane {
+                color: #000;
+                background-color: #ccc;
+            }
+
+            #bottom-pane {
+                color: #000;
+                background-color: #aaa;
+            }
+
+            #left-pane {
+                color: #000;
+                background-color: #eee;
+                padding: 0 0;
+            }
+
+            #right-pane {
+                color: #000;
+                background-color: #eee;
+                padding: 0 0;
+            }
+
+            .pane-content {
+                padding: 1px 1px;
+            }
+
+            .k-grid td {
+                white-space: nowrap;
+                text-overflow: ellipsis;
+            }
+
+            #grid .k-grid-toolbar {
+                padding: .6em 1.3em .6em .4em;
+            }
+
+            #gridFees .k-grid-content {
+                height: 120px;
+                max-height: 120px;
+            }
+
+            #gridInstallments .k-grid-content {
+                height: 120px;
+                max-height: 120px;
+            }
+
+            #gridStudents .k-grid-content {
+                height: 275px;
+                max-height: 275px;
+            }
+
+
+            /*GRID header WRAP*/
+            .gridIP .k-grid-header .k-header .k-link {
+                height: auto;
+            }
+
+            .gridIP .k-grid-header .k-header {
+                white-space: normal;
+            }
+
+            form label {
+                font-weight: bold;
+                font-size: 12px;
+            }
+
+            .k-header {
+                font-weight: bold !important;
+                font-size: 12px;
+            }
+
+            .discontinued {
+                font-weight: bold;
+                color: #f00;
+            }
+
+            .critical {
+                background-color: #fdd;
+            }
+
+            .warning {
+                background-color: #fda;
+            }
+
+            .ok {
+                background-color: #ced;
+            }
+
+            .critical2 {
+                color: #fdd;
+            }
+
+            .warning2 {
+                color: #fda;
+            }
+
+            .ok2 {
+                color: #ced;
+            }
+
+            .k-upload-status {
+                display: none;
+            }
+
+            .ui-datepicker.ui-datepicker-inline {
+                width: 100% !important;
+            }
+
+            div.border {
+                border-style: solid;
+                border-color: coral;
+            }
+
+
+            #fieldlist {
+                margin: 0 0 -2em;
+                padding: 0;
+            }
+
+                #fieldlist li {
+                    list-style: none;
+                    padding-bottom: 0.5em;
+                }
+
+            hr.space-1 {
+                background: transparent;
+                color: transparent;
+                margin: 0;
+                border-style: none;
+                height: 0.5vw;
+            }
+        </style>
+        <!--#endregion -->
+
+        <div id="Invoice" style="padding-top: 5px;">
+            <h5 class="ra-well-title card-header top-left" style="padding-top: 2px; padding-bottom:2px;">
+                <kbd>@ESCHOOL.Resources.Resource.StudentsInvoices</kbd>
+                <kbd style="float: right;">@ESCHOOL.Resources.Resource.ProcessDate:&nbsp;@Model.Period&nbsp;</kbd>
+            </h5>
+
+            <div class="row" id="InInstallment">
+                <div id="gridInvoice" style="max-width:1128px; padding:5px;"></div>
+            </div>
+        </div>
+
+    </form>
+
+    <!--#region dictionary -->
+    <script>
+        var dictionary =
+        {
+            'tr-TR': {
+                select: 'Seç',
+                selectbankName: 'Banka Seçimini Yapınız.',
+                enterValidAmount: 'Geçerli Bir Tutar Giriniz.',
+                selectclassroom: 'Öğrencinin Sınıfını Giriniz.',
+                feetableempty: 'Ücret tablosu girilmemiş.',
+                studentfeeempty: 'Öğrenci ücretleri girilmemiş.',
+                aboutRefundMsg: 'Notlarınız Kaydedildi.',
+                deleted: "Tahsil Kaydı Silindi.",
+                delete: "Tahsil Kaydı Silinecek, Emin misiniz?",
+                startBatch: "Toplu Fatura Basımı Yapılacak, Emin misiniz?",
+                maxTotal: "Dikkat; Bakiye Tutarından Büyük Bir Tutar Giremezsiniz.",
+                cut: "Kesildi",
+                unCut: "Kesilmedi",
+                planned: "Planlı",
+                unPlanned: "Plansız",
+                isExceed: "Girilen Tutar Çok Büyük.",
+                titleMsg: 'Kullanıcı Mesajı:',
+                msgOk: 'Tamam'
+            },
+
+            'en-US': {
+                select: 'Select',
+                selectbankName: 'Select the bank name.',
+                enterValidAmount: 'Enter Valid Amount.',
+                selectclassroom: "Enter Student's Class.",
+                feetableempty: 'The wage table has not been entered.',
+                studentfeeempty: 'Enter student fees.',
+                aboutRefundMsg: 'Your notes have been recorded.',
+                deleted: "Student collections record deleted.",
+                delete: "Are you sure, Collection record will be deleted?",
+                startBatch: "Batch Invoice Printing Will Be Made, Are You Sure?",
+                maxTotal: "Attention; You cannot enter an amount greater than the balance amount.",
+                cut: "Cut",
+                unCut: "Uncut",
+                planned: "Planned",
+                unPlanned: "Unplanned",
+                isExceed: "The amount entered is too large.",
+                titleMsg: 'User message:',
+                msgOk: 'OK'
+            },
+        }
+        function getByCulture(culture, word) {
+            return dictionary[culture][word]
+        }
+    </script>
+    <!--#endregion -->
+    <!--#region students -->
+    <script>
+        var isFirst = true;
+        function onChange(arg) {
+            var grid = $("#gridStudents").data("kendoGrid");
+            var selectedItem = grid.dataItem(grid.select());
+            var filename = document.getElementById('imgpreviewStudent').value;
+            filename = selectedItem.studentPicture;
+            var ID = selectedItem.studentID
+            if (ID == 0) var ID = $("#studentID").val();
+
+            document.getElementById("studentID").value = ID;
+            document.getElementById("imgpreviewStudent").src = '@Url.Content("~/Upload/Students/")' + filename;
+            document.getElementById("name").value = selectedItem.name;
+
+            document.getElementById("statuCategory").value = selectedItem.statuCategory;
+            document.getElementById("registrationTypeCategory").value = selectedItem.registrationTypeCategory;
+
+            var date = kendo.toString(kendo.parseDate(selectedItem.dateOfRegistration), "dd/MM/yyyy");
+            document.getElementById("dateOfRegistration").value = date;
+
+            document.getElementById("cutInvoiceId").value = selectedItem.cutInvoice;
+            document.getElementById("uncutInvoiceId").value = selectedItem.uncutInvoice;
+
+            $("#batchStart").data("kendoButton").enable(false);
+            //document.getElementById("taxNoNotEntered").style.display = "none";
+
+            var isSuccess2 = true;
+            if (isFirst) {
+                classroomID = document.getElementById("classroomDropDown").value;
+                $.ajax({
+                    type: "POST",
+                    url: "/M400Invoice/GridStudentDataReadBatch/" + "@Model.UserID" + "/" + classroomID,
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    success: function (result) {
+                        var grid = $("#gridStudents").data("kendoGrid");
+                        var dataSource = new kendo.data.DataSource({ data: result });
+                        grid.setDataSource(dataSource);
+                        for (var i = 0; i < result.length; i++) {
+                            if (result[i].isSuccess2 == false) {
+                                isSuccess2 = false;
+                            }
+                        }
+                        if (isSuccess2)
+                            document.getElementById('batchStartID').value = "1";
+                        else {
+                            showStaticNotification();
+                            document.getElementById('batchStartID').value = "0";
+                        }
+                    },
+                });
+                isFirst = false;
+            }
+
+            $.ajax({
+                type: "POST",
+                url: "/M400Collections/SchoolDebtDataRead2/" + "@Model.UserID" + "/" + "@Model.Period" + "/" + ID,
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                success: function (result) {
+                    var grid = $("#gridFees").data("kendoGrid");
+                    var dataSource = new kendo.data.DataSource({ data: result });
+                    grid.setDataSource(dataSource);
+                },
+            });
+            $.ajax({
+                type: "POST",
+                url: '/M400Invoice/InstallmentDataRead/' + "@Model.UserID" + "/" + ID,
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                success: function (result) {
+                    var grid = $("#gridInstallments").data("kendoGrid");
+                    var dataSource = new kendo.data.DataSource({ data: result });
+                    grid.setDataSource(dataSource);
+                    /*  grid.dataSource.read();*/
+                },
+            });
+
+            var grid = $("#gridInvoice").data("kendoGrid");
+            grid.dataSource.options.transport.read.url = "/M400Invoice/InvoiceBatchDataRead/" + "@Model.UserID" + "/" + ID;
+            grid.dataSource.read();
+            grid.refresh();
+
+        };
+
+        var isSelect = false;
+        $(document).ready(function () {
+            var crudServiceBaseUrl = "/M400Invoice/",
+                dataSource = new kendo.data.DataSource({
+                    transport: {
+                        read: {
+                            url: crudServiceBaseUrl + "GridStudentDataReadBatch/" + "@Model.UserID" + "/" + 0,
+                            dataType: "json"
+                        },
+                        parameterMap: function (options, operation) {
+                            if (operation !== "read" && options.models) {
+                                return { models: kendo.stringify(options.models) };
+                            }
+                        }
+                    },
+                    batch: true,
+                    schema: {
+                        model: {
+                            id: "viewModelId",
+                            fields: {
+                                viewModelId: { editable: false, type: "number" },
+                                firstName: { editable: false, type: "string" },
+                                lastName: { editable: false, type: "string" },
+                                statuCategory: { editable: false, type: "string" },
+                                registrationTypeCategory: { editable: false, type: "string" },
+                                dateOfRegistration: { editable: false, type: "date", format: "{0:yyyy-MM-dd HH:mm:ss}" },
+                                cutInvoice: { editable: false, type: "number", format: "{0:#,##}" },
+                                uncutInvoice: { editable: false, type: "number", format: "{0:#,##}" },
+                                studentPicture: { editable: false, type: "string" },
+                            }
+                        }
+                    },
+                });
+
+            var first = 1;
+            var grid = $("#gridStudents").kendoGrid({
+                dataSource: dataSource,
+                // autoBind: false,
+                sortable: {
+                    mode: "single",
+                    allowUnsort: false
+                },
+                resizable: true,
+                selectable: 'row',
+                change: onChange,
+                toolbar: [
+                    { template: kendo.template($("#template").html()) }
+                ],
+                columns: [
+                    {
+                        template:
+                            "<div class='customer-photo'" +
+                            "style='background-image: url(../Upload/Students//#:studentPicture#); width: 28px'></div>",
+                    },
+                    { field: "name", title: "@ESCHOOL.Resources.Resource.StudentName", footerTemplate: "#= sumStudent(1) #", width: "180px", },
+                    { field: "studentClassroom", title: "@ESCHOOL.Resources.Resource.Classrooms", width: "135px" },
+                    { field: "studentNumber", title: "@ESCHOOL.Resources.Resource.StudentNumber", width: "65px" },
+                    { field: "statuCategory" },
+
+                    { field: "registrationTypeCategory" },
+                    { field: "cutInvoice", format: "{0:#,##}" },
+                    { field: "uncutInvoice", format: "{0:#,##}" },
+                    { field: "studentPicture" },
+                ],
+                dataBinding: function () {
+                    record = (this.dataSource.page() - 1) * this.dataSource.pageSize();
+                },
+                dataBound: function (e) {
+                    if (isSelect == false) {
+                        var selectID = ('@TempData["studentID"]');
+                        if (selectID == 0) {
+                            grid.select("tr:eq(0)");
+                        }
+                        else {
+                            //Select scroll
+                            gridSelectById(selectID), isSelect = true
+
+                            //Select scroll
+                            var scrollContentOffset = this.element.find("tbody").offset().top;
+                            var selectContentOffset = this.select().offset().top;
+                            var distance = selectContentOffset - scrollContentOffset;
+
+                            //animate our scroll
+                            this.element.find(".k-grid-content").animate({
+                                scrollTop: distance
+                            }, 400);
+                        };
+                    }
+                    showLoadingOff(); waitProgressOff();
+                },
+            });
+
+            var dropDown = grid.find("#classroomDropDown").kendoDropDownList({
+                optionLabel: { classroomName: getByCulture('@culture', 'select'), classroomID: "0" },
+                dataTextField: "classroomName",
+                dataValueField: "classroomID",
+                dataSource: {
+                    type: "json",
+                    severFiltering: true,
+                    transport: {
+                        read: {
+                            url: "/M400Invoice/ClassroomCombo/" + "@Model.UserID",
+                            dataType: "json"
+                        },
+                    }
+                },
+                change: function (e) {
+                    showLoadingOn();
+                    document.getElementById('batchStartID').value = "0";
+
+                    var value = this.value();
+                    if (value == 0 || value != first) {
+                        $.ajax({
+                            type: "POST",
+                            url: '/M400Invoice/GridStudentDataReadBatch/' + "@Model.UserID" + '/' + value,
+                            dataType: "json",
+
+                            success: function (result) {
+                                for (var i = 0; i < result.length; i++) {
+                                    if (result[i].isSuccess2 == true) {
+                                        document.getElementById('batchStartID').value = "1";
+                                    }
+                                    else {
+                                        document.getElementById('batchStartID').value = "0";
+                                    }
+                                };
+
+                                var grid = $("#gridStudents").data("kendoGrid");
+                                var dataSource = new kendo.data.DataSource({ data: result });
+                                grid.setDataSource(dataSource);
+
+                                var grid = $("#gridFees").data("kendoGrid");
+                                var dataSource = new kendo.data.DataSource({ data: result });
+                                grid.setDataSource(dataSource);
+
+                                var grid = $("#gridInstallments").data("kendoGrid");
+                                var dataSource = new kendo.data.DataSource({ data: result });
+                                grid.setDataSource(dataSource);
+                            },
+
+                        });
+                        first = 0;
+                    };
+                },
+            }).data("kendoDropDownList");
+            var grid = $("#gridStudents").data("kendoGrid");
+            grid.hideColumn(4);
+            grid.hideColumn(5);
+            grid.hideColumn(6);
+            grid.hideColumn(7);
+            grid.hideColumn(8);
+        })
+        function sumStudent(e) {
+            var total = 0;
+            var $grid = $('#gridStudents');
+            var kendo = $grid.data().kendoGrid;
+            var data = kendo.dataSource.data();
+            var amount = 0;
+            for (var i = 0; i < data.length; i++) {
+                if (e == 1) amount += 1;
+                if (amount == NaN) {
+                    amount = 0;
+                }
+            }
+            total = amount;
+            return total;
+        }
+
+        function gridSelectById(id) {
+            var grid = $("#gridStudents").data().kendoGrid;
+            var data = grid.dataSource.data();
+            for (var i = 0; i < data.length; i++) {
+                if (data[i].studentID == id) {
+                    var select = grid.tbody.find('tr[data-uid="' + data[i].uid + '"]');
+                    grid.select(select);
+                }
+            }
+            var selectedRow = grid.select();
+            var selectedDataItem = grid.dataItem(selectedRow);
+        }
+    </script>
+
+    <script>
+        function showLoadingOn() {
+            var myGrid = $("#gridStudents").getKendoGrid();
+            kendo.ui.progress($("#gridStudents"), true);
+        }
+        function showLoadingOff() {
+            var myGrid = $("#gridStudents").getKendoGrid();
+            kendo.ui.progress($("#gridStudents"), false);
+        }
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            var crudServiceBaseUrl = "/M400Invoice/",
+                dataSource = new kendo.data.DataSource({
+                    transport: {
+                        read: {
+                            url: crudServiceBaseUrl + "StudentDebtDataRead/" + "@Model.UserID" + "/" + "@Model.StudentID",
+                            dataType: "json",
+                        },
+                        parameterMap: function (options, operation) {
+                            if (operation !== "read" && options.models) {
+                                return { models: kendo.stringify(options.models) };
+                            }
+                        }
+                    },
+
+                    batch: true,
+                    schema: {
+                        model: {
+                            id: "studentDebtID",
+                            fields: {
+                                viewModelId: { editable: false, type: "number" },
+                                studentID: { editable: false, type: "number" },
+                                schoolFeeID: { editable: false, type: "number" },
+                                period: { editable: false, type: "string" },
+                                feeName: { editable: false, type: "string" },
+                                selectFee: { type: "boolean" },
+                                selectDiscount: { type: "boolean" },
+                                unitPrice: { editable: true, type: "number" },
+                                discount: { editable: false, type: "number" },
+                                amount: { editable: false, type: "number" },
+                                isList: { editable: true, type: "boolean" }
+                            }
+                        }
+                    },
+                });
+
+            $("#gridFees").kendoGrid({
+                dataSource: dataSource,
+                pageable: false,
+                resizable: true,
+                selectable: 'row',
+                columns: [
+                    { field: "feeName", title: "@ESCHOOL.Resources.Resource.FeeName", footerTemplate: "#= sumAmounts(1) #", width: "125px", },
+                    { field: "unitPrice", title: "@ESCHOOL.Resources.Resource.Amount", template: "#if(unitPrice === 0){#  #}else{# #=kendo.toString(unitPrice, 'n')# #}#", footerTemplate: "<div style='text-align: right'>#: kendo.toString(sumAmounts(2),'n') # </div>", attributes: { style: "text-align:right" }, width: "80px" },
+                    { field: "discount", title: "@ESCHOOL.Resources.Resource.Discount", template: "#if(discount === 0){#  #}else{# #=kendo.toString(discount, 'n')# #}#", footerTemplate: "<div style='text-align: right'>#: kendo.toString(sumAmounts(3),'n') # </div>", attributes: { style: "text-align:right" }, width: "70px" },
+                    { field: "amount", title: "@ESCHOOL.Resources.Resource.RegistrationFee", template: "#if(unitPrice === 0){#  #}else{# #=kendo.toString(amount = unitPrice - discount, 'n')# #}#", footerTemplate: "<div style='text-align: right'>#: kendo.toString(sumAmounts(4),'n') # </div>", attributes: { style: "text-align:right" }, width: "80px" },
+                    { field: "isList", width: "40px", title: "@ESCHOOL.Resources.Resource.List", template: "<input  #if (isList) { # checked='checked' # } # type='checkbox' disabled />", attributes: { style: "text-align:center" } },
+                ],
+            });
+        });
+
+        function sumAmounts(e) {
+            var total = 0;
+            var $grid = $('#gridFees');
+            var kendo = $grid.data().kendoGrid;
+            var data = kendo.dataSource.data();
+            var amount = 0;
+            for (var i = 0; i < data.length; i++) {
+                if (e == 1) amount += 1;
+                if (e == 2) amount += parseFloat(data[i].unitPrice);
+                if (e == 3) amount += parseFloat(data[i].discount);
+                if (e == 4) amount += parseFloat(data[i].amount);
+                if (amount == NaN) {
+                    amount = 0;
+                }
+            }
+            total = amount;
+            return total;
+        }
+
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            var crudServiceBaseUrl = "/M400Invoice/",
+                dataSource = new kendo.data.DataSource({
+                    transport: {
+                        read: {
+                            url: crudServiceBaseUrl + "InstallmentDataRead/" + "@Model.UserID" + "/" + "@Model.StudentID",
+                            dataType: "json",
+                        },
+                        parameterMap: function (options, operation) {
+                            if (operation !== "read" && options.models) {
+                                return { models: kendo.stringify(options.models) };
+                            }
+                        }
+                    },
+
+                    batch: true,
+                    schema: {
+                        model: {
+                            id: "studentInstallmentID",
+                            fields: {
+                                studentInstallmentID: { editable: false, type: "number" },
+                                schoolID: { editable: false, type: "number" },
+                                studentID: { editable: false, type: "number" },
+                                installmentDate: { editable: false, type: "date" },
+                                installmentNo: { editable: false, type: "number" },
+                                category: { editable: false, type: "string" },
+                                installmentAmount: { editable: false, type: "number", format: "{0:#,##}" },
+                                previousPayment: { editable: false, type: "number" },
+                                status: { editable: false, type: "string" },
+                                bank: { editable: false, type: "string" },
+                                explanation: { editable: false, type: "string" },
+                                accountReceiptNo: { editable: false, type: "string" },
+                                paymentDate: { editable: false, type: "date" },
+                            }
+                        }
+                    },
+                });
+            var grid = $("#gridInstallments").kendoGrid({
+                dataSource: dataSource,
+                navigatable: true,
+                pageable: false,
+                resizable: true,
+                selectable: 'row',
+                columns: [
+                    { field: "installmentDate", title: "@ESCHOOL.Resources.Resource.Date", width: "80px", format: "{0:dd.MM.yyyy}", template: '#= kendo.toString(kendo.parseDate(installmentDate), "dd/MM/yyyy")#' },
+                    { field: "installmentNo", title: "@ESCHOOL.Resources.Resource.Number", width: "55px", template: "#=installmentNo#" },
+                    { field: "category", title: "@ESCHOOL.Resources.Resource.Type", width: "65px", template: "#=category#" },
+                    { field: "installmentAmount", title: "@ESCHOOL.Resources.Resource.Amount", width: "85px", template: "#if(installmentAmount === 0){#  #}else{# #=kendo.toString(installmentAmount, 'n')# #}#", attributes: { style: "text-align:right" } },
+                    { field: "balance", title: "@ESCHOOL.Resources.Resource.BalanceAmount", width: "85px", template: "#if(balance === 0){#  #}else{# #=balance#  #}#" },
+                    { field: "status", title: "@ESCHOOL.Resources.Resource.Status", width: "55px", template: "#=status#" },
+                ],
+
+                dataBound: function (e) {
+                    var rows = e.sender.tbody.children();
+                    var refund = 0;
+                    var total = 0;
+                    for (var j = 0; j < rows.length; j++) {
+                        var row = $(rows[j]);
+                        var dataItem = e.sender.dataItem(row);
+
+                        var amount = dataItem.get("installmentAmount");
+                        var payment = dataItem.get("previousPayment");
+                        total += amount;
+                        var cell = row.children();
+                        if ('@TempData["color"]' == "#222")
+                            cell.addClass(getColorClass2(amount, payment));
+                        else
+                            cell.addClass(getColorClass(amount, payment));
+                    }
+                },
+
+            });
+        });
+
+        function getColorClass(amount, payment) {
+            if (amount == payment) {
+                return "critical";
+            }
+            else if (payment > 0) {
+                return "ok";
+            }
+        }
+
+        function getColorClass2(amount, payment) {
+            if (amount == payment) {
+                return "critical2";
+            }
+            else if (payment > 0) {
+                return "ok2";
+            }
+        }
+
+        function getColorClassInv(sw) {
+            if (sw) {
+                return "critical";
+            }
+        }
+
+        function getColorClassInv2(sw) {
+            if (sw) {
+                return "critical2";
+            }
+        }
+    </script>
+
+    <script>
+        function onChangeInvoice(arg) {
+            var grid = $("#gridInvoice").data("kendoGrid");
+            var selectedItem = grid.dataItem(grid.select());
+            var dateString = kendo.toString(selectedItem.invoiceDate, "dd-MM-yyyy");
+            document.getElementById("batchinvoicedate").value = dateString;
+            var chk = document.getElementById('batchStartID').value;
+            if (chk == 1)
+                if (selectedItem.invoiceStatus)
+                    $("#batchStart").data("kendoButton").enable(false);
+                else $("#batchStart").data("kendoButton").enable(true);
+
+        };
+        var studentID = $("#studentID").val();
+        var record = 0;
+        $(document).ready(function () {
+            var crudServiceBaseUrl = "/M400Invoice/",
+                dataSource = new kendo.data.DataSource({
+                    transport: {
+                        read: {
+                            url: "/M400Invoice/InvoiceBatchDataRead/" + "@Model.UserID" + "/" + studentID,
+                            dataType: "json",
+                        },
+                        update: {
+                            url: function (options) {
+                                var url = crudServiceBaseUrl + "InvoiceDataUpdate/" + options.models[0].id;
+                                return url;
+                            },
+                            type: "post",
+                            dataType: "json",
+                            complete: function (e) {
+                                $("#gridInvoice").data("kendoGrid").dataSource.read();
+                            },
+                        },
+                        destroy: {
+                            url: function (options) {
+                                var url = crudServiceBaseUrl + "InvoiceDataDelete/" + options.models[0].id;
+                                return url;
+                            },
+                            type: "post",
+                            dataType: "json"
+                        },
+                        create: {
+                            url: function (options) {
+                                var url = crudServiceBaseUrl + "InvoiceDataCreate/" + options.models[0].id;
+                                return url;
+                            },
+                            type: "post",
+                            dataType: "json",
+                        },
+
+                        parameterMap: function (options, operation) {
+                            if (operation !== "read" && options.models) {
+                                return { models: kendo.stringify(options.models) };
+                            }
+                        }
+                    },
+                    error: function (e) {
+                        alert(e.errorThrown);
+                    },
+                    pageSize: 20,
+                    autoSync: false,
+                    batch: true,
+                    schema: {
+                        model: {
+                            id: "studentInvoiceID",
+                            fields: {
+                                studentInvoiceID: { editable: false, type: "number" },
+                                schoolID: { editable: true, type: "number" },
+                                studentID: { editable: true, type: "number" },
+                                studentInvoiceAddressID: { editable: true, type: "number" },
+                                period: { editable: true, type: "string" },
+                                invoiceSerialNo: { editable: false, type: "number" },
+
+                                invoiceDate: { type: "date", format: "{0:yyyy-MM-dd HH:mm:ss}" },
+                                invoiceCutDate: { type: "date", format: "{0:yyyy-MM-dd HH:mm:ss}" },
+                                explanation: { editable: true, type: "string" },
+                                amount: { type: "number" },
+                                discount: { type: "number", format: "{0:#,##}" },
+                                taxPercent: { type: "number", format: "{0:#,##}" },
+                                tax: { type: "number", format: "{0:#,##}" },
+                                totalAmount: { type: "number", format: "{0:#,##}" },
+
+                                grandTotal: { type: "number", format: "{0:#,##}" },
+                                withholdingPercent1: { editable: true, type: "number" },
+                                withholdingPercent2: { editable: true, type: "number" },
+                                withholdingCode: { editable: true, type: "string" },
+                                withholdingExplanation: { editable: true, type: "string" },
+                                withholdingTax: { type: "number", format: "{0:#,##}" },
+                                withholdingTotal: { type: "number", format: "{0:#,##}" },
+
+                                isPlanned: { editable: true, type: "boolean", defaultValue: false },
+                                invoiceType: { editable: false, type: "boolean", defaultValue: false },
+                                invoiceStatus: { editable: false, type: "boolean", defaultValue: false },
+                                isActive: { editable: true, type: "boolean", defaultValue: true },
+                                isSuccess: { editable: true, type: "boolean", defaultValue: true },
+                            }
+                        }
+                    },
+                    error: function (e) {
+                        alert("Search.js datasource error: " +
+                            "\nthrew: " + e.errorThrown +
+                            "\nstatus: " + e.status +
+                            "\nurl: " + e.sender.transport.options.read.url);
+                    }
+                });
+            var first = 1;
+            var grid = $("#gridInvoice").kendoGrid({
+                dataSource: dataSource,
+                autoBind: false,
+                navigatable: true,
+                pageable: false,
+                scrollable: true,
+                resizable: true,
+                height: 310,
+                selectable: 'row',
+                change: onChangeInvoice,
+                columns: [
+                    { title: "#", template: "#= ++record #", width: 50, locked: true, footerTemplate: "#= sumInvoice(1) #" },
+                    { field: "invoiceDate", title: "@ESCHOOL.Resources.Resource.Date", width: "100px", format: "{0:dd.MM.yyyy}", template: '#= kendo.toString(kendo.parseDate(invoiceDate), "dd/MM/yyyy")#' },
+                    { field: "invoiceCutDate", title: "@ESCHOOL.Resources.Resource.InvoiceCutDate", width: "100px", format: "{0:dd.MM.yyyy}", template: "#if(invoiceCutDate === null){#  #}else{# #=kendo.toString(kendo.parseDate(invoiceCutDate), 'dd/MM/yyyy')#  #}#" },
+                    { field: "dUnitPrice", title: "@ESCHOOL.Resources.Resource.Amount", footerTemplate: "<div style='text-align: right'>#: kendo.toString(sumInvoice(2),'n') # </div>", width: "110px", template: "#if(dUnitPrice === 0){#  #}else{# #=kendo.toString(dUnitPrice, 'n')# #}#", attributes: { style: "text-align:right" } },
+                    { field: "dDiscount", title: "@ESCHOOL.Resources.Resource.Discount", footerTemplate: "<div style='text-align: right'>#: kendo.toString(sumInvoice(3),'n') # </div>", width: "110px", template: "#if(dDiscount === 0){#  #}else{# #=kendo.toString(dDiscount, 'n')# #}#", attributes: { style: "text-align:right" } },
+                    { field: "dTax", title: "@ESCHOOL.Resources.Resource.Tax", footerTemplate: "<div style='text-align: right'>#: kendo.toString(sumInvoice(4),'n') # </div>", width: "110px", template: "#if(dTax === 0){#  #}else{# #=kendo.toString(dTax, 'n')# #}#", attributes: { style: "text-align:right" } },
+                    { field: "dAmount", title: "@ESCHOOL.Resources.Resource.Total", footerTemplate: "<div style='text-align: right'>#: kendo.toString(sumInvoice(5),'n') # </div>", width: "120px", template: "#if(dAmount === 0){#  #}else{# #=kendo.toString(dAmount, 'n')# #}#", attributes: { style: "text-align:right" } },
+                    { field: "invoiceSerialNo", title: "@ESCHOOL.Resources.Resource.InvoiceSerialNo", width: "110px", template: "#if(invoiceSerialNo === 0){#  #}else{# #=invoiceSerialNo#  #}#" },
+                    { field: "isPlanned", width: "100px", title: "@ESCHOOL.Resources.Resource.Plan1", template: "\#= isPlanned ? getByCulture('@culture', 'planned') : getByCulture('@culture', 'unPlanned') \#" },
+                    { field: "invoiceStatus", width: "110px", title: "@ESCHOOL.Resources.Resource.Status", template: "\#= invoiceStatus ? getByCulture('@culture', 'cut') : getByCulture('@culture', 'unCut') \#" },
+                    { field: "isActive", width: "60px", title: "@ESCHOOL.Resources.Resource.Active", template: "<input  #if (isActive) { # checked='checked' # } # type='checkbox' disabled />", attributes: { style: "text-align:center" } },
+                ],
+
+                dataBound: function (e) {
+                    var rows = e.sender.tbody.children();
+                    for (var j = 0; j < rows.length; j++) {
+                        var row = $(rows[j]);
+                        var dataItem = e.sender.dataItem(row);
+
+                        var sw = dataItem.get("invoiceStatus");;
+                        var cell = row.children();
+                        if ('@TempData["color"]' == "#222")
+                            cell.addClass(getColorClassInv2(sw));
+                        else
+                            cell.addClass(getColorClassInv(sw));
+                    }
+                },
+
+                dataBinding: function () {
+                    record = (this.dataSource.page() - 1) * this.dataSource.pageSize();
+                },
+
+            });
+
+        });
+
+        function sumInvoice(e) {
+            var total = 0;
+            var totalr = 0;
+            var $grid = $('#gridInvoice');
+            var kendo = $grid.data().kendoGrid;
+            var data = kendo.dataSource.data();
+            var amount = 0;
+            for (var i = 0; i < data.length; i++) {
+                if (e == 1) amount += 1;
+                if (e == 2) amount += parseFloat(data[i].dUnitPrice);
+                if (e == 3) amount += parseFloat(data[i].dDiscount);
+                if (e == 4) amount += parseFloat(data[i].dTax);
+                if (e == 5) amount += parseFloat(data[i].dAmount);
+                if (amount == NaN) {
+                    amount = 0;
+                }
+            }
+            totalr = amount;
+            if (e == 1) total = totalr
+            else total = totalr.toFixed(2);
+            return total;
+        }
+    </script>
+
+    <script>
+        var ID, btn, odd = 0, even = 0, result, i, j, z, tcTotal = 0;
+        function myFunction(e) {
+            btn = e.id;
+            if (btn == "btn1") { IDT = "#id1", ID1 = "id1" }
+            else
+                if (btn == "btn2") { IDT = "#id2", ID1 = "id2" }
+                else
+                    if (btn == "btn3") { IDT = "#id3", ID1 = "id3" }
+                    else
+                        if (btn == "btn4") { IDT = "#id4", ID1 = "id4" }
+                        else { IDT = "#id5", ID1 = "id5" }
+
+            ID = document.querySelector(IDT);
+
+            odd = 0, even = 0, tcTotal = 0
+            for (i = 0; i < 9; i += 2) {
+                odd += Number(ID.value[i]);
+            }
+            odd *= 7;
+            for (j = 1; j < 8; j += 2) {
+                even += Number(ID.value[j]);
+            }
+            result = Math.abs(odd - even);
+            for (z = 0; z < 10; z++) {
+                tcTotal += Number(ID.value[z]);
+            }
+            if (ID.value.length !== 11) {
+                idFalse()
+            }
+            else
+                if (result % 10 != Number(ID.value[9])) {
+                    idFalse()
+                } else if (tcTotal % 10 != Number(ID.value[10])) {
+                    idFalse()
+                } else {
+                    idTrue()
+                }
+        };
+
+        function idFalse() {
+            document.getElementById(ID1).style.color = "white";
+            document.getElementById(ID1).style.backgroundColor = "red";
+        };
+        function idTrue() {
+            document.getElementById(ID1).style.color = "white";
+            document.getElementById(ID1).style.backgroundColor = "green";
+        };
+
+        function IdChange(e) {
+            document.getElementById(e.id).innerHTML = '<i class = "fa fa-spinner fa-spin"></i>@ESCHOOL.Resources.Resource.IdControl';
+        };
+        function IdChangeOld(e) {
+            document.getElementById(e.id).innerHTML = '<i class = "fa fa-bell"></i>@ESCHOOL.Resources.Resource.IdNumber';
+        };
+
+        function IdReset(e) {
+            btn = e.id;
+            if (btn == "btn1") ID1 = "id1"
+            else if (btn == "btn2") ID1 = "id2"
+            else if (btn == "btn3") ID1 = "id3"
+            else if (btn == "btn4") ID1 = "id4"
+            else if (btn == "btn5") ID1 = "id5"
+            document.getElementById(ID1).style.color = "black";
+            document.getElementById(ID1).style.backgroundColor = "white";
+        };
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            $('body').kendoTooltip({
+                filter: '[title]:not([title=""])',
+                autoHide: true,
+                position: "top",
+                animation: {
+                    open: {
+                        effects: "zoom",
+                        duration: 150
+                    }
+                }
+            });
+        });
+    </script>
+    <!--#endregion -->
+
+    <script>
+        $("#batchinvoicedate").kendoDatePicker({
+            format: "dd/MM/yyyy"
+        });
+        var datepicker = $("#batchinvoicedate").data("kendoDatePicker");
+        datepicker.value(new Date());
+
+    </script>
+
+</body>
+</html>
+
+<!--#region upload -->
+<>
+    var previewingStudent = function (event) {
+        var result = document.getElementById("imgpreviewStudent")
+        result.src = URL.createObjectURL(event.tDiscountrget.files[0]);
+    };
+
+<script>
+    $(document).ready(function () {
+        $('#M400Invoice').submit(function () {
+            $('#M400Invoice').find("[required=\"required\"]").attr("required", false);
+            $(".needValidation").attr("required", true);
+        });
+
+        var validator = $("#M400Invoice").kendoValidator().data("kendoValidator"),
+            status = $(".status");
+    });
+</script>
+<!--#endregion -->
+<!--#region style -->
+<style type="text/css">
+    .customer-photo {
+        display: inline-block;
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        background-size: 28px 31px;
+        background-position: center center;
+        vertical-align: middle;
+        line-height: 28px;
+        box-shadow: inset 0 0 1px #999, inset 0 0 10px rgba(0,0,0,.2);
+        margin-left: 0px;
+    }
+
+    .toolbar {
+        float: right;
+    }
+
+    #center {
+        /*        display: block;*/
+        margin-left: 22px;
+        /*        margin-right: auto;*/
+        /*        border: 8px ridge blue;*/
+    }
+</style>
+<!--#endregion -->
+<!--#region Add/Update -->
+
+<script>
+    $("#batchStart").on("click", function () {
+        msg = getByCulture('@culture', 'startBatch');
+        kendo.confirm(msg)
+            .then(function () {
+                $('body').addClass('waiting');
+                $('html,body').css('cursor', 'wait');
+                $('cancel').addClass('disabled');
+                okBatchStart();
+                $('body').removeClass('waiting');
+                $('html,body').css('cursor', 'default');
+            }, function () {
+                //kendo.alert("You chose to Cancel action.");
+            });
+    });
+
+    function okBatchStart() {
+        showPopupNotification();
+        InvoiceBatchStart();
+    }
+
+    function InvoiceBatchStart() {
+        //var maxPrint = document.getElementById("maxPrint").value;
+        var classroomID = document.getElementById("classroomDropDown").value;
+        var invoiceDate = document.getElementById("batchinvoicedate").value;
+        var dateString = kendo.toString(invoiceDate, "yyyy-MM-dd");
+        var studentID = $("#studentID").val();
+        var url = "/M400Invoice/InvoiceBatchConfirm?userID=" + @Model.UserID + "&classroomID=" + classroomID + "&studentID=" + studentID + "&dateString=" + dateString;
+        window.location.replace(url);
+    }
+</script>
+
+
+<script>
+    record = 0;
+    $(document).ready(function () {
+        var crudServiceBaseUrl = "/M400Invoice/",
+            dataSource = new kendo.data.DataSource({
+                transport: {
+                    read: {
+                        url: crudServiceBaseUrl + "GridResultDataRead/" + "@Model.UserID",
+                        dataType: "json"
+                    },
+                    parameterMap: function (options, operation) {
+                        if (operation !== "read" && options.models) {
+                            return { models: kendo.stringify(options.models) };
+                        }
+                    }
+                },
+                batch: true,
+                pageSize: 10,
+                schema: {
+                    model: {
+                        id: "ID",
+                        fields: {
+                            ID: { editable: false, type: "number" },
+                            name: { editable: true, type: "string" },
+                            taxOffice: { editable: false, type: "string" },
+                            taxNumber: { editable: false, type: "string" },
+                            invoiceType: { editable: false, type: "string" },
+                            invoiceNumber: { editable: false, type: "string" },
+                            result: { editable: false, type: "string" },
+                            explanation: { editable: false, type: "string" },
+                        }
+                    }
+                },
+            });
+        var grid = $("#gridResults").kendoGrid({
+            dataSource: dataSource,
+            autoBind: false,
+            pageable: true,
+            resizable: true,
+            selectable: 'row',
+            height: 200,
+            columns: [
+                { title: "#", template: "#= ++record #", width: 40 },
+                { field: "name", title: "@ESCHOOL.Resources.Resource.Name", width: "200px", },
+                { field: "taxOffice", title: "@ESCHOOL.Resources.Resource.TaxOffice", width: "160px", },
+                { field: "taxNumber", title: "@ESCHOOL.Resources.Resource.TaxNumber", width: "130px", },
+                { field: "invoiceType", title: "@ESCHOOL.Resources.Resource.InvoiceType", width: "130px", },
+                { field: "invoiceNumber", title: "@ESCHOOL.Resources.Resource.InvoiceSerialNo", width: "150px", },
+                { field: "result", title: "@ESCHOOL.Resources.Resource.TransactionResult", width: "110px", },
+                { field: "explanation", title: "@ESCHOOL.Resources.Resource.Explanation", width: "200px", },
+            ],
+            dataBinding: function () {
+                record = (this.dataSource.page() - 1) * this.dataSource.pageSize();
+            },
+        });
+    })
+</script>
+
+<script>
+    function waitProgress() {
+        $('#loader-pulsing').kendoLoader({ type: 'pulsing' });
+        $('#loader-infinite-spinner').kendoLoader({ type: 'infinite-spinner' });
+        $('#loader-converging-spinner').kendoLoader({ type: 'converging-spinner' });
+    }
+    function waitProgressOff() {
+        var loader1 = $('#loader-pulsing').kendoLoader({ type: 'pulsing' });
+        var loader2 = $('#loader-infinite-spinner').kendoLoader({ type: 'infinite-spinner' });
+        var loader3 = $('#loader-converging-spinner').kendoLoader({ type: 'converging-spinner' });
+        setTimeout(function () {
+            loader1.hide();
+        }, 3000)
+        setTimeout(function () {
+            loader2.hide();
+        }, 4000)
+        setTimeout(function () {
+            loader3.hide();
+        }, 5000)
+    }
+</script>
+<div class="vertical-center">
+    <span id="loader-pulsing"></span>
+    <span id="loader-infinite-spinner"></span>
+    <span id="loader-converging-spinner"></span>
+</div>
+<style>
+    .vertical-center {
+        margin: 0;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        -ms-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+    }
+</style>
+
+<script>
+    $("#wrap img").hover(function () {
+        kendo.fx(this).zoom("in").startValue(1).endValue(1.3).play();
+    }, function () {
+        kendo.fx(this).zoom("out").endValue(1).startValue(1.3).play();
+    });
+
+    $("#divheader").show(1000);
+</script>
+<script>
+    window.history.replaceState('', '', window.location.pathname);
+</script>

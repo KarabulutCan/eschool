@@ -1,0 +1,365 @@
+﻿@model ESCHOOL.ViewModels.ListPanelModel
+@{
+    System.Globalization.CultureInfo.CurrentCulture = System.Globalization.CultureInfo.CreateSpecificCulture(@Model.SelectedCulture);
+    System.Globalization.CultureInfo.CurrentUICulture = System.Globalization.CultureInfo.CreateSpecificCulture(@Model.SelectedCulture);
+    var culture = System.Globalization.CultureInfo.CurrentCulture.ToString();
+}
+<html>
+<head>
+    <style>
+        html {
+            font-size: 13px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+    </style>
+    <title></title>
+    <link href="https://kendo.cdn.telerik.com/2021.2.616/styles/kendo.common.min.css" rel="stylesheet" />
+    <link rel="stylesheet" id="skin-css" href="@TempData["theme"]" />
+    <link rel="stylesheet" id="skin-css" href="@TempData["themeMobile"]" />
+    <script src="https://kendo.cdn.telerik.com/2021.2.616/js/jquery.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2021.2.616/js/kendo.all.min.js"></script>
+
+    <script src="@Url.Content("~/telerik/2021.2.616/js//cultures/kendo.culture." + culture + ".min.js")"> </script>
+    <script src="@Url.Content("~/telerik/2021.2.616/js//messages/kendo.messages." + culture + ".min.js")"></script>
+
+    <script type="text/javascript">
+        kendo.culture("@culture");
+    </script>
+</head>
+<body onload="switchBodyColor()">
+    @if (ViewBag.IsSuccess == 2)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>@ESCHOOL.Resources.Resource.Warning</strong>@ESCHOOL.Resources.Resource.ValidationError4<br />
+            <a asp-contoller="M990NewPeriodTransfer" asp-action="NewPeriodTransfer" asp-route-userID="@Model.UserID">@ESCHOOL.Resources.Resource.ClickToContinue</a>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
+    @if (ViewBag.IsSuccess == 1)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>@ESCHOOL.Resources.Resource.Warning</strong>@ESCHOOL.Resources.Resource.ValidationError5<br />
+            <a asp-contoller="M990NewPeriodTransfer" asp-action="NewPeriodTransfer" asp-route-userID="@Model.UserID">@ESCHOOL.Resources.Resource.ClickToContinue</a>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
+    <div id="example">
+        <div class="demo-section k-content center" id="shadow">
+            <div class="center2">
+                <h3>@ESCHOOL.Resources.Resource.NewPeriodTransfer</h3>
+            </div>
+
+            <hr />
+            <form id="NewPeriod" asp-controller="M990NewPeriodTransfer" asp-action="NewPeriodTransferInfo" asp-route-id="@Model.UserID&0">
+                <input type="hidden" asp-for="UserID" />
+                <div class="row">
+                    <div class="col">
+                        <label asp-for="OldPeriod" for="oldPeriodCombo" class="control-label">@ESCHOOL.Resources.Resource.OldPeriod</label>
+                        <div class="text-section k-content">
+                            <input asp-for="OldPeriod" id="oldPeriodCombo" style="width: 100%;" onchange="buttonEnabled()" />
+                        </div>
+                    </div>
+                    <div class="col">
+                        <label asp-for="NewPeriod" for="newPeriodCombo" class="control-label">@ESCHOOL.Resources.Resource.NewPeriod</label>
+                        <div class="text-section k-content">
+                            <input asp-for="NewPeriod" id="newPeriodCombo" style="width: 100%;" onchange="buttonEnabled()"/>
+                        </div>
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="col">
+                        <label asp-for="SchoolYearStart" class="control-label"></label>
+                        <input asp-for="SchoolYearStart" class="form-control" id="schoolyearstart" style="width: 100%;" />
+                    </div>
+                    <div class="col">
+                        <label asp-for="SchoolYearEnd" class="control-label"></label>
+                        <input asp-for="SchoolYearEnd" class="form-control" id="schoolyearend" style="width: 100%;" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <label asp-for="FinancialYearStart" class="control-label"></label>
+                        <input asp-for="FinancialYearStart" class="form-control" id="financialyearstart" style="width: 100%;" />
+                    </div>
+                    <div class="col">
+                        <label asp-for="FinancialYearEnd" class="control-label"></label>
+                        <input asp-for="FinancialYearEnd" class="form-control" id="financialyearend" style="width: 100%;" />
+                    </div>
+                </div>
+                <hr />
+                <div>
+                    <label class="label">@ESCHOOL.Resources.Resource.TransactionOptions</label>
+                    <div class="row">
+                        <div class="col">
+                            <input asp-for="List01Options0" id="list01Options0" class="ax-unselectable k-checkbox" type="checkbox">
+                            <label asp-for="List01Options0" for="list01Options0" class="required">@ESCHOOL.Resources.Resource.UpdateRegistrationDate</label>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <input asp-for="List01Options1" id="list01Options1" class="ax-unselectable k-checkbox" type="checkbox">
+                            <label asp-for="List01Options1" for="list01Options1" class="required">@ESCHOOL.Resources.Resource.ExplanationSection</label>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <input asp-for="List01Options2" id="list01Options2" class="ax-unselectable k-checkbox" type="checkbox">
+                            <label asp-for="List01Options2" for="list01Options2" class="required">@ESCHOOL.Resources.Resource.ResetRegistrationSerialNumbers</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <input asp-for="List01Options3" id="list01Options3" class="ax-unselectable k-checkbox" type="checkbox">
+                            <label asp-for="List01Options3" for="list01Options3" class="required">@ESCHOOL.Resources.Resource.ResetReceiptSerialNumbers</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <input asp-for="List01Options4" id="list01Options4" class="ax-unselectable k-checkbox" type="checkbox">
+                            <label asp-for="List01Options4" for="list01Options4" class="required">@ESCHOOL.Resources.Resource.ResetPaymentTypeSerial</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <input asp-for="List01Options5" id="list01Options5" class="ax-unselectable k-checkbox" type="checkbox">
+                            <label asp-for="List01Options5" for="list01Options5" class="required">@ESCHOOL.Resources.Resource.AuditTrailReset</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row k-form-hint">
+                    @ESCHOOL.Resources.Resource.Explanation0<br />
+                    (*) @ESCHOOL.Resources.Resource.Explanation2<br />
+                    (*) @ESCHOOL.Resources.Resource.Explanation3<br />
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="col col-md-3">
+                        <button type="button" id="okButton" onclick="okClick()" style="width:80px">@ESCHOOL.Resources.Resource.Okey</button>
+                    </div>
+                    <div class="col col-md-3">
+                        <button type="button" id="exitButton" onclick="okExit()" style="width:80px">@ESCHOOL.Resources.Resource.Exit</button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+
+    </div>
+
+
+    <script>
+        $(document).ready(function() {
+            $("#oldPeriodCombo").kendoDropDownList({
+                dataTextField: "categoryName",
+                dataValueField: "categoryName",
+                dataSource: {
+                    transport: {
+                        read: {
+                            dataType: "json",
+                            url: "/M990NewPeriodTransfer/PeriodDataRead/1",
+                        }
+                    }
+                },
+            });
+
+            $("#newPeriodCombo").kendoDropDownList({
+                dataTextField: "categoryName",
+                dataValueField: "categoryName",
+                dataSource: {
+                    transport: {
+                        read: {
+                            dataType: "json",
+                            url: "/M990NewPeriodTransfer/PeriodDataRead/2",
+                        }
+                    }
+                },
+            });
+        });
+    </script>
+
+    <script>
+        $("#okButton").kendoButton({
+            icon: "check",
+        });
+        $("#exitButton").kendoButton({
+            icon: "logout",
+        });
+    </script>
+
+    <style>
+        .center {
+            position: absolute;
+            left: 50%;
+            top: 45%;
+            transform: translate(-50%, -50%);
+            border: 1px solid #0a0a0a;
+            padding: 40px;
+            min-width: 420px;
+            max-width: 420px;
+        }
+
+        div.center2 {
+            text-align: center;
+        }
+
+        .k-list-horizontal {
+            margin-top: 5px;
+        }
+
+        form label {
+            font-weight: bold;
+            font-size: 12px;
+        }
+        .label {
+            font: normal 14px/16px Metric, Arial, Helvetica, sans-serif;
+            color: #828282;
+            display: inline-block;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .k-form-hint {
+            margin-top: 10px;
+        }
+
+        #shadow {
+            border: 1px solid;
+            box-shadow: 5px 10px 18px #888888;
+        }
+    </style>
+    <script>
+        $("#schoolyearstart").kendoDatePicker({
+            format: "dd/MM/yyyy"
+        });
+
+        $("#schoolyearend").kendoDatePicker({
+            format: "dd/MM/yyyy"
+        });
+
+        $("#financialyearstart").kendoDatePicker({
+            format: "dd/MM/yyyy"
+        });
+
+        $("#financialyearend").kendoDatePicker({
+            format: "dd/MM/yyyy"
+        });
+    </script>
+    <script>
+        var dictionary =
+        {
+            'tr-TR': {
+                select: 'Seç',
+                msgOk: 'Tamam'
+            },
+
+            'en-US': {
+                select: 'Select',
+                msgOk: 'OK'
+            },
+        }
+        function getByCulture(culture, word) {
+            return dictionary[culture][word]
+        }
+    </script>
+    <style>
+        .backgroundBlack {
+            background: rgba(0, 0, 0, 0.7) url('../Upload/Login/paper.jpg');
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-blend-mode: darken;
+        }
+
+        .backgroundWhite {
+            background: url('../Upload/Login/paper.jpg');
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+    </style>
+
+    <script>
+        function okExit() {
+            window.location.replace("/Home/index?userID=@Model.UserID");
+        }
+
+        function okClick() {
+            waitProgress();
+            $("form").submit();
+        }
+
+        function buttonEnabled() {
+            periodControl();
+        }
+
+        function periodControl() {
+            var oldPeriod = $("#oldPeriodCombo").data("kendoDropDownList").value();
+            var newPeriod = $("#newPeriodCombo").data("kendoDropDownList").value();
+
+            var isPeriod1 = false;
+            var isPeriod2 = false;
+            if ('@Model.Periods' != newPeriod) var isPeriod1 = true;
+            if (oldPeriod != newPeriod) var isPeriod2 = true;
+            if (oldPeriod > newPeriod) var isPeriod2 = false;
+
+            if (isPeriod1 == true && isPeriod2 == true) {
+                $("#okButton").data("kendoButton").enable(true);
+            }
+            else {
+                $("#okButton").data("kendoButton").enable(false);
+            }
+        }
+    </script>
+    <script>
+        function waitProgress() {
+            $('#loader-pulsing').kendoLoader({ type: 'pulsing' });
+            $('#loader-infinite-spinner').kendoLoader({ type: 'infinite-spinner' });
+            $('#loader-converging-spinner').kendoLoader({ type: 'converging-spinner' });
+        }
+    </script>
+    <div class="vertical-center">
+        <span id="loader-pulsing"></span>
+        <span id="loader-infinite-spinner"></span>
+        <span id="loader-converging-spinner"></span>
+    </div>
+    <style>
+        .vertical-center {
+            margin: 0;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+        }
+    </style>
+
+    <script>
+        function switchBodyColor() {
+            if ('@TempData["color"]' == "#222") { document.body.className = 'backgroundBlack'; }
+            else { document.body.className = 'backgroundWhite'; }
+
+            periodControl();
+        }
+    </script>
+
+    <span id="popupNotification"></span>
+    <script>
+        function showPopupNotification() {
+            var popupNotification = $("#popupNotification").kendoNotification().data("kendoNotification");
+            var d = new Date();
+            popupNotification.show(kendo.toString(d, 'HH:MM:ss.') + kendo.toString(d.getMilliseconds(), "000"), "error");
+        };
+    </script>
+    <script>
+        window.history.replaceState('', '', window.location.pathname);
+    </script>
+</body>
+</html>

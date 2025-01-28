@@ -1,0 +1,264 @@
+﻿@model ESCHOOL.ViewModels.SchoolViewModel
+@{
+    System.Globalization.CultureInfo.CurrentCulture = System.Globalization.CultureInfo.CreateSpecificCulture(@Model.SelectedCulture);
+    System.Globalization.CultureInfo.CurrentUICulture = System.Globalization.CultureInfo.CreateSpecificCulture(@Model.SelectedCulture);
+    var culture = System.Globalization.CultureInfo.CurrentCulture.ToString();
+}
+<!--#region head -->
+<head>
+    <meta charset="utf-8" />
+    <style>
+        html {
+            font-size: 13px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+    </style>
+    <title></title>
+    <link href="https://kendo.cdn.telerik.com/2021.2.616/styles/kendo.common.min.css" rel="stylesheet" />
+    <link rel="stylesheet" id="skin-css" href="@TempData["theme"]" />
+    <link rel="stylesheet" id="skin-css" href="@TempData["themeMobile"]" />
+    <script src="https://kendo.cdn.telerik.com/2021.2.616/js/jquery.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2021.2.616/js/kendo.all.min.js"></script>
+    <script src="~/telerik/2021.2.616/js/jszip.min.js"></script>
+    <script src="@Url.Content("~/telerik/2021.2.616/js//cultures/kendo.culture." + culture + ".min.js")"></script>
+    <script src="@Url.Content("~/telerik/2021.2.616/js//messages/kendo.messages." + culture + ".min.js")"></script>
+
+    <script type="text/javascript">
+        kendo.culture("@culture");
+    </script>
+</head>
+<!--#endregion -->
+<body>
+    <div class="demo-section k-content fixed-top wide">
+        <div id="toolbarMenu"></div>
+    </div>
+    <br />
+    <br />
+    <br />
+    <br />
+
+    <div id="example">
+        <input type="hidden" asp-for="@Model.SchoolID" />
+        <input type="hidden" asp-for="@Model.UserPeriod" />
+
+        <div id="grid" style="padding:5px;"></div>
+        <!--#region style -->
+        <style>
+            #grid .k-grid-toolbar {
+                padding: .6em 1.3em .6em .4em;
+            }
+
+            .k-grid-content {
+                max-height: 600px;
+            }
+
+            .k-header {
+                font-weight: bold !important;
+                font-size: 12px;
+            }
+
+            .category-label {
+                vertical-align: middle;
+                padding-right: .5em;
+            }
+
+            #category {
+                vertical-align: middle;
+            }
+
+            .refreshBtnContainer {
+                display: inline-block;
+            }
+
+            .toolbar {
+                float: left;
+            }
+        </style>
+        <!--#endregion -->
+    </div>
+    <!--#region toolbar -->
+    <style>
+        #logoId img {
+            width: 60px;
+        }
+    </style>
+    <script>
+        $(document).ready(function() {
+            $("#toolbarMenu").kendoToolBar({
+                items: [
+                    {
+                        template: "<img src='../Upload/Images/Logo.png' class='user-image' style='width:60px;'/>",
+                        overflow: "never",
+                    },
+                    { template: "<h4 style='padding-left:20px;'>@Model.UserPeriod  @ESCHOOL.Resources.Resource.InPeriod @ESCHOOL.Resources.Resource.AuditTrial</h4>" },
+                    { type: "spacer" },
+
+                    { type: "button", id: "back", text: "@ESCHOOL.Resources.Resource.Back", attributes: { style: "float: right" }, icon: "rewind" },
+                    { type: "separator" },
+
+                    { type: "button", id: "exit", text: "@ESCHOOL.Resources.Resource.Exit", attributes: { style: "float: right; margin-top: .4em;" }, icon: "logout" },
+                    { type: "separator" },
+                ],
+
+                click: function(e) {
+                    if (e.id == "exit")
+                        window.location.replace("/Home/index?userID=@Model.UserID&studentID=@Model.StudentID");
+                    else
+                        window.location.replace("/M210Student/AddOrEditStudent?studentID=" + "@Model.StudentID" + "&userID=@Model.UserID");
+                }
+            });
+            if (@Model.StudentID == 0) $("#back").hide();
+            if ("@Model.IsPermission" == 'False') permissionsControl();
+        });
+    </script>
+    <!--#endregion -->
+</body>
+<div id="alert"></div>
+<script>
+    function permissionsControl() {
+        msg = getByCulture('@culture', 'msgOk');
+        showAlert(msg);
+    };
+
+    function showAlert(message) {
+        msg = getByCulture('@culture', 'titleMsg');
+        $("#alert").kendoAlert({
+            title: msg,
+            content: "<strong>@ESCHOOL.Resources.Resource.PermissionMsg</strong>",
+            messages: {
+                okText: message
+            },
+            actions: [{
+                text: "#: messages.okText #",
+                action: function(e) {
+                    window.location.replace("/Home/index?userID=@Model.UserID");
+                }
+            }]
+        }).data("kendoAlert").open();
+    };
+</script>
+<!--#region grid discount -->
+<script>
+    record = 0;
+    $(document).ready(function() {
+        var crudServiceBaseUrl = "/M905UsersLog/",
+            dataSource = new kendo.data.DataSource({
+                transport: {
+                    read: {
+                        url: crudServiceBaseUrl + "UsersLogDataRead/" + "@Model.UserID" + "/" + "@Model.UserPeriod",
+                        dataType: "json"
+                    },
+                    parameterMap: function(options, operation) {
+                        if (operation !== "read" && options.models) {
+                            return { models: kendo.stringify(options.models) };
+                        }
+                    }
+                },
+                batch: true,
+                schema: {
+                    model: {
+                        id: "userLogID",
+                        fields: {
+                            schoolID: { editable: false, type: "number" },
+                            transactionID: { editable: true, type: "number" },
+                            period: { editable: true, type: "string" },
+                            userName: { editable: true, type: "string" },
+                            userLogDate: { editable: false, type: "date", format: "{0:dd-MM-yyyy HH:mm}"},
+                            transaction: { editable: true, type: "string" },
+                            userLogDescription: { editable: true, type: "string" },
+                        }
+                    },
+                }
+            });
+
+        var grid = $("#grid").kendoGrid({
+            dataSource: dataSource,
+            ajax: true,
+            groupable: true,
+            resizable: true,
+            height:650,
+            selectable: "multiple row",
+            toolbar: ["search", {
+                template: '&nbsp; &nbsp;&nbsp; &nbsp; <divclass="toolbar"><label class="periodcombo-label" for="periodcombo">@ESCHOOL.Resources.Resource.Period1&emsp;</label> <input type="select" id="periodcombo" style="width: 110px" /></div >',
+                className: "k-grid-custom",
+                imageClass: "k-add"
+            }, "excel"],
+            excelExport: function(e) {
+                e.workbook.fileName = "ExcelAuditTrial-" + kendo.toString(new Date, "yyyy/MM/dd HH:mm") + ".xlsx";
+            },
+
+            columns: [
+                { title: "#", template: "#= ++record #", width: 40 },
+                { field: "userName", title: getByCulture('@culture', 'user'),  width: "80px", template: "#=userName#" },
+                { field: "transaction", title: getByCulture('@culture', 'operation'), width: "140px", template: "#=transaction#" },
+                { field: "userLogDate",  title: getByCulture('@culture', 'date'), type: 'date', width: "120px", format: "{0:dd/MM/yyyy HH:mm}", template: '#= kendo.toString(userLogDate, "dd/MM/yyyy HH:mm") #' },
+                { field: "userLogDescription", title: getByCulture('@culture', 'explanation'), width: "1000px", template: "#=userLogDescription#" },
+            ],
+
+            dataBinding: function() {
+                record = 0;
+            },
+        });
+
+        var dropDown = grid.find("#periodcombo").kendoDropDownList({
+            dataTextField: "categoryName",
+            dataValueField: "categoryID",
+            optionLabel: "@Model.UserPeriod",
+            index: 0,
+            dataSource: {
+                type: "json",
+                severFiltering: true,
+                transport: {
+                    read: {
+                        url: "/M905UsersLog/PeriodDataRead",
+                        dataType: "json"
+                    },
+                }
+            },
+            change: function() {
+                    var grid = $("#grid").data("kendoGrid");
+                    grid.dataSource.options.transport.read.url = '/M905UsersLog/UsersLogDataRead/' + "@Model.UserID" + "/" + this.text();
+                    grid.dataSource.read();
+                    grid.refresh();
+            },
+        }).data("kendoDropDownList");
+    });
+</script>
+
+<!--#endregion -->
+<span id="popupNotification"></span>
+<script>
+    function showPopupNotification() {
+        var popupNotification = $("#popupNotification").kendoNotification().data("kendoNotification");
+        var d = new Date();
+        popupNotification.show(kendo.toString(d, 'HH:MM:ss.') + kendo.toString(d.getMilliseconds(), "000"), "error");
+    };
+</script>
+<script>
+    var dictionary =
+    {
+        'tr-TR': {
+            titleMsg: 'Kullanıcı Mesajı:',
+            msgOk: 'Tamam',
+            user: 'Kullanıcı',
+            operation: 'İşlem',
+            date: 'Tarih',
+            explanation: 'Açıklama',
+        },
+
+        'en-US': {
+            titleMsg: 'User message:',
+            msgOk: 'OK',
+            user: 'User',
+            operation: 'Operation',
+            date: 'Date',
+            explanation: 'Explanation',
+        },
+    }
+    function getByCulture(culture, word) {
+        return dictionary[culture][word]
+    }
+</script>
+<script>
+    window.history.replaceState('', '', window.location.pathname);
+</script>

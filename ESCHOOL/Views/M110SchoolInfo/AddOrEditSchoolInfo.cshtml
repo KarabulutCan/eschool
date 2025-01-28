@@ -1,0 +1,1620 @@
+﻿@model ESCHOOL.ViewModels.SchoolViewModel
+
+@{
+    System.Globalization.CultureInfo.CurrentCulture = System.Globalization.CultureInfo.CreateSpecificCulture(@Model.SelectedCulture);
+    System.Globalization.CultureInfo.CurrentUICulture = System.Globalization.CultureInfo.CreateSpecificCulture(@Model.SelectedCulture);
+    var culture = System.Globalization.CultureInfo.CurrentCulture.ToString();
+}
+@addTagHelper *, Kendo.Mvc
+
+@{
+    var messages = new Dictionary<string, string>() { { "custom", "Please choose another Start Time." } };
+    var rules = new Dictionary<string, string>() { { "custom", "customFunction" } };
+}
+<!--#region head  -->
+<head>
+    <meta charset="UTF-8">
+    <style>
+        html {
+            font-size: 13px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+    </style>
+    <title></title>
+    <link href="https://kendo.cdn.telerik.com/2021.2.616/styles/kendo.common.min.css" rel="stylesheet" />
+    <link rel="stylesheet" id="skin-css" href="@TempData["theme"]" />
+    <link rel="stylesheet" id="skin-css" href="@TempData["themeMobile"]" />
+    <script src="https://kendo.cdn.telerik.com/2021.2.616/js/jquery.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2021.2.616/js/kendo.all.min.js"></script>
+
+    <script src="@Url.Content("~/telerik/2021.2.616/js//cultures/kendo.culture." + culture + ".min.js")"></script>
+    <script src="@Url.Content("~/telerik/2021.2.616/js//messages/kendo.messages." + culture + ".min.js")"></script>
+
+    <link rel="stylesheet" href="styles.css" />
+    <script type="text/javascript">
+        kendo.culture("@culture");
+    </script>
+</head>
+<!--#endregion -->
+
+<body data-spy="scroll" data-target=".navbar">
+    @if (ViewBag.IsSuccess == true)
+    {
+        <br />
+        <br />
+        <br />
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>@ESCHOOL.Resources.Resource.Warning</strong>@ESCHOOL.Resources.Resource.ValidationError<br />
+            <a asp-contoller="M110SchoolInfo" asp-action="AddOrEditSchoolInfo" asp-route-id="@Model.UserID">@ESCHOOL.Resources.Resource.ClickToContinue</a>
+        </div>
+    }
+    <br />
+    <hr />
+    <form id="M110SchoolInfo" asp-controller="M110SchoolInfo" asp-action="AddOrEditSchoolInfo" enctype="multipart/form-data" method="post">
+        <input type="hidden" asp-for="PSerialNumber.PSerialNumberID" />
+
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="demo-section k-content fixed-top wide">
+            <div id="toolbarMenu"></div>
+        </div>
+        <br />
+        <ul id="panelbarHelp" style="display: none;">
+            <li>
+                <span class="k-link">@ESCHOOL.Resources.Resource.Help</span>
+                <div class="k-card-body" style="padding-left:15px;">
+                    <p><strong>@ESCHOOL.Resources.Resource.SchoolMsg01</strong></p>
+                    <p>@ESCHOOL.Resources.Resource.SchoolMsg02</p>
+                    <p>@ESCHOOL.Resources.Resource.SchoolMsg03</p>
+                    <p>@ESCHOOL.Resources.Resource.SchoolMsg04</p>
+                    <p>@ESCHOOL.Resources.Resource.SchoolMsg05</p>
+                    <p>@ESCHOOL.Resources.Resource.SchoolMsg06</p>
+                    <p>@ESCHOOL.Resources.Resource.SchoolMsg07</p>
+                    <p>@ESCHOOL.Resources.Resource.SchoolMsg08</p>
+                    <p>@ESCHOOL.Resources.Resource.SchoolMsg09</p>
+
+                    <br />
+                </div>
+                <style>
+                    #panelbarHelp {
+                        width: 100%;
+                        /*     max-width: none;*/
+                        margin: 0 auto;
+                    }
+                </style>
+
+                <script>
+                    $(document).ready(function () {
+                        $("#panelbarHelp").kendoPanelBar({
+                            animation: {
+                                collapse: {
+                                    duration: 500,
+                                    effects: "fadeOut"
+                                },
+                                expand: {
+                                    duration: 500,
+                                    effects: "expandVertical fadeIn"
+                                }
+                            }
+                        });
+                    });
+                </script>
+            </li>
+        </ul>
+
+
+        <div class="form-horizontal k-content" style="border: thin solid rgb(120,120,120); padding-left:10px; padding-top:10px; padding-bottom:20px;">
+            <div class="row">
+                <div class="col order-1 col-md-8" style="max-width:670px">
+                    <h5 class="ra-well-title card-header top-left"> <kbd>@ESCHOOL.Resources.Resource.Schools</kbd></h5>
+                    <br />
+                    <input type="hidden" asp-for="@Model.SchoolInfo.SchoolID" />
+                    <input type="hidden" asp-for="@Model.SchoolInfo.NewPeriod" />
+                    <input type="hidden" asp-for="@Model.SchoolID" id="schoolID" />
+                    <input type="hidden" asp-for="@Model.UserPeriod" />
+                    <input type="hidden" asp-for="@Model.UserID" />
+                    <input type="hidden" asp-for="SchoolInfo.IsFormPrint" />
+
+                    <input type="hidden" asp-for="@Model.SchoolInfo.Char01" />
+                    <input type="hidden" asp-for="@Model.SchoolInfo.Char02" />
+                    <input type="hidden" asp-for="@Model.SchoolInfo.Char03" />
+                    <input type="hidden" asp-for="@Model.SchoolInfo.Char04" />
+                    <input type="hidden" asp-for="@Model.SchoolInfo.Char05" />
+                    <input type="hidden" asp-for="@Model.SchoolInfo.Char06" />
+                    <input type="hidden" asp-for="@Model.SchoolInfo.IsChar01" />
+                    <input type="hidden" asp-for="@Model.SchoolInfo.IsChar02" />
+                    <input type="hidden" asp-for="@Model.SchoolInfo.IsChar03" />
+                    <input type="hidden" asp-for="@Model.SchoolInfo.IsChar04" />
+                    <input type="hidden" asp-for="@Model.SchoolInfo.IsChar05" />
+                    <input type="hidden" asp-for="@Model.SchoolInfo.IsChar06" />
+                    <input type="hidden" asp-for="@Model.SchoolInfo.Char01Explanation" />
+                    <input type="hidden" asp-for="@Model.SchoolInfo.Char02Explanation" />
+                    <input type="hidden" asp-for="@Model.SchoolInfo.Char03Explanation" />
+                    <input type="hidden" asp-for="@Model.SchoolInfo.Char04Explanation" />
+                    <input type="hidden" asp-for="@Model.SchoolInfo.Char05Explanation" />
+                    <input type="hidden" asp-for="@Model.SchoolInfo.Char06Explanation" />
+                    <input type="hidden" asp-for="@Model.SchoolInfo.Char01Max" />
+                    <input type="hidden" asp-for="@Model.SchoolInfo.Char02Max" />
+                    <input type="hidden" asp-for="@Model.SchoolInfo.Char03Max" />
+                    <input type="hidden" asp-for="@Model.SchoolInfo.Char04Max" />
+                    <input type="hidden" asp-for="@Model.SchoolInfo.Char05Max" />
+                    <input type="hidden" asp-for="@Model.SchoolInfo.Char06Max" />
+
+                    <div class="row">
+                        <div class="col">
+                            <label asp-for="SchoolInfo.CompanyName" class="control-label"></label>
+                            <input asp-for="SchoolInfo.CompanyName" class="k-textbox" style="font-weight: bold; width: 100%;" maxlength="100" required validationMessage=@ESCHOOL.Resources.Resource.RequiredField title="@ESCHOOL.Resources.Resource.CompanyNameMsg" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <label asp-for="SchoolInfo.CompanyNameForBond" class="control-label"></label>
+                            <input asp-for="SchoolInfo.CompanyNameForBond" class="k-textbox" style="font-weight: bold; width: 100%;" maxlength="100" required validationMessage=@ESCHOOL.Resources.Resource.RequiredField title="@ESCHOOL.Resources.Resource.CompanyNameBondMsg" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col order-2 col-md-2">
+                    <h5 class="ra-well-title card-header top-left"> <kbd>@ESCHOOL.Resources.Resource.Schools#:@Model.SchoolID</kbd></h5>
+                    <br />
+                    <div class="col">
+                        <div class="row">
+                            <label asp-for="SchoolInfo.CompanyShortCode" class="control-label"></label>
+                        </div>
+                        <div class="row">
+                            <input asp-for="SchoolInfo.CompanyShortCode" class="k-textbox" style="font-weight: bold; width: 30%;" maxlength="3" required validationMessage=@ESCHOOL.Resources.Resource.RequiredField title="@ESCHOOL.Resources.Resource.CompanyShortCodeMsg" />&nbsp;
+                            <input asp-for="SchoolInfo.CompanyShortName" class="k-textbox" style="font-weight: bold; width: 65%;" maxlength="10" required validationMessage=@ESCHOOL.Resources.Resource.RequiredField title="@ESCHOOL.Resources.Resource.CompanyShortNameMsg" />
+                        </div>
+
+                        <div class="row">
+                            <label asp-for="SchoolInfo.CityNameForBondID" class="control-label"></label>
+                            <input asp-for="SchoolInfo.CityNameForBondID" class="text-section k-content" id="citybondcomboBox" style="width: 98%;" required validationMessage=@ESCHOOL.Resources.Resource.RequiredField />
+                        </div>
+                    </div>
+                </div>
+                <div class="col order-3 col-md-1">
+                    <div class="col">
+                        <div>
+                            <div id="wrap" class="card" style="height:8rem; width: 9rem;">
+                                <img id="imgpreview" name="imgSchool" src="@("~/Upload/Images/"+Model.SchoolInfo.LogoName)" asp-append-version="true" class="img-fluid img-thumbnail" />
+                                <div class="demo-section k-content">
+                                    <input type="file" name="imgfile" id="imgfile" onchange="previewing(event)">
+                                    <input asp-for="SchoolInfo.LogoName" class="k-textbox" style="width: 100%;  padding-bottom:0px;" hidden />
+                                </div>
+                                <label style="display: inline-block; text-align: center; width: 100%; font-style:italic;">@ESCHOOL.Resources.Resource.SchoolLogo</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <hr />
+        <div class="demo-section k-content" style="border: thin solid rgb(120,120,120); padding-bottom:5px;">
+            <div id="tabstrip" style="font-weight:bold">
+                <ul>
+                    <li class="k-state-active">
+                        @ESCHOOL.Resources.Resource.General
+                    </li>
+                    <li>
+                        @ESCHOOL.Resources.Resource.Fees
+                    </li>
+                    <li>
+                        @ESCHOOL.Resources.Resource.EMail
+                    </li>
+                    <li>
+                        @ESCHOOL.Resources.Resource.EInvoice
+                    </li>
+                    <li>
+                        @ESCHOOL.Resources.Resource.SerialNo
+                    </li>
+                    <li>
+                        @ESCHOOL.Resources.Resource.Settings
+                    </li>
+                </ul>
+                <!--#region General panel -->
+                <div id="General">
+                    <div class="row">
+                        <div class="col order-4 col-md-8" style="max-width:670px">
+                            <h5 class="ra-well-title card-header top-left" style="padding-top:2px; padding-bottom:2px;"> <kbd>@ESCHOOL.Resources.Resource.Address </kbd></h5>
+                            <br />
+                            <div class="row">
+                                <div class="col">
+                                    <label asp-for="SchoolInfo.CompanyAddress" class="control-label"></label>
+                                    <textarea asp-for="SchoolInfo.CompanyAddress" class="k-textbox" style="width: 100%; height:50px;" text-wrap="normal" type="text" maxlength="250"></textarea>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <label asp-for="SchoolInfo.Phone1" class="control-label">@ESCHOOL.Resources.Resource.Phone</label>
+                                    <input asp-for="SchoolInfo.Phone1" id="phone_number1" class="k-textbox" style="width: 100%;" maxlength="15" />
+                                </div>
+                                <div class="col">
+                                    <label asp-for="SchoolInfo.Phone2" class="control-label">@ESCHOOL.Resources.Resource.Phone</label>
+                                    <input asp-for="SchoolInfo.Phone2" id="phone_number2" class="k-textbox" 12345 style="width: 100%;" maxlength="15" />
+                                </div>
+                                <div class="col">
+                                    <label asp-for="SchoolInfo.MobilePhone" class="control-label"></label>
+                                    <input asp-for="SchoolInfo.MobilePhone" id="phone_number3" class="k-textbox" style="width: 100%;" maxlength="15" />
+                                </div>
+                                <div class="col">
+                                    <label asp-for="SchoolInfo.Fax" class="control-label"></label>
+                                    <input asp-for="SchoolInfo.Fax" class="k-textbox" style="width: 100%;" maxlength="15" />
+                                    <span asp-validation-for="SchoolInfo.Fax" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <label asp-for="SchoolInfo.TaxNo" class="control-label"></label>
+                                    <input asp-for="SchoolInfo.TaxNo" class="k-textbox" style="width: 100%; " maxlength="20" />
+                                    <span asp-validation-for="SchoolInfo.TaxNo" class="text-danger"></span>
+                                </div>
+                                <div class="col">
+                                    <label asp-for="SchoolInfo.TaxOffice" class="control-label"></label>
+                                    <input asp-for="SchoolInfo.TaxOffice" class="k-textbox" style="width: 100%; " maxlength="30" />
+                                    <span asp-validation-for="SchoolInfo.TaxOffice" class="text-danger"></span>
+                                </div>
+                                <div class="col">
+                                    <label asp-for="SchoolInfo.WebSite" class="control-label"></label>
+                                    <input asp-for="SchoolInfo.WebSite" class="k-textbox" style="width: 100%;" maxlength="30" />
+                                </div>
+                                <div class="col">
+                                    <label asp-for="SchoolInfo.CompanyEmail" class="control-label"></label>
+                                    <input asp-for="SchoolInfo.CompanyEmail" type="email" class="k-textbox" style="width: 100%;" maxlength="30" validationMessage=@ESCHOOL.Resources.Resource.ValidEmail />
+                                </div>
+                            </div>
+
+                            <br />
+                            <h5 class="ra-well-title card-header top-left" style="padding-top:2px; padding-bottom:2px;"> <kbd>@ESCHOOL.Resources.Resource.AuthorizedStaff </kbd></h5>
+                            <br />
+                            <div class="row">
+                                <div class="col md=auto">
+                                    <label asp-for="SchoolInfo.AuthorizedPersonName1" class="control-label"></label>
+                                    <input asp-for="SchoolInfo.AuthorizedPersonName1" class="k-textbox" style="width: 100%; " maxlength="30" />
+                                </div>
+                                <div class="col md=auto">
+                                    <label asp-for="SchoolInfo.AuthorizedPersonName2" class="control-label"></label>
+                                    <input asp-for="SchoolInfo.AuthorizedPersonName2" class="k-textbox" style="width: 100%; " maxlength="30" />
+                                </div>
+                                <div class="col md=auto">
+                                    <label asp-for="SchoolInfo.AuthorizedPersonName3" class="control-label"></label>
+                                    <input asp-for="SchoolInfo.AuthorizedPersonName3" class="k-textbox" style="width: 100%; " maxlength="30" />
+                                </div>
+                            </div>
+                            <hr />
+                            <div class="row">
+                                &nbsp;&nbsp;&nbsp;
+                                @ESCHOOL.Resources.Resource.Intheformofreceipt
+                            </div>
+                            <div class="row">
+                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                <div class="custom-control custom-radio">
+                                    <input type="radio" asp-for="SchoolInfo.NameOnReceipt" class="k-radio" id="CustomR1" value="true" />
+                                    <label class="k-radio-label" for="CustomR1">@ESCHOOL.Resources.Resource.Cashier</label>
+                                </div>
+                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                <div class="custom-control custom-radio">
+                                    <input type="radio" asp-for="SchoolInfo.NameOnReceipt" class="k-radio" id="CustomR2" value="false" />
+                                    <label class="k-radio-label" for="CustomR2">@ESCHOOL.Resources.Resource.User</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col order-5 col-md-4" style="max-width:380px">
+                            <h5 class="ra-well-title card-header top-left" style="padding-top:2px; padding-bottom:2px;"> <kbd>@ESCHOOL.Resources.Resource.SchoolAndAccountingPeriods </kbd></h5>
+                            <div class="row">
+                                <div class="col">
+                                    <label asp-for="SchoolInfo.SchoolYearStart" class="control-label"></label>
+                                    <input asp-for="SchoolInfo.SchoolYearStart" class="form-control" id="schoolyearstart" style="width: 100%;" />
+                                </div>
+                                <div class="col">
+                                    <label asp-for="SchoolInfo.SchoolYearEnd" class="control-label"></label>
+                                    <input asp-for="SchoolInfo.SchoolYearEnd" class="form-control" id="schoolyearend" style="width: 100%;" />
+                                </div>
+                            </div>
+                            <hr />
+                            <div class="row">
+                                <div class="col">
+                                    <label asp-for="SchoolInfo.FinancialYearStart" class="control-label"></label>
+                                    <input asp-for="SchoolInfo.FinancialYearStart" class="form-control" id="financialyearstart" style="width: 100%;" />
+                                </div>
+                                <div class="col">
+                                    <label asp-for="SchoolInfo.FinancialYearEnd" class="control-label"></label>
+                                    <input asp-for="SchoolInfo.FinancialYearEnd" class="form-control" id="financialyearend" style="width: 100%;" />
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <!--#endregion -->
+                <!--#region fees panel -->
+                <div id="Fees">
+                    <row class="row">
+                        <div style="width:550px;">
+                            <h5 class="ra-well-title card-header top-left" style="padding-top:2px; padding-bottom:2px;"> <kbd>@ESCHOOL.Resources.Resource.SchoolFees </kbd></h5>
+                            <div id="gridFees"></div>
+                        </div>
+                        <div style="width:550px;">
+                            <h5 class="ra-well-title card-header top-left" style="padding-top:2px; padding-bottom:2px;"> <kbd>@ESCHOOL.Resources.Resource.SchoolShuttleCharges </kbd></h5>
+                            <div id="gridServices"></div>
+                        </div>
+                    </row>
+                </div>
+
+                <div id="EMail">
+                    &nbsp;
+                    <h5 class="ra-well-title card-header top-left" style="padding-top:2px; padding-bottom:2px;"> <kbd>@ESCHOOL.Resources.Resource.CompanyEmailService </kbd></h5>
+                    &nbsp;
+                    <div class="col col-md-4">
+                        <div class="row">
+                            <div class="col">
+                                <label asp-for="SchoolInfo.EmailSMTPUserName" class="control-label"></label>
+                                <input asp-for="SchoolInfo.EmailSMTPUserName" class="k-textbox" style="width: 100%;" maxlength="30" title="@ESCHOOL.Resources.Resource.EMailService1" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <label asp-for="SchoolInfo.EmailSMTPPassword" class="control-label"></label>
+                                <input asp-for="SchoolInfo.EmailSMTPPassword" class="k-textbox" style="width: 100%;" maxlength="15" title="@ESCHOOL.Resources.Resource.EMailService2" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <label asp-for="SchoolInfo.EmailSMTPAddress" class="control-label"></label>
+                                <input asp-for="SchoolInfo.EmailSMTPAddress" class="k-textbox" style="width: 100%;" type="email" maxlength="30" validationMessage=@ESCHOOL.Resources.Resource.ValidEmail title="@ESCHOOL.Resources.Resource.EMailService3" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <label asp-for="SchoolInfo.EmailSMTPHost" class="control-label"></label>
+                                <input asp-for="SchoolInfo.EmailSMTPHost" class="k-textbox" style="width: 100%;" maxlength="30" title="@ESCHOOL.Resources.Resource.EMailService4" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <label asp-for="SchoolInfo.EmailSMTPPort" class="control-label"></label>
+                                <input asp-for="SchoolInfo.EmailSMTPPort" class="k-textbox" style="width: 100%;" maxlength="30" title="@ESCHOOL.Resources.Resource.EMailService5" />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            &nbsp;&nbsp;&nbsp;
+                            @ESCHOOL.Resources.Resource.EmailSMTPSsl
+                        </div>
+                        <div class="row">
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            <div class="custom-control custom-radio">
+                                <input type="radio" asp-for="SchoolInfo.EmailSMTPSsl" class="k-radio" id="Ssl1" value="true" title="@ESCHOOL.Resources.Resource.EMailService6" />
+                                <label class="k-radio-label" for="Ssl1">@ESCHOOL.Resources.Resource.Active</label>
+                            </div>
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            <div class="custom-control custom-radio">
+                                <input type="radio" asp-for="SchoolInfo.EmailSMTPSsl" class="k-radio" id="Ssl2" value="false" title="@ESCHOOL.Resources.Resource.EMailService6" />
+                                <label class="k-radio-label" for="Ssl2">@ESCHOOL.Resources.Resource.Inactive</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--#endregion -->
+                <!--#region invoice panel -->
+                <div id="EInvoice">
+                    <div class="col">
+                        <h5 class="ra-well-title card-header top-left" style="padding-top:2px; padding-bottom:2px;"> <kbd>@ESCHOOL.Resources.Resource.EInvoiceUserInfo</kbd></h5>
+                        &nbsp;
+                        <row class="row">
+                            <div class="col order-7" style="max-width:670px">
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="row">
+                                            &nbsp;&nbsp;&nbsp;
+                                            @ESCHOOL.Resources.Resource.EIIsActive
+                                        </div>
+                                        <div class="row">
+                                            &nbsp;&nbsp;&nbsp;&nbsp;
+                                            <div class="custom-control custom-radio">
+                                                <input type="radio" asp-for="SchoolInfo.EIIsActive" class="k-radio" id="EI1" value="true" />
+                                                <label class="k-radio-label" for="EI1">@ESCHOOL.Resources.Resource.Active</label>
+                                            </div>
+                                            &nbsp;&nbsp;&nbsp;&nbsp;
+                                            <div class="custom-control custom-radio">
+                                                <input type="radio" asp-for="SchoolInfo.EIIsActive" class="k-radio" id="EI2" value="false" />
+                                                <label class="k-radio-label" for="EI2">@ESCHOOL.Resources.Resource.Inactive</label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col col-md-2">
+                                        <label asp-for="SchoolInfo.EIInvoiceSerialCode1" class="control-label"></label>
+                                        <input asp-for="SchoolInfo.EIInvoiceSerialCode1" id="id1" class="k-textbox" style="width: 40%;" maxlength="3" title="@ESCHOOL.Resources.Resource.SeriNoMsg" required validationMessage=@ESCHOOL.Resources.Resource.RequiredField />
+                                    </div>
+
+                                    <div class="col col-md-2">
+                                        <label asp-for="SchoolInfo.EIInvoiceSerialCode2" class="control-label"></label>
+                                        <input asp-for="SchoolInfo.EIInvoiceSerialCode2" id="id2" class="k-textbox" style="width: 40%;" maxlength="3" title="@ESCHOOL.Resources.Resource.SeriNoMsg" required validationMessage=@ESCHOOL.Resources.Resource.RequiredField />
+                                    </div>
+                                </div>
+                                <hr />
+
+                                <div class="row">
+                                    <div class="col">
+                                        <label asp-for="SchoolInfo.EIUserName" class="control-label"></label>
+                                        <input asp-for="SchoolInfo.EIUserName" class="k-textbox" style="width: 100%;" maxlength="30" />
+                                    </div>
+                                    <div class="col">
+                                        <label asp-for="SchoolInfo.EIUserPassword" class="control-label"></label>
+                                        <input asp-for="SchoolInfo.EIUserPassword" class="k-textbox" style="width: 100%;" maxlength="30" />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <label asp-for="SchoolInfo.EITitle" class="control-label"></label>
+                                        <input asp-for="SchoolInfo.EITitle" class="k-textbox" style="width: 100%;" maxlength="250" />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <label asp-for="SchoolInfo.EIAddress" class="control-label"></label>
+                                        <textarea asp-for="SchoolInfo.EIAddress" class="k-textbox" style="width: 100%; height:50px;" text-wrap="normal" type="text" maxlength="250"></textarea>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <label asp-for="SchoolInfo.EICityID" class="control-label"></label>
+                                        <input asp-for="SchoolInfo.EICityID" class="text-section k-content" id="citycomboBox1" style="width: 100%;" />
+                                    </div>
+
+                                    <div class="col">
+                                        <label asp-for="SchoolInfo.EITownID" class="control-label"></label>
+                                        <input asp-for="SchoolInfo.EITownID" class="text-section k-content" id="towncomboBox1" disabled="disabled" style="width: 100%;" />
+                                    </div>
+
+                                    <div class="col">
+                                        <label asp-for="SchoolInfo.EICountry" class="control-label"></label>
+                                        <input asp-for="SchoolInfo.EICountry" class="k-textbox" style="width: 100%;" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col order-8" style="max-width:350px">
+                                <div class="row">
+                                    <div class="col">
+                                        <label asp-for="SchoolInfo.EIIntegratorNameID" class="control-label"></label>
+                                        <input asp-for="SchoolInfo.EIIntegratorNameID" class="text-section k-content" id="integratorcomboBox" style="width: 100%;" required validationMessage=@ESCHOOL.Resources.Resource.RequiredField />
+                                    </div>
+                                </div>
+                                <hr />
+
+                                <div class="row">
+                                    <div class="col">
+                                        <label asp-for="SchoolInfo.EIPhone" class="control-label"></label>
+                                        <input asp-for="SchoolInfo.EIPhone" class="k-textbox" style="width: 100%;" maxlength="15" />
+                                    </div>
+
+                                    <div class="col">
+                                        <label asp-for="SchoolInfo.EIFax" class="control-label"></label>
+                                        <input asp-for="SchoolInfo.EIFax" class="k-textbox" style="width: 100%;" maxlength="15" />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <label asp-for="SchoolInfo.EITaxOffice" class="control-label"></label>
+                                        <input asp-for="SchoolInfo.EITaxOffice" class="k-textbox" style="width: 100%;; " maxlength="30" />
+                                    </div>
+                                    <div class="col">
+                                        <label asp-for="SchoolInfo.EITaxNo" class="control-label"></label>
+                                        <input asp-for="SchoolInfo.EITaxNo" class="k-textbox" style="width: 100%;" maxlength="20" />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <label asp-for="SchoolInfo.EITradeRegisterNo" class="control-label"></label>
+                                        <input asp-for="SchoolInfo.EITradeRegisterNo" class="k-textbox" style="width: 100%;" maxlength="15" />
+                                    </div>
+
+                                    <div class="col">
+                                        <label asp-for="SchoolInfo.EIMersisNo" class="control-label"></label>
+                                        <input asp-for="SchoolInfo.EIMersisNo" class="k-textbox" style="width: 100%;" maxlength="15" />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <label asp-for="SchoolInfo.EIEMail" class="control-label"></label>
+                                        <input asp-for="SchoolInfo.EIEMail" class="k-textbox" type="email" style="width: 100%;" maxlength="30" validationMessage=@ESCHOOL.Resources.Resource.ValidEmail />
+                                    </div>
+                                    <div class="col">
+                                        <label asp-for="SchoolInfo.EIWebAddress" class="control-label"></label>
+                                        <input asp-for="SchoolInfo.EIWebAddress" class="k-textbox" style="width: 100%;" maxlength="30" />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <label asp-for="SchoolInfo.EIIban" class="control-label"></label>
+                                        <input asp-for="SchoolInfo.EIIban" id="iban" class="k-textbox" style="width: 100%;" maxlength="26" />
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+
+                <!--#endregion -->
+                <!--#region settings panel  -->
+                <div id="SerialNo">
+                    <div class="col">
+                        <row class="row">
+                            <div class="col order-9" style="max-width:350px">
+                                <h5 class="ra-well-title card-header top-left" style="padding-top:2px; padding-bottom:2px;"> <kbd>@ESCHOOL.Resources.Resource.RegistrationSerialNumbers </kbd></h5>
+                                <div class="row">
+                                    <div class="col">
+                                        <label asp-for="PSerialNumber.RegisterNo" class="control-label"></label>
+                                        <input asp-for="PSerialNumber.RegisterNo" class="k-textbox" style="width: 100%;" type="number" max='99999999' validationMessage=@ESCHOOL.Resources.Resource.ValidNumber title="@ESCHOOL.Resources.Resource.TooltipStudentSerialNumber2" />
+                                    </div>
+                                    <div class="col">
+                                        <label asp-for="PSerialNumber.AccountSerialNo" class="control-label"></label>
+                                        <input asp-for="PSerialNumber.AccountSerialNo" class="k-textbox" style="width: 100%;" type="number" max='99999999' validationMessage=@ESCHOOL.Resources.Resource.ValidNumber title="@ESCHOOL.Resources.Resource.TooltipAccountSerialNumber" />
+                                    </div>
+                                </div>
+                                <br />
+
+                                <h5 class="ra-well-title card-header top-left" style="padding-top:2px; padding-bottom:2px;"> <kbd>@ESCHOOL.Resources.Resource.NumberOfFormPrints </kbd></h5>
+                                <div class="row">
+                                    <div class="col">
+                                        <label asp-for="SchoolInfo.CopiesOfForm" class="control-label"></label>
+                                        <input asp-for="SchoolInfo.CopiesOfForm" class="k-textbox" style="width: 40%;" type="number" min="0" max='2' validationMessage=@ESCHOOL.Resources.Resource.ValidNumber />
+                                    </div>
+                                    <div class="col">
+                                        <label asp-for="SchoolInfo.PrintQuantity" class="control-label"></label>
+                                        <input asp-for="SchoolInfo.PrintQuantity" class="k-textbox" style="width: 40%;" type="number" min="1" max='2' validationMessage=@ESCHOOL.Resources.Resource.ValidNumber />
+                                    </div>
+                                </div>
+                                <br />
+                                <br />
+                                <br />
+                                <h5 class="ra-well-title card-header top-left" style="padding-top:2px; padding-bottom:2px;"> <kbd>@ESCHOOL.Resources.Resource.ReceiptSerialNumbers </kbd></h5>
+                                <div class="row">
+                                    <div class="col">
+                                        <label asp-for="PSerialNumber.CollectionNo" class="control-label"></label>
+                                        <input asp-for="PSerialNumber.CollectionNo" class="k-textbox" style="width: 100%;" type="number" max='99999999' validationMessage=@ESCHOOL.Resources.Resource.ValidNumber />
+                                        <span asp-validation-for="PSerialNumber.CollectionNo" class="text-danger"></span>
+                                    </div>
+                                    <div class="col">
+                                        <label asp-for="PSerialNumber.CollectionReceiptNo" class="control-label"></label>
+                                        <input asp-for="PSerialNumber.CollectionReceiptNo" class="k-textbox" style="width: 100%;" type="number" max='99999999' validationMessage=@ESCHOOL.Resources.Resource.ValidNumber />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <label asp-for="PSerialNumber.PaymentNo" class="control-label"></label>
+                                        <input asp-for="PSerialNumber.PaymentNo" class="k-textbox" style="width: 100%;" type="number" max='99999999' validationMessage=@ESCHOOL.Resources.Resource.ValidNumber />
+                                    </div>
+                                    <div class="col">
+                                        <label asp-for="PSerialNumber.PaymentReceiptNo" class="control-label"></label>
+                                        <input asp-for="PSerialNumber.PaymentReceiptNo" class="k-textbox" style="width: 100%;" type="number" max='99999999' validationMessage=@ESCHOOL.Resources.Resource.ValidNumber />
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="col order-10" style="max-width:350px">
+                                <h5 class="ra-well-title card-header top-left" style="padding-top:2px; padding-bottom:2px;"> <kbd>@ESCHOOL.Resources.Resource.PaymentTypeSerial </kbd></h5>
+                                <div class="row">
+                                    <div class="col">
+                                        <label asp-for="PSerialNumber.BondNo" class="control-label"></label>
+                                        <input asp-for="PSerialNumber.BondNo" class="k-textbox" style="width: 100%;" type="number" max='99999999' validationMessage=@ESCHOOL.Resources.Resource.ValidNumber />
+                                    </div>
+                                    <div class="col">
+                                        <label asp-for="PSerialNumber.CheckNo" class="control-label"></label>
+                                        <input asp-for="PSerialNumber.CheckNo" class="k-textbox" style="width: 100%;" type="number" max='99999999' validationMessage=@ESCHOOL.Resources.Resource.ValidNumber />
+                                    </div>
+                                    <div class="col">
+                                        <label asp-for="PSerialNumber.CreditCardNo" class="control-label"></label>
+                                        <input asp-for="PSerialNumber.CreditCardNo" class="k-textbox" style="width: 100%;" type="number" max='99999999' validationMessage=@ESCHOOL.Resources.Resource.ValidNumber />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <label asp-for="PSerialNumber.MailOrderNo" class="control-label"></label>
+                                        <input asp-for="PSerialNumber.MailOrderNo" class="k-textbox" style="width: 100%;" type="number" max='99999999' validationMessage=@ESCHOOL.Resources.Resource.ValidNumber />
+                                    </div>
+                                    <div class="col">
+                                        <label asp-for="PSerialNumber.OtsNo1" class="control-label"></label>
+                                        <input asp-for="PSerialNumber.OtsNo1" class="k-textbox" style="width: 100%;" type="number" max='99999999' validationMessage=@ESCHOOL.Resources.Resource.ValidNumber />
+                                    </div>
+                                    <div class="col">
+                                        <label asp-for="PSerialNumber.OtsNo2" class="control-label"></label>
+                                        <input asp-for="PSerialNumber.OtsNo2" class="k-textbox" style="width: 100%;" type="number" max='99999999' validationMessage=@ESCHOOL.Resources.Resource.ValidNumber />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <label asp-for="PSerialNumber.KmhNo" class="control-label"></label>
+                                        <input asp-for="PSerialNumber.KmhNo" class="k-textbox" style="width: 100%;" type="number" max='99999999' validationMessage=@ESCHOOL.Resources.Resource.ValidNumber />
+                                    </div>
+                                    <div class="col"> </div>
+                                    <div class="col"> </div>
+                                </div>
+                                <br />
+                                @*     <h5 class="ra-well-title card-header top-left" style="padding-top:2px; padding-bottom:2px;"> <kbd>@ESCHOOL.Resources.Resource.InvoiceSerialNoTitle </kbd></h5>
+                                *@     <div class="row">
+                                    <div class="col">
+                                        <label class="control-label">@ESCHOOL.Resources.Resource.InvoiceName1Hed</label>
+                                        <label asp-for="PSerialNumber.InvoiceName1" class="control-label"></label>
+                                        <input asp-for="PSerialNumber.InvoiceName1" class="k-textbox" style="width: 100%;" maxlength="20">
+                                    </div>
+                                    <div class="col">
+                                        <label class="control-label">@ESCHOOL.Resources.Resource.InvoiceSerialNo1Hed</label>
+                                        <label class="control-label">@ESCHOOL.Resources.Resource.InvoiceSerialNoHed</label>
+                                        <input asp-for="PSerialNumber.InvoiceSerialNo1" class="k-textbox" style="width: 100%;" type="number" validationMessage=@ESCHOOL.Resources.Resource.ValidNumber />
+                                    </div>
+                                    <div class="col">
+                                        <label class="control-label">@ESCHOOL.Resources.Resource.InvoiceSerialNo11Hed</label>
+                                        <label class="control-label">@ESCHOOL.Resources.Resource.InvoiceSerialNoHed</label>
+                                        <input asp-for="PSerialNumber.InvoiceSerialNo11" class="k-textbox" style="width: 100%;" type="number" validationMessage=@ESCHOOL.Resources.Resource.ValidNumber />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <label asp-for="PSerialNumber.InvoiceName2" class="control-label"></label>
+                                        <input asp-for="PSerialNumber.InvoiceName2" class="k-textbox" style="width: 100%;" maxlength="20" />
+                                    </div>
+                                    <div class="col">
+                                        <label asp-for="PSerialNumber.InvoiceSerialNo2" class="control-label"></label>
+                                        <input asp-for="PSerialNumber.InvoiceSerialNo2" class="k-textbox" style="width: 100%;" type="number" max='99999999' validationMessage=@ESCHOOL.Resources.Resource.ValidNumber />
+                                    </div>
+                                    <div class="col">
+                                        <label asp-for="PSerialNumber.InvoiceSerialNo22" class="control-label"></label>
+                                        <input asp-for="PSerialNumber.InvoiceSerialNo22" class="k-textbox" style="width: 100%;" type="number" max='99999999' validationMessage=@ESCHOOL.Resources.Resource.ValidNumber />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <label asp-for="PSerialNumber.InvoiceName3" class="control-label"></label>
+                                        <input asp-for="PSerialNumber.InvoiceName3" class="k-textbox" style="width: 100%;" maxlength="20" />
+                                    </div>
+                                    <div class="col">
+                                        <label asp-for="PSerialNumber.InvoiceSerialNo3" class="control-label"></label>
+                                        <input asp-for="PSerialNumber.InvoiceSerialNo3" class="k-textbox" style="width: 100%;" type="number" max='99999999' validationMessage=@ESCHOOL.Resources.Resource.ValidNumber />
+                                    </div>
+                                    <div class="col">
+                                        <label asp-for="PSerialNumber.InvoiceSerialNo33" class="control-label"></label>
+                                        <input asp-for="PSerialNumber.InvoiceSerialNo33" class="k-textbox" style="width: 100%;" type="number" max='99999999' validationMessage=@ESCHOOL.Resources.Resource.ValidNumber />
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="col order-11" style="max-width:350px">
+                                <h5 class="ra-well-title card-header top-left" style="padding-top:2px; padding-bottom:2px;"> <kbd>@ESCHOOL.Resources.Resource.AccountCodes </kbd></h5>
+                                <div class="row">
+                                    <div class="col">
+                                        <label asp-for="SchoolInfo.AccountNoID01" class="control-label"></label>
+                                    </div>
+                                    <div class="col">
+                                        <input class="Accounting" asp-for="SchoolInfo.AccountNoID01" style="width: 100%;" maxlength="10" required validationMessage=@ESCHOOL.Resources.Resource.RequiredField />
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <label asp-for="SchoolInfo.AccountNoID02" class="control-label"></label>
+                                    </div>
+                                    <div class="col">
+                                        <input class="Accounting" asp-for="SchoolInfo.AccountNoID02" style="width: 100%;" maxlength="10" required validationMessage=@ESCHOOL.Resources.Resource.RequiredField />
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <label asp-for="SchoolInfo.AccountNoID03" class="control-label"></label>
+                                    </div>
+                                    <div class="col">
+                                        <input class="Accounting" asp-for="SchoolInfo.AccountNoID03" style="width: 100%;" maxlength="10" required validationMessage=@ESCHOOL.Resources.Resource.RequiredField />
+                                    </div>
+                                </div>
+                                <hr />
+                                <div class="row">
+                                    <div class="col">
+                                        <label asp-for="SchoolInfo.AccountNoID04" class="control-label"></label>
+                                    </div>
+                                    <div class="col">
+                                        <input class="Accounting" asp-for="SchoolInfo.AccountNoID04" style="width: 100%;" maxlength="10" required validationMessage=@ESCHOOL.Resources.Resource.RequiredField />
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <label asp-for="SchoolInfo.AccountNoID05" class="control-label"></label>
+                                    </div>
+                                    <div class="col">
+                                        <input class="Accounting" asp-for="SchoolInfo.AccountNoID05" style="width: 100%;" maxlength="10" required validationMessage=@ESCHOOL.Resources.Resource.RequiredField />
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <label asp-for="SchoolInfo.AccountNoID06" class="control-label"></label>
+                                    </div>
+                                    <div class="col">
+                                        <input class="Accounting" asp-for="SchoolInfo.AccountNoID06" style="width: 100%;" maxlength="10" required validationMessage=@ESCHOOL.Resources.Resource.RequiredField />
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <label asp-for="SchoolInfo.AccountNoID07" class="control-label"></label>
+                                    </div>
+                                    <div class="col">
+                                        <input class="Accounting" asp-for="SchoolInfo.AccountNoID07" style="width: 100%;" maxlength="10" required validationMessage=@ESCHOOL.Resources.Resource.RequiredField />
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <label asp-for="SchoolInfo.AccountNoID08" class="control-label"></label>
+                                    </div>
+                                    <div class="col">
+                                        <input class="Accounting" asp-for="SchoolInfo.AccountNoID08" style="width: 100%;" maxlength="10" required validationMessage=@ESCHOOL.Resources.Resource.RequiredField />
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <label asp-for="SchoolInfo.AccountNoID09" class="control-label"></label>
+                                    </div>
+                                    <div class="col">
+                                        <input class="Accounting" asp-for="SchoolInfo.AccountNoID09" style="width: 100%;" maxlength="10" required validationMessage=@ESCHOOL.Resources.Resource.RequiredField />
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <label asp-for="SchoolInfo.AccountNoID10" class="control-label"></label>
+                                    </div>
+                                    <div class="col">
+                                        <input class="Accounting" asp-for="SchoolInfo.AccountNoID10" style="width: 100%;" maxlength="10" required validationMessage=@ESCHOOL.Resources.Resource.RequiredField />
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <label asp-for="SchoolInfo.AccountNoID11" class="control-label"></label>
+                                    </div>
+                                    <div class="col">
+                                        <input class="Accounting" asp-for="SchoolInfo.AccountNoID11" style="width: 100%;" maxlength="10" required validationMessage=@ESCHOOL.Resources.Resource.RequiredField />
+                                    </div>
+                                </div>
+                            </div>
+                        </row>
+                    </div>
+                </div>
+                <!--#endregion -->
+                <!--#region settings panel  -->
+                <div id="Settings">
+                    <h5 class="ra-well-title card-header top-left" style="padding-top:2px; padding-bottom:2px;"> <kbd>@ESCHOOL.Resources.Resource.Settings </kbd></h5>
+                    &nbsp;
+                    <row class="row">
+                        <div class="col order-9" style="max-width:650px">
+                            <div class="row">
+                                <div class="col col-md-2">
+                                    <label asp-for="SchoolInfo.CurrencyDecimalPlaces" class="control-label"></label>
+                                </div>
+                                <div class="col col-md-1">
+                                    <input asp-for="SchoolInfo.CurrencyDecimalPlaces" class="k-textbox" style="width: 40px;" maxlength="15" />
+                                </div>
+
+                                <div class="col col-md-2">
+                                    <label asp-for="SchoolInfo.TimeZoneLocation" class="control-label"></label>
+                                </div>
+                                <div class="col col-md-3">
+                                    <input asp-for="SchoolInfo.TimeZoneLocation" id="timeZoneDropDown" style="width:280px;" title="@ESCHOOL.Resources.Resource.TimeZoneLocationMsg" />
+                                </div>
+                            </div>
+
+                            <br />
+                            <div class="row">
+                                &nbsp;&nbsp;&nbsp;
+                                @ESCHOOL.Resources.Resource.SchoolStatus
+                            </div>
+                            <div class="row">
+                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                <div class="col custom-control custom-radio">
+                                    <input type="radio" asp-for="SchoolInfo.IsActive" class="k-radio" id="IsActive1" value="true" />
+                                    <label class="k-radio-label" for="IsActive1">@ESCHOOL.Resources.Resource.Active</label>
+                                </div>
+                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                <div class="col  custom-control custom-radio">
+                                    <input type="radio" asp-for="SchoolInfo.IsActive" class="k-radio" id="IsActive2" value="false" />
+                                    <label class="k-radio-label" for="IsActive2">@ESCHOOL.Resources.Resource.Inactive</label>
+                                </div>
+
+                                <div class="col">
+                                    <label asp-for="SchoolInfo.SortOrder" class="control-label">@ESCHOOL.Resources.Resource.SortOrder</label>
+                                </div>
+                                <div class="col">
+                                    <input asp-for="SchoolInfo.SortOrder" class="k-textbox" style="width: 60px;" maxlength="2" />
+                                </div>
+                                <div class="col col-md-3">  </div>
+                            </div>
+
+                            <br />
+                            <h5 class="ra-well-title card-header top-left" style="padding-top:2px; padding-bottom:2px;"> <kbd>@ESCHOOL.Resources.Resource.Installment</kbd></h5>
+
+                            <div class="row">
+                                <div class="col col-md-4">
+                                    <label asp-for="SchoolInfo.DefaultInstallment" class="control-label"></label>
+                                </div>
+                                <div class="col col-md-2">
+                                    <input asp-for="SchoolInfo.DefaultInstallment" class="k-textbox" style="width: 60px;" maxlength="30" />
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row">
+                                <div class="col col-md-4">
+                                    <label asp-for="SchoolInfo.DefaultPaymentTypeCategoryID" class="control-label"></label>
+                                </div>
+                                <div class="col col-md-2">
+                                    <input asp-for="SchoolInfo.DefaultPaymentTypeCategoryID" id="paymentDropDown" style="width: 115px;" />
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row">
+                                <div class="col col-md-4">
+                                    <label asp-for="SchoolInfo.DefaultBankID" class="control-label"></label>
+                                </div>
+                                <div class="col col-md-6">
+                                    <input asp-for="SchoolInfo.DefaultBankID" id="bankNameDropDown" style="width: 100%;" />
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row">
+                                <div class="col col-md-4">
+                                    <label asp-for="SchoolInfo.DefaultShowDept" class="control-label"></label>
+                                </div>
+                                <div class="col col-md-2">
+                                    <input asp-for="SchoolInfo.DefaultShowDept" id="showdept" type='checkbox' class="k-checkbox" />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col col-md-4">
+                                    <label asp-for="SchoolInfo.InvoiceOnDate" class="control-label"></label>
+                                </div>
+                                <div class="col col-md-2">
+                                    <input asp-for="SchoolInfo.InvoiceOnDate" id="invoiceOnDate" type='checkbox' class="k-checkbox" title="@ESCHOOL.Resources.Resource.InvoiceOnDateMsg" />
+                                </div>
+                            </div>
+                            <br />
+                        </div>
+
+                        <div class="col order-10" style="max-width:400px">
+                            <h5 class="ra-well-title card-header top-left" style="padding-top:2px; padding-bottom:2px;"> <kbd>@ESCHOOL.Resources.Resource.RefundAccountCodes</kbd></h5>
+                            <div class="row">
+                                <div class="col">
+                                    <label asp-for="SchoolInfo.RefundDebtAccountID" class="control-label"></label>
+                                </div>
+                                <div class="col">
+                                    <input class="Accounting" asp-for="SchoolInfo.RefundDebtAccountID" style="width: 100%;" maxlength="10" required validationMessage=@ESCHOOL.Resources.Resource.RequiredField />
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col">
+                                    <label asp-for="SchoolInfo.RefundAccountNoID1" class="control-label"></label>
+                                </div>
+                                <div class="col">
+                                    <input class="Accounting" asp-for="SchoolInfo.RefundAccountNoID1" style="width: 100%;" maxlength="10" required validationMessage=@ESCHOOL.Resources.Resource.RequiredField />
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col">
+                                    <label asp-for="SchoolInfo.RefundAccountNoID2" class="control-label"></label>
+                                </div>
+                                <div class="col">
+                                    <input class="Accounting" asp-for="SchoolInfo.RefundAccountNoID2" style="width: 100%;" maxlength="10" required validationMessage=@ESCHOOL.Resources.Resource.RequiredField />
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col">
+                                    <label asp-for="SchoolInfo.RefundAccountNoID3" class="control-label"></label>
+                                </div>
+                                <div class="col">
+                                    <input class="Accounting" asp-for="SchoolInfo.RefundAccountNoID3" style="width: 100%;" maxlength="10" required validationMessage=@ESCHOOL.Resources.Resource.RequiredField />
+                                </div>
+                            </div>
+
+                            <br />
+
+                            <h5 class="ra-well-title card-header top-left" style="padding-top:2px; padding-bottom:2px;"> <kbd>@ESCHOOL.Resources.Resource.CancellationAccountingCodes</kbd></h5>
+                            <div class="row">
+                                <div class="col">
+                                    <label asp-for="SchoolInfo.CancelCreditNoID" class="control-label"></label>
+                                </div>
+                                <div class="col">
+                                    <input class="Accounting" asp-for="SchoolInfo.CancelCreditNoID" style="width: 100%;" maxlength="10" required validationMessage=@ESCHOOL.Resources.Resource.RequiredField />
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col">
+                                    <label asp-for="SchoolInfo.CancelDebtNoID" class="control-label"></label>
+                                </div>
+                                <div class="col">
+                                    <input class="Accounting" asp-for="SchoolInfo.CancelDebtNoID" style="width: 100%;" maxlength="10" required validationMessage=@ESCHOOL.Resources.Resource.RequiredField />
+                                </div>
+                            </div>
+
+                        </div>
+                    </row>
+                </div>
+
+                <!--#region style -->
+                <style>
+                    #tabstrip .k-content {
+                        overflow: hidden;
+                    }
+
+                    #tabstrip h2 {
+                        font-weight: lighter;
+                        font-size: 5em;
+                        line-height: 1;
+                        padding: 0 0 0 30px;
+                        margin: 0;
+                    }
+
+                        #tabstrip h2 span {
+                            background: none;
+                            padding-left: 5px;
+                            font-size: .3em;
+                            vertical-align: top;
+                        }
+
+                    #tabstrip p {
+                        margin: 0;
+                        padding: 0;
+                    }
+                </style>
+                <style>
+                    div.k-window-content {
+                        padding: 0;
+                    }
+
+                    #toolbar {
+                        border-width: 0 0 1px;
+                    }
+
+                    .user-image {
+                        margin: 0 .5em;
+                    }
+
+                    #example {
+                        height: 500px;
+                    }
+
+                        #example .box p {
+                            padding-bottom: 5px;
+                        }
+
+                    #content .demo-section {
+                        margin: 0;
+                        padding: 10px;
+                        border-width: 0 0 1px 0;
+                    }
+
+                        #content .demo-section label {
+                            display: inline-block;
+                            width: 40px;
+                            text-align: right;
+                            line-height: 2.5em;
+                            vertical-align: middle;
+                        }
+
+                        #content .demo-section input {
+                            width: 80%;
+                        }
+
+                    .k-grid-content {
+                        max-height: 480px;
+                    }
+
+                    .k-form-hint {
+                        margin-top: 10px;
+                    }
+
+                    form label {
+                        font-weight: bold;
+                        font-size: 12px;
+                    }
+
+                    .k-header {
+                        font-weight: bold !important;
+                        font-size: 12px;
+                    }
+                </style>
+                <!--#endregion -->
+                <!--#region script tabstrip -->
+                <script>
+                    $(document).ready(function () {
+                        $("#tabstrip").kendoTabStrip({
+                            animation: {
+                                open: {
+                                    effects: "fadeIn"
+                                }
+                            }
+                        });
+
+                        $("#tabstripTop").kendoTabStrip({
+                            animation: {
+                                open: {
+                                    effects: "fadeIn"
+                                }
+                            }
+                        });
+                    });
+                </script>
+                <!--#endregion -->
+            </div>
+        </div>
+    </form>
+    <!--#region script body -->
+    <!--#endregion -->
+    <!--#region toolbar -->
+    <style>
+        #logoId img {
+            width: 60px;
+        }
+    </style>
+    <script>
+        $(document).ready(function () {
+            $("#toolbarMenu").kendoToolBar({
+                items: [
+                    {
+                        template: "<img src='../Upload/Images/Logo.png' class='user-image' style='width:60px;'/>",
+                        overflow: "never",
+                    },
+                    { template: "<h4 style='padding-left:20px;'>@Model.UserPeriod  @ESCHOOL.Resources.Resource.InPeriod @ESCHOOL.Resources.Resource.SchoolInformationEntry</h4>" },
+                    { type: "spacer" },
+
+                    { type: "button", id: "save", text: "@ESCHOOL.Resources.Resource.Submit", icon: "save" },
+                    { type: "separator" },
+
+                    { type: "button", id: "help", text: "@ESCHOOL.Resources.Resource.Help", icon: "help" },
+                    { type: "separator" },
+
+                    { type: "button", id: "back", text: "@ESCHOOL.Resources.Resource.Back", icon: "rewind" },
+                    { type: "separator" },
+
+                    { type: "button", id: "exit", text: "@ESCHOOL.Resources.Resource.Exit", attributes: { style: "float: right; margin-top: .4em;" }, icon: "logout" },
+                    { type: "separator" },
+                ],
+
+                click: function (e) {
+                    if (e.id == "save") formclick();
+                    if (e.id == "exit") formDeleteclick();
+                    if (e.id == "back") formDeleteclick();
+
+                    if (e.id == "help") {
+                        var myWindow = $("#panelbarHelp").show();
+                        var panelBar = $("#panelbarHelp").data("kendoPanelBar");
+                        panelBar.select(panelBar.element.children("li").eq(0));
+                        panelBar._selected[0].style.display = 'block';
+                        var item = panelBar.select();
+                        panelBar.expand(item);
+                    }
+                }
+            });
+
+        });
+    </script>
+    <!--#endregion -->
+</body>
+
+<script>
+    $(document).ready(function () {
+        $('body').kendoTooltip({
+            filter: '[title]:not([title=""])',
+            autoHide: true,
+            position: "top",
+            animation: {
+                open: {
+                    effects: "zoom",
+                    duration: 150
+                }
+            }
+        });
+    });
+</script>
+
+<!--#region grid fees  -->
+<script>
+    var record = 0;
+    $(document).ready(function () {
+        var crudServiceBaseUrl = "/M110SchoolInfo/",
+            dataSource = new kendo.data.DataSource({
+                transport: {
+                    read: {
+                        url: crudServiceBaseUrl + "SchoolFeeDataRead/" + "@Model.SchoolID" + "/" + "@Model.UserID",
+                        dataType: "json",
+                    },
+
+                    update: {
+                        url: function (options) {
+                            var url = crudServiceBaseUrl + "SchoolFeeDataUpdate/" + options.models[0].id + "/" + "@Model.SchoolID";
+                            return url;
+                        },
+                        type: "post",
+                        dataType: "json",
+                        complete: function (e) {
+                            e.preventDefault();
+                        }
+                    },
+
+                    destroy: {
+                        url: function (options) {
+                            var url = crudServiceBaseUrl + "SchoolFeeDataDelete/" + options.models[0].id + "/" + "@Model.UserID" + "/" + "@Model.SchoolID";
+                            return url;
+                        },
+                        type: "post",
+                        dataType: "json",
+                        complete: function (e) {
+                            e.preventDefault();
+                        }
+                    },
+                    create: {
+                        url: function (options) {
+                            var url = crudServiceBaseUrl + "SchoolFeeDataCreate/" + options.models[0].id + "/" + "@Model.SchoolID";
+                            return url;
+                        },
+                        complete: function (e) {
+                            showPopupNotification();
+                            $("#gridFees").data("kendoGrid").dataSource.read();
+                        },
+                        type: "post",
+                        dataType: "json"
+                    },
+                    parameterMap: function (options, operation) {
+                        if (operation !== "read" && options.models) {
+                            return { models: kendo.stringify(options.models) };
+                        }
+                    }
+                },
+
+                batch: true,
+                pageSize: 20,
+                schema: {
+                    model: {
+                        id: "schoolFeeID",
+                        fields: {
+                            schoolFeeID: { editable: false, type: "number" },
+                            feeCategory: { defaultValue: 2 },
+                            schoolID: { editable: false, type: "number" },
+                            name: { validation: { required: true } },
+                            categoryLevel: { defaultValue: "L1" },
+                            tax: { type: "number", validation: { required: true, min: 0 } },
+                            sortOrder: { type: "number", validation: { min: 0, required: true } },
+                            isActive: { type: "boolean" },
+                            isSelect: { type: "boolean" }
+                        }
+                    }
+                }
+            });
+
+        $("#gridFees").kendoGrid({
+            dataSource: dataSource,
+            pageable: true,
+            resizable: true,
+            selectable: 'row',
+            toolbar: ["create", "cancel"],
+            columns: [
+                { field: "@Model.CategoryNameSub", title: "@ESCHOOL.Resources.Resource.FeeName", width: "180px", template: "#=@Model.CategoryNameSub#" },
+                { field: "tax", title: "@ESCHOOL.Resources.Resource.Tax", width: "60px", template: "#=tax#" },
+                { field: "sortOrder", title: "@ESCHOOL.Resources.Resource.Sort", width: "60px", template: "#=sortOrder#" },
+                { field: "isActive", title: "@ESCHOOL.Resources.Resource.Status", width: "60px", editor: customBoolEditor, template: "<input  #if (isActive) { # checked='checked' # } # type='checkbox' disabled />" },
+                { command: [{ text: " ", name: "edit" }, { text: " ", name: "destroy", visible: function (dataItem) { return "@Model.IsPermission" == false } }], title: "&nbsp;" },
+            ],
+            editable: "inline",
+        });
+    });
+    function customBoolEditor(container, options) {
+        $('<input class="k-checkbox" type="checkbox" name="isActive" data-type="boolean" data-bind="checked:isActive">').appendTo(container);
+    }
+</script>
+<!--#endregion -->
+<!--#region grid services  -->
+<script>
+    var record = 0;
+    $(document).ready(function () {
+        var crudServiceBaseUrl = "/M110SchoolInfo/",
+            dataSource = new kendo.data.DataSource({
+                transport: {
+                    read: {
+                        url: crudServiceBaseUrl + "SchoolServiceFeeDataRead/" + "@Model.SchoolID" + "/" + "@Model.UserID",
+                        dataType: "json",
+                    },
+
+                    update: {
+                        url: function (options) {
+                            var url = crudServiceBaseUrl + "SchoolServiceFeeDataUpdate/" + options.models[0].id + "/" + "@Model.SchoolID";
+                            return url;
+                        },
+                        type: "post",
+                        dataType: "json",
+                        complete: function (e) {
+                            e.preventDefault();
+                        }
+                    },
+
+                    destroy: {
+                        url: function (options) {
+                            var url = crudServiceBaseUrl + "SchoolServiceFeeDataDelete/" + options.models[0].id + "/" + "@Model.UserID" + "/" + "@Model.SchoolID";
+                            return url;
+                        },
+                        type: "post",
+                        dataType: "json",
+                        complete: function (e) {
+                            e.preventDefault();
+                        }
+                    },
+                    create: {
+                        url: function (options) {
+                            var url = crudServiceBaseUrl + "SchoolServiceFeeDataCreate/" + options.models[0].id + "/" + "@Model.SchoolID";
+                            return url;
+                        },
+                        complete: function (e) {
+                            showPopupNotification();
+                            $("#gridServices").data("kendoGrid").dataSource.read();
+                        },
+                        type: "post",
+                        dataType: "json"
+                    },
+                    parameterMap: function (options, operation) {
+                        if (operation !== "read" && options.models) {
+                            return { models: kendo.stringify(options.models) };
+                        }
+                    }
+                },
+
+                batch: true,
+                pageSize: 20,
+                schema: {
+                    model: {
+                        id: "schoolFeeID",
+                        fields: {
+                            schoolFeeID: { editable: false, type: "number" },
+                            feeCategory: { defaultValue: 2 },
+                            schoolID: { editable: false, type: "number" },
+                            name: { validation: { required: true } },
+                            categoryLevel: { defaultValue: "L1" },
+                            tax: { type: "number", validation: { required: true, min: 0 } },
+                            sortOrder: { type: "number", validation: { min: 0, required: true } },
+                            isActive: { type: "boolean" },
+                            isSelect: { type: "boolean" }
+                        }
+                    }
+                }
+            });
+
+        $("#gridServices").kendoGrid({
+            dataSource: dataSource,
+            pageable: true,
+            resizable: true,
+            selectable: 'row',
+            toolbar: ["create", "cancel"],
+            columns: [
+                { field: "@Model.CategoryNameSub", title: "@ESCHOOL.Resources.Resource.FeeName", width: "180px", template: "#=@Model.CategoryNameSub#" },
+                { field: "tax", title: "@ESCHOOL.Resources.Resource.Tax", width: "60px", template: "#=tax#" },
+                { field: "sortOrder", title: "@ESCHOOL.Resources.Resource.Sort", width: "60px", template: "#=sortOrder#" },
+                { field: "isActive", title: "@ESCHOOL.Resources.Resource.Status", width: "60px", editor: customBoolEditor2, template: "<input  #if (isActive) { # checked='checked' # } # type='checkbox' disabled />" },
+                { command: [{ text: " ", name: "edit" }, { text: " ", name: "destroy" }], title: "&nbsp;" },
+            ],
+            editable: "inline",
+        });
+    });
+    function customBoolEditor2(container, options) {
+        $('<input class="k-checkbox" type="checkbox" name="isActive" data-type="boolean" data-bind="checked:isActive">').appendTo(container);
+    }
+</script>
+<!--#endregion -->
+<!--#region combo City, Town -->
+<script>
+    $(document).ready(function () {
+        var citycomboBox1 = $("#citycomboBox1").kendoDropDownList({
+            dataTextField: "@Model.CategoryName",
+            dataValueField: "categoryID",
+            optionLabel: { "@Model.CategoryName": getByCulture('@culture', 'select'), categoryID: "0" },
+
+            filter: "contains",
+            dataSource: {
+                transport: {
+                    read: {
+                        dataType: "json",
+                        url: "/M110SchoolInfo/CityCombo"
+                    }
+                }
+            }
+        }).data("kendoDropDownList");
+
+        var towncomboBox1 = $("#towncomboBox1").kendoDropDownList({
+            autoBind: false,
+            cascadeFrom: "citycomboBox1",
+            optionLabel: { "@Model.CategoryName": getByCulture('@culture', 'select'), categoryID: "0" },
+            dataTextField: "@Model.CategoryName",
+            dataValueField: "categoryID",
+            dataSource: {
+                serverFiltering: true,
+                transport: {
+                    read: {
+                        dataType: "json",
+                        url: "/M110SchoolInfo/TownCombo",
+                        data: function (e) {
+                            return { id: citycomboBox1.value() }
+                        }
+                    }
+                }
+            }
+        }).data("kendoDropDownList");
+    });
+
+    $(document).ready(function () {
+        $("#citybondcomboBox").kendoDropDownList({
+            optionLabel: { "@Model.CategoryName": getByCulture('@culture', 'select'), categoryID: "" },
+            dataTextField: "@Model.CategoryName",
+            dataValueField: "categoryID",
+            filter: "contains",
+            dataSource: {
+                transport: {
+                    read: {
+                        dataType: "json",
+                        url: "/M110SchoolInfo/CityCombo"
+                    }
+                }
+            }
+        });
+    });
+    $(document).ready(function () {
+        $("#integratorcomboBox").kendoDropDownList({
+            optionLabel: { "@Model.CategoryName": getByCulture('@culture', 'select'), categoryID: "0" },
+            dataTextField: "@Model.CategoryName",
+            dataValueField: "categoryID",
+            dataSource: {
+                transport: {
+                    read: {
+                        dataType: "json",
+                        url: "/M110SchoolInfo/IntegratorCombo"
+                    }
+                }
+            }
+        });
+    });
+
+    $(document).ready(function () {
+        $("#paymentDropDown").kendoDropDownList({
+            dataTextField: "@Model.CategoryName",
+            dataValueField: "categoryID",
+            dataSource: {
+                transport: {
+                    read: {
+                        dataType: "json",
+                        url: "/M110SchoolInfo/PaymentTypeCombo"
+                    }
+                }
+            }
+        });
+    });
+    $(document).ready(function () {
+        $("#bankNameDropDown").kendoDropDownList({
+            optionLabel: { bankName: getByCulture('@culture', 'select'), bankID: "0" },
+            dataTextField: "bankName",
+            dataValueField: "bankID",
+            dataSource: {
+                transport: {
+                    read: {
+                        dataType: "json",
+                        //url: "/M110SchoolInfo/BankNameCombo"
+                        url: "/M110SchoolInfo/BankNameCombo?id=" + @Model.SchoolID,
+                    }
+                }
+            },
+        });
+    });
+
+    $(document).ready(function () {
+        $("#timeZoneDropDown").kendoDropDownList({
+            optionLabel: { Id: getByCulture('@culture', 'select') },
+            dataTextField: "Id",
+            dataValueField: "Id",
+            filter: "contains",
+            dataSource: {
+                transport: {
+                    read: {
+                        dataType: "json",
+                        url: "/M110SchoolInfo/TimeZone",
+                    }
+                }
+            },
+        });
+    });
+
+</script>
+<!--#endregion -->
+<!--#region multicombobox  -->
+<script>
+    $(document).ready(function () {
+        $(".Accounting").kendoMultiColumnComboBox({
+            dataTextField: "accountCode",
+            dataValueField: "accountCode",
+            height: 400,
+            columns: [
+                { field: "accountCode", title: getByCulture('@culture', 'accountingCode'), width: 200 },
+                { field: "accountCodeName", title: getByCulture('@culture', 'accountingCodeName'), width: 400 },
+            ],
+            footerTemplate: getByCulture('@culture', 'total') + ' #: instance.dataSource.total() # ' + getByCulture('@culture', 'itemsfound'),
+            filter: "startswith",
+            filterFields: ["accountCode", "accountCodeName"],
+            dataSource: {
+                dataType: "json",
+                transport: {
+                    read: {
+                        dataType: "json",
+                        url: "/M230Student/AccountCodes/" + "@Model.UserPeriod"
+                    }
+                }
+            }
+        });
+    });
+</script>
+<!--#endregion -->
+<!--#region script  -->
+<script>
+    var previewing = function (event) {
+        var result = document.getElementById("imgpreview")
+        result.src = URL.createObjectURL(event.target.files[0]);
+    };
+
+    $(document).ready(function () {
+        $("#imgfile").kendoUpload({
+            async: {
+                removeUrl: "remove",
+                autoUpload: true
+            },
+            localization: {
+                select: '<i class="fa fa-upload"></i>'
+            },
+            showFileList: false
+        });
+    });
+</script>
+
+<script>
+    var dictionary =
+    {
+        'tr-TR': {
+            select: 'Seç',
+            accountingCode: 'Muhasebe Kodu',
+            accountingCodeName: 'Muhasebe Adı',
+            selectbankName: 'Banka Seçimini Yapınız.',
+            total: "Toplam",
+            itemsfound: "kayıt bulundu",
+            emptyField: "E-Fatura / Seri Kodlar Boş Olamaz",
+        },
+
+        'en-US': {
+            select: 'Select',
+            accountingCode: 'Accounting Code',
+            accountingCodeName: 'Accounting Name',
+            selectbankName: 'Select the bank name.',
+            total: "Total",
+            itemsfound: "items found",
+            emptyField: "E-Invoice / Serial Codes Cannot Be Empty",
+        },
+    }
+    function getByCulture(culture, word) {
+        return dictionary[culture][word]
+    }
+</script>
+
+
+<script>
+    function formclick(e) {
+        /* e.preventDefault();*/
+        var newNo = ('@TempData["schoolID"]');
+        showPopupNotification();
+        //if ("@Model.SchoolInfo.EIInvoiceSerialCode1" == null || "@Model.SchoolInfo.EIInvoiceSerialCode2" == null ||
+        //    "@Model.SchoolInfo.EIInvoiceSerialCode1" == "" || "@Model.SchoolInfo.EIInvoiceSerialCode2" == "")
+        //    msg = getByCulture('@culture', 'emptyField');
+        //    alert(msg);
+        //else
+
+        $("form").submit();
+
+        var grid1 = $("#gridFees").data("kendoGrid");
+        grid1.saveChanges();
+        var grid2 = $("#gridServices").data("kendoGrid");
+        grid2.saveChanges();
+    }
+</script>
+<script>
+    $(document).ready(function () {
+        $('#M110SchoolInfo').submit(function () {
+            $('#M110SchoolInfo').find(" [required=\"required\"]").attr("required", false);
+            $(".needValidation").attr("required", true);
+        });
+        var validator = $("#M110SchoolInfo").kendoValidator().data("kendoValidator"),
+            status = $(".status");
+    });
+</script>
+
+
+<span id="popupNotification"></span>
+<script>
+    function showPopupNotification() {
+        var popupNotification = $("#popupNotification").kendoNotification().data("kendoNotification");
+        var d = new Date();
+        popupNotification.show(kendo.toString(d, 'HH:MM:ss.') + kendo.toString(d.getMilliseconds(), "000"), "error");
+    };
+</script>
+<script>
+    function formDeleteclick(e) {
+        var newNo = ('@TempData["schoolID"]');
+        if (newNo > 0)
+            /*alert("silinecek");*/
+            $.ajax({
+                url: '/M110SchoolInfo/GridDataDeleteNew/' + newNo,
+                type: "post",
+                dataType: "json"
+            });
+
+        if (event.target.id == "back")
+            window.location.replace("/M110SchoolInfo/index?UserID=@Model.UserID");
+        else
+            window.location.replace("/Home/index?UserID=@Model.UserID");
+    }
+</script>
+
+<script>
+    $("#schoolyearstart").kendoDatePicker({
+        format: "dd/MM/yyyy"
+    });
+
+    $("#schoolyearend").kendoDatePicker({
+        format: "dd/MM/yyyy"
+    });
+
+    $("#financialyearstart").kendoDatePicker({
+        format: "dd/MM/yyyy"
+    });
+
+    $("#financialyearend").kendoDatePicker({
+        format: "dd/MM/yyyy"
+    });
+</script>
+
+<script>
+    $('#EI1').change(function () {
+        if ($('#EI1').attr('checked')) {
+            $('input').attr('required', true);
+        }
+    });
+
+    $('#EI2').change(function (e) {
+        if ($('#EI2').attr('checked')) {
+
+        }
+        else {
+            $('input').attr('required', false);
+        }
+    });
+</script>
+<script>
+    $("#wrap img").hover(function () {
+        kendo.fx(this).zoom("in").startValue(1).endValue(1.3).play();
+    }, function () {
+        kendo.fx(this).zoom("out").endValue(1).startValue(1.3).play();
+    });
+
+    $("#divheader").show(1000);
+</script>
+<script>
+    window.history.replaceState('', '', window.location.pathname);
+</script>
+<!--#endregion -->

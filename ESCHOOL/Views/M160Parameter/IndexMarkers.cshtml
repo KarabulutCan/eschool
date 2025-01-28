@@ -1,0 +1,598 @@
+﻿@model ESCHOOL.ViewModels.SchoolViewModel
+@{
+    System.Globalization.CultureInfo.CurrentCulture = System.Globalization.CultureInfo.CreateSpecificCulture(@Model.SelectedCulture);
+    System.Globalization.CultureInfo.CurrentUICulture = System.Globalization.CultureInfo.CreateSpecificCulture(@Model.SelectedCulture);
+    var culture = System.Globalization.CultureInfo.CurrentCulture.ToString();
+}
+<!--#region head -->
+<head>
+    <style>
+        html {
+            font-size: 13px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+    </style>
+    <title></title>
+    <link href="https://kendo.cdn.telerik.com/2021.2.616/styles/kendo.common.min.css" rel="stylesheet" />
+    <link rel="stylesheet" id="skin-css" href="@TempData["theme"]" />
+    <link rel="stylesheet" id="skin-css" href="@TempData["themeMobile"]" />
+    <script src="https://kendo.cdn.telerik.com/2021.2.616/js/jquery.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2021.2.616/js/kendo.all.min.js"></script>
+
+    <script src="@Url.Content("~/telerik/2021.2.616/js//cultures/kendo.culture." + culture + ".min.js")"></script>
+    <script src="@Url.Content("~/telerik/2021.2.616/js//messages/kendo.messages." + culture + ".min.js")"></script>
+
+    <script type="text/javascript">
+        kendo.culture("@culture");
+    </script>
+</head>
+<!--#endregion -->
+
+<body>
+    <div class="demo-section k-content fixed-top wide">
+        <div id="toolbarMenu"></div>
+    </div>
+    <br />
+    <br />
+    <br />
+
+    <div id="example">
+        <div id="grid"></div>
+    </div>
+    <!--#region toolbar -->
+    <style>
+        #logoId img {
+            width: 60px;
+        }
+    </style>
+    <script>
+        $(document).ready(function() {
+            $("#toolbarMenu").kendoToolBar({
+                items: [
+                    {
+                        template: "<img src='../Upload/Images/Logo.png' class='user-image' style='width:60px;'/>",
+                        overflow: "never",
+                    },
+
+                    { template: "<h4 style='padding-left:20px;'>@Model.UserPeriod  @ESCHOOL.Resources.Resource.Markers</h4>" },
+                    { type: "spacer" },
+
+                    { type: "button", id: "back", text: "@ESCHOOL.Resources.Resource.Back", attributes: { style: "float: right" }, icon: "rewind" },
+                    { type: "separator" },
+
+                    { type: "button", id: "exit", text: "@ESCHOOL.Resources.Resource.Exit", attributes: { style: "float: right; margin-top: .4em;" }, icon: "logout" },
+                    { type: "separator" },
+                ],
+
+                click: function(e) {
+                    if (e.id == "exit")
+                        window.location.replace("/Home/index?userID=@Model.UserID");
+                    else
+                        window.location.replace("/M210Student/AddOrEditStudent?studentID=" + "@Model.StudentID" + "&userID=@Model.UserID");
+                }
+            });
+            if (@Model.StudentID == 0) $("#back").hide();
+        });
+    </script>
+    <!--#endregion -->
+</body>
+
+<!--#region head -->
+<script>
+    var expanded = {};
+    var grid, id, subId;
+    $(document).ready(function() {
+        var element = $("#grid").kendoGrid({
+            dataSource: {
+                transport: {
+                    read: {
+                        url: "/M160Parameter/ParameterDataReadMarkersMain/" + "L1",
+                        dataType: "json"
+                    },
+                    create: {
+                        url: function(options) {
+                            var url = "/M160Parameter/ParameterDataCreate/" + options.models[0].id + "/" + id + "/" + "L1";
+                            return url;
+                        },
+                        type: "post",
+                        dataType: "json",
+                        complete: function(e) {
+                            showPopupNotification();
+                        },
+                    },
+                    update: {
+                        url: function(options) {
+                            var url = "/M160Parameter/ParameterDataUpdate/" + options.models[0].id + "/" + "L1";;
+                            return url;
+                        },
+                        complete: function(e) {
+                            showPopupNotification();
+                            $("#grid").data("kendoGrid").dataSource.read();
+                            showPopupNotification();
+                        },
+                        type: "post",
+                        dataType: "json",
+                    },
+                    destroy: {
+                        url: function(options) {
+                            var url = "/M160Parameter/ParameterDataDelete/" + options.models[0].id;
+                            return url;
+                        },
+                        type: "post",
+                        dataType: "json",
+                        complete: function(e) {
+                            showPopupNotification();
+                        },
+                    },
+
+                    parameterMap: function(options, operation) {
+                        if (operation !== "read" && options.models) {
+                            return { models: kendo.stringify(options.models) };
+                        }
+                    }
+                },
+                batch: true,
+                pageSize: 6,
+                serverPaging: true,
+                serverSorting: true,
+                schema: {
+                    model: {
+                        id: "categoryID",
+                        fields: {
+                            categoryName: { editable: false, validation: { required: true } },
+                            categoryID: { type: "number" },
+                            sortOrder: { type: "number" },
+                            isActive: { type: "boolean", defaultValue: true },
+                            isProtected: { type: "boolean", defaultValue: true },
+                            nationalityCode: { type: "number", defaultValue: "@culture" },
+                        }
+                    },
+                },
+            },
+            height: 670,
+            sortable: true,
+            pageable: true,
+            detailInit: detailInit,
+            detailExpand: function(e) {
+                e.sender.tbody.find('.k-detail-row').each(function(idx, item) {
+                    if (item !== e.detailRow[0]) {
+                        e.sender.collapseRow($(item).prev());
+                    }
+                })
+            },
+            selectable: 'row',
+            columns: [
+                {
+                    field: "@Model.CategoryName",
+                    title: "@ESCHOOL.Resources.Resource.Name",
+                    width: "300px"
+                },
+                {
+                    field: "sortOrder",
+                    title: "@ESCHOOL.Resources.Resource.Sort",
+                    width: "110px"
+                },
+                { field: "isActive", title: "@ESCHOOL.Resources.Resource.Status", width: "60px", editor: customBoolEditor1, template: "<input  #if (isActive) { # checked='checked' # } # type='checkbox' disabled />" },
+            ],
+            //dataBound: function () {
+            //    //this.expandRow(this.tbody.find("tr.k-master-row"));
+            //    this.expandRow(this.tbody.find("tr.k-master-row").first());
+            //},
+            editable: true,
+            navigatable: true,
+        });
+        function customBoolEditor1(container, options) {
+            $('<input class="k-checkbox" type="checkbox" name="isActive" data-type="boolean" data-bind="checked:isActive">').appendTo(container);
+        };
+    });
+
+    function detailInit(e) {
+        grid = this;
+        grid.bind("detailExpand", function(e) {
+            id = this.dataItem(e.masterRow).categoryID;
+            expanded[id] = true;
+            subId = id;
+        });
+
+        setTimeout(function() {
+            // Yukarıdaki id ile senkronize çalışması için küçük bir bekletme yapıldı
+
+            $("<div/>").appendTo(e.detailCell).kendoGrid({
+                dataSource: {
+                    transport: {
+                        read: {
+                            url: "/M160Parameter/ParameterDataReadDetail/" + id + "/" + "L2",
+                            dataType: "json"
+                        },
+                        create: {
+                            url: function(options) {
+                                var url = "/M160Parameter/ParameterDataCreate/" + options.models[0].id + "/" + id + "/" + "L2";
+                                return url;
+                            },
+                            complete: function(e) {
+                                showPopupNotification();
+                                $("#grid").data("kendoGrid").dataSource.read();
+                            },
+                            type: "post",
+                            dataType: "json"
+                        },
+                        update: {
+                            url: function(options) {
+                                var url = "/M160Parameter/ParameterDataUpdate/" + options.models[0].id + "/" + "L2";
+                                return url;
+                            },
+                            complete: function(e) {
+                                showPopupNotification();
+                                $("#grid").data("kendoGrid").dataSource.read();
+                            },
+                            type: "post",
+                            dataType: "json",
+                        },
+                        destroy: {
+                            url: function(options) {
+                                var url = "/M160Parameter/ParameterDataDelete/" + options.models[0].id;
+                                return url;
+                            },
+                            type: "post",
+                            dataType: "json",
+                            complete: function(e) {
+                                showPopupNotification();
+                            },
+                        },
+                        parameterMap: function(options, operation) {
+                            if (operation !== "read" && options.models) {
+                                return { models: kendo.stringify(options.models) };
+                            }
+                        }
+                    },
+
+                    batch: true,
+                    serverPaging: true,
+                    serverSorting: true,
+                    serverFiltering: true,
+                    pageSize: 10,
+                    schema: {
+                        model: {
+                            id: "categoryID",
+                            fields: {
+                                categoryName: { validation: { required: true } },
+                                categoryID: { type: "number" },
+                                sortOrder: { type: "number" },
+                                isActive: { type: "boolean", defaultValue: true },
+                                isProtected: { type: "boolean", defaultValue: true },
+                                nationalityCode: { type: "number", defaultValue: "@culture" },
+                                color: { type: "string", defaultValue: "#f8a398" }
+                            }
+                        },
+                    },
+                },
+
+                scrollable: false,
+                sortable: true,
+                //detailInit: moreDetail,
+                detailExpand: function(e) {
+                    e.sender.tbody.find('.k-detail-row').each(function(idx, item) {
+                        if (item !== e.detailRow[0]) {
+                            e.sender.collapseRow($(item).prev());
+                        }
+                    })
+                },
+                pageable: true,
+                selectable: 'row',
+
+                toolbar: ["create", "cancel", "save"],
+                dataBound: function(e) {
+                    if (id == 03) { $('.k-grid-add').addClass("k-state-disabled"), $('.k-grid-cancel-changes').addClass("k-state-disabled"), $('.k-grid-save-changes').addClass("k-state-disabled") };
+                    if (id == 04) { $('.k-grid-add').addClass("k-state-disabled"), $('.k-grid-cancel-changes').addClass("k-state-disabled"), $('.k-grid-save-changes').addClass("k-state-disabled") };
+                    if (id == 05) { $('.k-grid-add').addClass("k-state-disabled"), $('.k-grid-cancel-changes').addClass("k-state-disabled"), $('.k-grid-save-changes').addClass("k-state-disabled") };
+                    if (id == 07) { $('.k-grid-add').addClass("k-state-disabled"), $('.k-grid-cancel-changes').addClass("k-state-disabled"), $('.k-grid-save-changes').addClass("k-state-disabled") };
+                    if (id == 17) { $('.k-grid-add').addClass("k-state-disabled"), $('.k-grid-cancel-changes').addClass("k-state-disabled"), $('.k-grid-save-changes').addClass("k-state-disabled") };
+                    if (id == 18) { $('.k-grid-add').addClass("k-state-disabled"), $('.k-grid-cancel-changes').addClass("k-state-disabled"), $('.k-grid-save-changes').addClass("k-state-disabled") };
+                    if (id == 19) { $('.k-grid-add').addClass("k-state-disabled"), $('.k-grid-cancel-changes').addClass("k-state-disabled"), $('.k-grid-save-changes').addClass("k-state-disabled") };
+                    if (id == 20) { $('.k-grid-add').addClass("k-state-disabled"), $('.k-grid-cancel-changes').addClass("k-state-disabled"), $('.k-grid-save-changes').addClass("k-state-disabled") };
+                    if (id == 21) { $('.k-grid-add').addClass("k-state-disabled"), $('.k-grid-cancel-changes').addClass("k-state-disabled"), $('.k-grid-save-changes').addClass("k-state-disabled") };
+                    if (id == 22) { $('.k-grid-add').addClass("k-state-disabled"), $('.k-grid-cancel-changes').addClass("k-state-disabled"), $('.k-grid-save-changes').addClass("k-state-disabled") };
+                    if (id == 03 || id == 04 || id == 05 || id == 07 || id == 17 || id == 18 || id == 19 || id == 20 || id == 21 || id == 22) {
+                        let grid = this;
+                        var data = grid.dataSource.at(0);
+                        data.fields["categoryName"].editable = false;
+                    }
+                    
+                },
+                columns: [
+                    { field: "@Model.CategoryName", title: "@ESCHOOL.Resources.Resource.Name", width: "300px" },
+                    { field: "sortOrder", title: "@ESCHOOL.Resources.Resource.Sort", width: "110px" },
+                    { field: "isActive", title: "@ESCHOOL.Resources.Resource.Status", width: "60px", editor: customBoolEditor2, template: "<input  #if (isActive) { # checked='checked' # } # type='checkbox' disabled />" },
+                    {
+                        field: "color",
+                        width: 150,
+                        title: "@ESCHOOL.Resources.Resource.Color",
+                        template: function (dataItem) {
+                            return "<div style='background-color: " + dataItem.color + ";'>&nbsp;</div>";
+                        },
+                        editor: function (container, options) {
+                            // create an input element
+                            var input = $("<input/>");
+                            // set its name to the field to which the column is bound ('name' in this case)
+                            input.attr("name", options.field);
+                            // append it to the container
+                            input.appendTo(container);
+                            // initialize a Kendo UI AutoComplete
+                            input.kendoColorPicker({
+                                value: options.model.color,
+                                buttons: false
+                            });
+                        }
+                    },
+
+                    { command: [{ name: "edit", name: "destroy", visible: function (dataItem) { return dataItem.isProtected == true } }], title: "&nbsp;", width: "100px" }
+                ],
+                editable: true,
+            });
+
+        }, 1);
+
+        function customBoolEditor2(container, options) {
+            $('<input class="k-checkbox" type="checkbox" name="isActive" data-type="boolean" data-bind="checked:isActive">').appendTo(container);
+        };
+    }
+
+    //function moreDetail(e) {
+    //    grid = this;
+    //    grid.bind("detailExpand", function(e) {
+    //        id = this.dataItem(e.masterRow).categoryID;
+    //        expanded[id] = true;
+    //    });
+
+    //    setTimeout(function() {
+    //        $("<div/>").appendTo(e.detailCell).kendoGrid({
+    //            dataSource: {
+    //                transport: {
+    //                    read: {
+    //                        url: "/M160Parameter/ParameterDataReadDetail/" + id + "/" + "L3",
+    //                    },
+    //                    create: {
+    //                        url: function(options) {
+    //                            var url = "/M160Parameter/ParameterDataCreate/" + options.models[0].id + "/" + id + "/" + "L3";
+    //                            return url;
+    //                        },
+    //                        complete: function(e) {
+    //                            showPopupNotification();
+    //                            $("#grid").data("kendoGrid").dataSource.read();
+    //                        },
+    //                        type: "post",
+    //                        dataType: "json"
+    //                    },
+    //                    update: {
+    //                        url: function(options) {
+    //                            var url = "/M160Parameter/ParameterDataUpdate/" + options.models[0].id + "/" + "L3";
+    //                            return url;
+    //                        },
+    //                        complete: function(e) {
+    //                            showPopupNotification();
+    //                            $("#grid").data("kendoGrid").dataSource.read();
+    //                        },
+    //                        type: "post",
+    //                        dataType: "json",
+    //                    },
+    //                    destroy: {
+    //                        url: function(options) {
+    //                            var url = "/M160Parameter/ParameterDataDelete/" + options.models[0].id;
+    //                            return url;
+    //                        },
+    //                        type: "post",
+    //                        dataType: "json",
+    //                        complete: function(e) {
+    //                            showPopupNotification();
+    //                        },
+    //                    },
+    //                    parameterMap: function(options, operation) {
+    //                        if (operation !== "read" && options.models) {
+    //                            return { models: kendo.stringify(options.models) };
+    //                        }
+    //                    }
+    //                },
+
+    //                batch: true,
+    //                serverPaging: true,
+    //                serverSorting: true,
+    //                serverFiltering: true,
+    //                pageSize: 10,
+    //                schema: {
+    //                    model: {
+    //                        id: "categoryID",
+    //                        fields: {
+    //                            categoryName: { validation: { required: true } },
+    //                            categoryID: { type: "number", validation: { required: true, min: 0 } },
+    //                            sortOrder: { type: "number", validation: { required: true, min: 0 } },
+    //                            isActive: { type: "boolean", defaultValue: true },
+    //                            isProtected: { type: "boolean", defaultValue: true },
+    //                            nationalityCode: { type: "number", defaultValue: "@culture" },
+    //                        }
+    //                    },
+    //                },
+    //            },
+
+    //            detailInit: evenMore,
+    //            detailExpand: function(e) {
+    //                e.sender.tbody.find('.k-detail-row').each(function(idx, item) {
+    //                    if (item !== e.detailRow[0]) {
+    //                        e.sender.collapseRow($(item).prev());
+    //                    }
+    //                })
+    //            },
+    //            scrollable: false,
+    //            sortable: true,
+    //            pageable: true,
+    //            selectable: 'row',
+    //            dataBound: function(e) {
+    //                $("#grid tbody tr .k-grid-delete").each(function() {
+    //                    var currentDataItem = $("#grid").data("kendoGrid").dataItem($(this).closest("tr"));
+    //                    if (currentDataItem.isProtected == true) {
+    //                        /* if (currentDataItem != null) {*/
+    //                        $(this).remove();
+    //                        /*  }*/
+    //                    }
+    //                })
+    //            },
+    //            toolbar: ["create", "cancel", "save"],
+    //            dataBound: function(e) {
+    //                if (subId == 03) { $('.k-grid-add').addClass("k-state-disabled"), $('.k-grid-save-changes').addClass("k-state-disabled") };
+    //                if (subId == 04) { $('.k-grid-add').addClass("k-state-disabled"), $('.k-grid-save-changes').addClass("k-state-disabled") };
+    //                if (subId == 05) { $('.k-grid-add').addClass("k-state-disabled"), $('.k-grid-save-changes').addClass("k-state-disabled") };
+    //                if (subId == 07) { $('.k-grid-add').addClass("k-state-disabled"), $('.k-grid-save-changes').addClass("k-state-disabled") };
+    //                if (subId == 17) { $('.k-grid-add').addClass("k-state-disabled"), $('.k-grid-save-changes').addClass("k-state-disabled") };
+    //                if (subId == 18) { $('.k-grid-add').addClass("k-state-disabled"), $('.k-grid-save-changes').addClass("k-state-disabled") };
+    //                if (subId == 19) { $('.k-grid-add').addClass("k-state-disabled"), $('.k-grid-save-changes').addClass("k-state-disabled") };
+    //                if (subId == 20) { $('.k-grid-add').addClass("k-state-disabled"), $('.k-grid-save-changes').addClass("k-state-disabled") };
+    //                if (subId == 21) { $('.k-grid-add').addClass("k-state-disabled"), $('.k-grid-save-changes').addClass("k-state-disabled") };
+    //                if (subId == 22) { $('.k-grid-add').addClass("k-state-disabled"), $('.k-grid-save-changes').addClass("k-state-disabled") };
+    //            },
+    //            columns: [
+    //                { field: "categoryName", title: "@ESCHOOL.Resources.Resource.Name", width: "250px" },
+    //                { field: "sortOrder", title: "@ESCHOOL.Resources.Resource.Sort", width: "90px" },
+    //                { field: "isActive", title: "@ESCHOOL.Resources.Resource.Status", width: "60px", editor: customBoolEditor3, template: "<input  #if (isActive) { # checked='checked' # } # type='checkbox' disabled />" },
+    //                { command: [{ name: "destroy", visible: function(dataItem) { return dataItem.isProtected == true } }], title: "&nbsp;", width: "100px" }
+    //            ],
+    //            editable: true,
+    //            navigatable: true,
+    //        });
+    //    }, 1);
+    //    function customBoolEditor3(container, options) {
+    //        $('<input class="k-checkbox" type="checkbox" name="isActive" data-type="boolean" data-bind="checked:isActive">').appendTo(container);
+    //    };
+    //}
+
+    //function evenMore(e) {
+    //    grid = this;
+    //    grid.bind("detailExpand", function(e) {
+    //        id = this.dataItem(e.masterRow).categoryID;
+    //        expanded[id] = true;
+    //    });
+
+    //    setTimeout(function() {
+    //        $("<div/>").appendTo(e.detailCell).kendoGrid({
+    //            dataSource: {
+    //                transport: {
+    //                    read: {
+    //                        url: "/M160Parameter/ParameterDataReadDetail/" + id + "/" + "L4",
+    //                        dataType: "json"
+    //                    },
+    //                    create: {
+    //                        url: function(options) {
+    //                            var url = "/M160Parameter/ParameterDataCreate/" + options.models[0].id + "/" + id + "/" + "L4";
+    //                            return url;
+    //                        },
+    //                        complete: function(e) {
+    //                            showPopupNotification();
+    //                            $("#grid").data("kendoGrid").dataSource.read();
+    //                        },
+    //                        type: "post",
+    //                        dataType: "json"
+    //                    },
+    //                    update: {
+    //                        url: function(options) {
+    //                            var url = "/M160Parameter/ParameterDataUpdate/" + options.models[0].id + "/" + "L4";
+    //                            return url;
+    //                        },
+    //                        complete: function(e) {
+    //                            showPopupNotification();
+    //                            $("#grid").data("kendoGrid").dataSource.read();
+    //                        },
+    //                        type: "post",
+    //                        dataType: "json",
+    //                    },
+    //                    destroy: {
+    //                        url: function(options) {
+    //                            var url = "/M160Parameter/ParameterDataDelete/" + options.models[0].id;
+    //                            return url;
+    //                        },
+    //                        type: "post",
+    //                        dataType: "json",
+    //                        complete: function(e) {
+    //                            showPopupNotification();
+    //                        },
+    //                    },
+    //                    parameterMap: function(options, operation) {
+    //                        if (operation !== "read" && options.models) {
+    //                            return { models: kendo.stringify(options.models) };
+    //                        }
+    //                    }
+    //                },
+
+    //                batch: true,
+    //                serverPaging: true,
+    //                serverSorting: true,
+    //                serverFiltering: true,
+    //                pageSize: 10,
+    //                schema: {
+    //                    model: {
+    //                        id: "categoryID",
+    //                        fields: {
+    //                            categoryName: { validation: { required: true } },
+    //                            categoryID: { type: "number", validation: { required: true, min: 0 } },
+    //                            sortOrder: { type: "number", validation: { required: true, min: 0 } },
+    //                            isActive: { type: "boolean", defaultValue: true },
+    //                            isProtected: { type: "boolean", defaultValue: true },
+    //                            nationalityCode: { type: "number", defaultValue: "@culture" },
+    //                        }
+    //                    },
+    //                },
+    //            },
+
+    //            scrollable: false,
+    //            sortable: true,
+    //            pageable: true,
+    //            selectable: 'row',
+    //            toolbar: ["create", "cancel", "save"],
+    //            dataBound: function(e) {
+    //                if (subId == 03) { $('.k-grid-add').addClass("k-state-disabled"), $('.k-grid-save-changes').addClass("k-state-disabled") };
+    //                if (subId == 04) { $('.k-grid-add').addClass("k-state-disabled"), $('.k-grid-save-changes').addClass("k-state-disabled") };
+    //                if (subId == 05) { $('.k-grid-add').addClass("k-state-disabled"), $('.k-grid-save-changes').addClass("k-state-disabled") };
+    //                if (subId == 07) { $('.k-grid-add').addClass("k-state-disabled"), $('.k-grid-save-changes').addClass("k-state-disabled") };
+    //                if (subId == 17) { $('.k-grid-add').addClass("k-state-disabled"), $('.k-grid-save-changes').addClass("k-state-disabled") };
+    //                if (subId == 18) { $('.k-grid-add').addClass("k-state-disabled"), $('.k-grid-save-changes').addClass("k-state-disabled") };
+    //                if (subId == 19) { $('.k-grid-add').addClass("k-state-disabled"), $('.k-grid-save-changes').addClass("k-state-disabled") };
+    //                if (subId == 20) { $('.k-grid-add').addClass("k-state-disabled"), $('.k-grid-save-changes').addClass("k-state-disabled") };
+    //                if (subId == 21) { $('.k-grid-add').addClass("k-state-disabled"), $('.k-grid-save-changes').addClass("k-state-disabled") };
+    //                if (subId == 22) { $('.k-grid-add').addClass("k-state-disabled"), $('.k-grid-save-changes').addClass("k-state-disabled") };
+    //            },
+    //            columns: [
+    //                { field: "categoryName", title: "@ESCHOOL.Resources.Resource.Name", width: "250px" },
+    //                { field: "sortOrder", title: "@ESCHOOL.Resources.Resource.Sort", width: "90px" },
+    //                { field: "isActive", title: "@ESCHOOL.Resources.Resource.Status", width: "60px", editor: customBoolEditor4, template: "<input  #if (isActive) { # checked='checked' # } # type='checkbox' disabled />" },
+    //                { command: [{ name: "destroy", visible: function(dataItem) { return dataItem.isProtected == true } }], title: "&nbsp;", width: "100px" }
+    //            ],
+    //            editable: true,
+    //            navigatable: true,
+    //        });
+    //    }, 1);
+    //    function customBoolEditor4(container, options) {
+    //        $('<input class="k-checkbox" type="checkbox" name="isActive" data-type="boolean" data-bind="checked:isActive">').appendTo(container);
+    //    };
+    //}
+
+</script>
+<!--#endregion -->
+<style>
+    .k-grid-content {
+        max-height: 720px;
+    }
+
+    .k-header {
+        font-weight: bold !important;
+        font-size: 12px;
+    }
+
+</style>
+<span id="popupNotification"></span>
+<script>
+    function showPopupNotification() {
+        var popupNotification = $("#popupNotification").kendoNotification().data("kendoNotification");
+        var d = new Date();
+        popupNotification.show(kendo.toString(d, 'HH:MM:ss.') + kendo.toString(d.getMilliseconds(), "000"), "error");
+    };
+</script>
+<script>
+    window.history.replaceState('', '', window.location.pathname);
+</script>

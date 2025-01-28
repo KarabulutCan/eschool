@@ -1,0 +1,344 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="textBox27.Value" xml:space="preserve">
+    <value>= Fields.WebSite</value>
+  </data>
+  <data name="textBox12.Value" xml:space="preserve">
+    <value>Başlangıç Tarih.:</value>
+  </data>
+  <data name="textBox47.Value" xml:space="preserve">
+    <value>ÇEK</value>
+  </data>
+  <data name="textBox45.Value" xml:space="preserve">
+    <value>= IIf(Fields.Fee07 = 0, "",  Fields.Fee07)</value>
+  </data>
+  <data name="textBox46.Value" xml:space="preserve">
+    <value>TAHSİL ve TEDİYE</value>
+  </data>
+  <data name="textBox34.Value" xml:space="preserve">
+    <value>= Fields.CompanyName</value>
+  </data>
+  <data name="textBox55.Value" xml:space="preserve">
+    <value>MAİL ORDER</value>
+  </data>
+  <data name="textBox23.Value" xml:space="preserve">
+    <value>TARİH</value>
+  </data>
+  <data name="textBox15.Value" xml:space="preserve">
+    <value>= Format('{0:dd/MM/yyyy}', Fields.DateFrom)</value>
+  </data>
+  <data name="textBox43.Value" xml:space="preserve">
+    <value>= IIf(Fields.Fee01 = 0, "",  Fields.Fee01)</value>
+  </data>
+  <data name="textBox41.Value" xml:space="preserve">
+    <value>= Fields.TypeCategoryName</value>
+  </data>
+  <data name="textBox38.Value" xml:space="preserve">
+    <value>= Fields.CompanyAddress</value>
+  </data>
+  <data name="textBox59.Value" xml:space="preserve">
+    <value>= IIf(Fields.Fee05 = 0, "",  Fields.Fee05)</value>
+  </data>
+  <data name="textBox9.Value" xml:space="preserve">
+    <value>FİŞ NO</value>
+  </data>
+  <data name="textBox18.Value" xml:space="preserve">
+    <value>= Fields.AccountReceipt</value>
+  </data>
+  <data name="textBox1.Value" xml:space="preserve">
+    <value>ALACAK</value>
+  </data>
+  <data name="textBox36.Value" xml:space="preserve">
+    <value>= Format('{0:dd/MM/yyyy}', Today())</value>
+  </data>
+  <data name="textBox71.Value" xml:space="preserve">
+    <value>= Fields.CompanyEmail</value>
+  </data>
+  <data name="textBox6.Value" xml:space="preserve">
+    <value>BORÇ</value>
+  </data>
+  <data name="sqlDataSource1.SelectCommand" xml:space="preserve">
+    <value>SELECT        Student.StudentID, Student.StudentSerialNumber, Student.StudentNumber, Student.FirstName, Student.LastName, Student.StudentClassroomID, Student.IsPension, Classroom.ClassroomName, Classroom.ClassroomID, 
+                         Classroom.ClassroomTeacher, Student.GenderTypeCategoryID, Parameter.CategoryName, Parameter.CategoryID
+FROM            Student INNER JOIN
+                         Classroom ON Student.StudentClassroomID = Classroom.ClassroomID AND Student.StudentClassroomID = Classroom.ClassroomID 
+                        INNER JOIN
+                         Parameter ON Student.GenderTypeCategoryID = Parameter.CategoryID
+WHERE        (Student.StudentClassroomID = @Classroom)</value>
+  </data>
+  <data name="sqlDataSource111.SelectCommand" xml:space="preserve">
+    <value>SELECT TempM101.BondTypeTitle, TempM101.Name, TempM101.DateOfRegistration, TempM101.InWriting, TempM101.CashPayment, TempM101.TotalFee, TempM101.Status
+FROM TempM101 
+Where   TempM101.Status  IS NOT NULL;</value>
+  </data>
+  <data name="textBox50.Value" xml:space="preserve">
+    <value>= Format('{0:dd/MM/yyyy}', Fields.DateTo)</value>
+  </data>
+  <data name="textBox14.Value" xml:space="preserve">
+    <value>= IIf(Sum(Fields.CashPayment) &gt;= Sum(Fields.TotalFee), Sum(Fields.CashPayment) - Sum(Fields.TotalFee),  0)</value>
+  </data>
+  <data name="textBox51.Value" xml:space="preserve">
+    <value>= Fields.Fax</value>
+  </data>
+  <data name="textBox54.Value" xml:space="preserve">
+    <value>O.T.S</value>
+  </data>
+  <data name="textBox53.Value" xml:space="preserve">
+    <value>KMH.</value>
+  </data>
+  <data name="textBox70.Value" xml:space="preserve">
+    <value>NAKİT BANKA</value>
+  </data>
+  <data name="textBox39.Value" xml:space="preserve">
+    <value>= Fields.Phone1</value>
+  </data>
+  <data name="sqlDataSource2.SelectCommand" xml:space="preserve">
+    <value>SELECT        S.CompanyName, S.CompanyAddress, S.Phone1, S.Phone2, S.MobilePhone, S.Fax, S.TaxOffice, S.TaxNo, S.CompanyEmail, S.WebSite, U.UserPeriod
+FROM            SchoolInfo AS S CROSS JOIN
+                         Users AS U
+WHERE        (S.SchoolID = @schoolCode) AND (U.UserID = @userID)</value>
+  </data>
+  <data name="textBox2.Value" xml:space="preserve">
+    <value>= IIf(Fields.TotalFee = 0, "",  Fields.TotalFee)</value>
+  </data>
+  <data name="textBox10.Value" xml:space="preserve">
+    <value>Sayfa.:</value>
+  </data>
+  <data name="textBox77.Value" xml:space="preserve">
+    <value>= IIf(Fields.Fee08 = 0, "",  Fields.Fee08)</value>
+  </data>
+  <data name="textBox28.Value" xml:space="preserve">
+    <value>-</value>
+  </data>
+  <data name="textBox48.Value" xml:space="preserve">
+    <value>= Fields.TaxNo</value>
+  </data>
+  <data name="textBox76.Value" xml:space="preserve">
+    <value>NAKİT KASA</value>
+  </data>
+  <data name="textBox30.Value" xml:space="preserve">
+    <value>= Fields.HeaderFee02</value>
+  </data>
+  <data name="textBox89.Value" xml:space="preserve">
+    <value>= IIf(Fields.Fee03 = 0, "",  Fields.Fee03)</value>
+  </data>
+  <data name="textBox4.Value" xml:space="preserve">
+    <value>AÇIKLAMA</value>
+  </data>
+  <data name="textBox44.Value" xml:space="preserve">
+    <value>= IIf(Fields.Fee04 = 0, "",  Fields.Fee04)</value>
+  </data>
+  <data name="textBox64.Value" xml:space="preserve">
+    <value>KREDİ KARTI</value>
+  </data>
+  <data name="textBox16.Value" xml:space="preserve">
+    <value>BAKİYE</value>
+  </data>
+  <data name="textBox37.Value" xml:space="preserve">
+    <value>Tarih.:</value>
+  </data>
+  <data name="textBox35.Value" xml:space="preserve">
+    <value>= Sum(Fields.CashPayment)</value>
+  </data>
+  <data name="textBox17.Value" xml:space="preserve">
+    <value>= IIf(Sum(Fields.CashPayment) &lt; Sum(Fields.TotalFee), Sum(Fields.TotalFee) - Sum(Fields.CashPayment),  0)</value>
+  </data>
+  <data name="textBox52.Value" xml:space="preserve">
+    <value>SENET</value>
+  </data>
+  <data name="textBox3.Value" xml:space="preserve">
+    <value>= Sum(Fields.TotalFee)</value>
+  </data>
+  <data name="textBox13.Value" xml:space="preserve">
+    <value>= Fields.TaxOffice</value>
+  </data>
+  <data name="textBox11.Value" xml:space="preserve">
+    <value>HESAP DÖKÜMÜ</value>
+  </data>
+  <data name="textBox29.Value" xml:space="preserve">
+    <value>= Fields.HeaderFee01</value>
+  </data>
+  <data name="textBox19.Value" xml:space="preserve">
+    <value>TOPLAM</value>
+  </data>
+  <data name="textBox49.Value" xml:space="preserve">
+    <value>Bitiş Tarihi.:</value>
+  </data>
+  <data name="textBox7.Value" xml:space="preserve">
+    <value>= Fields.InWriting</value>
+  </data>
+  <data name="textBox33.Value" xml:space="preserve">
+    <value>HESAP KODU</value>
+  </data>
+  <data name="textBox31.Value" xml:space="preserve">
+    <value>= IIf(Fields.CashPayment = 0, "",  Fields.CashPayment)</value>
+  </data>
+  <data name="textBox82.Value" xml:space="preserve">
+    <value>İCMAL</value>
+  </data>
+  <data name="textBox42.Value" xml:space="preserve">
+    <value>= IIf(Fields.Fee02 = 0, "",  Fields.Fee02)</value>
+  </data>
+  <data name="textBox32.Value" xml:space="preserve">
+    <value>= Fields.BondTypeTitle</value>
+  </data>
+  <data name="textBox65.Value" xml:space="preserve">
+    <value>= IIf(Fields.Fee06 = 0, "",  Fields.Fee06)</value>
+  </data>
+  <data name="textBox20.Value" xml:space="preserve">
+    <value>=  PageNumber</value>
+  </data>
+  <data name="textBox58.Value" xml:space="preserve">
+    <value>= Fields.Phone2</value>
+  </data>
+  <data name="textBox40.Value" xml:space="preserve">
+    <value>= Fields.MobilePhone</value>
+  </data>
+  <data name="textBox24.Value" xml:space="preserve">
+    <value>= Format('{0:dd/MM/yyyy}', Fields.DateOfRegistration)</value>
+  </data>
+  <data name="textBox83.Value" xml:space="preserve">
+    <value>= Sum(Fields.Fee01 + Fields.Fee02 + Fields.Fee03 + Fields.Fee04 + Fields.Fee05 + Fields.Fee06 + Fields.Fee07 + Fields.Fee08)</value>
+  </data>
+  <metadata name="$this.Language" type="System.Globalization.CultureInfo, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>tr-TR</value>
+  </metadata>
+  <metadata name="$this.SnapGridSize" type="Telerik.Reporting.Drawing.Unit, Telerik.Reporting, Version=15.2.21.1125, Culture=neutral, PublicKeyToken=a9d7983dfcc261be">
+    <value>0.1cm</value>
+  </metadata>
+  <metadata name="$this.ShowWatermarks" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>False</value>
+  </metadata>
+  <metadata name="$this.ShowDimensions" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>False</value>
+  </metadata>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="sqlDataSource1.ParameterValues" xml:space="preserve">
+    <value>{"@userID":"2"}</value>
+  </metadata>
+  <metadata name="sqlDataSource2.ParameterValues" xml:space="preserve">
+    <value>{"@userID":"1"}</value>
+  </metadata>
+  <metadata name="$this.SnapToSnapLines" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>False</value>
+  </metadata>
+</root>

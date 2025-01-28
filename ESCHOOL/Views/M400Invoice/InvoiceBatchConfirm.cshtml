@@ -1,0 +1,302 @@
+﻿@model ESCHOOL.ViewModels.InvoiceConfirmViewModel
+@{
+    System.Globalization.CultureInfo.CurrentCulture = System.Globalization.CultureInfo.CreateSpecificCulture(@Model.SelectedCulture);
+    System.Globalization.CultureInfo.CurrentUICulture = System.Globalization.CultureInfo.CreateSpecificCulture(@Model.SelectedCulture);
+    var culture = System.Globalization.CultureInfo.CurrentCulture.ToString();
+}
+<html>
+<head>
+    <style>
+        html {
+            font-size: 13px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+    </style>
+    <title></title>
+    <link href="https://kendo.cdn.telerik.com/2021.2.616/styles/kendo.common.min.css" rel="stylesheet" />
+    <link rel="stylesheet" id="skin-css" href="@TempData["theme"]" />
+    <link rel="stylesheet" id="skin-css" href="@TempData["themeMobile"]" />
+    <script src="https://kendo.cdn.telerik.com/2021.2.616/js/jquery.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2021.2.616/js/kendo.all.min.js"></script>
+
+    <script src="@Url.Content("~/telerik/2021.2.616/js//cultures/kendo.culture." + culture + ".min.js")"></script>
+    <script src="@Url.Content("~/telerik/2021.2.616/js//messages/kendo.messages." + culture + ".min.js")"></script>
+
+
+    <script type="text/javascript">
+        kendo.culture("@culture");
+    </script>
+</head>
+<body onload="switchBodyColor()">
+    @if (ViewBag.IsSuccess == true)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>@ESCHOOL.Resources.Resource.Warning</strong>@ESCHOOL.Resources.Resource.ValidationError3<br />
+            <a asp-contoller="ListPanel" asp-action="List202" asp-route-userID="@Model.UserID&0">@ESCHOOL.Resources.Resource.ClickToContinue</a>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
+    <div id="example">
+        <div class="demo-section k-content center" id="shadow">
+            <div class="center2">
+                <h2>@ESCHOOL.Resources.Resource.BatchInvoicePrinting</h2>
+            </div>
+            <hr />
+            <form id="List203" asp-controller="ListPanel" asp-action="ListPanelInfo202" asp-route-id="@Model.UserID">
+                <input type="hidden" asp-for="UserID" />
+
+                <div class="row">
+                    <div class="col col-md-5">
+                        <label class="control-label">@ESCHOOL.Resources.Resource.EArchive / @ESCHOOL.Resources.Resource.EInvoice @ESCHOOL.Resources.Resource.Status</label>
+                    </div>
+                    <div class="col col-md-3">
+                        <input asp-for="EIIsActive" class="k-textbox" style="width: 100%;" readonly />
+                    </div>
+                </div>
+
+                <div class="row" style="padding-top:1px;">
+                    <div class="col col-md-5">
+                        <label asp-for="InvoiceBatchDate" class="control-label">@ESCHOOL.Resources.Resource.InvoiceDate</label>
+                    </div>
+                    <div class="col col-md-3">
+                        <input asp-for="InvoiceBatchDate" id="invoiceBatchDateId" class="form-control listDate" style="width: 100%;" readonly />
+                    </div>
+                </div>
+                <br />
+
+                <div class="row">
+                    <div class="col col-md-5">
+                        <label asp-for="TotalInvoice" class="control-label">@ESCHOOL.Resources.Resource.TotalInvoicetoPrint</label>
+                    </div>
+                    <div class="col col-md-3">
+                        <input asp-for="TotalInvoice" class="k-textbox" style="width: 100%; font-weight: bold;" readonly />
+                    </div>
+                    <div class="col col-md-1">
+                        <label class="control-label">/</label>
+                    </div>
+                    <div class="col col-md-3">
+                        <input asp-for="RemainingInvoice" id="remainingInvoiceid" class="k-textbox" style="width: 100%; color:orangered; font-weight: bold;" readonly />
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col col-md-5">
+                        <label asp-for="StudentName" class="control-label">@ESCHOOL.Resources.Resource.StudentName</label>
+                    </div>
+                    <div class="col col-md-7">
+                        <input asp-for="StudentName" class="k-textbox" style="width: 100%;font-weight: bold; font-style:italic;" readonly />
+                    </div>
+                </div>
+                <div class="row" style="padding-top:1px;">
+                    <div class="col col-md-5">
+                        <label asp-for="ParentName" class="control-label">@ESCHOOL.Resources.Resource.ParentName</label>
+                    </div>
+                    <div class="col col-md-7">
+                        <input asp-for="ParentName" class="k-textbox" style="width: 100%; font-weight: bold;" readonly />
+                    </div>
+                </div>
+                <br />
+@*                 <div class="row">
+                    <div class="col col-md-5">
+                        <label class="control-label">@ESCHOOL.Resources.Resource.Approved&nbsp;@ESCHOOL.Resources.Resource.Print</label>
+                    </div>
+                    <div class="col col-md-3">
+                        <input type="number" id="maxPrintID" class="k-textbox" value="@Model.MaxPrint" min="1" max="1000" style="width: 100%;" />
+                    </div>
+                </div> *@
+
+                <hr />
+                <div class="row">
+@*                     <div class="col col-md-3">
+                        <button type="button" id="okButton" onclick="okPrint(1)" style="width:80px;" title="@ESCHOOL.Resources.Resource.AskForConfirmation">@ESCHOOL.Resources.Resource.Approved</button>
+                    </div>
+                    <div class="col col-md-3">
+                        <button type="button" id="tenInvoice" onclick="okPrint(2)" style="width:80px" title="@ESCHOOL.Resources.Resource.ConfirmEveryTenPrints">@ESCHOOL.Resources.Resource.Approved</button>
+                    </div> *@
+                    <div class="col col-md-3">
+                        <button type="button" id="printer" onclick="okPrint(3)" style="width:80px;" title="@ESCHOOL.Resources.Resource.PrintingWithoutAsking">@ESCHOOL.Resources.Resource.Printer</button>
+                    </div>
+                    <div class="col col-md-3">
+                        <button type="button" id="exitButton" onclick="okExit()" style="width:80px;" title="@ESCHOOL.Resources.Resource.Exit">@ESCHOOL.Resources.Resource.Exit</button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+
+    </div>
+    <script>
+        function okExit() {
+            window.location.replace("/M400Invoice/InvoiceBatchReset?userID=@Model.UserID");
+            window.location.replace("/M400Invoice/InvoiceBatch?userID=@Model.UserID&studentID=0&dateString=&isLoop=false");
+        }
+
+        function okPrint(e) {
+            waitProgress()
+            var maxPrint = 10;
+            // var maxPrint = document.getElementById("maxPrintID").value;
+            var remainingInvoice = document.getElementById("remainingInvoiceid").value;
+            var invoiceDate = document.getElementById("invoiceBatchDateId").value;
+            var dateString = kendo.toString(invoiceDate, "yyyy-MM-dd");
+            var printOpt = e;
+            var url = '/M400Invoice/InvoiceBatchStartPrint?userID=' + "@Model.UserID" + "&classroomID=" + @Model.ClassroomID + "&studentID=" + @Model.StudentID + "&dateString=" + dateString + "&remainingInvoice=" + "@Model.RemainingInvoice" + "&printOpt=" + printOpt + "&maxPrint=" + maxPrint;
+            window.location.replace(url);
+        }
+    </script>
+
+    <script>
+        function waitProgress() {
+            $('#loader-pulsing').kendoLoader({ type: 'pulsing' });
+            $('#loader-infinite-spinner').kendoLoader({ type: 'infinite-spinner' });
+            $('#loader-converging-spinner').kendoLoader({ type: 'converging-spinner' });
+        }
+    </script>
+    <div class="vertical-center">
+        <span id="loader-pulsing"></span>
+        <span id="loader-infinite-spinner"></span>
+        <span id="loader-converging-spinner"></span>
+    </div>
+    <style>
+        .vertical-center {
+            margin: 0;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+        }
+    </style>
+
+    <script>
+        $(".listDate").kendoDatePicker({
+            format: "dd/MM/yyyy"
+        });
+
+        $("#okButton").kendoButton({
+            icon: "page-header-section",
+            badge: {
+                text: 1234,
+                max: 1,
+                shape: "pill",
+                themeColor: "error"
+            }
+        });
+        $("#tenInvoice").kendoButton({
+            icon: "aggregate-fields",
+            badge: {
+                text: 1234,
+                max: @Model.MaxPrint,
+                shape: "pill",
+                themeColor: "error"
+            }
+        });
+
+        $("#printer").kendoButton({
+            icon: "printer",
+            badge: {
+                text: 12345,
+                max: @Model.TotalInvoice,
+                shape: "pill",
+                themeColor: "error"
+            }
+        });
+        $("#exitButton").kendoButton({
+            icon: "logout",
+        });
+    </script>
+
+    <style>
+        .center {
+            position: absolute;
+            left: 50%;
+            top: 40%;
+            transform: translate(-50%, -50%);
+            border: 1px solid #0a0a0a;
+            padding: 40px;
+            min-width: 600px;
+            max-width: 600px;
+        }
+
+        div.center2 {
+            text-align: center;
+        }
+
+        .k-list-horizontal {
+            margin-top: 5px;
+        }
+
+        .label {
+            font: normal 14px/16px Metric, Arial, Helvetica, sans-serif;
+            color: #656565;
+            display: inline-block;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .k-form-hint {
+            margin-top: 10px;
+        }
+
+        #shadow {
+            border: 1px solid;
+            box-shadow: 5px 10px 18px #888888;
+        }
+
+        .backgroundBlack {
+            background: rgba(0, 0, 0, 0.7) url('../Upload/Login/paper.jpg');
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-blend-mode: darken;
+        }
+
+        .backgroundWhite {
+            background: url('../Upload/Login/paper.jpg');
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+    </style>
+    <script>
+        function optionsVisibility() {
+            if (@Html.Raw(ViewBag.Msg) == 9 || @Html.Raw(ViewBag.Msg) == 8)
+                $("#Options7").hide(0);
+        }
+        function switchBodyColor() {
+            optionsVisibility();
+            if ('@TempData["color"]' == "#222") { document.body.className = 'backgroundBlack'; }
+            else { document.body.className = 'backgroundWhite'; }
+        }
+    </script>
+    <script>
+        var dictionary =
+        {
+            'tr-TR': {
+                select: 'Seç',
+                msgOk: 'Tamam'
+            },
+
+            'en-US': {
+                select: 'Select',
+                msgOk: 'OK'
+            },
+        }
+        function getByCulture(culture, word) {
+            return dictionary[culture][word]
+        }
+    </script>
+    <span id="popupNotification"></span>
+    <script>
+        function showPopupNotification() {
+            var popupNotification = $("#popupNotification").kendoNotification().data("kendoNotification");
+            var d = new Date();
+            popupNotification.show(kendo.toString(d, 'HH:MM:ss.') + kendo.toString(d.getMilliseconds(), "000"), "error");
+        };
+    </script>
+    <script>
+        window.history.replaceState('', '', window.location.pathname);
+    </script>
+</body>
+</html>

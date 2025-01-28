@@ -1,0 +1,537 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="textBox80.Value" xml:space="preserve">
+    <value>Invoice #</value>
+  </data>
+  <data name="textBox81.Value" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="textBox84.Value" xml:space="preserve">
+    <value>Cutted Date</value>
+  </data>
+  <data name="textBox93.Value" xml:space="preserve">
+    <value>Amount</value>
+  </data>
+  <data name="textBox94.Value" xml:space="preserve">
+    <value>Tax</value>
+  </data>
+  <data name="textBox95.Value" xml:space="preserve">
+    <value>Total Amount</value>
+  </data>
+  <data name="textBox108.Value" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="textBox22.Value" xml:space="preserve">
+    <value>Fee Name</value>
+  </data>
+  <data name="textBox115.Value" xml:space="preserve">
+    <value>Amount</value>
+  </data>
+  <data name="textBox129.Value" xml:space="preserve">
+    <value>Discount</value>
+  </data>
+  <data name="textBox9.Value" xml:space="preserve">
+    <value>Reg.Amount</value>
+  </data>
+  <data name="textBox85.Value" xml:space="preserve">
+    <value>PAYMENT TYPE</value>
+  </data>
+  <data name="textBox87.Value" xml:space="preserve">
+    <value>REG. NO</value>
+  </data>
+  <data name="textBox89.Value" xml:space="preserve">
+    <value>DUE DATE</value>
+  </data>
+  <data name="textBox91.Value" xml:space="preserve">
+    <value>AMOUNT</value>
+  </data>
+  <data name="textBox16.Value" xml:space="preserve">
+    <value>=  IIf(Fields.InvoiceSerialNo = 0, "", Fields.InvoiceSerialNo)</value>
+  </data>
+  <data name="textBox31.Value" xml:space="preserve">
+    <value>= Format('{0:MM/dd/yyyy}', Fields.InvoiceDate.Date)</value>
+  </data>
+  <data name="textBox73.Value" xml:space="preserve">
+    <value>= Format('{0:MM/dd/yyyy}', Fields.InvoiceCutDate.Date)</value>
+  </data>
+  <data name="textBox74.Value" xml:space="preserve">
+    <value>= Fields.DUnitPrice</value>
+  </data>
+  <data name="textBox75.Value" xml:space="preserve">
+    <value>= Fields.DTax</value>
+  </data>
+  <data name="textBox76.Value" xml:space="preserve">
+    <value>= Fields.DAmount</value>
+  </data>
+  <data name="textBox102.Value" xml:space="preserve">
+    <value>= Sum(Fields.DUnitPrice)</value>
+  </data>
+  <data name="textBox103.Value" xml:space="preserve">
+    <value>= Sum(Fields.DTax)</value>
+  </data>
+  <data name="textBox104.Value" xml:space="preserve">
+    <value>= Sum(Fields.DAmount)</value>
+  </data>
+  <data name="textBox78.Value" xml:space="preserve">
+    <value>TOTAL</value>
+  </data>
+  <data name="sqlDataSource5.SelectCommand" xml:space="preserve">
+    <value>SELECT        S.StudentID, I.StudentInvoiceID, I.StudentID, I.InvoiceSerialNo, I.InvoiceDate, I.InvoiceCutDate, I.DUnitPrice, I.DDiscount, I.DTax, I.DAmount, I.InvoiceStatus
+FROM          Student S
+              INNER JOIN Users AS U ON U.UserID = @userID
+              INNER JOIN StudentInvoice I on I.StudentID = S.StudentID and I.SchoolID = U.SchoolID and I.Period = U.UserPeriod
+WHERE       (S.StudentID = @StudentID and S.SchoolID = U.SchoolID and S.IsActive = 1)
+</value>
+  </data>
+  <data name="textBox124.Value" xml:space="preserve">
+    <value>Invoice Information</value>
+  </data>
+  <data name="textBox128.Value" xml:space="preserve">
+    <value>= Fields.FirstName + " " + Fields.Lastname</value>
+  </data>
+  <data name="textBox130.Value" xml:space="preserve">
+    <value>Student Name.:</value>
+  </data>
+  <data name="textBox131.Value" xml:space="preserve">
+    <value>Classroom.:</value>
+  </data>
+  <data name="textBox132.Value" xml:space="preserve">
+    <value>= Fields.ClassroomName</value>
+  </data>
+  <data name="textBox133.Value" xml:space="preserve">
+    <value>= Fields.StudentNumber</value>
+  </data>
+  <data name="textBox134.Value" xml:space="preserve">
+    <value>Student No.:</value>
+  </data>
+  <data name="textBox107.Value" xml:space="preserve">
+    <value>INSTALLMENTS</value>
+  </data>
+  <data name="textBox23.Value" xml:space="preserve">
+    <value>Registration Renewal Form</value>
+  </data>
+  <data name="textBox29.Value" xml:space="preserve">
+    <value>Period.:</value>
+  </data>
+  <data name="sqlDataSource2.SelectCommand" xml:space="preserve">
+    <value>SELECT        S.CompanyName, S.CompanyAddress, S.Phone1, S.Phone2, S.MobilePhone, S.Fax, S.TaxOffice, S.TaxNo, S.CompanyEmail, S.WebSite, U.UserPeriod
+FROM          SchoolInfo AS S 
+              INNER JOIN Users AS U ON U.UserID = @userID
+WHERE         S.SchoolID = U.SchoolID</value>
+  </data>
+  <data name="textBox17.Value" xml:space="preserve">
+    <value>= Format('{0:MM/dd/yyyy}', Fields.DateOfRegistration)</value>
+  </data>
+  <data name="textBox21.Value" xml:space="preserve">
+    <value>Serial No.:</value>
+  </data>
+  <data name="textBox24.Value" xml:space="preserve">
+    <value>Date of registration.:</value>
+  </data>
+  <data name="textBox28.Value" xml:space="preserve">
+    <value>Classroom.:</value>
+  </data>
+  <data name="textBox34.Value" xml:space="preserve">
+    <value>H.Address.:</value>
+  </data>
+  <data name="textBox35.Value" xml:space="preserve">
+    <value>Town.:</value>
+  </data>
+  <data name="textBox36.Value" xml:space="preserve">
+    <value>City.:</value>
+  </data>
+  <data name="textBox37.Value" xml:space="preserve">
+    <value>Id Number.:</value>
+  </data>
+  <data name="textBox38.Value" xml:space="preserve">
+    <value>Mobile:</value>
+  </data>
+  <data name="textBox39.Value" xml:space="preserve">
+    <value>STUDENT</value>
+  </data>
+  <data name="textBox26.Value" xml:space="preserve">
+    <value>Name.:</value>
+  </data>
+  <data name="textBox41.Value" xml:space="preserve">
+    <value>Name.:</value>
+  </data>
+  <data name="textBox42.Value" xml:space="preserve">
+    <value>W.Address.:</value>
+  </data>
+  <data name="textBox43.Value" xml:space="preserve">
+    <value>Town.:</value>
+  </data>
+  <data name="textBox44.Value" xml:space="preserve">
+    <value>City:</value>
+  </data>
+  <data name="textBox45.Value" xml:space="preserve">
+    <value>H.Phone.:</value>
+  </data>
+  <data name="textBox46.Value" xml:space="preserve">
+    <value>Mobile:</value>
+  </data>
+  <data name="textBox61.Value" xml:space="preserve">
+    <value>= Fields.HomeTown</value>
+  </data>
+  <data name="textBox62.Value" xml:space="preserve">
+    <value>= Fields.HomeCity</value>
+  </data>
+  <data name="textBox66.Value" xml:space="preserve">
+    <value>W.Phone:</value>
+  </data>
+  <data name="textBox1.Value" xml:space="preserve">
+    <value>WAddress.:</value>
+  </data>
+  <data name="textBox4.Value" xml:space="preserve">
+    <value>Town.:</value>
+  </data>
+  <data name="textBox6.Value" xml:space="preserve">
+    <value>City.:</value>
+  </data>
+  <data name="textBox47.Value" xml:space="preserve">
+    <value>Id Number.:</value>
+  </data>
+  <data name="textBox117.Value" xml:space="preserve">
+    <value>Zip:</value>
+  </data>
+  <data name="textBox118.Value" xml:space="preserve">
+    <value>Zip:</value>
+  </data>
+  <data name="textBox119.Value" xml:space="preserve">
+    <value>StudentNo:</value>
+  </data>
+  <data name="textBox120.Value" xml:space="preserve">
+    <value>= Fields.StudentNumber</value>
+  </data>
+  <data name="textBox121.Value" xml:space="preserve">
+    <value>Reg.Date.:</value>
+  </data>
+  <data name="textBox122.Value" xml:space="preserve">
+    <value>Gender:</value>
+  </data>
+  <data name="textBox123.Value" xml:space="preserve">
+    <value>D.O.B:</value>
+  </data>
+  <data name="textBox125.Value" xml:space="preserve">
+    <value>= Format('{0:MM/dd/yyyy}', Fields.DateOfRegistration)</value>
+  </data>
+  <data name="textBox126.Value" xml:space="preserve">
+    <value>= Format('{0:MM/dd/yyyy}', Fields.DateOfBird)</value>
+  </data>
+  <data name="textBox127.Value" xml:space="preserve">
+    <value>= Fields.Gender</value>
+  </data>
+  <data name="textBox112.Value" xml:space="preserve">
+    <value>= IIf(Fields.UnitPrice = 0, "", Fields.UnitPrice)</value>
+  </data>
+  <data name="textBox116.Value" xml:space="preserve">
+    <value>TOTAL</value>
+  </data>
+  <data name="textBox113.Value" xml:space="preserve">
+    <value>= Sum(Fields.UnitPrice)</value>
+  </data>
+  <data name="textBox111.Value" xml:space="preserve">
+    <value>= IIf(Fields.Discount = 0, "", Fields.Discount)</value>
+  </data>
+  <data name="textBox18.Value" xml:space="preserve">
+    <value>= IIf(Fields.Amount = 0, "", Fields.Amount)</value>
+  </data>
+  <data name="textBox30.Value" xml:space="preserve">
+    <value>= Sum(Fields.Discount)
+</value>
+  </data>
+  <data name="textBox19.Value" xml:space="preserve">
+    <value>= Sum(Fields.Amount)</value>
+  </data>
+  <data name="sqlDataSource8.SelectCommand" xml:space="preserve">
+    <value>IF (@language = 'tr-TR')
+BEGIN
+	SELECT        S.StudentID,  F.Name as Name, D.UnitPrice, D.Discount, D.Amount
+	FROM          Student S
+              INNER JOIN Users AS U ON U.UserID = @userID
+              INNER JOIN SchoolFee F on F.SchoolID = S.SchoolID AND F.FeeCategory = 1 and F.SchoolID = U.SchoolID 
+              INNER JOIN StudentDebt D on D.StudentID = S.StudentID AND D.SchoolFeeID = F.SchoolFeeID and D.SchoolID = U.SchoolID and D.Period = U.UserPeriod
+	WHERE       (S.StudentID = @studentID AND  F.IsActive = 1 and S.SchoolID = U.SchoolID and S.IsActive = 1) 
+
+
+	END
+
+ELSE
+BEGIN
+	SELECT        S.StudentID,  F.Language1 as Name, D.UnitPrice, D.Discount, D.Amount
+	FROM          Student S
+              INNER JOIN Users AS U ON U.UserID = @userID
+              INNER JOIN SchoolFee F on F.SchoolID = S.SchoolID AND F.FeeCategory = 1 and F.SchoolID = U.SchoolID 
+              INNER JOIN StudentDebt D on D.StudentID = S.StudentID AND D.SchoolFeeID = F.SchoolFeeID and D.SchoolID = U.SchoolID and D.Period = U.UserPeriod
+	WHERE       (S.StudentID = @studentID AND  F.IsActive = 1 and S.SchoolID = U.SchoolID and S.IsActive = 1) 
+
+
+END
+</value>
+  </data>
+  <data name="textBox40.Value" xml:space="preserve">
+    <value>PARENT</value>
+  </data>
+  <data name="textBox109.Value" xml:space="preserve">
+    <value>Cash.:</value>
+  </data>
+  <data name="textBox86.Value" xml:space="preserve">
+    <value>= IsNull(Fields.CategoryName,"") + IIf(Fields.FeeName = "", "",",") + IsNull(Substr(Fields.FeeName, 0, 15),"") </value>
+  </data>
+  <data name="textBox90.Value" xml:space="preserve">
+    <value>= Format('{0:MM/dd/yyyy}', Fields.InstallmentDate.Date)</value>
+  </data>
+  <data name="textBox106.Value" xml:space="preserve">
+    <value>TOTAL</value>
+  </data>
+  <data name="sqlDataSource6.SelectCommand" xml:space="preserve">
+    <value>IF (@language = 'tr-TR')
+BEGIN
+	SELECT        S.StudentID, I.InstallmentDate, I.InstallmentNo, I.CategoryID as InsCategoryID, I.CheckCardNo as InsCheckCardNo, I.InstallmentAmount as InsInstallmentAmount,             
+              I.FeeName, P1.CategoryName
+	FROM          Student S
+              INNER JOIN Users AS U ON U.UserID = @userID
+              INNER JOIN StudentInstallment I on I.StudentID = S.StudentID and I.SchoolID = U.SchoolID and I.Period = U.UserPeriod
+              INNER JOIN Parameter AS P1 ON I.CategoryID = P1.CategoryID 
+
+	WHERE       (S.StudentID = @StudentID and S.SchoolID = U.SchoolID and S.IsActive = 1)
+END
+
+ELSE
+BEGIN
+	SELECT        S.StudentID, I.InstallmentDate, I.InstallmentNo, I.CategoryID as InsCategoryID, I.CheckCardNo as InsCheckCardNo, I.InstallmentAmount as InsInstallmentAmount,             
+              I.FeeName, P1.Language1 as CategoryName
+	FROM          Student S
+              INNER JOIN Users AS U ON U.UserID = @userID
+              INNER JOIN StudentInstallment I on I.StudentID = S.StudentID and I.SchoolID = U.SchoolID and I.Period = U.UserPeriod
+              INNER JOIN Parameter AS P1 ON I.CategoryID = P1.CategoryID 
+
+	WHERE       (S.StudentID = @StudentID and S.SchoolID = U.SchoolID and S.IsActive = 1)
+END
+
+
+
+</value>
+  </data>
+  <data name="textBox48.Value" xml:space="preserve">
+    <value>= Fields.TaxNo</value>
+  </data>
+  <data name="textBox49.Value" xml:space="preserve">
+    <value>= Fields.TaxOffice</value>
+  </data>
+  <data name="textBox50.Value" xml:space="preserve">
+    <value>= Fields.WebSite</value>
+  </data>
+  <data name="textBox71.Value" xml:space="preserve">
+    <value>= Fields.CompanyEmail</value>
+  </data>
+  <data name="textBox51.Value" xml:space="preserve">
+    <value>= Fields.Fax</value>
+  </data>
+  <data name="textBox58.Value" xml:space="preserve">
+    <value>= Fields.Phone2</value>
+  </data>
+  <data name="textBox33.Value" xml:space="preserve">
+    <value>= Fields.Phone1</value>
+  </data>
+  <data name="textBox32.Value" xml:space="preserve">
+    <value>= Fields.MobilePhone</value>
+  </data>
+  <data name="textBox68.Value" xml:space="preserve">
+    <value>Bank Code.:</value>
+  </data>
+  <data name="textBox12.Value" xml:space="preserve">
+    <value>IBAN.:</value>
+  </data>
+  <data name="textBox72.Value" xml:space="preserve">
+    <value>Bank Name.:</value>
+  </data>
+  <data name="textBox110.Value" xml:space="preserve">
+    <value>= Fields.BankName</value>
+  </data>
+  <data name="textBox114.Value" xml:space="preserve">
+    <value>= Fields.Iban</value>
+  </data>
+  <data name="sqlDataSource7.SelectCommand" xml:space="preserve">
+    <value>SELECT        S.StudentID,  IP.PaymentDate, IP.AccountReceipt, IP.PaymentAmount, IP.BalanceAmount 
+FROM          Student S
+              INNER JOIN Users AS U ON U.UserID = @userID
+              LEFT JOIN StudentPayment IP on IP.StudentID = S.StudentID and IP.SchoolID = U.SchoolID and IP.Period = U.UserPeriod
+WHERE       (S.StudentID = @StudentID) and S.SchoolID = U.SchoolID
+
+
+
+</value>
+  </data>
+  <data name="sqlDataSource1.SelectCommand" xml:space="preserve">
+    <value>SELECT        S.StudentID, S.FirstName, S.Lastname, (S.FirstName + ' ' + S.Lastname) AS StudentName, S.ParentName, TP.ClassroomID, S.StudentSerialNumber, S.StudentNumber, S.IsPension, 
+              S.IdNumber as StudentIdNumber, S.GenderTypeCategoryID, S.DateOfRegistration, S.StudentPicture, S.DateOfBird, P6.Language1 AS Gender,
+              T.CashPayment, T.SubTotal, T.RefundAmount1,T.RefundAmount2, T.RefundAmount3,
+              SA.Address1, SA.CityParameterID1, SA.TownParameterID1, SA.ZipCode1, SA.MobilePhone as StudentMobilePhone, SA.MobilePhone as StudentMobilePhone, 
+              (S.FirstName + ' ' + S.Lastname) AS StudentName,PA.HomeAddress, PA.HomePhone, PA.HomeCityParameterID, PA.HomeTownParameterID, PA.HomeZipCode,
+              PA.WorkAddress, PA.IdNumber as ParentIdNumber, PA.WorkPhone, PA.MobilePhone as ParentMobilePhone, PA.WorkCityParameterID, PA.WorkTownParameterID, PA.WorkZipCode,
+          
+              TP.ClassroomName, TP.ClassroomID,
+              P1.Language1 as CategoryName, P2.Language1 AS City, P3.Language1 AS Town, P4.Language1 AS WorkCity, P5.Language1 AS WorkTown, P7.Language1 AS HomeCity, P8.Language1 AS HomeTown,
+              B.BankGivenCode, B.BankName, B.Iban              
+FROM        TempM101 TP
+                        INNER JOIN Student AS S ON S.StudentID = TP.StudentID
+                        INNER JOIN Users AS U ON U.UserID = @userID
+                        LEFT JOIN StudentTemp T on T.StudentID = S.StudentID and T.Period = U.UserPeriod
+
+                        LEFT JOIN StudentAddress SA on SA.StudentID = S.StudentID
+                        LEFT JOIN StudentParentAddress PA on PA.StudentID = S.StudentID
+                        LEFT JOIN StudentInstallment I on I.StudentID = S.StudentID  and I.SchoolID = TP.SchoolID
+                        INNER JOIN Bank B on B.BankID = I.BankID and B.SchoolID = U.SchoolID
+        
+                        INNER JOIN Parameter AS P1 ON I.CategoryID = P1.CategoryID
+   	                LEFT JOIN Parameter as P2 ON SA.CityParameterID1 = P2.CategoryID
+		        LEFT JOIN Parameter as P3 ON SA.TownParameterID1 = P3.CategoryID
+		        LEFT JOIN Parameter as P4 ON PA.WorkCityParameterID = P4.CategoryID
+		        LEFT JOIN Parameter as P5 ON PA.WorkTownParameterID = P5.CategoryID
+                        LEFT JOIN Parameter as P6 ON S.GenderTypeCategoryID = P6.CategoryID
+		        LEFT JOIN Parameter as P7 ON PA.HomeCityParameterID = P7.CategoryID
+		        LEFT JOIN Parameter as P8 ON PA.HomeTownParameterID = P8.CategoryID
+WHERE S.SchoolID = TP.SchoolID and TP.UserID = @userID AND S.IsActive = 1 and    
+( (S.FirstName + ' ' + S.Lastname ) LIKE ('%' + @StudentName + '%') and (@StudentName) &lt;&gt; ' ')
+or
+( TP.ClassroomID = @Classroom and (U.UserPeriod = @period) and (@StudentName) = ' ' and S.IsActive = 1)
+
+</value>
+  </data>
+  <data name="reportParameter1.Text" xml:space="preserve">
+    <value>Pictorial</value>
+  </data>
+  <data name="reportParameter2.Text" xml:space="preserve">
+    <value>Invoice Information</value>
+  </data>
+  <data name="reportParameter3.Text" xml:space="preserve">
+    <value>Student Name (A..Z)</value>
+  </data>
+  <data name="reportParameter4.Text" xml:space="preserve">
+    <value>Classroom</value>
+  </data>
+  <data name="reportParameter5.Text" xml:space="preserve">
+    <value>Student Name (A..Z)</value>
+  </data>
+  <data name="reportParameter7.Text" xml:space="preserve">
+    <value>Pictorial</value>
+  </data>
+</root>

@@ -1,0 +1,148 @@
+﻿@model string
+@{
+    Layout = null;
+
+    System.Globalization.CultureInfo.CurrentCulture = System.Globalization.CultureInfo.CreateSpecificCulture(@ViewBag.Culture);
+    System.Globalization.CultureInfo.CurrentUICulture = System.Globalization.CultureInfo.CreateSpecificCulture(@ViewBag.CultureUI);
+    var culture = System.Globalization.CultureInfo.CurrentUICulture.ToString();
+}
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>NCS.Net Computer HTML5 Report Viewer</title>
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <script src="~/telerik/2021.2.616/js/jquery.min.js"></script>
+    <script src="~/telerik/2021.2.616/js/kendo.all.min.js"></script>
+
+    <link href="https://kendo.cdn.telerik.com/2021.2.616/styles/kendo.common.min.css" rel="stylesheet" id="common-css" />
+    <link rel="stylesheet" id="skin-css" href="@TempData["theme"]" />
+    <link rel="stylesheet" id="skin-css" href="@TempData["themeMobile"]" />
+
+
+    <script src="@Url.Content("~/telerik/2021.2.616/js//cultures/kendo.culture." + culture + ".min.js")"></script>
+    <script src="@Url.Content("~/telerik/2021.2.616/js//messages/kendo.messages." + culture + ".min.js")"></script>
+
+    <script type="text/javascript">
+        kendo.culture("@culture");
+    </script>
+    <script src="/Scripts/themeSwitcher.js"></script>
+
+    @*Toolbar resources*@
+    <script src="@Url.Content("/ReportViewer/resources." + culture + ".js")"></script>
+
+    <script src="/api/reports/resources/js/telerikReportViewer"></script>
+    <style>
+        body {
+            font-family: Verdana, Arial, sans-serif;
+            margin: 5px;
+        }
+
+        #reportViewer1 {
+            position: absolute;
+            left: 5px;
+            right: 5px;
+            top: 5px;
+            bottom: 5px;
+            overflow: hidden;
+            clear: both;
+        }
+
+        #theme-switcher {
+            float: right;
+            width: 12em;
+            height: 30px;
+        }
+    </style>
+</head>
+<body>
+   @* <select id="theme-switcher"></select>*@
+    <div id="reportViewer1">
+        loading...
+    </div>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            if (@Html.Raw(ViewBag.ReportType) == 1)
+                 var report = "@string.Format("{0}.trdx",Model)";
+            else var report = "ReportLibrary." + "@string.Format("{0}",Model)," + " ReportLibrary";
+
+            themeSwitcher(
+                '#theme-switcher',
+                '#common-css',
+                '#skin-css'),
+                $("#reportViewer1")
+                    .telerik_ReportViewer({
+                        serviceUrl: "/api/reports",
+                        templateUrl: '/ReportViewer/telerikReportViewerTemplate-FA-15.2.21.1125.html',
+                        reportSource: {
+                            report: report,
+        @Html.Raw(ViewBag.Parameters),
+                                                                                                                                                                                                },
+            viewMode: telerikReportViewer.ViewModes.PRINT_PREVIEW,
+            //viewMode: telerikReportViewer.ViewModes.INTERACTIVE,
+            scaleMode: telerikReportViewer.ScaleModes.SPECIFIC,
+            scale: 1.0,
+            enableAccessibility: false,
+                                                });
+                                            });
+
+    </script>
+
+    <script>
+        $.ajaxPrefilter(function(options, originalOptions, jqXHR) {
+            var str = originalOptions.url;
+            var documentsSuffix = "documents";
+            var isDocumentsUrl = (str.indexOf(documentsSuffix) == str.length - documentsSuffix.length);
+
+            if (isDocumentsUrl) {
+                var d = JSON.parse(originalOptions.data);
+                d.deviceInfo["CurrentCulture"] = "@Html.Raw(ViewBag.Culture)";
+                d.deviceInfo["CurrentUICulture"] = "@Html.Raw(ViewBag.CultureUI)";
+
+                options.data = JSON.stringify(d);
+            }
+        });
+    </script>
+
+    <script>
+        function exitProgram() {
+            var userID = @Html.Raw(ViewBag.UserID);
+            var exitID = @Html.Raw(ViewBag.ExitID);
+            var studentID = @Html.Raw(ViewBag.StudentID);
+
+            var dateString = "";
+            var isLoop = true;
+            $.ajax({
+                type: "POST",
+                url: '/Home/ExitProgram/' + userID,
+                dataType: "json",
+                success: function(result) {
+                    var path = '/Home/index?userID=' + userID;
+                    if (exitID == 1 || exitID == 7) { var path = '/M210Student/AddOrEditStudent?studentID=' + studentID + '&userID=' + userID };
+                    if (exitID == 2 || exitID == 8) { var path = '/M300Collections/Collections?userID=' + userID + '&studentID=' + studentID + '&isMenu=0'; };
+                    if (exitID == 3) { var path = '/M500Accounting/index?userID=' + userID + '&studentID=' + studentID + '&isMenu=0' };
+                    if (exitID == 4) { var path = '/M400Invoice/InvoicePlan?userID=' + userID + '&studentID=' + studentID };
+                    if (exitID == 5) { var path = '/M400Invoice/InvoiceManually?userID=' + userID + '&studentID=0' };
+                    if (exitID == 6) { var path = '/M400Invoice/InvoiceBatch?userID=' + userID + '&studentID=' + studentID + '&dateString=' + dateString + '&IsLoop=' + isLoop };
+                    //if (exitID == 9) { var path = '/M500Accounting/currentCard?userID=' + userID + '&studentID=' + studentID + '&isMenu=0' };
+
+                    if (exitID == 11) { var path = '/ListPanel/List1000KvkkConfirm?studentID=' + studentID + '&userID=' + userID};
+                    if (exitID == 12) { var path = "/ListPanel/List1000?userID=" + userID + "&studentID=" + studentID + "&msg=0&exitID=13&receiptNo=' '&paymentSW=0&formTypeSW=1" };
+
+                    window.location.replace(path);
+                }
+            });
+        }
+    </script>
+    <script>
+        window.history.replaceState('', '', window.location.pathname);
+    </script>
+</body>
+</html>

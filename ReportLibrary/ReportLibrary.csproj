@@ -1,0 +1,848 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{2DCCB65F-AC7B-409E-925C-C8C62A39D771}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ReportLibrary</RootNamespace>
+    <AssemblyName>ReportLibrary</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Telerik.ReportViewer.WinForms, Version=15.2.21.1125, Culture=neutral, PublicKeyToken=a9d7983dfcc261be" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Reports\M1001.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\M1001.Designer.cs">
+      <DependentUpon>M1001.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\M1000.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\M1000.Designer.cs">
+      <DependentUpon>M1000.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\M1000BondBank.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\M1000BondBank.Designer.cs">
+      <DependentUpon>M1000BondBank.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\M1010MailOrderList.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\M1010MailOrderList.designer.cs">
+      <DependentUpon>M1010MailOrderList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\M1012Receipt.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\M1012Receipt.designer.cs">
+      <DependentUpon>M1012Receipt.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\M116StockList.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\M116StockList.designer.cs">
+      <DependentUpon>M116StockList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\M204StudentCard.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\M204StudentCard.designer.cs">
+      <DependentUpon>M204StudentCard.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\M205StudentCardInvoiceSingle.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\M205StudentCardInvoiceSingle.designer.cs">
+      <DependentUpon>M205StudentCardInvoiceSingle.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\M205StudentCardInvoice.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\M205StudentCardInvoice.designer.cs">
+      <DependentUpon>M205StudentCardInvoice.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\M207RegistrationRenewalFormInvoiceSingle.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\M207RegistrationRenewalFormInvoiceSingle.designer.cs">
+      <DependentUpon>M207RegistrationRenewalFormInvoiceSingle.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\M506CurrentCardTotalDebtList.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\M506CurrentCardTotalDebtList.designer.cs">
+      <DependentUpon>M506CurrentCardTotalDebtList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\M114StudentFeeStatusListSubDetailed.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\M114StudentFeeStatusListSubDetailed.designer.cs">
+      <DependentUpon>M114StudentFeeStatusListSubDetailed.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\M115StudentTotalDebtList.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\M115StudentTotalDebtList.designer.cs">
+      <DependentUpon>M115StudentTotalDebtList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\M210StudentList.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\M210StudentList.designer.cs">
+      <DependentUpon>M210StudentList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\M112ChecksAndBondsByPositionsDetailed.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\M112ChecksAndBondsByPositionsDetailed.designer.cs">
+      <DependentUpon>M112ChecksAndBondsByPositionsDetailed.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\M201ClassroomLists.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\M201ClassroomLists.designer.cs">
+      <DependentUpon>M201ClassroomLists.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\M202ClassroomLists.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\M202ClassroomLists.designer.cs">
+      <DependentUpon>M202ClassroomLists.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\M207RegistrationRenewalFormInvoice.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\M207RegistrationRenewalFormInvoice.designer.cs">
+      <DependentUpon>M207RegistrationRenewalFormInvoice.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\M207RegistrationRenewalForm.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\M207RegistrationRenewalForm.designer.cs">
+      <DependentUpon>M207RegistrationRenewalForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\M305StudentInvoiceDetailedList.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\M305StudentInvoiceDetailedList.designer.cs">
+      <DependentUpon>M305StudentInvoiceDetailedList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\M310InvoiceListbyTotalAmounts.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\M310InvoiceListbyTotalAmounts.designer.cs">
+      <DependentUpon>M310InvoiceListbyTotalAmounts.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\M301StudentInvoiceList.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\M301StudentInvoiceList.designer.cs">
+      <DependentUpon>M301StudentInvoiceList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\M320StudentInvoiceList.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\M320StudentInvoiceList.designer.cs">
+      <DependentUpon>M320StudentInvoiceList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\M500DailyCashSheet.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\M500DailyCashSheet.designer.cs">
+      <DependentUpon>M500DailyCashSheet.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\M505CurrentCardList.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\M505CurrentCardList.designer.cs">
+      <DependentUpon>M505CurrentCardList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\M502AccountancyList.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\M502AccountancyList.designer.cs">
+      <DependentUpon>M502AccountancyList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\M503TrialBalance.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\M503TrialBalance.designer.cs">
+      <DependentUpon>M503TrialBalance.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\M504AccoundPlanList.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\M504AccoundPlanList.designer.cs">
+      <DependentUpon>M504AccoundPlanList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\M501AccountingReceiptPrint.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\M501AccountingReceiptPrint.designer.cs">
+      <DependentUpon>M501AccountingReceiptPrint.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\M109StudentTotalDebtList.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\M109StudentTotalDebtList.designer.cs">
+      <DependentUpon>M109StudentTotalDebtList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\M113PaymentTransactionNumbers.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\M113PaymentTransactionNumbers.designer.cs">
+      <DependentUpon>M113PaymentTransactionNumbers.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\M112ChecksAndBondsByPositions.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\M112ChecksAndBondsByPositions.designer.cs">
+      <DependentUpon>M112ChecksAndBondsByPositions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\M111PaymentStatusListbyMonth.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\M111PaymentStatusListbyMonth.designer.cs">
+      <DependentUpon>M111PaymentStatusListbyMonth.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\M111PaymentListbyMonth.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\M111PaymentListbyMonth.designer.cs">
+      <DependentUpon>M111PaymentListbyMonth.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\M110MonthlyPaymentList.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\M110MonthlyPaymentList.designer.cs">
+      <DependentUpon>M110MonthlyPaymentList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\M108CollectionListByMonth.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\M108CollectionListByMonth.designer.cs">
+      <DependentUpon>M108CollectionListByMonth.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\M107CollectionList.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\M107CollectionList.designer.cs">
+      <DependentUpon>M107CollectionList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\M106IncomeStatementLists.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\M106IncomeStatementLists.designer.cs">
+      <DependentUpon>M106IncomeStatementLists.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\M103StudentDiscountLists.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\M103StudentDiscountLists.designer.cs">
+      <DependentUpon>M103StudentDiscountLists.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\M101StudentFeeStatusLists.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\M101StudentFeeStatusLists.designer.cs">
+      <DependentUpon>M101StudentFeeStatusLists.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\M102StudentCashPaymentLists.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\M102StudentCashPaymentLists.designer.cs">
+      <DependentUpon>M102StudentCashPaymentLists.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\M104ListByFeesList.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\M104ListByFeesList.designer.cs">
+      <DependentUpon>M104ListByFeesList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\M105ListByFeesFreeList.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\M105ListByFeesFreeList.designer.cs">
+      <DependentUpon>M105ListByFeesFreeList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\M105ListByFeesList.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\M105ListByFeesList.designer.cs">
+      <DependentUpon>M105ListByFeesList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\M1011Receipt.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\M1011Receipt.designer.cs">
+      <DependentUpon>M1011Receipt.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\M209SchoolBusByStatus.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\M209SchoolBusByStatus.designer.cs">
+      <DependentUpon>M209SchoolBusByStatus.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\M208SchoolBusClassroomLists.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\M208SchoolBusClassroomLists.designer.cs">
+      <DependentUpon>M208SchoolBusClassroomLists.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\M203ClassroomLists.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\M203ClassroomLists.designer.cs">
+      <DependentUpon>M203ClassroomLists.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\M204StudentCardSingle.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\M204StudentCardSingle.designer.cs">
+      <DependentUpon>M204StudentCardSingle.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Reports\M1000.en-US.resx">
+      <DependentUpon>M1000.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M1000.tr-TR.resx">
+      <DependentUpon>M1000.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M1001.resx">
+      <DependentUpon>M1001.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M1000.resx">
+      <DependentUpon>M1000.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M1000BondBank.resx">
+      <DependentUpon>M1000BondBank.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M1010MailOrderList.en-US.resx">
+      <DependentUpon>M1010MailOrderList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M1010MailOrderList.resx">
+      <DependentUpon>M1010MailOrderList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M1010MailOrderList.tr-TR.resx">
+      <DependentUpon>M1010MailOrderList.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M1012Receipt.en-US.resx">
+      <DependentUpon>M1012Receipt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M1012Receipt.resx">
+      <DependentUpon>M1012Receipt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M1012Receipt.tr-TR.resx">
+      <DependentUpon>M1012Receipt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M116StockList.en-US.resx">
+      <DependentUpon>M116StockList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M116StockList.resx">
+      <DependentUpon>M116StockList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M116StockList.tr-TR.resx">
+      <DependentUpon>M116StockList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M204StudentCard.en-US.resx">
+      <DependentUpon>M204StudentCard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M204StudentCard.resx">
+      <DependentUpon>M204StudentCard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M204StudentCard.tr-TR.resx">
+      <DependentUpon>M204StudentCard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M205StudentCardInvoiceSingle.en-US.resx">
+      <DependentUpon>M205StudentCardInvoiceSingle.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M205StudentCardInvoiceSingle.resx">
+      <DependentUpon>M205StudentCardInvoiceSingle.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M205StudentCardInvoiceSingle.tr-TR.resx">
+      <DependentUpon>M205StudentCardInvoiceSingle.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M205StudentCardInvoice.en-US.resx">
+      <DependentUpon>M205StudentCardInvoice.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M205StudentCardInvoice.resx">
+      <DependentUpon>M205StudentCardInvoice.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M205StudentCardInvoice.tr-TR.resx">
+      <DependentUpon>M205StudentCardInvoice.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M207RegistrationRenewalFormInvoiceSingle.en-US.resx">
+      <DependentUpon>M207RegistrationRenewalFormInvoiceSingle.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M207RegistrationRenewalFormInvoiceSingle.resx">
+      <DependentUpon>M207RegistrationRenewalFormInvoiceSingle.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M207RegistrationRenewalFormInvoiceSingle.tr-TR.resx">
+      <DependentUpon>M207RegistrationRenewalFormInvoiceSingle.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M506CurrentCardTotalDebtList.en-US.resx">
+      <DependentUpon>M506CurrentCardTotalDebtList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M506CurrentCardTotalDebtList.resx">
+      <DependentUpon>M506CurrentCardTotalDebtList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M506CurrentCardTotalDebtList.tr-TR.resx">
+      <DependentUpon>M506CurrentCardTotalDebtList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M114StudentFeeStatusListSubDetailed.en-US.resx">
+      <DependentUpon>M114StudentFeeStatusListSubDetailed.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M114StudentFeeStatusListSubDetailed.resx">
+      <DependentUpon>M114StudentFeeStatusListSubDetailed.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M114StudentFeeStatusListSubDetailed.tr-TR.resx">
+      <DependentUpon>M114StudentFeeStatusListSubDetailed.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M115StudentTotalDebtList.en-US.resx">
+      <DependentUpon>M115StudentTotalDebtList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M115StudentTotalDebtList.resx">
+      <DependentUpon>M115StudentTotalDebtList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M115StudentTotalDebtList.tr-TR.resx">
+      <DependentUpon>M115StudentTotalDebtList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M210StudentList.en-US.resx">
+      <DependentUpon>M210StudentList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M210StudentList.resx">
+      <DependentUpon>M210StudentList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M210StudentList.tr-TR.resx">
+      <DependentUpon>M210StudentList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M112ChecksAndBondsByPositionsDetailed.en-US.resx">
+      <DependentUpon>M112ChecksAndBondsByPositionsDetailed.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M112ChecksAndBondsByPositionsDetailed.resx">
+      <DependentUpon>M112ChecksAndBondsByPositionsDetailed.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M112ChecksAndBondsByPositionsDetailed.tr-TR.resx">
+      <DependentUpon>M112ChecksAndBondsByPositionsDetailed.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M201ClassroomLists.en-US.resx">
+      <DependentUpon>M201ClassroomLists.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M201ClassroomLists.resx">
+      <DependentUpon>M201ClassroomLists.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M201ClassroomLists.tr-TR.resx">
+      <DependentUpon>M201ClassroomLists.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M202ClassroomLists.en-US.resx">
+      <DependentUpon>M202ClassroomLists.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M202ClassroomLists.resx">
+      <DependentUpon>M202ClassroomLists.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M202ClassroomLists.tr-TR.resx">
+      <DependentUpon>M202ClassroomLists.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M207RegistrationRenewalFormInvoice.en-US.resx">
+      <DependentUpon>M207RegistrationRenewalFormInvoice.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M207RegistrationRenewalFormInvoice.resx">
+      <DependentUpon>M207RegistrationRenewalFormInvoice.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M207RegistrationRenewalFormInvoice.tr-TR.resx">
+      <DependentUpon>M207RegistrationRenewalFormInvoice.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M505CurrentCardList.en-US.resx">
+      <DependentUpon>M505CurrentCardList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M505CurrentCardList.resx">
+      <DependentUpon>M505CurrentCardList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M505CurrentCardList.tr-TR.resx">
+      <DependentUpon>M505CurrentCardList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M502AccountancyList.en-US.resx">
+      <DependentUpon>M502AccountancyList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M502AccountancyList.resx">
+      <DependentUpon>M502AccountancyList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M502AccountancyList.tr-TR.resx">
+      <DependentUpon>M502AccountancyList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M503TrialBalance.en-US.resx">
+      <DependentUpon>M503TrialBalance.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M503TrialBalance.resx">
+      <DependentUpon>M503TrialBalance.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M503TrialBalance.tr-TR.resx">
+      <DependentUpon>M503TrialBalance.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M504AccoundPlanList.en-US.resx">
+      <DependentUpon>M504AccoundPlanList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M504AccoundPlanList.tr-TR.resx">
+      <DependentUpon>M504AccoundPlanList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M207RegistrationRenewalForm.en-US.resx">
+      <DependentUpon>M207RegistrationRenewalForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M207RegistrationRenewalForm.resx">
+      <DependentUpon>M207RegistrationRenewalForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M207RegistrationRenewalForm.tr-TR.resx">
+      <DependentUpon>M207RegistrationRenewalForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M305StudentInvoiceDetailedList.en-US.resx">
+      <DependentUpon>M305StudentInvoiceDetailedList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M305StudentInvoiceDetailedList.resx">
+      <DependentUpon>M305StudentInvoiceDetailedList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M305StudentInvoiceDetailedList.tr-TR.resx">
+      <DependentUpon>M305StudentInvoiceDetailedList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M310InvoiceListbyTotalAmounts.en-US.resx">
+      <DependentUpon>M310InvoiceListbyTotalAmounts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M310InvoiceListbyTotalAmounts.resx">
+      <DependentUpon>M310InvoiceListbyTotalAmounts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M310InvoiceListbyTotalAmounts.tr-TR.resx">
+      <DependentUpon>M310InvoiceListbyTotalAmounts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M301StudentInvoiceList.en-US.resx">
+      <DependentUpon>M301StudentInvoiceList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M301StudentInvoiceList.resx">
+      <DependentUpon>M301StudentInvoiceList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M301StudentInvoiceList.tr-TR.resx">
+      <DependentUpon>M301StudentInvoiceList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M320StudentInvoiceList.en-US.resx">
+      <DependentUpon>M320StudentInvoiceList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M320StudentInvoiceList.resx">
+      <DependentUpon>M320StudentInvoiceList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M320StudentInvoiceList.tr-TR.resx">
+      <DependentUpon>M320StudentInvoiceList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M500DailyCashSheet.en-US.resx">
+      <DependentUpon>M500DailyCashSheet.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M500DailyCashSheet.resx">
+      <DependentUpon>M500DailyCashSheet.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M500DailyCashSheet.tr-TR.resx">
+      <DependentUpon>M500DailyCashSheet.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M504AccoundPlanList.resx">
+      <DependentUpon>M504AccoundPlanList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M501AccountingReceiptPrint.en-US.resx">
+      <DependentUpon>M501AccountingReceiptPrint.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M501AccountingReceiptPrint.resx">
+      <DependentUpon>M501AccountingReceiptPrint.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M501AccountingReceiptPrint.tr-TR.resx">
+      <DependentUpon>M501AccountingReceiptPrint.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M109StudentTotalDebtList.en-US.resx">
+      <DependentUpon>M109StudentTotalDebtList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M109StudentTotalDebtList.resx">
+      <DependentUpon>M109StudentTotalDebtList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M109StudentTotalDebtList.tr-TR.resx">
+      <DependentUpon>M109StudentTotalDebtList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M113PaymentTransactionNumbers.en-US.resx">
+      <DependentUpon>M113PaymentTransactionNumbers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M113PaymentTransactionNumbers.resx">
+      <DependentUpon>M113PaymentTransactionNumbers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M113PaymentTransactionNumbers.tr-TR.resx">
+      <DependentUpon>M113PaymentTransactionNumbers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M112ChecksAndBondsByPositions.en-US.resx">
+      <DependentUpon>M112ChecksAndBondsByPositions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M112ChecksAndBondsByPositions.resx">
+      <DependentUpon>M112ChecksAndBondsByPositions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M112ChecksAndBondsByPositions.tr-TR.resx">
+      <DependentUpon>M112ChecksAndBondsByPositions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M111PaymentStatusListbyMonth.en-US.resx">
+      <DependentUpon>M111PaymentStatusListbyMonth.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M111PaymentStatusListbyMonth.resx">
+      <DependentUpon>M111PaymentStatusListbyMonth.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M111PaymentStatusListbyMonth.tr-TR.resx">
+      <DependentUpon>M111PaymentStatusListbyMonth.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M111PaymentListbyMonth.en-US.resx">
+      <DependentUpon>M111PaymentListbyMonth.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M111PaymentListbyMonth.resx">
+      <DependentUpon>M111PaymentListbyMonth.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M111PaymentListbyMonth.tr-TR.resx">
+      <DependentUpon>M111PaymentListbyMonth.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M110MonthlyPaymentList.en-US.resx">
+      <DependentUpon>M110MonthlyPaymentList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M110MonthlyPaymentList.resx">
+      <DependentUpon>M110MonthlyPaymentList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M110MonthlyPaymentList.tr-TR.resx">
+      <DependentUpon>M110MonthlyPaymentList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M108CollectionListByMonth.en-US.resx">
+      <DependentUpon>M108CollectionListByMonth.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M108CollectionListByMonth.resx">
+      <DependentUpon>M108CollectionListByMonth.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M108CollectionListByMonth.tr-TR.resx">
+      <DependentUpon>M108CollectionListByMonth.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M107CollectionList.en-US.resx">
+      <DependentUpon>M107CollectionList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M107CollectionList.resx">
+      <DependentUpon>M107CollectionList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M107CollectionList.tr-TR.resx">
+      <DependentUpon>M107CollectionList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M106IncomeStatementLists.en-US.resx">
+      <DependentUpon>M106IncomeStatementLists.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M106IncomeStatementLists.resx">
+      <DependentUpon>M106IncomeStatementLists.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M106IncomeStatementLists.tr-TR.resx">
+      <DependentUpon>M106IncomeStatementLists.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M103StudentDiscountLists.en-US.resx">
+      <DependentUpon>M103StudentDiscountLists.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M103StudentDiscountLists.resx">
+      <DependentUpon>M103StudentDiscountLists.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M103StudentDiscountLists.tr-TR.resx">
+      <DependentUpon>M103StudentDiscountLists.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M101StudentFeeStatusLists.en-US.resx">
+      <DependentUpon>M101StudentFeeStatusLists.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M101StudentFeeStatusLists.resx">
+      <DependentUpon>M101StudentFeeStatusLists.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M101StudentFeeStatusLists.tr-TR.resx">
+      <DependentUpon>M101StudentFeeStatusLists.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M102StudentCashPaymentLists.en-US.resx">
+      <DependentUpon>M102StudentCashPaymentLists.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M102StudentCashPaymentLists.resx">
+      <DependentUpon>M102StudentCashPaymentLists.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M102StudentCashPaymentLists.tr-TR.resx">
+      <DependentUpon>M102StudentCashPaymentLists.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M104ListByFeesList.en-US.resx">
+      <DependentUpon>M104ListByFeesList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M104ListByFeesList.resx">
+      <DependentUpon>M104ListByFeesList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M104ListByFeesList.tr-TR.resx">
+      <DependentUpon>M104ListByFeesList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M105ListByFeesFreeList.en-US.resx">
+      <DependentUpon>M105ListByFeesFreeList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M105ListByFeesFreeList.resx">
+      <DependentUpon>M105ListByFeesFreeList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M105ListByFeesFreeList.tr-TR.resx">
+      <DependentUpon>M105ListByFeesFreeList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M105ListByFeesList.en-US.resx">
+      <DependentUpon>M105ListByFeesList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M105ListByFeesList.resx">
+      <DependentUpon>M105ListByFeesList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M105ListByFeesList.tr-TR.resx">
+      <DependentUpon>M105ListByFeesList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M1011Receipt.en-US.resx">
+      <DependentUpon>M1011Receipt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M1011Receipt.resx">
+      <DependentUpon>M1011Receipt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M1011Receipt.tr-TR.resx">
+      <DependentUpon>M1011Receipt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M209SchoolBusByStatus.en-US.resx">
+      <DependentUpon>M209SchoolBusByStatus.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M209SchoolBusByStatus.resx">
+      <DependentUpon>M209SchoolBusByStatus.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M209SchoolBusByStatus.tr-TR.resx">
+      <DependentUpon>M209SchoolBusByStatus.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M208SchoolBusClassroomLists.en-US.resx">
+      <DependentUpon>M208SchoolBusClassroomLists.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M208SchoolBusClassroomLists.resx">
+      <DependentUpon>M208SchoolBusClassroomLists.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M208SchoolBusClassroomLists.tr-TR.resx">
+      <DependentUpon>M208SchoolBusClassroomLists.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M203ClassroomLists.en-US.resx">
+      <DependentUpon>M203ClassroomLists.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M203ClassroomLists.resx">
+      <DependentUpon>M203ClassroomLists.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M203ClassroomLists.tr-TR.resx">
+      <DependentUpon>M203ClassroomLists.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M204StudentCardSingle.en-US.resx">
+      <DependentUpon>M204StudentCardSingle.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M204StudentCardSingle.resx">
+      <DependentUpon>M204StudentCardSingle.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\M204StudentCardSingle.tr-TR.resx">
+      <DependentUpon>M204StudentCardSingle.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="DocumentFormat.OpenXml">
+      <Version>2.7.2</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.AspNet.Mvc">
+      <Version>5.2.7</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.AspNetCore.Hosting.Abstractions">
+      <Version>2.2.0</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions">
+      <Version>2.2.0</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Abstractions">
+      <Version>2.2.0</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions">
+      <Version>3.1.4</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions">
+      <Version>6.0.0</Version>
+    </PackageReference>
+    <PackageReference Include="Nancy">
+      <Version>2.0.0</Version>
+    </PackageReference>
+    <PackageReference Include="System.ComponentModel.Annotations">
+      <Version>5.0.0</Version>
+    </PackageReference>
+    <PackageReference Include="Telerik.Reporting">
+      <Version>15.2.21.1125</Version>
+    </PackageReference>
+    <PackageReference Include="Unity">
+      <Version>5.11.10</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Resources\a1.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,261 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="textBox26.Value" xml:space="preserve">
+    <value>Adı Soyadı:</value>
+  </data>
+  <data name="textBox28.Value" xml:space="preserve">
+    <value>Sınıfı:</value>
+  </data>
+  <data name="textBox34.Value" xml:space="preserve">
+    <value>Ev Adresi:</value>
+  </data>
+  <data name="textBox35.Value" xml:space="preserve">
+    <value>İlçe:</value>
+  </data>
+  <data name="textBox37.Value" xml:space="preserve">
+    <value>TC.Kim.No:</value>
+  </data>
+  <data name="textBox38.Value" xml:space="preserve">
+    <value>Cep. :</value>
+  </data>
+  <data name="textBox46.Value" xml:space="preserve">
+    <value>Cep.:</value>
+  </data>
+  <data name="textBox47.Value" xml:space="preserve">
+    <value>TC.Kim.No.:</value>
+  </data>
+  <data name="textBox67.Value" xml:space="preserve">
+    <value>= Fields.WorkPhone</value>
+  </data>
+  <data name="textBox69.Value" xml:space="preserve">
+    <value>= "Pk:" + Fields.ZipCode1</value>
+  </data>
+  <data name="textBox70.Value" xml:space="preserve">
+    <value>= "Pk:" + Fields.WorkZipCode</value>
+  </data>
+  <data name="sqlDataSource2.SelectCommand" xml:space="preserve">
+    <value>SELECT        S.CompanyName, S.CompanyAddress, S.Phone1, S.Phone2, S.MobilePhone, S.Fax, S.TaxOffice, S.TaxNo, S.CompanyEmail, S.WebSite, U.UserPeriod
+FROM          SchoolInfo AS S 
+              INNER JOIN Users AS U ON U.UserID = @userID
+WHERE         S.SchoolID = U.SchoolID</value>
+  </data>
+  <data name="textBox17.Value" xml:space="preserve">
+    <value>= Format('{0:dd/MM/yyyy}', Fields.DateOfRegistration)</value>
+  </data>
+  <data name="textBox25.Value" xml:space="preserve">
+    <value>= Fields.TaxNo</value>
+  </data>
+  <data name="textBox32.Value" xml:space="preserve">
+    <value>= Fields.TaxOffice</value>
+  </data>
+  <data name="textBox33.Value" xml:space="preserve">
+    <value>= Fields.WebSite</value>
+  </data>
+  <data name="textBox68.Value" xml:space="preserve">
+    <value>= Fields.CompanyEmail</value>
+  </data>
+  <data name="textBox72.Value" xml:space="preserve">
+    <value>= Fields.CompanyName</value>
+  </data>
+  <data name="textBox73.Value" xml:space="preserve">
+    <value>= Fields.CompanyAddress</value>
+  </data>
+  <data name="textBox74.Value" xml:space="preserve">
+    <value>= Fields.Fax</value>
+  </data>
+  <data name="textBox75.Value" xml:space="preserve">
+    <value>= Fields.Phone2</value>
+  </data>
+  <data name="textBox76.Value" xml:space="preserve">
+    <value>= Fields.Phone1</value>
+  </data>
+  <data name="textBox78.Value" xml:space="preserve">
+    <value>= Fields.MobilePhone</value>
+  </data>
+  <data name="textBox96.Value" xml:space="preserve">
+    <value>= Format('{0:dd/MM/yyyy}', Fields.InstallmentDate.Date)
+</value>
+  </data>
+  <data name="sqlDataSource6.SelectCommand" xml:space="preserve">
+    <value>SELECT        I.InstallmentDate, I.InstallmentNo, I.CategoryID as InsCategoryID, I.CheckCardNo as InsCheckCardNo, I.InstallmentAmount as InsInstallmentAmount,
+              I.PreviousPayment as InsPreviousPayment, I.PaymentDate as InsPaymentDate, I.AccountReceiptNo as InsAccountReceiptNo, I.AccountReceiptNo as AccountReceiptNo,
+	      P1.CategoryName, P2.CategoryName AS InsStatus
+FROM   TempM101 TP
+              INNER JOIN Student AS S ON S.StudentID = TP.StudentID
+              INNER JOIN StudentInstallment I on I.StudentID = TP.StudentID and I.Period = @period and I.SchoolID = @schoolID
+              LEFT JOIN Parameter AS P1 ON I.CategoryID = P1.CategoryID
+              LEFT JOIN Parameter AS P2 ON I.StatusCategoryID = P2.CategoryID
+WHERE       TP.StudentID = @StudentID and TP.UserID = @userID</value>
+  </data>
+  <data name="textBox8.Value" xml:space="preserve">
+    <value>     TAHSİL</value>
+  </data>
+  <data name="textBox122.Value" xml:space="preserve">
+    <value>= Format('{0:dd/MM/yyyy}', Fields.PaymentDate)</value>
+  </data>
+  <data name="sqlDataSource7.SelectCommand" xml:space="preserve">
+    <value>SELECT        S.StudentID,  IP.PaymentDate, IP.AccountReceipt, IP.PaymentAmount, IP.BalanceAmount 
+FROM     TempM101 TP
+              INNER JOIN Student AS S ON S.StudentID = TP.StudentID
+              LEFT JOIN StudentPayment IP on IP.StudentID = TP.StudentID and IP.Period = @period
+WHERE       TP.StudentID = @StudentID and TP.UserID = @userID
+</value>
+  </data>
+  <data name="sqlDataSource1.SelectCommand" xml:space="preserve">
+    <value>SELECT        S.StudentID, S.FirstName, S.Lastname, (S.FirstName + ' ' + S.Lastname) AS StudentName,  S.StudentSerialNumber, S.StudentNumber,  S.IsPension, S.IdNumber as StudentIdNumber, S.GenderTypeCategoryID, S.DateOfRegistration, S.StudentPicture,
+              T.CashPayment, T.SubTotal, T.RefundAmount1,T.RefundAmount2, T.RefundAmount3,
+              SA.Address1, SA.CityParameterID1, SA.TownParameterID1, SA.ZipCode1, SA.MobilePhone as StudentMobilePhone, 
+              PA.WorkAddress, PA.IdNumber as ParentIdNumber, PA.HomePhone, PA.WorkPhone, PA.MobilePhone as ParentMobilePhone, PA.WorkCityParameterID, PA.WorkTownParameterID, PA.WorkZipCode,
+                     
+              TP.ClassroomName, TP.ClassroomID, TP.Name,
+              P2.CategoryName AS City, P3.CategoryName AS Town, P4.CategoryName AS WorkCity, P5.CategoryName AS WorkTown
+                      
+FROM            TempM101 TP
+                        INNER JOIN Student AS S ON S.StudentID = TP.StudentID
+                        INNER JOIN Users AS U ON U.UserID = @userID
+                        LEFT JOIN StudentTemp T on T.StudentID = S.StudentID and T.Period = U.UserPeriod
+                        LEFT JOIN StudentAddress SA on SA.StudentID = S.StudentID 
+                        LEFT JOIN StudentParentAddress PA on PA.StudentID = S.StudentID 
+			
+   	                LEFT JOIN Parameter as P2 ON SA.CityParameterID1 = P2.CategoryID
+		        LEFT JOIN Parameter as P3 ON SA.TownParameterID1 = P3.CategoryID
+		        LEFT JOIN Parameter as P4 ON PA.WorkCityParameterID = P4.CategoryID
+		        LEFT JOIN Parameter as P5 ON PA.WorkTownParameterID = P5.CategoryID
+
+WHERE  S.SchoolID = TP.SchoolID and TP.UserID = @userID and @studentID = TP.StudentID
+
+
+</value>
+  </data>
+  <data name="sqlDataSource5.SelectCommand" xml:space="preserve">
+    <value>SELECT        I.InstallmentDate, I.InstallmentNo, I.CategoryID as InsCategoryID, I.CheckCardNo as InsCheckCardNo, I.InstallmentAmount as InsInstallmentAmount,
+              I.PreviousPayment as InsPreviousPayment, I.PaymentDate as InsPaymentDate, I.AccountReceiptNo as InsAccountReceiptNo, I.AccountReceiptNo as AccountReceiptNo,
+	      P1.CategoryName, P2.CategoryName AS InsStatus
+FROM   TempM101 TP
+              INNER JOIN Student AS S ON S.StudentID = TP.StudentID
+              INNER JOIN StudentInstallment I on I.StudentID = TP.StudentID and I.Period = @period and I.SchoolID = @schoolID
+              LEFT JOIN Parameter AS P1 ON I.CategoryID = P1.CategoryID
+              LEFT JOIN Parameter AS P2 ON I.StatusCategoryID = P2.CategoryID
+WHERE       TP.StudentID = @StudentID  and TP.UserID = @userID</value>
+  </data>
+  <data name="reportParameter9.Text" xml:space="preserve">
+    <value>Resimli</value>
+  </data>
+</root>

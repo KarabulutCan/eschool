@@ -1,0 +1,4005 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AboutCancellation" xml:space="preserve">
+    <value>About Cancellation</value>
+  </data>
+  <data name="AboutTheRefund" xml:space="preserve">
+    <value>About The Refund</value>
+  </data>
+  <data name="Absenteeism10" xml:space="preserve">
+    <value>1- Enter Absence Codes, Names and Warning Limits. Students Exceeding the Warning Limit are Colored in the Total Absenteeism Section.</value>
+  </data>
+  <data name="Absenteeism11" xml:space="preserve">
+    <value>2- Select Only "Unexcused Absence" Code From Defined (Letter) Codes</value>
+  </data>
+  <data name="Absenteeism12" xml:space="preserve">
+    <value>3- While entering the code, checks are made according to the codes you have determined.</value>
+  </data>
+  <data name="Absenteeism13" xml:space="preserve">
+    <value>4- Lowercase Letter of the Defined (Letter)Code is Calculated as Half Day/Hour.</value>
+  </data>
+  <data name="Account" xml:space="preserve">
+    <value>Account</value>
+  </data>
+  <data name="Accountancy" xml:space="preserve">
+    <value>Accountancy</value>
+  </data>
+  <data name="AccountancyList" xml:space="preserve">
+    <value>Accountancy List</value>
+  </data>
+  <data name="AccountancySlipRecord" xml:space="preserve">
+    <value>Accountancy Slip Record</value>
+  </data>
+  <data name="AccountArrangements" xml:space="preserve">
+    <value>Account Arrangements</value>
+  </data>
+  <data name="AccountChanges" xml:space="preserve">
+    <value>Account Changes</value>
+  </data>
+  <data name="AccountCode" xml:space="preserve">
+    <value>Account Code</value>
+  </data>
+  <data name="AccountCodeMsg1" xml:space="preserve">
+    <value>Accounting Code Definition.</value>
+  </data>
+  <data name="AccountCodeMsg10" xml:space="preserve">
+    <value>121 2122 21 07 1 	2122 Period, 21 Year, 07 Month, 01 Branch</value>
+  </data>
+  <data name="AccountCodeMsg2" xml:space="preserve">
+    <value>Account codes are defined as follows.</value>
+  </data>
+  <data name="AccountCodeMsg3" xml:space="preserve">
+    <value>You can prevent the status from appearing in queries by making the status passive.</value>
+  </data>
+  <data name="AccountCodeMsg4" xml:space="preserve">
+    <value>ACCOUNT CODE  / ACCOUNT NAME</value>
+  </data>
+  <data name="AccountCodeMsg5" xml:space="preserve">
+    <value>100 CASES</value>
+  </data>
+  <data name="AccountCodeMsg6" xml:space="preserve">
+    <value>121 BOND ACCOUNT</value>
+  </data>
+  <data name="AccountCodeMsg7" xml:space="preserve">
+    <value>121 2122 		2122 Period</value>
+  </data>
+  <data name="AccountCodeMsg8" xml:space="preserve">
+    <value>121 2122 21 		2122 Period Year</value>
+  </data>
+  <data name="AccountCodeMsg9" xml:space="preserve">
+    <value>121 2122 21 07 		2122 Period, 21 Year, 07 Month</value>
+  </data>
+  <data name="AccountCodeName" xml:space="preserve">
+    <value>Account Name</value>
+  </data>
+  <data name="AccountCodes" xml:space="preserve">
+    <value>Accounting Code</value>
+  </data>
+  <data name="AccountCuttingDay" xml:space="preserve">
+    <value>Cutting Day</value>
+  </data>
+  <data name="AccountDate" xml:space="preserve">
+    <value>Account</value>
+  </data>
+  <data name="AccountDecimation" xml:space="preserve">
+    <value>Account Decimation</value>
+  </data>
+  <data name="AccountInfo" xml:space="preserve">
+    <value>Account Info</value>
+  </data>
+  <data name="Accounting" xml:space="preserve">
+    <value>Accounting</value>
+  </data>
+  <data name="AccountingCodeName" xml:space="preserve">
+    <value>Accounting Code Name</value>
+  </data>
+  <data name="AccountingDate" xml:space="preserve">
+    <value>Accounting Date</value>
+  </data>
+  <data name="AccountingExcel1" xml:space="preserve">
+    <value>1- Information of the Accounting Receipt is Entered.</value>
+  </data>
+  <data name="AccountingExcel2" xml:space="preserve">
+    <value>2- Information is Displayed with the Start Button.</value>
+  </data>
+  <data name="AccountingExcel3" xml:space="preserve">
+    <value>3-Column Header is Used to Group the Information.</value>
+  </data>
+  <data name="AccountingExcel4" xml:space="preserve">
+    <value>4- Information is Transferred to Excel with the Excel Button.</value>
+  </data>
+  <data name="AccountingMsg1" xml:space="preserve">
+    <value>In the accounting slip entry;</value>
+  </data>
+  <data name="AccountingMsg10" xml:space="preserve">
+    <value>3- "Document number" and "Date" are entered</value>
+  </data>
+  <data name="AccountingMsg11" xml:space="preserve">
+    <value>4- Enter the "Explanation" of the receipt</value>
+  </data>
+  <data name="AccountingMsg12" xml:space="preserve">
+    <value>5- Enter the "Debit" or "Credit" amount of the relevant account.</value>
+  </data>
+  <data name="AccountingMsg13" xml:space="preserve">
+    <value>6- Your accounting accounts should always be in balance.</value>
+  </data>
+  <data name="AccountingMsg14" xml:space="preserve">
+    <value>7- Example; If 10.000 Debit entries are made to 100 CASH DESK accounts, 10,000 should be entered in the Credit record of the relevant account.</value>
+  </data>
+  <data name="AccountingMsg2" xml:space="preserve">
+    <value>1- Receipt Type, Receipt Date and Receipt Number are entered</value>
+  </data>
+  <data name="AccountingMsg3" xml:space="preserve">
+    <value>2- Press the "New Receipt No" button to enter a new receipt.</value>
+  </data>
+  <data name="AccountingMsg4" xml:space="preserve">
+    <value>3- Use the "Check Receipt" button to see the blank slips skipped.</value>
+  </data>
+  <data name="AccountingMsg5" xml:space="preserve">
+    <value>4- Click the "Balance Check" button to see the slips skipped before the Debit Balance is equalized. You can edit your controls by doing this section.</value>
+  </data>
+  <data name="AccountingMsg6" xml:space="preserve">
+    <value>5- You can close the receipts with the balance of Debit and Receivables with the button "Processing Receipts"
+     You can open a new page for a new receipt entry.</value>
+  </data>
+  <data name="AccountingMsg7" xml:space="preserve">
+    <value>Accounting receipt entry.</value>
+  </data>
+  <data name="AccountingMsg8" xml:space="preserve">
+    <value>1- In the "Accounting code" entry, make your selection as the sub-account of the account,
+ If the account name is predefined, it will appear on the screen.</value>
+  </data>
+  <data name="AccountingMsg9" xml:space="preserve">
+    <value>2- If desired, "Code" entry is made, this code entry can be defined in the fixed parameters entry section.
+    You get the detailed filtering feature of various lists according to these sub-details entered.</value>
+  </data>
+  <data name="AccountingPeriodClosingAndOpeningTransaction" xml:space="preserve">
+    <value>Period Closing And Opening Transaction</value>
+  </data>
+  <data name="AccountingReceipt" xml:space="preserve">
+    <value>Accounting Receipt</value>
+  </data>
+  <data name="AccountingTransactions" xml:space="preserve">
+    <value>Accounting Transactions</value>
+  </data>
+  <data name="AccountingVoucherRegistration" xml:space="preserve">
+    <value>Accounting voucher registration</value>
+  </data>
+  <data name="AccountNo" xml:space="preserve">
+    <value>Account No</value>
+  </data>
+  <data name="AccountNo01" xml:space="preserve">
+    <value>Cash Counter No</value>
+  </data>
+  <data name="AccountNo02" xml:space="preserve">
+    <value>Received Order</value>
+  </data>
+  <data name="AccountNo03" xml:space="preserve">
+    <value>Student Incomes</value>
+  </data>
+  <data name="AccountNo04" xml:space="preserve">
+    <value>Cheque Account No</value>
+  </data>
+  <data name="AccountNo05" xml:space="preserve">
+    <value>Bond Account No</value>
+  </data>
+  <data name="AccountNo06" xml:space="preserve">
+    <value>APS Account No</value>
+  </data>
+  <data name="AccountNo07" xml:space="preserve">
+    <value>APS and Case of Bank</value>
+  </data>
+  <data name="AccountNo08" xml:space="preserve">
+    <value>Mail Order Account No</value>
+  </data>
+  <data name="AccountNo09" xml:space="preserve">
+    <value>Credit Card Account No</value>
+  </data>
+  <data name="AccountNo10" xml:space="preserve">
+    <value>Goverment Support No</value>
+  </data>
+  <data name="AccountNo11" xml:space="preserve">
+    <value>Overdraft account</value>
+  </data>
+  <data name="AccountNo12" xml:space="preserve">
+    <value>Discounts Reg. Account</value>
+  </data>
+  <data name="AccountNo13" xml:space="preserve">
+    <value>Payee Account I</value>
+  </data>
+  <data name="AccountNo14" xml:space="preserve">
+    <value>Payee Account II</value>
+  </data>
+  <data name="AccountNo15" xml:space="preserve">
+    <value>Payee Account III</value>
+  </data>
+  <data name="AccountNo16" xml:space="preserve">
+    <value>Credit Account No</value>
+  </data>
+  <data name="AccountNo17" xml:space="preserve">
+    <value>Debt Account No</value>
+  </data>
+  <data name="AccountPeriod" xml:space="preserve">
+    <value>Account Period</value>
+  </data>
+  <data name="AccountPlan" xml:space="preserve">
+    <value>Account Plan</value>
+  </data>
+  <data name="AccountPlanList" xml:space="preserve">
+    <value>Account Plan List</value>
+  </data>
+  <data name="AccountPlanRecord" xml:space="preserve">
+    <value>Account Plan Record</value>
+  </data>
+  <data name="AccountReceipt" xml:space="preserve">
+    <value>Account Receipt</value>
+  </data>
+  <data name="AccountReceiptNo" xml:space="preserve">
+    <value>Acc.Receipt No</value>
+  </data>
+  <data name="AccountReceiptNo2" xml:space="preserve">
+    <value>Acc.Receipt</value>
+  </data>
+  <data name="Accrual" xml:space="preserve">
+    <value>Accrual Charge</value>
+  </data>
+  <data name="Active" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="Address" xml:space="preserve">
+    <value>Address</value>
+  </data>
+  <data name="Address1" xml:space="preserve">
+    <value>Address-I</value>
+  </data>
+  <data name="Address11" xml:space="preserve">
+    <value>Student I. Address</value>
+  </data>
+  <data name="Address2" xml:space="preserve">
+    <value>Address-II</value>
+  </data>
+  <data name="Address21" xml:space="preserve">
+    <value>Student II. Address</value>
+  </data>
+  <data name="AdvanceNonPayerList" xml:space="preserve">
+    <value>Advance Non-Payer List</value>
+  </data>
+  <data name="Agenda" xml:space="preserve">
+    <value>Agenda</value>
+  </data>
+  <data name="Agreement" xml:space="preserve">
+    <value>Agreement</value>
+  </data>
+  <data name="AgreementType" xml:space="preserve">
+    <value>AgreementType</value>
+  </data>
+  <data name="AllClassroom" xml:space="preserve">
+    <value>All Classroom</value>
+  </data>
+  <data name="AllDates" xml:space="preserve">
+    <value>All Dates</value>
+  </data>
+  <data name="AllStudents" xml:space="preserve">
+    <value>All Students</value>
+  </data>
+  <data name="Amount" xml:space="preserve">
+    <value>Amount</value>
+  </data>
+  <data name="Amount2" xml:space="preserve">
+    <value>Amount</value>
+  </data>
+  <data name="AmountToBeRefunded" xml:space="preserve">
+    <value>Amount to be refunded</value>
+  </data>
+  <data name="Application" xml:space="preserve">
+    <value>Application</value>
+  </data>
+  <data name="Applied" xml:space="preserve">
+    <value>Applied</value>
+  </data>
+  <data name="AppliedDiscounts" xml:space="preserve">
+    <value>Applied Discounts</value>
+  </data>
+  <data name="Apply" xml:space="preserve">
+    <value>Apply</value>
+  </data>
+  <data name="ApplyCancellation" xml:space="preserve">
+    <value>Apply Cancellation</value>
+  </data>
+  <data name="Approved" xml:space="preserve">
+    <value>Approved</value>
+  </data>
+  <data name="Archive" xml:space="preserve">
+    <value>Archive</value>
+  </data>
+  <data name="AreYouSure" xml:space="preserve">
+    <value>Are You Sure</value>
+  </data>
+  <data name="ASerialCode" xml:space="preserve">
+    <value>E-Archive Serial Code</value>
+  </data>
+  <data name="Ask" xml:space="preserve">
+    <value>Ask</value>
+  </data>
+  <data name="AskForConfirmation" xml:space="preserve">
+    <value>Ask for Confirmation on Every Billing Statement</value>
+  </data>
+  <data name="AssignedPermissions" xml:space="preserve">
+    <value>Assigned Permissions</value>
+  </data>
+  <data name="AtTheBank" xml:space="preserve">
+    <value>At the Bank</value>
+  </data>
+  <data name="AuditTrailReset" xml:space="preserve">
+    <value>Reset Audit Trail </value>
+  </data>
+  <data name="AuditTrial" xml:space="preserve">
+    <value>Audit Trial</value>
+  </data>
+  <data name="AuthorizedPersonHeader1" xml:space="preserve">
+    <value>General Manager</value>
+  </data>
+  <data name="AuthorizedPersonHeader2" xml:space="preserve">
+    <value>Accounting Manager</value>
+  </data>
+  <data name="AuthorizedPersonHeader3" xml:space="preserve">
+    <value>Cashier</value>
+  </data>
+  <data name="AuthorizedPersonName" xml:space="preserve">
+    <value>Authorized Person Name</value>
+  </data>
+  <data name="AuthorizedStaff" xml:space="preserve">
+    <value>Authorized Staff</value>
+  </data>
+  <data name="Automatic" xml:space="preserve">
+    <value>Automatic</value>
+  </data>
+  <data name="AvarageAmount" xml:space="preserve">
+    <value>Avarage Amount</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>Back</value>
+  </data>
+  <data name="BackupMsg" xml:space="preserve">
+    <value>Backup Your Internal or External Drives.</value>
+  </data>
+  <data name="BackupMsg1" xml:space="preserve">
+    <value>-You can make changes to the name of the file to be backed up.</value>
+  </data>
+  <data name="BackupMsg2" xml:space="preserve">
+    <value>-After the file is prepared, the Download message will appear on the screen.</value>
+  </data>
+  <data name="BackupMsg3" xml:space="preserve">
+    <value>-The prepared file is uploaded to the "Downloads" folder of your computer.</value>
+  </data>
+  <data name="BackupResult" xml:space="preserve">
+    <value>Backup Completed.</value>
+  </data>
+  <data name="Balance" xml:space="preserve">
+    <value>Balance</value>
+  </data>
+  <data name="BalanceAmount" xml:space="preserve">
+    <value>Balance Amount</value>
+  </data>
+  <data name="BalanceControl" xml:space="preserve">
+    <value>V.Balance</value>
+  </data>
+  <data name="BalanceMsg" xml:space="preserve">
+    <value>Last 10 Vouchers with unequal Debit and Credit amounts.</value>
+  </data>
+  <data name="Bank" xml:space="preserve">
+    <value>Bank</value>
+  </data>
+  <data name="BankBranchCode" xml:space="preserve">
+    <value>Bank Branch Code</value>
+  </data>
+  <data name="BankEntries" xml:space="preserve">
+    <value>Bank Entries</value>
+  </data>
+  <data name="BankGivenCode" xml:space="preserve">
+    <value>Bank Given Code</value>
+  </data>
+  <data name="BankName" xml:space="preserve">
+    <value>Bank Name</value>
+  </data>
+  <data name="BankRecords" xml:space="preserve">
+    <value>Bank Records</value>
+  </data>
+  <data name="BasicInvoice" xml:space="preserve">
+    <value>Basic Invoice</value>
+  </data>
+  <data name="BasicInvoice2" xml:space="preserve">
+    <value>Basic</value>
+  </data>
+  <data name="BatchChequeBondTransaction" xml:space="preserve">
+    <value>Batch Cheque Bond Transaction</value>
+  </data>
+  <data name="BatchInvoicePrinting" xml:space="preserve">
+    <value>Batch Invoice Printing</value>
+  </data>
+  <data name="BatchInvoiceTransaction" xml:space="preserve">
+    <value>Batch Invoice Transaction</value>
+  </data>
+  <data name="BatchOrSingleInvoicePlanning" xml:space="preserve">
+    <value>Batch Or Single Invoice Planning</value>
+  </data>
+  <data name="Birthdaycelebration" xml:space="preserve">
+    <value>Birthday Celebration</value>
+  </data>
+  <data name="BirthOfPlace" xml:space="preserve">
+    <value>Birth Of Place</value>
+  </data>
+  <data name="BloodGroup" xml:space="preserve">
+    <value>Blood Group</value>
+  </data>
+  <data name="Bond" xml:space="preserve">
+    <value>Bond</value>
+  </data>
+  <data name="Bond2" xml:space="preserve">
+    <value>S.B</value>
+  </data>
+  <data name="BondGuarantor" xml:space="preserve">
+    <value>Bond Guarantor</value>
+  </data>
+  <data name="BondGuarantorId" xml:space="preserve">
+    <value>Guarantor Id</value>
+  </data>
+  <data name="BondListBank" xml:space="preserve">
+    <value>Bond List (Bank)</value>
+  </data>
+  <data name="BondListByhand" xml:space="preserve">
+    <value>Bond List (By hand)</value>
+  </data>
+  <data name="BondListMailOrder" xml:space="preserve">
+    <value>Bond List (Mail Order)</value>
+  </data>
+  <data name="BondListOTS" xml:space="preserve">
+    <value>Bond List (OTS)</value>
+  </data>
+  <data name="BondNo" xml:space="preserve">
+    <value>Bond No</value>
+  </data>
+  <data name="BondNumber" xml:space="preserve">
+    <value>Bond Number</value>
+  </data>
+  <data name="BondSettings" xml:space="preserve">
+    <value>Bond Settings</value>
+  </data>
+  <data name="BondType" xml:space="preserve">
+    <value>Bond Type</value>
+  </data>
+  <data name="Branch" xml:space="preserve">
+    <value>Branch</value>
+  </data>
+  <data name="BusPhone" xml:space="preserve">
+    <value>Bus Phone</value>
+  </data>
+  <data name="BusRoute" xml:space="preserve">
+    <value>Bus Route</value>
+  </data>
+  <data name="BusTeacher" xml:space="preserve">
+    <value>Bus Teacher</value>
+  </data>
+  <data name="BusTeacherPhone" xml:space="preserve">
+    <value>Bus Teacher Phone</value>
+  </data>
+  <data name="ByAmount" xml:space="preserve">
+    <value>By Amount</value>
+  </data>
+  <data name="BylistOption" xml:space="preserve">
+    <value>Listing by Students with the List Option Selected</value>
+  </data>
+  <data name="ByMonthlyAmount" xml:space="preserve">
+    <value>By Monthly Amount</value>
+  </data>
+  <data name="ByRegistrationDate" xml:space="preserve">
+    <value>By Registration Date</value>
+  </data>
+  <data name="ByTotalAmount" xml:space="preserve">
+    <value>By Total Amount</value>
+  </data>
+  <data name="Calculator" xml:space="preserve">
+    <value>Calculator</value>
+  </data>
+  <data name="Calculator1" xml:space="preserve">
+    <value>Calc.</value>
+  </data>
+  <data name="Calculator2" xml:space="preserve">
+    <value>Cal.</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="CancelDate" xml:space="preserve">
+    <value>Cancel Date</value>
+  </data>
+  <data name="CanceledStudents" xml:space="preserve">
+    <value>Canceled Students</value>
+  </data>
+  <data name="CancelExampleMsg1" xml:space="preserve">
+    <value>Example of Cancellation</value>
+  </data>
+  <data name="CancelExampleMsg2" xml:space="preserve">
+    <value>Collected money 5000</value>
+  </data>
+  <data name="CancelExampleMsg3" xml:space="preserve">
+    <value>Unpaid bond debt 2500</value>
+  </data>
+  <data name="CancelExampleMsg4" xml:space="preserve">
+    <value>Cancellation Example:</value>
+  </data>
+  <data name="CancelExampleMsg5" xml:space="preserve">
+    <value>According to Canceled SENET --- ---Debt--- ---Credit---</value>
+  </data>
+  <data name="CancelExampleMsg6" xml:space="preserve">
+    <value>- 121 Bond Account-------------------------------2500</value>
+  </data>
+  <data name="CancelExampleMsg7" xml:space="preserve">
+    <value>- 340 Student Account----------------2500------------</value>
+  </data>
+  <data name="Canceling" xml:space="preserve">
+    <value>Canceling</value>
+  </data>
+  <data name="Cancellation" xml:space="preserve">
+    <value>Cancellation</value>
+  </data>
+  <data name="CancellationAccountingCodes" xml:space="preserve">
+    <value>Cancellation Accounting Code</value>
+  </data>
+  <data name="CancellationMsg100" xml:space="preserve">
+    <value>- Cancellation Is Made For The Remaining Payments.</value>
+  </data>
+  <data name="CancellationMsg101" xml:space="preserve">
+    <value>- Payment Slip Is Printed For Canceled Check/Bond, At The Same Time, The Receivables Are Registered To The Relevant Accounts Of The Accounting As Follows.</value>
+  </data>
+  <data name="CancellationMsg102" xml:space="preserve">
+    <value>- Student Registration Is Put Into CANCEL Status.</value>
+  </data>
+  <data name="CancellationMsg103" xml:space="preserve">
+    <value>- Cancel: Cancels Registration, Previously issued Check / Note etc. Cancels.</value>
+  </data>
+  <data name="CancellationMsg104" xml:space="preserve">
+    <value>- Following (Cancellation): Cancels Registration, Check / Note etc. Included in the lists.</value>
+  </data>
+  <data name="CancellationMsgHed" xml:space="preserve">
+    <value>What does the program do in the cancellation process?</value>
+  </data>
+  <data name="CancellationOnFollow-up" xml:space="preserve">
+    <value>Cancellation On Follow-up</value>
+  </data>
+  <data name="CancellationProcedures" xml:space="preserve">
+    <value>Cancellation Procedures</value>
+  </data>
+  <data name="CancelMsg100" xml:space="preserve">
+    <value>This Student Enrollment Has Been Canceled</value>
+  </data>
+  <data name="CancelMsg101" xml:space="preserve">
+    <value>To Restore This Record "STATUS: Certain registration" To Restore This Record "STATUS: Certain registration" Make</value>
+  </data>
+  <data name="CancelPreviousRefund" xml:space="preserve">
+    <value>Cancel Previous Refund</value>
+  </data>
+  <data name="CardCvc" xml:space="preserve">
+    <value>Cvc</value>
+  </data>
+  <data name="CardFamilySeqNumber" xml:space="preserve">
+    <value>Card Family Seq Number</value>
+  </data>
+  <data name="CardNameOnCard" xml:space="preserve">
+    <value>Card Name On Card</value>
+  </data>
+  <data name="CardNumber" xml:space="preserve">
+    <value>Card Number</value>
+  </data>
+  <data name="CardPlaceOfIssue" xml:space="preserve">
+    <value>Card Place Of Issue</value>
+  </data>
+  <data name="CardRegisteredCity" xml:space="preserve">
+    <value>Card Registered City</value>
+  </data>
+  <data name="CardRegisteredTown" xml:space="preserve">
+    <value>Card Registered Town</value>
+  </data>
+  <data name="CardRegisteredVillage" xml:space="preserve">
+    <value>Card Registered Village</value>
+  </data>
+  <data name="CardRegisterNo" xml:space="preserve">
+    <value>Card Register No</value>
+  </data>
+  <data name="CardSeqNumber" xml:space="preserve">
+    <value>Card Seq.Number</value>
+  </data>
+  <data name="CardSerial" xml:space="preserve">
+    <value>Card Serial</value>
+  </data>
+  <data name="CardVolumeNumber" xml:space="preserve">
+    <value>Card Volume Number</value>
+  </data>
+  <data name="Cash" xml:space="preserve">
+    <value>Cash</value>
+  </data>
+  <data name="Cashier" xml:space="preserve">
+    <value>Cashier</value>
+  </data>
+  <data name="CashPayment" xml:space="preserve">
+    <value>Cash Payment</value>
+  </data>
+  <data name="CashPaymentsList" xml:space="preserve">
+    <value>Cash Payments List</value>
+  </data>
+  <data name="CategoryLevel" xml:space="preserve">
+    <value>Category Level</value>
+  </data>
+  <data name="CategoryName" xml:space="preserve">
+    <value>Category Name</value>
+  </data>
+  <data name="Change" xml:space="preserve">
+    <value>Change</value>
+  </data>
+  <data name="ChangeInstallment" xml:space="preserve">
+    <value>Change Installment</value>
+  </data>
+  <data name="ChangeInStudentMsg1" xml:space="preserve">
+    <value>-Unpaid debts. Installments will be deleted and operations will be done as follows.</value>
+  </data>
+  <data name="ChangeInStudentMsg11" xml:space="preserve">
+    <value>School Change:</value>
+  </data>
+  <data name="ChangeInStudentMsg12" xml:space="preserve">
+    <value>- Student School Change is made in the New Semester.</value>
+  </data>
+  <data name="ChangeInStudentMsg13" xml:space="preserve">
+    <value>- Students whose fees are not entered can change schools.</value>
+  </data>
+  <data name="ChangeInStudentMsg14" xml:space="preserve">
+    <value>- If the student registration meets these conditions, you can choose an Institution/School.</value>
+  </data>
+  <data name="ChangeInStudentMsg15" xml:space="preserve">
+    <value>- "School Change Will Be Made for This Student", By pressing the OK button in the question, the operation is applied.</value>
+  </data>
+  <data name="ChangeInStudentMsg2" xml:space="preserve">
+    <value>.Old debts. Will be added CREDIT to Relevant Accounts. Will be added DEBT to Student Accounts.</value>
+  </data>
+  <data name="ChangeInStudentMsg3" xml:space="preserve">
+    <value>.New debts.  Will be added DEBIT to Relevant Accounts. Will be added CREDIT to Student Accounts.</value>
+  </data>
+  <data name="ChangeInStudentMsg4" xml:space="preserve">
+    <value>-Returns processing, Is Made After The Change Process.</value>
+  </data>
+  <data name="ChangesInTheInvoicePlan" xml:space="preserve">
+    <value>Changes In The Invoice Plan</value>
+  </data>
+  <data name="ChangingInstallmentType" xml:space="preserve">
+    <value>Change in installment registration</value>
+  </data>
+  <data name="ChangingMenuPicture" xml:space="preserve">
+    <value>Changing Menu Picture</value>
+  </data>
+  <data name="Chat01" xml:space="preserve">
+    <value>The purpose of this software, which is prepared as an in-house messaging system,
+various communications needed while using the program with the institution management,
+at the same time, the communication needs of users is to be resolved as quickly as possible.</value>
+  </data>
+  <data name="Chat02" xml:space="preserve">
+    <value>Messaging system; It works in real time while messaging each other,
+The message you sent is displayed with the message icon in the users section on the left side of the message screen of the relevant user,
+If the message system is not open, the function icon under the user picture in the main menu of the program will be changed and
+the user is warned.</value>
+  </data>
+  <data name="Chat03" xml:space="preserve">
+    <value>File transfer functions are not added due to system security and Virus and similar threats.
+You can use software that provides email or transfer service for such needs.</value>
+  </data>
+  <data name="Check" xml:space="preserve">
+    <value>Check</value>
+  </data>
+  <data name="CheckAndBondInquiry" xml:space="preserve">
+    <value>Check And Bond Inquiry</value>
+  </data>
+  <data name="CheckAndBondNumbersList" xml:space="preserve">
+    <value>Check And Bond Numbers List</value>
+  </data>
+  <data name="CheckBank" xml:space="preserve">
+    <value>Check Banka</value>
+  </data>
+  <data name="CheckCardNo" xml:space="preserve">
+    <value>Check Card No</value>
+  </data>
+  <data name="CheckNo" xml:space="preserve">
+    <value>Check No</value>
+  </data>
+  <data name="ChecksAndBondsByPositions" xml:space="preserve">
+    <value>Checks And Bonds By Positions</value>
+  </data>
+  <data name="ChecksAndBondsByPositionsDetailed" xml:space="preserve">
+    <value>Checks And Bonds By Positions Detailed</value>
+  </data>
+  <data name="City" xml:space="preserve">
+    <value>City</value>
+  </data>
+  <data name="CityNameForBond" xml:space="preserve">
+    <value>City Name For Bond</value>
+  </data>
+  <data name="ClassNamesAreResetforNewTerm" xml:space="preserve">
+    <value>Class Names Are Reset for New Term</value>
+  </data>
+  <data name="Classroom" xml:space="preserve">
+    <value>Clasroom</value>
+  </data>
+  <data name="ClassroomDefinitions" xml:space="preserve">
+    <value>Classroom Definitions</value>
+  </data>
+  <data name="ClassroomEmpty" xml:space="preserve">
+    <value>Student Classes Are Not Defined, Please Enter.</value>
+  </data>
+  <data name="ClassroomList" xml:space="preserve">
+    <value>Classroom List</value>
+  </data>
+  <data name="ClassroomMsg" xml:space="preserve">
+    <value>Cannot cancel classes that have students enrolled.</value>
+  </data>
+  <data name="ClassroomName" xml:space="preserve">
+    <value>Classroom Name</value>
+  </data>
+  <data name="Classrooms" xml:space="preserve">
+    <value>Clasrooms</value>
+  </data>
+  <data name="ClassroomTeacher" xml:space="preserve">
+    <value>Classroom Teacher</value>
+  </data>
+  <data name="ClassroomType" xml:space="preserve">
+    <value>Classroom Type</value>
+  </data>
+  <data name="ClassTimetable" xml:space="preserve">
+    <value>Class Timetable</value>
+  </data>
+  <data name="ClickToContinue" xml:space="preserve">
+    <value>Click to continue</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="ClosingReceipt" xml:space="preserve">
+    <value>Closing Receipt</value>
+  </data>
+  <data name="ClosingReceiptNo" xml:space="preserve">
+    <value>Closing Receipt No</value>
+  </data>
+  <data name="ClothingConsentDocument" xml:space="preserve">
+    <value>Clothing Consent Document</value>
+  </data>
+  <data name="Code" xml:space="preserve">
+    <value>Code</value>
+  </data>
+  <data name="CodeMax" xml:space="preserve">
+    <value>Max</value>
+  </data>
+  <data name="CodeTotal" xml:space="preserve">
+    <value>Stu.</value>
+  </data>
+  <data name="Collection" xml:space="preserve">
+    <value>Collection</value>
+  </data>
+  <data name="CollectionList" xml:space="preserve">
+    <value>Collection List</value>
+  </data>
+  <data name="CollectionListByMonth" xml:space="preserve">
+    <value>Collection List By Month</value>
+  </data>
+  <data name="CollectionListByMonths" xml:space="preserve">
+    <value>CollectionList ( By Months )</value>
+  </data>
+  <data name="CollectionListByStudentFeeType" xml:space="preserve">
+    <value>Collection List By Student Fee Type</value>
+  </data>
+  <data name="CollectionMsg" xml:space="preserve">
+    <value>Application</value>
+  </data>
+  <data name="CollectionMsg1" xml:space="preserve">
+    <value>1- Select Student</value>
+  </data>
+  <data name="CollectionMsg2" xml:space="preserve">
+    <value>2- Select Debt or Enter Payment Amount</value>
+  </data>
+  <data name="CollectionMsg3" xml:space="preserve">
+    <value>3- Confirm by OK Button</value>
+  </data>
+  <data name="CollectionMsg4" xml:space="preserve">
+    <value>4- Send to Printer for Register and Receipt</value>
+  </data>
+  <data name="CollectionNo" xml:space="preserve">
+    <value>Collection No</value>
+  </data>
+  <data name="CollectionPaymentTransactions1" xml:space="preserve">
+    <value>Collection Payment Transactions (non-cash entry list)</value>
+  </data>
+  <data name="CollectionReceipt" xml:space="preserve">
+    <value>Collection Receipt</value>
+  </data>
+  <data name="CollectionReceipt1" xml:space="preserve">
+    <value>Collection Receipt</value>
+  </data>
+  <data name="CollectionReceiptNo" xml:space="preserve">
+    <value>Col.Receipt No</value>
+  </data>
+  <data name="Collections" xml:space="preserve">
+    <value>Collections</value>
+  </data>
+  <data name="Color" xml:space="preserve">
+    <value>Color</value>
+  </data>
+  <data name="Commentsaredeleted" xml:space="preserve">
+    <value>Comments are deleted</value>
+  </data>
+  <data name="CommercialInvoice" xml:space="preserve">
+    <value>Commercial Invoice</value>
+  </data>
+  <data name="CommercialInvoice2" xml:space="preserve">
+    <value>Commercial</value>
+  </data>
+  <data name="CompanyAddress" xml:space="preserve">
+    <value>Company Address</value>
+  </data>
+  <data name="CompanyEmail" xml:space="preserve">
+    <value>Company E-mail</value>
+  </data>
+  <data name="CompanyEmailService" xml:space="preserve">
+    <value>Company Email Service</value>
+  </data>
+  <data name="CompanyFeeName" xml:space="preserve">
+    <value>Company Fee Name</value>
+  </data>
+  <data name="CompanyInfo" xml:space="preserve">
+    <value>Company Info</value>
+  </data>
+  <data name="CompanyName" xml:space="preserve">
+    <value>Company</value>
+  </data>
+  <data name="CompanyNameBondMsg" xml:space="preserve">
+    <value>Promissory note etc. Enter the Name of the School/Institution used in document arrangements.</value>
+  </data>
+  <data name="CompanyNameForBond" xml:space="preserve">
+    <value>Company For Bond</value>
+  </data>
+  <data name="CompanyNameMsg" xml:space="preserve">
+    <value>Enter School/Institution Name</value>
+  </data>
+  <data name="CompanyShortCode" xml:space="preserve">
+    <value>Short Code</value>
+  </data>
+  <data name="CompanyShortCodeMsg" xml:space="preserve">
+    <value>Enter a Code such as (01,02,03) for the School/Institution. (To be used in Accounting etc. Transactions)</value>
+  </data>
+  <data name="CompanyShortName" xml:space="preserve">
+    <value>Short Name</value>
+  </data>
+  <data name="CompanyShortNameMsg" xml:space="preserve">
+    <value>Enter a Short Name for the School/Institution. (To be used in Accounting etc. Transactions)</value>
+  </data>
+  <data name="Condition" xml:space="preserve">
+    <value>Condition</value>
+  </data>
+  <data name="Conditions" xml:space="preserve">
+    <value>Conditions</value>
+  </data>
+  <data name="ConfirmEveryTenPrints" xml:space="preserve">
+    <value>It prints up to the number of invoices entered, then asks for confirmation. (If not entered, (10) will be printed as an invoice.)</value>
+  </data>
+  <data name="ContractDesignProgram" xml:space="preserve">
+    <value>Contract Design Program</value>
+  </data>
+  <data name="CopiesOfForm" xml:space="preserve">
+    <value>Copies Of Form</value>
+  </data>
+  <data name="CopyPastMsg" xml:space="preserve">
+    <value>To copy ( Mouse + Right click )</value>
+  </data>
+  <data name="CopyToTheNewSchoolPeriod" xml:space="preserve">
+    <value>Copy To The New School Period</value>
+  </data>
+  <data name="Country" xml:space="preserve">
+    <value>Country</value>
+  </data>
+  <data name="CreateNew" xml:space="preserve">
+    <value>New</value>
+  </data>
+  <data name="Credit" xml:space="preserve">
+    <value>Credit</value>
+  </data>
+  <data name="CreditCard" xml:space="preserve">
+    <value>Credit Card</value>
+  </data>
+  <data name="CreditCardMsg1" xml:space="preserve">
+    <value>- There is a "Maturity Day" Option for Credit Card Transactions.</value>
+  </data>
+  <data name="CreditCardMsg2" xml:space="preserve">
+    <value>- If this field is entered as 30 or 45 Days, Installments will be arranged according to 30 or 45 Day Maturities. (Minimum day entry is limited to 5.)</value>
+  </data>
+  <data name="CreditCardNo" xml:space="preserve">
+    <value>Credit Card No</value>
+  </data>
+  <data name="CreditCardNumber" xml:space="preserve">
+    <value>Credit Card Number</value>
+  </data>
+  <data name="CreditorAccount" xml:space="preserve">
+    <value>Creditor Account</value>
+  </data>
+  <data name="CurrencyDecimalPlaces" xml:space="preserve">
+    <value>Currency Decimal Places</value>
+  </data>
+  <data name="CurrentCard" xml:space="preserve">
+    <value>Current Card</value>
+  </data>
+  <data name="CurrentCardEntryTransactions" xml:space="preserve">
+    <value>Current Card Entry Transactions</value>
+  </data>
+  <data name="CurrentCardList" xml:space="preserve">
+    <value>Current Card List</value>
+  </data>
+  <data name="CurrentCardMsg0" xml:space="preserve">
+    <value>At Current Card Entry</value>
+  </data>
+  <data name="CurrentCardMsg1" xml:space="preserve">
+    <value>1- Go to the Chart of Accounts Section and select the Current Card Option opposite the Relevant Accounts for Current Card Entry Transactions. If there is no account, define it.</value>
+  </data>
+  <data name="CurrentCardMsg2" xml:space="preserve">
+    <value>2- Selected Accounts will appear as "Name and Accounting Code" in the Upper Left Section of the Current Card Entry Transactions.</value>
+  </data>
+  <data name="CurrentCardMsg3" xml:space="preserve">
+    <value>3- Select the Relevant Account and Enter the Authorized Name, Telephone, Other and Invoice Information and Save.</value>
+  </data>
+  <data name="CurrentCardMsg4" xml:space="preserve">
+    <value>4- To perform current registration transactions, simply select the account.</value>
+  </data>
+  <data name="CurrentCardMsg5" xml:space="preserve">
+    <value>- These entries are also recorded as accounting vouchers.</value>
+  </data>
+  <data name="CurrentCardMsg6" xml:space="preserve">
+    <value>- Therefore, pay attention to the Receipt Date and Receipt Number Entries.</value>
+  </data>
+  <data name="CurrentCardTotalDebtList" xml:space="preserve">
+    <value>Current Card Total Debt List</value>
+  </data>
+  <data name="DailyCashCounterList" xml:space="preserve">
+    <value>Daily Cash Counter List</value>
+  </data>
+  <data name="DailyCashSheet" xml:space="preserve">
+    <value>Daily Cash Sheet</value>
+  </data>
+  <data name="DatabaseBackup" xml:space="preserve">
+    <value>Database Backup</value>
+  </data>
+  <data name="DatabaseBackup1" xml:space="preserve">
+    <value>Take Database Backup</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="Dated" xml:space="preserve">
+    <value>Dated</value>
+  </data>
+  <data name="DateFormat" xml:space="preserve">
+    <value>Date Format</value>
+  </data>
+  <data name="DateOfBird" xml:space="preserve">
+    <value>Date Of Bird</value>
+  </data>
+  <data name="DateOfIssue" xml:space="preserve">
+    <value>Date Of Issue</value>
+  </data>
+  <data name="DateOfRegistration" xml:space="preserve">
+    <value>Date Of Registration</value>
+  </data>
+  <data name="DebitReceipt" xml:space="preserve">
+    <value>Debit Receipt</value>
+  </data>
+  <data name="Debt" xml:space="preserve">
+    <value>Debt</value>
+  </data>
+  <data name="DebtAccountCode" xml:space="preserve">
+    <value>Debit Account Code</value>
+  </data>
+  <data name="DebtAndCollectionStatus" xml:space="preserve">
+    <value>Debt And Collection Status</value>
+  </data>
+  <data name="DebtDate" xml:space="preserve">
+    <value>Debt Date</value>
+  </data>
+  <data name="DebtFree" xml:space="preserve">
+    <value>Debt Free</value>
+  </data>
+  <data name="DebtList" xml:space="preserve">
+    <value>Debt List</value>
+  </data>
+  <data name="DebtListSiblingGroup" xml:space="preserve">
+    <value>Debt List(Sibling/Group)</value>
+  </data>
+  <data name="Debtor" xml:space="preserve">
+    <value>Debtor</value>
+  </data>
+  <data name="DebtorAccount" xml:space="preserve">
+    <value>Debtor Account</value>
+  </data>
+  <data name="DebtorDOB" xml:space="preserve">
+    <value>DOB</value>
+  </data>
+  <data name="DebtorFatherName" xml:space="preserve">
+    <value>Father Name</value>
+  </data>
+  <data name="DebtorName" xml:space="preserve">
+    <value>Debtor Name</value>
+  </data>
+  <data name="DebtorPlaceOfBirth" xml:space="preserve">
+    <value>Place Of Birth</value>
+  </data>
+  <data name="DebtsWithDateDetail" xml:space="preserve">
+    <value>Debts With Date Detail</value>
+  </data>
+  <data name="DebtTypeSequential" xml:space="preserve">
+    <value>Debt Type Sequential</value>
+  </data>
+  <data name="Decimation" xml:space="preserve">
+    <value>Decimation</value>
+  </data>
+  <data name="DefaultBank" xml:space="preserve">
+    <value>Default Bank</value>
+  </data>
+  <data name="DefaultInstallment" xml:space="preserve">
+    <value>Default Installment</value>
+  </data>
+  <data name="DefaultPaymentType" xml:space="preserve">
+    <value>Default Payment Type</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="Delete1" xml:space="preserve">
+    <value>Del</value>
+  </data>
+  <data name="Delete2" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="DeleteArchive" xml:space="preserve">
+    <value>Delete Archive</value>
+  </data>
+  <data name="DeletedSuccessfuly" xml:space="preserve">
+    <value>Deleted Successfuly</value>
+  </data>
+  <data name="DeleteMessage" xml:space="preserve">
+    <value>Delete Message</value>
+  </data>
+  <data name="Design" xml:space="preserve">
+    <value>Form Design</value>
+  </data>
+  <data name="Detail" xml:space="preserve">
+    <value>Detail</value>
+  </data>
+  <data name="Detailed" xml:space="preserve">
+    <value>Detailed</value>
+  </data>
+  <data name="DetailedFeeEntry" xml:space="preserve">
+    <value>Detailed Fee Entry</value>
+  </data>
+  <data name="DetailedInstallments" xml:space="preserve">
+    <value>Detailed installments</value>
+  </data>
+  <data name="DetailedInvoice" xml:space="preserve">
+    <value>Detailed Invoice</value>
+  </data>
+  <data name="DetailedListsByFees" xml:space="preserve">
+    <value>Detailed Lists By Fees</value>
+  </data>
+  <data name="DetailShow" xml:space="preserve">
+    <value>Detail Show</value>
+  </data>
+  <data name="Discount" xml:space="preserve">
+    <value>Discount</value>
+  </data>
+  <data name="DiscountDefinition" xml:space="preserve">
+    <value>Discount Definition</value>
+  </data>
+  <data name="DiscountEntries" xml:space="preserve">
+    <value>Discount Entries</value>
+  </data>
+  <data name="DiscountMsg" xml:space="preserve">
+    <value>You can select up to 10 discount types in a list.</value>
+  </data>
+  <data name="DiscountName" xml:space="preserve">
+    <value>Discount Name</value>
+  </data>
+  <data name="DiscountPercentageAndAmountEntries" xml:space="preserve">
+    <value>Discount Percentage Entries</value>
+  </data>
+  <data name="DiscountPetition" xml:space="preserve">
+    <value>Discount Petition</value>
+  </data>
+  <data name="Discounts" xml:space="preserve">
+    <value>Discounts</value>
+  </data>
+  <data name="Discounts1" xml:space="preserve">
+    <value>Discounts</value>
+  </data>
+  <data name="DiscountsAccountFromRegistration" xml:space="preserve">
+    <value>Discounts Account From Registration</value>
+  </data>
+  <data name="Distraint" xml:space="preserve">
+    <value>Distraint</value>
+  </data>
+  <data name="Div1Msg1" xml:space="preserve">
+    <value>- In this section, you can make a new debt entry to the Student.</value>
+  </data>
+  <data name="Div1Msg2" xml:space="preserve">
+    <value>- If the student's invoice planning has been made, do not forget to plan according to the new arrangement.</value>
+  </data>
+  <data name="Div1SmsMsg1" xml:space="preserve">
+    <value>1- SMS. SMS for You to Use Your Transactions. Buy the Credit.</value>
+  </data>
+  <data name="Div1SmsMsg2" xml:space="preserve">
+    <value>2- After the Purchase, "User Name" and "Password" Information will be notified to you.</value>
+  </data>
+  <data name="Div1SmsMsg3" xml:space="preserve">
+    <value>3- This information should be entered in the sections above.</value>
+  </data>
+  <data name="Div1SmsMsg4" xml:space="preserve">
+    <value>4- Enter the Title for the Institution to be Used in Sending the SMS.</value>
+  </data>
+  <data name="Div1SmsMsg5" xml:space="preserve">
+    <value>Example: Like "Net Computer"</value>
+  </data>
+  <data name="Div1SmsMsg6" xml:space="preserve">
+    <value>5- SMS After Registering This Information. Credits on Display If it appears, you can start sending your SMS messages.</value>
+  </data>
+  <data name="Div2Msg1" xml:space="preserve">
+    <value>- Divided amount : You can divide the debt amount and arrange re-installments.</value>
+  </data>
+  <data name="Div2Msg2" xml:space="preserve">
+    <value>- Single payment  : You can edit the remaining amount as a single payment.</value>
+  </data>
+  <data name="Div3Msg1" xml:space="preserve">
+    <value>- You can change the related installment, Date, Type, Bank name, Check / Note number.</value>
+  </data>
+  <data name="Div4Msg1" xml:space="preserve">
+    <value>You can change the Accounting Account Code for PromissoryNote or Check Collections by hand.</value>
+  </data>
+  <data name="Div4Msg2" xml:space="preserve">
+    <value>If no change is made, the Cash Account is recorded as a debit.</value>
+  </data>
+  <data name="DivideAmount" xml:space="preserve">
+    <value>Divide</value>
+  </data>
+  <data name="DividedAmount" xml:space="preserve">
+    <value>Divided Amount</value>
+  </data>
+  <data name="DividingInstallmentAmount" xml:space="preserve">
+    <value>Dividing the installment amount</value>
+  </data>
+  <data name="DobMsg" xml:space="preserve">
+    <value>You can query according to Student birth dates between two dates.</value>
+  </data>
+  <data name="DocumentAddedtoQueue" xml:space="preserve">
+    <value>Document Added to Queue</value>
+  </data>
+  <data name="DocumentNumber" xml:space="preserve">
+    <value>Document Number</value>
+  </data>
+  <data name="DownloadMsg" xml:space="preserve">
+    <value>Download Database to My Computer</value>
+  </data>
+  <data name="Drawer" xml:space="preserve">
+    <value>Drawer</value>
+  </data>
+  <data name="DriverName" xml:space="preserve">
+    <value>Driver Name</value>
+  </data>
+  <data name="EArchive" xml:space="preserve">
+    <value>E-Archive</value>
+  </data>
+  <data name="EArchiveEInvoice" xml:space="preserve">
+    <value>E-Archive/E-Invoice</value>
+  </data>
+  <data name="EArchiveMsg" xml:space="preserve">
+    <value>Your Files Are Not Ready For E-Archive/E-Invoice. Please get information from Ncs Net Computer.</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="EditAsSingleBond" xml:space="preserve">
+    <value>Edit as Single Bond</value>
+  </data>
+  <data name="EditingWithholdingonInvoice" xml:space="preserve">
+    <value>Editing Withholding</value>
+  </data>
+  <data name="Edityourcontractform" xml:space="preserve">
+    <value>Edit your contract form</value>
+  </data>
+  <data name="EdityourInvoiceForm" xml:space="preserve">
+    <value>Edit your Invoice Form</value>
+  </data>
+  <data name="EdityourKvkkform" xml:space="preserve">
+    <value>Edit your KVKK form</value>
+  </data>
+  <data name="EIIntegratorName" xml:space="preserve">
+    <value>Integrator Name</value>
+  </data>
+  <data name="EIInvoiceArcSerial1" xml:space="preserve">
+    <value>Invoice Arc Serial_1</value>
+  </data>
+  <data name="EIInvoiceArcSerial2" xml:space="preserve">
+    <value>Invoice Arc Serial_2</value>
+  </data>
+  <data name="EIInvoiceSerial1" xml:space="preserve">
+    <value>Invoice Serial_1</value>
+  </data>
+  <data name="EIInvoiceSerial2" xml:space="preserve">
+    <value>Invoice Serial_2</value>
+  </data>
+  <data name="EIInvoiceSerialCode" xml:space="preserve">
+    <value>Serial Code</value>
+  </data>
+  <data name="EIIsActive" xml:space="preserve">
+    <value>E-Invoice Is Active</value>
+  </data>
+  <data name="EInvoice" xml:space="preserve">
+    <value>E-Invoice</value>
+  </data>
+  <data name="EInvoiceInformation" xml:space="preserve">
+    <value>E-Invoice Information</value>
+  </data>
+  <data name="EInvoiceUserInfo" xml:space="preserve">
+    <value>E-Invoice User Info</value>
+  </data>
+  <data name="EMail" xml:space="preserve">
+    <value>E-Mail</value>
+  </data>
+  <data name="EmailInformation" xml:space="preserve">
+    <value>Email Information</value>
+  </data>
+  <data name="EMailService1" xml:space="preserve">
+    <value>for example; "ncs"</value>
+  </data>
+  <data name="EMailService2" xml:space="preserve">
+    <value>for example; "123456"</value>
+  </data>
+  <data name="EMailService3" xml:space="preserve">
+    <value>for example; "info@ncs.com.tr"</value>
+  </data>
+  <data name="EMailService4" xml:space="preserve">
+    <value>for example; "mail.ncs.com.tr"</value>
+  </data>
+  <data name="EMailService5" xml:space="preserve">
+    <value>for example; "587"</value>
+  </data>
+  <data name="EMailService6" xml:space="preserve">
+    <value>Secure Socket Layer protocol</value>
+  </data>
+  <data name="EmailSMTPAddress" xml:space="preserve">
+    <value>Email SMTP Address</value>
+  </data>
+  <data name="EmailSMTPHost" xml:space="preserve">
+    <value>Email SMTP Host</value>
+  </data>
+  <data name="EmailSMTPPassword" xml:space="preserve">
+    <value>Email SMTP Password</value>
+  </data>
+  <data name="EmailSMTPPort" xml:space="preserve">
+    <value>Email SMTP Port</value>
+  </data>
+  <data name="EmailSMTPSsl" xml:space="preserve">
+    <value>SSL</value>
+  </data>
+  <data name="EmailSMTPUserName" xml:space="preserve">
+    <value>Email SMTP User Name</value>
+  </data>
+  <data name="EndAccountCode" xml:space="preserve">
+    <value>End Master Account Code</value>
+  </data>
+  <data name="EndClassroom" xml:space="preserve">
+    <value>Classroom To</value>
+  </data>
+  <data name="EndDate" xml:space="preserve">
+    <value>Date To</value>
+  </data>
+  <data name="EndDate1" xml:space="preserve">
+    <value>Scholarship Date To</value>
+  </data>
+  <data name="EndDateOfRegistration" xml:space="preserve">
+    <value>Date Of Registration To</value>
+  </data>
+  <data name="Endorser" xml:space="preserve">
+    <value>Endorser</value>
+  </data>
+  <data name="EndYear" xml:space="preserve">
+    <value>Year To</value>
+  </data>
+  <data name="English" xml:space="preserve">
+    <value>English</value>
+  </data>
+  <data name="EnterAccountCodeAndAmountWillBePaid" xml:space="preserve">
+    <value>Enter Account Code And Amount Will Be Paid</value>
+  </data>
+  <data name="EnterArchive" xml:space="preserve">
+    <value>Enter Archive</value>
+  </data>
+  <data name="EnterTheInstallment" xml:space="preserve">
+    <value>Enter the Installment Amount First.</value>
+  </data>
+  <data name="EnterValidAmount" xml:space="preserve">
+    <value>Enter Valid Amount</value>
+  </data>
+  <data name="EnterYourPassword" xml:space="preserve">
+    <value>Enter your Password</value>
+  </data>
+  <data name="EnterYourUsername" xml:space="preserve">
+    <value>Enter your Username</value>
+  </data>
+  <data name="ESerialCode" xml:space="preserve">
+    <value>E-Invoice Serial Code</value>
+  </data>
+  <data name="EventMsg100" xml:space="preserve">
+    <value>1- You can group students according to Classes by selecting Class.</value>
+  </data>
+  <data name="EventMsg101" xml:space="preserve">
+    <value>2- Select the Student to be Enrolled.</value>
+  </data>
+  <data name="EventMsg102" xml:space="preserve">
+    <value>3- Double click on the Day and Date on the right, Enter the student's activity date range and details.</value>
+  </data>
+  <data name="EventMsg103" xml:space="preserve">
+    <value>4- You can classify your entries according to Colors.</value>
+  </data>
+  <data name="EventMsg104" xml:space="preserve">
+    <value>5- For coloring work, from the Markers section of the School menu, You can make your changes via the "Student Markers" entries.</value>
+  </data>
+  <data name="Events" xml:space="preserve">
+    <value>Events</value>
+  </data>
+  <data name="Excel01" xml:space="preserve">
+    <value>1- Select the information you want to include in the list.</value>
+  </data>
+  <data name="Excel02" xml:space="preserve">
+    <value>2- Condition Can Be Entered : ( ✓ ) You can enter conditions in the marked fields.</value>
+  </data>
+  <data name="Excel03" xml:space="preserve">
+    <value>   Student number from 1 to 100</value>
+  </data>
+  <data name="Excel031" xml:space="preserve">
+    <value>Example:</value>
+  </data>
+  <data name="Excel04" xml:space="preserve">
+    <value>    Classes from 1-A to 1-C</value>
+  </data>
+  <data name="Excel05" xml:space="preserve">
+    <value>3- The information you selected by pressing the Export to Excel button, Exported to Excel.</value>
+  </data>
+  <data name="Excel06" xml:space="preserve">
+    <value>    You can produce the form suitable for your purpose by making the desired edits on Excel.</value>
+  </data>
+  <data name="ExceptionInvoice" xml:space="preserve">
+    <value>Exception Invoice</value>
+  </data>
+  <data name="ExceptionInvoice2" xml:space="preserve">
+    <value>Exception</value>
+  </data>
+  <data name="Excluded" xml:space="preserve">
+    <value>Excluded</value>
+  </data>
+  <data name="Excused" xml:space="preserve">
+    <value>Excused</value>
+  </data>
+  <data name="Exit" xml:space="preserve">
+    <value>Exit</value>
+  </data>
+  <data name="ExpenseH" xml:space="preserve">
+    <value>EXPENSE</value>
+  </data>
+  <data name="ExpiryMonth" xml:space="preserve">
+    <value>Expiry Month</value>
+  </data>
+  <data name="ExpiryYear" xml:space="preserve">
+    <value>Expiry Year</value>
+  </data>
+  <data name="Explanation" xml:space="preserve">
+    <value>Explanation</value>
+  </data>
+  <data name="Explanation0" xml:space="preserve">
+    <value>This program; It is used in transitions to the new period.</value>
+  </data>
+  <data name="Explanation2" xml:space="preserve">
+    <value>Classrooms Are Reset After Operation</value>
+  </data>
+  <data name="Explanation3" xml:space="preserve">
+    <value>Student's Registration Form Section will be changed to "Registration Renewal"</value>
+  </data>
+  <data name="Explanation50001" xml:space="preserve">
+    <value>Transactions Before the Start Date, Calculated as Account Transfer.</value>
+  </data>
+  <data name="Explanation50002" xml:space="preserve">
+    <value>Movements between the Start and End Dates are detailed in the list.</value>
+  </data>
+  <data name="Explanation50003" xml:space="preserve">
+    <value>Users using the CODE Column in the Accounting Entry, Also Can Get Filtered Listing.</value>
+  </data>
+  <data name="ExplanationSection" xml:space="preserve">
+    <value>Delete the Description Section</value>
+  </data>
+  <data name="ExplanationShow" xml:space="preserve">
+    <value>At First Login</value>
+  </data>
+  <data name="ExportAccountingFiletoExcel" xml:space="preserve">
+    <value>Export Accounting Receipts to Excel</value>
+  </data>
+  <data name="ExportInvoicestoExcel" xml:space="preserve">
+    <value>Export Invoices to Excel</value>
+  </data>
+  <data name="ExportToExcel" xml:space="preserve">
+    <value>Export to Excel</value>
+  </data>
+  <data name="Family" xml:space="preserve">
+    <value>Family</value>
+  </data>
+  <data name="FamilyInfo" xml:space="preserve">
+    <value>Family Info</value>
+  </data>
+  <data name="FamilyInfo1" xml:space="preserve">
+    <value>Family</value>
+  </data>
+  <data name="Father2" xml:space="preserve">
+    <value>Father</value>
+  </data>
+  <data name="FatherHomeAddress" xml:space="preserve">
+    <value>Father Work Address</value>
+  </data>
+  <data name="FatherName" xml:space="preserve">
+    <value>FatherName</value>
+  </data>
+  <data name="Fathers" xml:space="preserve">
+    <value>Father's</value>
+  </data>
+  <data name="FathersInformation" xml:space="preserve">
+    <value>Father's Information</value>
+  </data>
+  <data name="FatherWorkAddress" xml:space="preserve">
+    <value>Father Work Address</value>
+  </data>
+  <data name="Fax" xml:space="preserve">
+    <value>Fax</value>
+  </data>
+  <data name="FeeEmpty" xml:space="preserve">
+    <value>Classroom Entries Have Not Been Made. Please Make Your Entries.</value>
+  </data>
+  <data name="FeeEntries" xml:space="preserve">
+    <value>Fee Entries</value>
+  </data>
+  <data name="FeeEntriesbyClassType" xml:space="preserve">
+    <value>Fee Entries by Class Type</value>
+  </data>
+  <data name="FeeHelp100" xml:space="preserve">
+    <value>SUB DETAIL Prepared for Institutions Using Fees.</value>
+  </data>
+  <data name="FeeHelp101" xml:space="preserve">
+    <value>See: School Menu/Fee Entries by Class Type</value>
+  </data>
+  <data name="FeeHelp102" xml:space="preserve">
+    <value>If Sub Fee is Entered Blank, SUB CHARGES Transacted Will Be Listed.</value>
+  </data>
+  <data name="FeeHelp103" xml:space="preserve">
+    <value>If Sub Fee is Selected, Sub Detailed Fees Transacted Will Be Listed.</value>
+  </data>
+  <data name="FeeInformation" xml:space="preserve">
+    <value>Fee Information</value>
+  </data>
+  <data name="FeeLists" xml:space="preserve">
+    <value>Fee Lists</value>
+  </data>
+  <data name="FeeName" xml:space="preserve">
+    <value>Fee Name</value>
+  </data>
+  <data name="FeeOptions" xml:space="preserve">
+    <value>Fee Options</value>
+  </data>
+  <data name="Fees" xml:space="preserve">
+    <value>Fees</value>
+  </data>
+  <data name="FeeStatus" xml:space="preserve">
+    <value>Fee Status</value>
+  </data>
+  <data name="File" xml:space="preserve">
+    <value>File</value>
+  </data>
+  <data name="FileName" xml:space="preserve">
+    <value>File Name</value>
+  </data>
+  <data name="Filter" xml:space="preserve">
+    <value>Filter</value>
+  </data>
+  <data name="FinancialYearEnd" xml:space="preserve">
+    <value>Financial Year To</value>
+  </data>
+  <data name="FinancialYearStart" xml:space="preserve">
+    <value>Financial Year From</value>
+  </data>
+  <data name="FirstDateOfRegistration" xml:space="preserve">
+    <value>First Date Of Registration</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>First Name</value>
+  </data>
+  <data name="FoodMenu" xml:space="preserve">
+    <value>The Food Menu</value>
+  </data>
+  <data name="ForMailOrder" xml:space="preserve">
+    <value>For Mail Order</value>
+  </data>
+  <data name="FormBondPetitionReceipt" xml:space="preserve">
+    <value>Form / Bond / Petition / Receipt</value>
+  </data>
+  <data name="FormHeaderParent" xml:space="preserve">
+    <value>Parent's Name and Surname</value>
+  </data>
+  <data name="FormHeaderStudent" xml:space="preserve">
+    <value>Student's Name and Surname</value>
+  </data>
+  <data name="Forms" xml:space="preserve">
+    <value>Forms</value>
+  </data>
+  <data name="FormTitle" xml:space="preserve">
+    <value>Form Title</value>
+  </data>
+  <data name="FreeList" xml:space="preserve">
+    <value>Free List</value>
+  </data>
+  <data name="FromHand" xml:space="preserve">
+    <value>Bond by Hand</value>
+  </data>
+  <data name="GenderType" xml:space="preserve">
+    <value>Gender Type</value>
+  </data>
+  <data name="General" xml:space="preserve">
+    <value>General</value>
+  </data>
+  <data name="Giro" xml:space="preserve">
+    <value>Ciro</value>
+  </data>
+  <data name="GivenCode" xml:space="preserve">
+    <value>Given Code</value>
+  </data>
+  <data name="GradualDiscount" xml:space="preserve">
+    <value>Gradual Discount</value>
+  </data>
+  <data name="GrandTotal" xml:space="preserve">
+    <value>Grand Total</value>
+  </data>
+  <data name="GuarantorInformation" xml:space="preserve">
+    <value>Guarantor Information</value>
+  </data>
+  <data name="Guidance" xml:space="preserve">
+    <value>Guidance</value>
+  </data>
+  <data name="Help" xml:space="preserve">
+    <value>Help</value>
+  </data>
+  <data name="Help1" xml:space="preserve">
+    <value>Help</value>
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="HomeAddress" xml:space="preserve">
+    <value>Home Address</value>
+  </data>
+  <data name="HomePhone" xml:space="preserve">
+    <value>Home Phone</value>
+  </data>
+  <data name="Iban" xml:space="preserve">
+    <value>IBAN</value>
+  </data>
+  <data name="Id" xml:space="preserve">
+    <value>Id</value>
+  </data>
+  <data name="IdControl" xml:space="preserve">
+    <value>Id Control</value>
+  </data>
+  <data name="IdentityCard" xml:space="preserve">
+    <value>Identity Card</value>
+  </data>
+  <data name="IdNumber" xml:space="preserve">
+    <value>Id Number</value>
+  </data>
+  <data name="IdNumber2" xml:space="preserve">
+    <value>Student Id Number</value>
+  </data>
+  <data name="IfaSscholarshipSstudent" xml:space="preserve">
+    <value>If a scholarship student</value>
+  </data>
+  <data name="Image" xml:space="preserve">
+    <value>Image</value>
+  </data>
+  <data name="ImageQuality" xml:space="preserve">
+    <value>Upload high resolution images for quality images.</value>
+  </data>
+  <data name="ImportToWeb" xml:space="preserve">
+    <value>Import To E-School Program</value>
+  </data>
+  <data name="Inactive" xml:space="preserve">
+    <value>Inactive</value>
+  </data>
+  <data name="IncludeCashPayments" xml:space="preserve">
+    <value>Include Cash Payments</value>
+  </data>
+  <data name="Included" xml:space="preserve">
+    <value>Included</value>
+  </data>
+  <data name="IncomeDistributionTable" xml:space="preserve">
+    <value>Income Distribution Table</value>
+  </data>
+  <data name="InPeriod" xml:space="preserve">
+    <value>Period</value>
+  </data>
+  <data name="Installment" xml:space="preserve">
+    <value>Installment</value>
+  </data>
+  <data name="InstallmentAmount" xml:space="preserve">
+    <value>Amount</value>
+  </data>
+  <data name="InstallmentDivision" xml:space="preserve">
+    <value>Installment Division</value>
+  </data>
+  <data name="InstallmentEntries" xml:space="preserve">
+    <value>Installment Entries</value>
+  </data>
+  <data name="Installments" xml:space="preserve">
+    <value>Installments</value>
+  </data>
+  <data name="InstallmentStatus" xml:space="preserve">
+    <value>Installment Status</value>
+  </data>
+  <data name="InstallmentTotal" xml:space="preserve">
+    <value>Installment Total</value>
+  </data>
+  <data name="InstallmentTransactions" xml:space="preserve">
+    <value>Installment Transactions</value>
+  </data>
+  <data name="InstitutionInvoice" xml:space="preserve">
+    <value>Institution Invoice Serial</value>
+  </data>
+  <data name="InstrumentNotToOrder" xml:space="preserve">
+    <value>Instrument Not To Order</value>
+  </data>
+  <data name="IntegratorName" xml:space="preserve">
+    <value>Integrator Name</value>
+  </data>
+  <data name="Interlocutor" xml:space="preserve">
+    <value>Interlocutor</value>
+  </data>
+  <data name="Intheformofreceipt" xml:space="preserve">
+    <value>Intheformofreceipt</value>
+  </data>
+  <data name="Invoice" xml:space="preserve">
+    <value>Invoice</value>
+  </data>
+  <data name="InvoiceAddress" xml:space="preserve">
+    <value>Invoice Address</value>
+  </data>
+  <data name="InvoiceAddressType" xml:space="preserve">
+    <value>Invoice Address Type</value>
+  </data>
+  <data name="InvoiceAmount" xml:space="preserve">
+    <value>Invoice Amount</value>
+  </data>
+  <data name="InvoiceArchive" xml:space="preserve">
+    <value>InvoiceArchive</value>
+  </data>
+  <data name="InvoiceBatchMsg100" xml:space="preserve">
+    <value>Class selection: Select the class to invoice according to the classes.</value>
+  </data>
+  <data name="InvoiceBatchMsg101" xml:space="preserve">
+    <value>Invoice date   : The date on which the batch invoice will be issued must be entered.</value>
+  </data>
+  <data name="InvoiceBatchMsg102" xml:space="preserve">
+    <value>Invoice : Starts batch invoice printing.</value>
+  </data>
+  <data name="InvoiceBatchMsg103" xml:space="preserve">
+    <value>- You can apply invoice printing within a certain number range.
+For this, the number range must be selected, if not entered, the default number is "10".</value>
+  </data>
+  <data name="InvoiceBatchMsg104" xml:space="preserve">
+    <value>- After the invoice printing process is completed, you need to confirm to save the invoice numbers.
+otherwise, batch invoice printing will be deemed invalid.</value>
+  </data>
+  <data name="InvoiceCutDate" xml:space="preserve">
+    <value>Cut Date</value>
+  </data>
+  <data name="InvoiceDate" xml:space="preserve">
+    <value>Invoice Date</value>
+  </data>
+  <data name="InvoiceDateMsg" xml:space="preserve">
+    <value>Invoice Date is the Scheduled Date and cannot be changed.</value>
+  </data>
+  <data name="InvoiceDates" xml:space="preserve">
+    <value>Invoice Dates</value>
+  </data>
+  <data name="InvoiceDesignProgram" xml:space="preserve">
+    <value>Invoice Design Program</value>
+  </data>
+  <data name="InvoiceDetailed" xml:space="preserve">
+    <value>Invoice Detailed</value>
+  </data>
+  <data name="InvoiceDiscount" xml:space="preserve">
+    <value>Invoice Discount</value>
+  </data>
+  <data name="InvoicedNotInvoicedCancelledInvoicesList" xml:space="preserve">
+    <value>Invoiced / Not Invoiced / Cancelled / Invoices List</value>
+  </data>
+  <data name="InvoicedNotInvoicedCancelledInvoicesListDetailed" xml:space="preserve">
+    <value>Invoiced / Not Invoiced / Cancelled / Invoices List (Detailed)</value>
+  </data>
+  <data name="InvoiceEntry01" xml:space="preserve">
+    <value>Functions:</value>
+  </data>
+  <data name="InvoiceEntry02" xml:space="preserve">
+    <value>Issued invoices: In this section, pre-cut invoices are displayed on the screen.
+You can query the invoice by Title or Invoice number as you wish.
+When the relevant invoice is selected, it is show on the screen with its details.</value>
+  </data>
+  <data name="InvoiceEntry03" xml:space="preserve">
+    <value>Calculator: Used for calculator.</value>
+  </data>
+  <data name="InvoiceEntry04" xml:space="preserve">
+    <value>Invoice no: You can change the corporate invoice numbers from this section.</value>
+  </data>
+  <data name="InvoiceEntry05" xml:space="preserve">
+    <value>Invoice type: You can change the corporate invoice type in this section.</value>
+  </data>
+  <data name="InvoiceEntry06" xml:space="preserve">
+    <value>Invoice Entry:</value>
+  </data>
+  <data name="InvoiceEntry07" xml:space="preserve">
+    <value>In this section, you can enter a new invoice.</value>
+  </data>
+  <data name="InvoiceEntry08" xml:space="preserve">
+    <value>You can save invoice contact information and invoice amounts by pressing the SAVE button.</value>
+  </data>
+  <data name="InvoiceEntryProcesses" xml:space="preserve">
+    <value>Invoice Entry Processes</value>
+  </data>
+  <data name="InvoiceExcel1" xml:space="preserve">
+    <value>1- Invoices Information is Entered.</value>
+  </data>
+  <data name="InvoiceListbyTotalAmounts" xml:space="preserve">
+    <value>Invoice List by Total Amounts</value>
+  </data>
+  <data name="InvoiceLists" xml:space="preserve">
+    <value>Invoice Lists</value>
+  </data>
+  <data name="InvoiceMsg1" xml:space="preserve">
+    <value>1- Enter the Invoice Start Date.</value>
+  </data>
+  <data name="InvoiceMsg100" xml:space="preserve">
+    <value>1- NEW PLAN : It is used to schedule invoices for students. 
+Starting date, Total number of invoices, Detailed, Discounted options are entered.
+The start button is pressed and the school makes plans for all students.</value>
+  </data>
+  <data name="InvoiceMsg101" xml:space="preserve">
+    <value>For a single student:
+The relevant student is selected and the "Selected student" option is selected and  the Start button is pressed.</value>
+  </data>
+  <data name="InvoiceMsg102" xml:space="preserve">
+    <value>2- DETAIL:
+    It shows the student invoices in detail according to the fee details.</value>
+  </data>
+  <data name="InvoiceMsg103" xml:space="preserve">
+    <value>3- UNPLANNED:
+   It is prepared for institutions that do not want to plan.  An Unplanned invoice can also be issued to a scheduled student.</value>
+  </data>
+  <data name="InvoiceMsg104" xml:space="preserve">
+    <value>4- STUDENT INVOICES:
+   To issue a PLANNED or UNPLANNED invoice, the relevant invoice is selected and 
+   Invoice button is pressed.</value>
+  </data>
+  <data name="InvoiceMsg105" xml:space="preserve">
+    <value>After planning, you can delete the records of the student you want, You can issue new invoices.</value>
+  </data>
+  <data name="InvoiceMsg106" xml:space="preserve">
+    <value>By deselecting the Active column, you can prevent it from print in the relevant month.</value>
+  </data>
+  <data name="InvoiceMsg107" xml:space="preserve">
+    <value>You can change the Unissuedor cut options.</value>
+  </data>
+  <data name="InvoiceMsg108" xml:space="preserve">
+    <value>You can access the invoices issued in the previous education period.</value>
+  </data>
+  <data name="InvoiceMsg2" xml:space="preserve">
+    <value>2- Enter the Number of Invoices to be Issued.</value>
+  </data>
+  <data name="InvoiceMsg3" xml:space="preserve">
+    <value>3- Detailed Invoice Option will be detailed as General, Discount and Registration Fee in the invoice. (You Can Change This Option On Student Billing Screen After This Process.)</value>
+  </data>
+  <data name="InvoiceMsg4" xml:space="preserve">
+    <value>4- When issuing the invoice, the option to write the tuition fee in a single item will be marked. (After this process, you can change this option on the Student Billing Screen.)</value>
+  </data>
+  <data name="InvoiceMsg5" xml:space="preserve">
+    <value>5- You can make more than one plan according to the Fees you choose.</value>
+  </data>
+  <data name="InvoiceMsg6" xml:space="preserve">
+    <value>6- Unissued invoices of students whose invoices have been issued are included in the process. (Date should not be changed for this transaction.)</value>
+  </data>
+  <data name="InvoiceName" xml:space="preserve">
+    <value>InvoiceName</value>
+  </data>
+  <data name="InvoiceName1" xml:space="preserve">
+    <value>Invoice Name-1</value>
+  </data>
+  <data name="InvoiceName1Hed" xml:space="preserve">
+    <value>E-Invoice-E-Invoice</value>
+  </data>
+  <data name="InvoiceName2" xml:space="preserve">
+    <value>Invoice Name-2</value>
+  </data>
+  <data name="InvoiceName3" xml:space="preserve">
+    <value>Invoice Name-3</value>
+  </data>
+  <data name="InvoiceOnDate" xml:space="preserve">
+    <value>Add Date to Invoice Description</value>
+  </data>
+  <data name="InvoiceOnDateMsg" xml:space="preserve">
+    <value>This Option Must Be Selected Before Planning Invoice.</value>
+  </data>
+  <data name="InvoicePlanning" xml:space="preserve">
+    <value>Invoice Planning</value>
+  </data>
+  <data name="Invoiceprintingbyclass" xml:space="preserve">
+    <value>Invoice Printing by Class</value>
+  </data>
+  <data name="Invoiceprintingbyschool" xml:space="preserve">
+    <value>Invoice Printing by School</value>
+  </data>
+  <data name="InvoiceProfile" xml:space="preserve">
+    <value>Invoice Profile</value>
+  </data>
+  <data name="InvoiceProgram" xml:space="preserve">
+    <value>Invoice Program</value>
+  </data>
+  <data name="InvoiceSerialMsg1" xml:space="preserve">
+    <value>- You can also change the invoice serial numbers from this section</value>
+  </data>
+  <data name="InvoiceSerialMsg2" xml:space="preserve">
+    <value>- Changes made are reflected in the INSTITUTION fixed information with the REGISTER button.</value>
+  </data>
+  <data name="InvoiceSerialNo" xml:space="preserve">
+    <value>Serial No</value>
+  </data>
+  <data name="InvoiceSerialNo11Hed" xml:space="preserve">
+    <value>E-Invoice</value>
+  </data>
+  <data name="InvoiceSerialNo1Hed" xml:space="preserve">
+    <value>E-Archive</value>
+  </data>
+  <data name="InvoiceSerialNoHed" xml:space="preserve">
+    <value>Invoice Serial No</value>
+  </data>
+  <data name="InvoiceSerialNoTitle" xml:space="preserve">
+    <value>Serial (E-Archive)-(E-Invoice)</value>
+  </data>
+  <data name="InvoiceStartDate" xml:space="preserve">
+    <value>Invoice Date From</value>
+  </data>
+  <data name="InvoiceTaxNumberOrId" xml:space="preserve">
+    <value>If there is no Tax Number, Enter the ID Number.</value>
+  </data>
+  <data name="InvoiceTitle" xml:space="preserve">
+    <value>Invoice Title</value>
+  </data>
+  <data name="InvoicetobePrintedNow" xml:space="preserve">
+    <value>Invoice to be Printed Now</value>
+  </data>
+  <data name="InvoiceTransactions" xml:space="preserve">
+    <value>INVOICE TRANSACTION</value>
+  </data>
+  <data name="InvoiceType" xml:space="preserve">
+    <value>Inv.Type</value>
+  </data>
+  <data name="IsActive" xml:space="preserve">
+    <value>Is Active</value>
+  </data>
+  <data name="IsEMail" xml:space="preserve">
+    <value>Send</value>
+  </data>
+  <data name="IsShowFeesBottomLine" xml:space="preserve">
+    <value>Is Show Fees Bottom Line?</value>
+  </data>
+  <data name="IsSms" xml:space="preserve">
+    <value>Send</value>
+  </data>
+  <data name="IssuedInvoice" xml:space="preserve">
+    <value>Issued Invoice</value>
+  </data>
+  <data name="IssuedInvoiceAmount" xml:space="preserve">
+    <value>Issued Invoice Amount</value>
+  </data>
+  <data name="IssuedInvoices" xml:space="preserve">
+    <value>Issued Invoices</value>
+  </data>
+  <data name="IssuedOtherInvoices" xml:space="preserve">
+    <value>Issued Other Invoices</value>
+  </data>
+  <data name="Kinship" xml:space="preserve">
+    <value>Kinship</value>
+  </data>
+  <data name="KMH" xml:space="preserve">
+    <value>Kmh</value>
+  </data>
+  <data name="KmhNo" xml:space="preserve">
+    <value>Kmh No</value>
+  </data>
+  <data name="Kvkk" xml:space="preserve">
+    <value>Agreement Form</value>
+  </data>
+  <data name="KvkkFormPrint" xml:space="preserve">
+    <value>Kvkk form will be printed, are you sure?</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="LastAccountSerialNo" xml:space="preserve">
+    <value>Last Account Serial No</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>Last Name</value>
+  </data>
+  <data name="LastRegistrationNo" xml:space="preserve">
+    <value>Last Registration No</value>
+  </data>
+  <data name="Lenght" xml:space="preserve">
+    <value>Lenght</value>
+  </data>
+  <data name="List" xml:space="preserve">
+    <value>List</value>
+  </data>
+  <data name="List1000Title" xml:space="preserve">
+    <value>Document Listing</value>
+  </data>
+  <data name="ListByPositions" xml:space="preserve">
+    <value>List By Positions</value>
+  </data>
+  <data name="ListByRegistrationTypeAndRegistrationStatus" xml:space="preserve">
+    <value>List By Registration Type And Registration Status</value>
+  </data>
+  <data name="Listing" xml:space="preserve">
+    <value>Listing</value>
+  </data>
+  <data name="ListingOptions" xml:space="preserve">
+    <value>Listing Options</value>
+  </data>
+  <data name="ListofPayoutsbyPositions" xml:space="preserve">
+    <value>Listof Payouts by Positions</value>
+  </data>
+  <data name="ListofStudentsbyEnrollmentTypeandStatus" xml:space="preserve">
+    <value>List of Students by Enrollment Type and Status</value>
+  </data>
+  <data name="Lists" xml:space="preserve">
+    <value>Lists</value>
+  </data>
+  <data name="ListsByFees" xml:space="preserve">
+    <value>Lists By Fees</value>
+  </data>
+  <data name="ListsByFeesPaidNormal" xml:space="preserve">
+    <value>Lists By Fees ( Paid / Normal )</value>
+  </data>
+  <data name="ListsByOptionInPriceSection" xml:space="preserve">
+    <value>The "LIST" in the Fee Section Operates According to the Option</value>
+  </data>
+  <data name="ListsByRegistrationTypeAndStatus" xml:space="preserve">
+    <value>Lists by Registration Type and Status</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="Logo" xml:space="preserve">
+    <value>Logo</value>
+  </data>
+  <data name="M108Msg1" xml:space="preserve">
+    <value>-The collections appearing in this list may not be exactly the same as the other collection lists, this list is based on the collected months.</value>
+  </data>
+  <data name="M108Msg2" xml:space="preserve">
+    <value>-Make a Comparison Considering that the Collection Dates of a Payment May Be Collected in More Than Different Months.</value>
+  </data>
+  <data name="M109Msg1" xml:space="preserve">
+    <value>- Fee Total, Total Paid and Total Late Fees Calculated</value>
+  </data>
+  <data name="M109Msg2" xml:space="preserve">
+    <value>(Late Fee Totals, Calculates According to Two Date Ranges)</value>
+  </data>
+  <data name="M109Msg3" xml:space="preserve">
+    <value>- No Debt : Out-of-Payment Students</value>
+  </data>
+  <data name="M109Msg4" xml:space="preserve">
+    <value>- Overdue Debts: Date is selected, students with overdue debts are listed.</value>
+  </data>
+  <data name="M109Msg5" xml:space="preserve">
+    <value>Debts with Date Detail: Date is selected, Students with debts are listed according to the dates.</value>
+  </data>
+  <data name="MailOrder" xml:space="preserve">
+    <value>Mail Order</value>
+  </data>
+  <data name="MailOrderAddress" xml:space="preserve">
+    <value>MailOrder Address</value>
+  </data>
+  <data name="MailOrderInstructionForm" xml:space="preserve">
+    <value>Mail Order Instruction Form</value>
+  </data>
+  <data name="MailOrderNo" xml:space="preserve">
+    <value>Mail Order</value>
+  </data>
+  <data name="ManualBilling" xml:space="preserve">
+    <value>Manual Billing</value>
+  </data>
+  <data name="Markers" xml:space="preserve">
+    <value>Markers</value>
+  </data>
+  <data name="Master" xml:space="preserve">
+    <value>Master</value>
+  </data>
+  <data name="MenuSchool1" xml:space="preserve">
+    <value>Fee, E-Mail, E-Invoice,</value>
+  </data>
+  <data name="MenuSchool2" xml:space="preserve">
+    <value>Serial Numbers, Settings</value>
+  </data>
+  <data name="MersisNo" xml:space="preserve">
+    <value>Invoice Mersis No</value>
+  </data>
+  <data name="Message" xml:space="preserve">
+    <value>Message</value>
+  </data>
+  <data name="Message01" xml:space="preserve">
+    <value>-Enter the Installment Amount.</value>
+  </data>
+  <data name="Message02" xml:space="preserve">
+    <value>-Select the Installments to be Changed and Transfer or Enter the New Amount.</value>
+  </data>
+  <data name="Message03" xml:space="preserve">
+    <value>-Or You Can Make Manual Changes to Dates and Amounts.</value>
+  </data>
+  <data name="Message04" xml:space="preserve">
+    <value>-Press the Save button for the changes made.</value>
+  </data>
+  <data name="MessageExplanation1" xml:space="preserve">
+    <value>Alert Incoming Message Alerts From Popup Window.</value>
+  </data>
+  <data name="MessageOptions" xml:space="preserve">
+    <value>Message Options</value>
+  </data>
+  <data name="MessageResults" xml:space="preserve">
+    <value>Message Results</value>
+  </data>
+  <data name="Messages" xml:space="preserve">
+    <value>Messages</value>
+  </data>
+  <data name="MessageWarning" xml:space="preserve">
+    <value>Message Warning</value>
+  </data>
+  <data name="MobileEMail" xml:space="preserve">
+    <value>Mobil/E-Posta</value>
+  </data>
+  <data name="MobilePhone" xml:space="preserve">
+    <value>Mobile Phone</value>
+  </data>
+  <data name="Modification" xml:space="preserve">
+    <value>Modification</value>
+  </data>
+  <data name="MonthlyChequeAndBondStatusListByMonths" xml:space="preserve">
+    <value>Monthly Cheque And Bond Status List ( By Months )</value>
+  </data>
+  <data name="MonthlyLists" xml:space="preserve">
+    <value>Monthly Lists</value>
+  </data>
+  <data name="MonthlyPaymentList" xml:space="preserve">
+    <value>Monthly Payment List</value>
+  </data>
+  <data name="MonthTotal" xml:space="preserve">
+    <value>Month/Total</value>
+  </data>
+  <data name="Mother2" xml:space="preserve">
+    <value>Mother</value>
+  </data>
+  <data name="MotherHomeAddress" xml:space="preserve">
+    <value>Mother Home Address</value>
+  </data>
+  <data name="MotherName" xml:space="preserve">
+    <value>MotherName</value>
+  </data>
+  <data name="Mothers" xml:space="preserve">
+    <value>Mother's</value>
+  </data>
+  <data name="MothersInformation" xml:space="preserve">
+    <value>Mother's Information</value>
+  </data>
+  <data name="MotherWorkAddress" xml:space="preserve">
+    <value>Mother Work Address</value>
+  </data>
+  <data name="msgCancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="msgdelete" xml:space="preserve">
+    <value>Are you sure to Delete this Record?</value>
+  </data>
+  <data name="msgOk" xml:space="preserve">
+    <value>Ok</value>
+  </data>
+  <data name="msgwarning" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="MultipurposeLists" xml:space="preserve">
+    <value>Multipurpose Lists</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Name3" xml:space="preserve">
+    <value>Third Party Name</value>
+  </data>
+  <data name="NameOnReceipt" xml:space="preserve">
+    <value>Name On Receipt</value>
+  </data>
+  <data name="Nationality" xml:space="preserve">
+    <value>Nationality</value>
+  </data>
+  <data name="New" xml:space="preserve">
+    <value>New</value>
+  </data>
+  <data name="New2" xml:space="preserve">
+    <value>New Inst.</value>
+  </data>
+  <data name="NewFeeStatus" xml:space="preserve">
+    <value>New Fee Status</value>
+  </data>
+  <data name="NewInstallment" xml:space="preserve">
+    <value>New Installment</value>
+  </data>
+  <data name="NewInstallmentRegistration" xml:space="preserve">
+    <value>New Installment Registration</value>
+  </data>
+  <data name="NewInstallmentTransactions" xml:space="preserve">
+    <value>New Installment Transactions</value>
+  </data>
+  <data name="NewInvoiceAmount" xml:space="preserve">
+    <value>New Invoice Amount</value>
+  </data>
+  <data name="NewNumber" xml:space="preserve">
+    <value>New check/bond number</value>
+  </data>
+  <data name="NewPeriod" xml:space="preserve">
+    <value>New Period</value>
+  </data>
+  <data name="NewPeriod2" xml:space="preserve">
+    <value>New Period</value>
+  </data>
+  <data name="NewPeriodTransfer" xml:space="preserve">
+    <value>Student Info to the New Term Transfer</value>
+  </data>
+  <data name="NewPlan" xml:space="preserve">
+    <value>New Plan</value>
+  </data>
+  <data name="NewTermTransactions" xml:space="preserve">
+    <value>New Term Transactions</value>
+  </data>
+  <data name="NewVoucherNo" xml:space="preserve">
+    <value>New Voucher</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="No1" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="NoAddress" xml:space="preserve">
+    <value>Billing Address Not Entered</value>
+  </data>
+  <data name="NoCity" xml:space="preserve">
+    <value>Invoice City Name Not Entered</value>
+  </data>
+  <data name="NoMail" xml:space="preserve">
+    <value>No Email Entered</value>
+  </data>
+  <data name="Normal" xml:space="preserve">
+    <value>Normal</value>
+  </data>
+  <data name="NoTaxId" xml:space="preserve">
+    <value>No Tax Id</value>
+  </data>
+  <data name="Note" xml:space="preserve">
+    <value>Notes</value>
+  </data>
+  <data name="Note1" xml:space="preserve">
+    <value>First Interviewer</value>
+  </data>
+  <data name="Note2" xml:space="preserve">
+    <value>References</value>
+  </data>
+  <data name="Note3" xml:space="preserve">
+    <value>Are there any changes in payments</value>
+  </data>
+  <data name="Note4" xml:space="preserve">
+    <value>Previous school</value>
+  </data>
+  <data name="Notes" xml:space="preserve">
+    <value>Notes</value>
+  </data>
+  <data name="NoteSV" xml:space="preserve">
+    <value>Notes(*)</value>
+  </data>
+  <data name="NoTitle" xml:space="preserve">
+    <value>Invoice Title Not Entered</value>
+  </data>
+  <data name="NoTown" xml:space="preserve">
+    <value>Invoice Town Name Not Entered</value>
+  </data>
+  <data name="NotSent" xml:space="preserve">
+    <value>Not Sent</value>
+  </data>
+  <data name="Number" xml:space="preserve">
+    <value>Number</value>
+  </data>
+  <data name="NumberFrom" xml:space="preserve">
+    <value>Number From</value>
+  </data>
+  <data name="NumberOfFormPrints" xml:space="preserve">
+    <value>Number Of Form Prints</value>
+  </data>
+  <data name="NumberOfInstallments" xml:space="preserve">
+    <value>Number Of Installments</value>
+  </data>
+  <data name="NumberOfInvoices" xml:space="preserve">
+    <value>Number of Invoices</value>
+  </data>
+  <data name="Numbers" xml:space="preserve">
+    <value>Numbers</value>
+  </data>
+  <data name="NumberTo" xml:space="preserve">
+    <value>NumberTo</value>
+  </data>
+  <data name="Okey" xml:space="preserve">
+    <value>Okey</value>
+  </data>
+  <data name="OldFeeStatus" xml:space="preserve">
+    <value>Old Fee Status</value>
+  </data>
+  <data name="OldPeriod" xml:space="preserve">
+    <value>Old Period</value>
+  </data>
+  <data name="OpenCloseExplanation1" xml:space="preserve">
+    <value>This Program is Used for the New Accounting Period.</value>
+  </data>
+  <data name="OpenCloseExplanation2" xml:space="preserve">
+    <value>Along with the Closing Procedures, Opening Receipt is Prepared for the New Accounting Period.</value>
+  </data>
+  <data name="OpenCloseExplanation3" xml:space="preserve">
+    <value>After Closing Procedures, If Changes Are Made in Previous Years, This Program Must Be Run Again.</value>
+  </data>
+  <data name="OpeningReceipt" xml:space="preserve">
+    <value>Opening Receipt</value>
+  </data>
+  <data name="OpeningReceiptNo" xml:space="preserve">
+    <value>Opening Receipt No</value>
+  </data>
+  <data name="Operation" xml:space="preserve">
+    <value>Operation</value>
+  </data>
+  <data name="Operator" xml:space="preserve">
+    <value>Operator</value>
+  </data>
+  <data name="OrderByDateOfCollection" xml:space="preserve">
+    <value>Order By Date Of Collection</value>
+  </data>
+  <data name="OrderNo" xml:space="preserve">
+    <value>Order No</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>Other</value>
+  </data>
+  <data name="Ots" xml:space="preserve">
+    <value>Ots.</value>
+  </data>
+  <data name="Ots1" xml:space="preserve">
+    <value>Ots_1.</value>
+  </data>
+  <data name="Ots2" xml:space="preserve">
+    <value>Ots_2.</value>
+  </data>
+  <data name="OTSInstructionForm" xml:space="preserve">
+    <value>OTS. Instruction Form</value>
+  </data>
+  <data name="OtsNo" xml:space="preserve">
+    <value>Ots No</value>
+  </data>
+  <data name="OtsNo1" xml:space="preserve">
+    <value>Ots No-1</value>
+  </data>
+  <data name="OtsNo2" xml:space="preserve">
+    <value>Ots No-2</value>
+  </data>
+  <data name="OverdueDebts" xml:space="preserve">
+    <value>Overdue Debts</value>
+  </data>
+  <data name="PaidList" xml:space="preserve">
+    <value>Paid List</value>
+  </data>
+  <data name="ParametersUsedintheProgram" xml:space="preserve">
+    <value>Fixed Information Defining</value>
+  </data>
+  <data name="Parent" xml:space="preserve">
+    <value>Parent</value>
+  </data>
+  <data name="Parent2" xml:space="preserve">
+    <value>Parent</value>
+  </data>
+  <data name="ParentHomeAddress" xml:space="preserve">
+    <value>Parent Home Address</value>
+  </data>
+  <data name="ParentID2" xml:space="preserve">
+    <value>Parent Id</value>
+  </data>
+  <data name="ParentInformation" xml:space="preserve">
+    <value>Parent Information</value>
+  </data>
+  <data name="ParentName" xml:space="preserve">
+    <value>Parent Name</value>
+  </data>
+  <data name="ParentsInformation" xml:space="preserve">
+    <value>Parent's Information</value>
+  </data>
+  <data name="ParentWorkAddress" xml:space="preserve">
+    <value>Parent Work Address</value>
+  </data>
+  <data name="PartialPayment" xml:space="preserve">
+    <value>Partial payment</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="Payed" xml:space="preserve">
+    <value>Payed</value>
+  </data>
+  <data name="Payment" xml:space="preserve">
+    <value>Payment</value>
+  </data>
+  <data name="PaymentAmount" xml:space="preserve">
+    <value>Payment Amount</value>
+  </data>
+  <data name="PaymentCancellation" xml:space="preserve">
+    <value>Payment Cancellation</value>
+  </data>
+  <data name="PaymentDate" xml:space="preserve">
+    <value>Payment Date</value>
+  </data>
+  <data name="PaymentDate2" xml:space="preserve">
+    <value>Payment Date</value>
+  </data>
+  <data name="PaymentListbyMonth" xml:space="preserve">
+    <value>Payment List by Month</value>
+  </data>
+  <data name="PaymentNo" xml:space="preserve">
+    <value>Payment No</value>
+  </data>
+  <data name="PaymentReceiptNo" xml:space="preserve">
+    <value>Pay.Receipt No</value>
+  </data>
+  <data name="PaymentRecord" xml:space="preserve">
+    <value>Payment Record</value>
+  </data>
+  <data name="Payments" xml:space="preserve">
+    <value>Payments</value>
+  </data>
+  <data name="PaymentStartDate" xml:space="preserve">
+    <value>Payment Start Date</value>
+  </data>
+  <data name="PaymentStatusListbyMonth" xml:space="preserve">
+    <value>Payment Status List by Month</value>
+  </data>
+  <data name="PaymentType" xml:space="preserve">
+    <value>Payment Type</value>
+  </data>
+  <data name="PaymentTypeSerial" xml:space="preserve">
+    <value>Payment Type Serial</value>
+  </data>
+  <data name="Percent" xml:space="preserve">
+    <value>Percent %</value>
+  </data>
+  <data name="Period" xml:space="preserve">
+    <value>Period</value>
+  </data>
+  <data name="Period1" xml:space="preserve">
+    <value>Period</value>
+  </data>
+  <data name="Period2" xml:space="preserve">
+    <value>Period(MM)</value>
+  </data>
+  <data name="Period3" xml:space="preserve">
+    <value>Periods</value>
+  </data>
+  <data name="PeriodOfTime" xml:space="preserve">
+    <value>Period Of Time</value>
+  </data>
+  <data name="Periods" xml:space="preserve">
+    <value>Periods</value>
+  </data>
+  <data name="PermissionMsg" xml:space="preserve">
+    <value>You are not authorized to use this section.</value>
+  </data>
+  <data name="Phone" xml:space="preserve">
+    <value>Phone</value>
+  </data>
+  <data name="Photo" xml:space="preserve">
+    <value>Photo</value>
+  </data>
+  <data name="Plan" xml:space="preserve">
+    <value>Plan</value>
+  </data>
+  <data name="Plan1" xml:space="preserve">
+    <value>Plan</value>
+  </data>
+  <data name="Planned" xml:space="preserve">
+    <value>Planned</value>
+  </data>
+  <data name="PlannedInvoice" xml:space="preserve">
+    <value>Planned Invoice</value>
+  </data>
+  <data name="PlannedInvoiceEntryandPrinting" xml:space="preserve">
+    <value>Planned Invoice Entry</value>
+  </data>
+  <data name="PlannedInvoicePrinting" xml:space="preserve">
+    <value>Planned Invoice Printing</value>
+  </data>
+  <data name="PlateNo" xml:space="preserve">
+    <value>Plate No</value>
+  </data>
+  <data name="PleaseChooseAFee" xml:space="preserve">
+    <value>Please Choose A Fee</value>
+  </data>
+  <data name="PositionChange" xml:space="preserve">
+    <value>Check / Bond Position Change</value>
+  </data>
+  <data name="PositionChangeMsg100" xml:space="preserve">
+    <value>1- Position Change:</value>
+  </data>
+  <data name="PositionChangeMsg101" xml:space="preserve">
+    <value>    - The student is selected,</value>
+  </data>
+  <data name="PositionChangeMsg102" xml:space="preserve">
+    <value>    - By pressing the Edit button, the position change is made.</value>
+  </data>
+  <data name="PositionChangeMsg103" xml:space="preserve">
+    <value>    - For check/note registration, Entries are made in the allowed fields and a position change is made in the "Status" section.</value>
+  </data>
+  <data name="PositionChangeMsg104" xml:space="preserve">
+    <value>    - Clicking the Update button completes the process.</value>
+  </data>
+  <data name="PositionChangeMsg105" xml:space="preserve">
+    <value>2- With the Printer Button, lists can be taken according to the positions.</value>
+  </data>
+  <data name="Positions" xml:space="preserve">
+    <value>Positions</value>
+  </data>
+  <data name="PrepareaNewPlan" xml:space="preserve">
+    <value>New Invoice Plan Preparation</value>
+  </data>
+  <data name="Preregistration" xml:space="preserve">
+    <value>Pre-registration</value>
+  </data>
+  <data name="PreRegistrationApplicationForm" xml:space="preserve">
+    <value>Pre-Registration Application Entry</value>
+  </data>
+  <data name="PreregistrationMessage" xml:space="preserve">
+    <value>Please press the SAVE button after entering the student and parent information. You will be contacted as soon as possible.</value>
+  </data>
+  <data name="PreviousBranch" xml:space="preserve">
+    <value>Previous Branch</value>
+  </data>
+  <data name="PreviousPayment" xml:space="preserve">
+    <value>Previous Payment</value>
+  </data>
+  <data name="PreviousSchool" xml:space="preserve">
+    <value>Previous School</value>
+  </data>
+  <data name="PrgMsg01" xml:space="preserve">
+    <value>Brief notes on using the program:</value>
+  </data>
+  <data name="PrgMsg02" xml:space="preserve">
+    <value>WHAT TO DO BEFORE STUDENT REGISTRATION</value>
+  </data>
+  <data name="PrgMsg03" xml:space="preserve">
+    <value>1-First, enter the School / Institution information, Fees, E-Mail, E-Invoice, Serial Number and Settings section from the School / Institution information entry.</value>
+  </data>
+  <data name="PrgMsg04" xml:space="preserve">
+    <value>2-In the class definition section, enter the class names and types.</value>
+  </data>
+  <data name="PrgMsg05" xml:space="preserve">
+    <value>3-From the section of fee entries according to classes, Enter the fee schedules to be applied by the School for the relevant semester.</value>
+  </data>
+  <data name="PrgMsg06" xml:space="preserve">
+    <value>4-In the Applied Discounts section, enter the Discount Items Table of the School/Institution.</value>
+  </data>
+  <data name="PrgMsg07" xml:space="preserve">
+    <value>5-Make the Bank Information Entries, Enter the Banks that the Institution Works with in detail. Any bank that works with OTS. Do not forget to enter the Bank and Branch accounts of that bank</value>
+  </data>
+  <data name="PrgMsg08" xml:space="preserve">
+    <value>6-Review the parameters used in the program. If necessary, you can make additions according to your school/institution.</value>
+  </data>
+  <data name="PrgMsg09" xml:space="preserve">
+    <value>7-Enter the details of the School/Institution's vehicle information in the Transportation Entrance Section.</value>
+  </data>
+  <data name="PrgMsg10" xml:space="preserve">
+    <value>8-Edit your institution's current contract with the contract design program or Get help from our company or our dealers.</value>
+  </data>
+  <data name="PrgMsg11" xml:space="preserve">
+    <value>9- Please review the Accounting/Accounting plan entry section, add any accounts you want to add.</value>
+  </data>
+  <data name="PrgMsg12" xml:space="preserve">
+    <value>10- Make your user logins, Specify Username, Password, Working hours and Working fields.</value>
+  </data>
+  <data name="PrgMsg13" xml:space="preserve">
+    <value>-Student Entrances, In collection transactions, Cancellation/Change and Refund transactions, Accounting records are processed by the program.</value>
+  </data>
+  <data name="PrgMsg14" xml:space="preserve">
+    <value>-The accounting account codes defined in the corporate fixed information entry are taken as reference.</value>
+  </data>
+  <data name="PrgMsg15" xml:space="preserve">
+    <value>YOU CAN REGISTER STUDENT AFTER COMPLETING THE PROCESSES CONSISTING OF 10 STAGES</value>
+  </data>
+  <data name="PrgMsg16" xml:space="preserve">
+    <value>-Make your student registration by going to the student registration form section.</value>
+  </data>
+  <data name="PrgMsg17" xml:space="preserve">
+    <value>-For a good invoice tracking, Create a Batch Invoice plan after student entries.</value>
+  </data>
+  <data name="PrgMsg18" xml:space="preserve">
+    <value>-After these steps, you can do all kinds of operations, you can print your lists.</value>
+  </data>
+  <data name="Print" xml:space="preserve">
+    <value>Print</value>
+  </data>
+  <data name="Printer" xml:space="preserve">
+    <value>Printer</value>
+  </data>
+  <data name="Printer1" xml:space="preserve">
+    <value>Print</value>
+  </data>
+  <data name="Printer2" xml:space="preserve">
+    <value>Save/Print</value>
+  </data>
+  <data name="PrintingWithoutAsking" xml:space="preserve">
+    <value>All Invoice Printing is done without asking.</value>
+  </data>
+  <data name="PrintQuantity" xml:space="preserve">
+    <value>Print Quantity</value>
+  </data>
+  <data name="PrivacyPolicy" xml:space="preserve">
+    <value>Gizlilik politikası</value>
+  </data>
+  <data name="ProcessControlbyGrouping" xml:space="preserve">
+    <value>Process Control by Group</value>
+  </data>
+  <data name="ProcessDate" xml:space="preserve">
+    <value>Process</value>
+  </data>
+  <data name="ProcessType" xml:space="preserve">
+    <value>Process Type</value>
+  </data>
+  <data name="Profession" xml:space="preserve">
+    <value>Profession</value>
+  </data>
+  <data name="PromissoryNote" xml:space="preserve">
+    <value>Bond by Hand</value>
+  </data>
+  <data name="PromissoryNote2" xml:space="preserve">
+    <value>Promissory Note</value>
+  </data>
+  <data name="Protest" xml:space="preserve">
+    <value>Protest</value>
+  </data>
+  <data name="Quantity" xml:space="preserve">
+    <value>Quantity</value>
+  </data>
+  <data name="Quota" xml:space="preserve">
+    <value>Quota</value>
+  </data>
+  <data name="RearrangingAccountReceiptNumber" xml:space="preserve">
+    <value>Rearranging Account Receipt Number</value>
+  </data>
+  <data name="ReasonForWithholding" xml:space="preserve">
+    <value>Reason for Withholding</value>
+  </data>
+  <data name="ReasonofIssue" xml:space="preserve">
+    <value>Reason of Issue</value>
+  </data>
+  <data name="Receipt" xml:space="preserve">
+    <value>Receipt</value>
+  </data>
+  <data name="ReceiptNo" xml:space="preserve">
+    <value>Receipt No</value>
+  </data>
+  <data name="ReceiptNumberSequential" xml:space="preserve">
+    <value>Receipt Number Sequential</value>
+  </data>
+  <data name="ReceiptSerialNumbers" xml:space="preserve">
+    <value>Receipt Serial Numbers</value>
+  </data>
+  <data name="RecordSequential" xml:space="preserve">
+    <value>Record Sequential</value>
+  </data>
+  <data name="RecordsFoundOnTheSameDateAreListed" xml:space="preserve">
+    <value>Records found on the same date are listed.</value>
+  </data>
+  <data name="Refresh" xml:space="preserve">
+    <value>Refresh</value>
+  </data>
+  <data name="Refund" xml:space="preserve">
+    <value>Refund</value>
+  </data>
+  <data name="RefundAccountCode" xml:space="preserve">
+    <value>Refund Account Code</value>
+  </data>
+  <data name="RefundAccountCodes" xml:space="preserve">
+    <value>Refund Account Codes</value>
+  </data>
+  <data name="RefundAmount" xml:space="preserve">
+    <value>Refund Amount</value>
+  </data>
+  <data name="RefundApplication" xml:space="preserve">
+    <value>Refund Application</value>
+  </data>
+  <data name="RefundedDueDate" xml:space="preserve">
+    <value>Refunded Due Date</value>
+  </data>
+  <data name="RefundExampleMsg1" xml:space="preserve">
+    <value>Example of refund operation</value>
+  </data>
+  <data name="RefundExampleMsg10" xml:space="preserve">
+    <value>340 Refund to Student Account-----------------1000</value>
+  </data>
+  <data name="RefundExampleMsg11" xml:space="preserve">
+    <value>(for Refund of Bond)</value>
+  </data>
+  <data name="RefundExampleMsg12" xml:space="preserve">
+    <value>121 Bond Account-------------------------------450</value>
+  </data>
+  <data name="RefundExampleMsg13" xml:space="preserve">
+    <value>340 Student Account----------------450</value>
+  </data>
+  <data name="RefundExampleMsg2" xml:space="preserve">
+    <value>Collected money 6000</value>
+  </data>
+  <data name="RefundExampleMsg3" xml:space="preserve">
+    <value>Unpaid bond debt 450</value>
+  </data>
+  <data name="RefundExampleMsg4" xml:space="preserve">
+    <value>Cash refund 1000 by Amount</value>
+  </data>
+  <data name="RefundExampleMsg5" xml:space="preserve">
+    <value>Refund Process Example:</value>
+  </data>
+  <data name="RefundExampleMsg6" xml:space="preserve">
+    <value>---------------------------------- ---Debt--- ---Credit---</value>
+  </data>
+  <data name="RefundExampleMsg7" xml:space="preserve">
+    <value>610 Discount------------------------1000</value>
+  </data>
+  <data name="RefundExampleMsg8" xml:space="preserve">
+    <value>100 Cash counter--------------------------------1000</value>
+  </data>
+  <data name="RefundExampleMsg9" xml:space="preserve">
+    <value>340 Refund to Student Account----1000</value>
+  </data>
+  <data name="RefundFutureDate" xml:space="preserve">
+    <value>Refund Future Date</value>
+  </data>
+  <data name="RefundMsg1" xml:space="preserve">
+    <value>Which Case Should The Refund Be Made?</value>
+  </data>
+  <data name="RefundMsg10" xml:space="preserve">
+    <value>If the payment will be made in CASH, Payee Account-1 Enter Account Code Amount or</value>
+  </data>
+  <data name="RefundMsg100" xml:space="preserve">
+    <value>To This Student</value>
+  </data>
+  <data name="RefundMsg101" xml:space="preserve">
+    <value />
+  </data>
+  <data name="RefundMsg102" xml:space="preserve">
+    <value>Will Be Returned On Date.</value>
+  </data>
+  <data name="RefundMsg103" xml:space="preserve">
+    <value>Returned.</value>
+  </data>
+  <data name="RefundMsg11" xml:space="preserve">
+    <value>If the refund will be made in Cash, Check, Bond, Enter Account Code Amount.</value>
+  </data>
+  <data name="RefundMsg12" xml:space="preserve">
+    <value>Apply Cancellation</value>
+  </data>
+  <data name="RefundMsg13" xml:space="preserve">
+    <value>- You can use it for the records that will be canceled after the return process.</value>
+  </data>
+  <data name="RefundMsg2" xml:space="preserve">
+    <value>- If Collection Process Has Been Made. You can apply for student payments.</value>
+  </data>
+  <data name="RefundMsg20" xml:space="preserve">
+    <value>Account code and Refund</value>
+  </data>
+  <data name="RefundMsg21" xml:space="preserve">
+    <value>- Top Account should be recorded when recording</value>
+  </data>
+  <data name="RefundMsg210" xml:space="preserve">
+    <value>Total debt = Total Fee + Refund Amount</value>
+  </data>
+  <data name="RefundMsg211" xml:space="preserve">
+    <value>- Warning: After Billing Plan or After Billing-Changes Made May Cause Inconsistency.</value>
+  </data>
+  <data name="RefundMsg212" xml:space="preserve">
+    <value>- Occurring From Student Fee Changes, It Should Be Used In Cases Where The Customer Is Creditor With A Fee Difference.</value>
+  </data>
+  <data name="RefundMsg22" xml:space="preserve">
+    <value>- Refund amounts should be recorded in refund section</value>
+  </data>
+  <data name="RefundMsg220" xml:space="preserve">
+    <value>1- Fee Changes Are Made.</value>
+  </data>
+  <data name="RefundMsg221" xml:space="preserve">
+    <value>2- The Amount Deducted From The Fee Is Entered As The Refund Amount.</value>
+  </data>
+  <data name="RefundMsg222" xml:space="preserve">
+    <value>3- The Date Of The Amount To Be Refunded Is Entered and The Process Is Completed By Registration.</value>
+  </data>
+  <data name="RefundMsg23" xml:space="preserve">
+    <value>- Click Save Button To Start Process After Record Refund Amound</value>
+  </data>
+  <data name="RefundMsg3" xml:space="preserve">
+    <value>- Must Be A Pre-Collected MONEY Entry For Refund</value>
+  </data>
+  <data name="RefundMsg4" xml:space="preserve">
+    <value>- Amounts to be Refunded From Related Accounts as Cash or Bond, It should be considered as a payment out of the company's cash-desk</value>
+  </data>
+  <data name="RefundMsg5" xml:space="preserve">
+    <value>- The Refund Amount, Cannot Be More Than The Total Amount Paid.</value>
+  </data>
+  <data name="RefundMsg6" xml:space="preserve">
+    <value>- Debtor Records Must Re-Edit or Reset.</value>
+  </data>
+  <data name="RefundMsg7" xml:space="preserve">
+    <value>- After This Procedure All Installments Are Canceled and Exit Process is done.</value>
+  </data>
+  <data name="RefundMsg8" xml:space="preserve">
+    <value>- Otherwhise use changing operation.</value>
+  </data>
+  <data name="RegisteratedStudentsListBetweenTwoDates" xml:space="preserve">
+    <value>Registerated Students List ( Between Two Dates )</value>
+  </data>
+  <data name="RegisteredStudents" xml:space="preserve">
+    <value>Registered Students</value>
+  </data>
+  <data name="RegistrationAgreement" xml:space="preserve">
+    <value>Registration Agreement</value>
+  </data>
+  <data name="RegistrationDateisUpdated" xml:space="preserve">
+    <value>Registration Date is Updated</value>
+  </data>
+  <data name="RegistrationFee" xml:space="preserve">
+    <value>Registration Fee</value>
+  </data>
+  <data name="RegistrationForm" xml:space="preserve">
+    <value>Registration Form</value>
+  </data>
+  <data name="RegistrationFormTitle" xml:space="preserve">
+    <value>Registration Form Title</value>
+  </data>
+  <data name="RegistrationFormTitleChange" xml:space="preserve">
+    <value>Registration Form Title Change</value>
+  </data>
+  <data name="RegistrationRenewalForm" xml:space="preserve">
+    <value>Registration Renewal Form</value>
+  </data>
+  <data name="RegistrationRenewalFormandInvoiceInformation" xml:space="preserve">
+    <value>Registration Renewal Form and Invoice Information</value>
+  </data>
+  <data name="RegistrationSerialNumbers" xml:space="preserve">
+    <value>Registration Serial </value>
+  </data>
+  <data name="RegistrationStatus" xml:space="preserve">
+    <value>Registration Status</value>
+  </data>
+  <data name="RegistrationSuspension" xml:space="preserve">
+    <value>Registration Suspension</value>
+  </data>
+  <data name="RegistrationType" xml:space="preserve">
+    <value>Registration Type</value>
+  </data>
+  <data name="Religious" xml:space="preserve">
+    <value>Religious</value>
+  </data>
+  <data name="RenewTransactionforReTransfer" xml:space="preserve">
+    <value>Renew Transaction for Re-Transfer.</value>
+  </data>
+  <data name="RequiredField" xml:space="preserve">
+    <value>Required field</value>
+  </data>
+  <data name="Reset" xml:space="preserve">
+    <value>Reset</value>
+  </data>
+  <data name="ResetPaymentTypeSerial" xml:space="preserve">
+    <value>Reset Payment Type Serial</value>
+  </data>
+  <data name="ResetReceiptSerialNumbers" xml:space="preserve">
+    <value>Reset Receipt Serial Numbers</value>
+  </data>
+  <data name="ResetRegistrationSerialNumbers" xml:space="preserve">
+    <value>Reset Registration Serial Numbers</value>
+  </data>
+  <data name="RoomQuota" xml:space="preserve">
+    <value>Room Quota</value>
+  </data>
+  <data name="SalesInvoice" xml:space="preserve">
+    <value>Sales Invoice</value>
+  </data>
+  <data name="SalesInvoice2" xml:space="preserve">
+    <value>Sales</value>
+  </data>
+  <data name="SavedSuccessfuly" xml:space="preserve">
+    <value>Saved Successfuly</value>
+  </data>
+  <data name="ScholarshipRate" xml:space="preserve">
+    <value>Scholarship Rate</value>
+  </data>
+  <data name="ScholarshipStudent" xml:space="preserve">
+    <value>Scholarship Student</value>
+  </data>
+  <data name="School" xml:space="preserve">
+    <value>School</value>
+  </data>
+  <data name="SchoolAgenda" xml:space="preserve">
+    <value>School Agenda and Planning</value>
+  </data>
+  <data name="SchoolAndAccountingPeriods" xml:space="preserve">
+    <value>School And Accounting Periods</value>
+  </data>
+  <data name="SchoolBusDeparture" xml:space="preserve">
+    <value>School Bus Departure</value>
+  </data>
+  <data name="SchoolBusEntries" xml:space="preserve">
+    <value>School Bus Entries</value>
+  </data>
+  <data name="SchoolBusReturn" xml:space="preserve">
+    <value>School Bus Return</value>
+  </data>
+  <data name="SchoolBusServiceInformation" xml:space="preserve">
+    <value>School Bus Service Information</value>
+  </data>
+  <data name="SchoolBusStatus" xml:space="preserve">
+    <value>School Bus Status</value>
+  </data>
+  <data name="SchoolCode" xml:space="preserve">
+    <value>School Code</value>
+  </data>
+  <data name="SchoolEnd" xml:space="preserve">
+    <value>End To</value>
+  </data>
+  <data name="SchoolFee01" xml:space="preserve">
+    <value>Tuition Fee</value>
+  </data>
+  <data name="SchoolFee011" xml:space="preserve">
+    <value>Farthest distance</value>
+  </data>
+  <data name="SchoolFee02" xml:space="preserve">
+    <value>School Bus Fee</value>
+  </data>
+  <data name="SchoolFee022" xml:space="preserve">
+    <value>Closest distance</value>
+  </data>
+  <data name="SchoolFee03" xml:space="preserve">
+    <value>Lunch Fee</value>
+  </data>
+  <data name="SchoolFee033" xml:space="preserve">
+    <value>Middle distance</value>
+  </data>
+  <data name="SchoolFee04" xml:space="preserve">
+    <value>Hostel Fee</value>
+  </data>
+  <data name="SchoolFee044" xml:space="preserve">
+    <value>Long distance</value>
+  </data>
+  <data name="SchoolFee05" xml:space="preserve">
+    <value>Others</value>
+  </data>
+  <data name="SchoolFee055" xml:space="preserve">
+    <value>Close distance</value>
+  </data>
+  <data name="SchoolFees" xml:space="preserve">
+    <value>School Fees</value>
+  </data>
+  <data name="SchoolInformationEntry" xml:space="preserve">
+    <value>School Information Entry</value>
+  </data>
+  <data name="SchoolInstitutionInformation" xml:space="preserve">
+    <value>School Information</value>
+  </data>
+  <data name="SchoolInstitutionTransactions" xml:space="preserve">
+    <value>School Institution Transactions</value>
+  </data>
+  <data name="SchoolList" xml:space="preserve">
+    <value>Selection of Schools/Institutions to be included in the list</value>
+  </data>
+  <data name="SchoolLogo" xml:space="preserve">
+    <value>School Logo</value>
+  </data>
+  <data name="SchoolMsg01" xml:space="preserve">
+    <value>1- Enter the long Name and short Code and Name of the Institution, the city of the Bill and the Picture or Logo to be used in the Contracts.</value>
+  </data>
+  <data name="SchoolMsg02" xml:space="preserve">
+    <value>2- Institution Address information is entered.</value>
+  </data>
+  <data name="SchoolMsg03" xml:space="preserve">
+    <value>3- School Start and End period, Accounting Start and End period dates must be entered.</value>
+  </data>
+  <data name="SchoolMsg04" xml:space="preserve">
+    <value>4- The School/Institution's Service Fees and Student Vehicle Service detailed information are entered.</value>
+  </data>
+  <data name="SchoolMsg05" xml:space="preserve">
+    <value>5- E-mail information is entered.</value>
+  </data>
+  <data name="SchoolMsg06" xml:space="preserve">
+    <value>6- E-Invoice information is entered, the Integrator is selected.
+(If you do not have any information on this subject, get information from our Company or our Dealers.)</value>
+  </data>
+  <data name="SchoolMsg07" xml:space="preserve">
+    <value>7- There are voucher numbers that the program uses on receipts and issued Checks/Notes.
+You can edit these numbers as you wish, you can reset them every year if you want.</value>
+  </data>
+  <data name="SchoolMsg08" xml:space="preserve">
+    <value>8- Checks/Bills received from the student are recorded in the Accounting department as a DEBT/CREDIT slip.
+Accounting account codes used while processing these receipts are taken from this section, you can make changes.</value>
+  </data>
+  <data name="SchoolMsg09" xml:space="preserve">
+    <value>9- Various settings and conveniences are provided in the use of the program.
+You can change these settings according to your preference.</value>
+  </data>
+  <data name="SchoolPeriods" xml:space="preserve">
+    <value>School Periods</value>
+  </data>
+  <data name="Schools" xml:space="preserve">
+    <value>Schools</value>
+  </data>
+  <data name="SchoolServiceListByTransportStatus" xml:space="preserve">
+    <value>School Service List By Transport Status</value>
+  </data>
+  <data name="SchoolShuttleCharges" xml:space="preserve">
+    <value>School Shuttle Charges</value>
+  </data>
+  <data name="SchoolStart" xml:space="preserve">
+    <value>School Start</value>
+  </data>
+  <data name="SchoolStatus" xml:space="preserve">
+    <value>School Status</value>
+  </data>
+  <data name="SchoolTransportServiceList" xml:space="preserve">
+    <value>School Service List</value>
+  </data>
+  <data name="SchoolYearEnd" xml:space="preserve">
+    <value>School Year To</value>
+  </data>
+  <data name="SchoolYearStart" xml:space="preserve">
+    <value>School Year From</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Search...</value>
+  </data>
+  <data name="SearchChequeBond" xml:space="preserve">
+    <value>Search Cheque / Bond</value>
+  </data>
+  <data name="SearchPlaceHolder" xml:space="preserve">
+    <value>Enter at least three letters to search.</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>Select</value>
+  </data>
+  <data name="selectDiscount" xml:space="preserve">
+    <value>Select</value>
+  </data>
+  <data name="Selected" xml:space="preserve">
+    <value>Selected</value>
+  </data>
+  <data name="SelectedLanguage" xml:space="preserve">
+    <value>Selected Language</value>
+  </data>
+  <data name="SelectedStudent" xml:space="preserve">
+    <value>Selected Student</value>
+  </data>
+  <data name="SelectLanguage" xml:space="preserve">
+    <value>Select Language</value>
+  </data>
+  <data name="SelectSibling" xml:space="preserve">
+    <value>Select Sibling/Group and Press The SUBMIT Button</value>
+  </data>
+  <data name="Send" xml:space="preserve">
+    <value>Send</value>
+  </data>
+  <data name="SendEmail" xml:space="preserve">
+    <value>Send E-Mail</value>
+  </data>
+  <data name="SendSms" xml:space="preserve">
+    <value>Send SMS</value>
+  </data>
+  <data name="Sent" xml:space="preserve">
+    <value>Sent</value>
+  </data>
+  <data name="SerialCode" xml:space="preserve">
+    <value>Invoice Serial Code</value>
+  </data>
+  <data name="SerialInvoiceListing" xml:space="preserve">
+    <value>Serial Invoice Listing</value>
+  </data>
+  <data name="SerialNo" xml:space="preserve">
+    <value>Serial Number</value>
+  </data>
+  <data name="SerialNumber" xml:space="preserve">
+    <value>Serial Number</value>
+  </data>
+  <data name="SerialNumberReset" xml:space="preserve">
+    <value>Serial Number Reset</value>
+  </data>
+  <data name="SerialNumbers" xml:space="preserve">
+    <value>Serial </value>
+  </data>
+  <data name="SeriNoMsg" xml:space="preserve">
+    <value>Invoice Serial Code(3) Enter as Characters Like NCS. (Invoice Number; Invoice Serial Code(3) + Year(4) + Invoice Serial Number(9) 16 Characters in Total. It is created by the program.)</value>
+  </data>
+  <data name="ServiceAgreement" xml:space="preserve">
+    <value>Service Contract</value>
+  </data>
+  <data name="ServicesProvider" xml:space="preserve">
+    <value>Services Provider</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="ShortCode" xml:space="preserve">
+    <value>Code/Name</value>
+  </data>
+  <data name="ShortName" xml:space="preserve">
+    <value>Short Name</value>
+  </data>
+  <data name="Show" xml:space="preserve">
+    <value>Show</value>
+  </data>
+  <data name="ShowDebt" xml:space="preserve">
+    <value>Show remaining debt total on receipt</value>
+  </data>
+  <data name="ShowDiscount" xml:space="preserve">
+    <value>Show Discount</value>
+  </data>
+  <data name="Sibling" xml:space="preserve">
+    <value>Sibling/Group</value>
+  </data>
+  <data name="SiblingGroupStudentTotalDebtList" xml:space="preserve">
+    <value>Sibling/Group Student Total Debt List</value>
+  </data>
+  <data name="Siblings" xml:space="preserve">
+    <value>Siblings</value>
+  </data>
+  <data name="Siblings2" xml:space="preserve">
+    <value>Siblings/Groups#</value>
+  </data>
+  <data name="SiblingStudents" xml:space="preserve">
+    <value>Sibling/Group Students</value>
+  </data>
+  <data name="Signin" xml:space="preserve">
+    <value>Sign in</value>
+  </data>
+  <data name="Single" xml:space="preserve">
+    <value>Single</value>
+  </data>
+  <data name="SingleGroupAll" xml:space="preserve">
+    <value>( Single, Group, All ) Optional</value>
+  </data>
+  <data name="SingleNamePaper" xml:space="preserve">
+    <value>Single Name Paper</value>
+  </data>
+  <data name="SinglePayment" xml:space="preserve">
+    <value>Convert the Remaining Total Amount to Single Payment</value>
+  </data>
+  <data name="SinglePayment2" xml:space="preserve">
+    <value>or Single Payment</value>
+  </data>
+  <data name="SinglePaymentAmount" xml:space="preserve">
+    <value>Single Payment Amount</value>
+  </data>
+  <data name="Slip" xml:space="preserve">
+    <value>Slip</value>
+  </data>
+  <data name="Sms" xml:space="preserve">
+    <value>Sms</value>
+  </data>
+  <data name="SmsandEMailTransactions" xml:space="preserve">
+    <value>Sms. and EMail Transactions</value>
+  </data>
+  <data name="SmsCredits" xml:space="preserve">
+    <value>Sms Credits</value>
+  </data>
+  <data name="SmsEMailMsg" xml:space="preserve">
+    <value>Mobile Phone Numbers and E-Mail Addresses that are closed to SMS do not appear on this screen.</value>
+  </data>
+  <data name="SmsEmailMsg1" xml:space="preserve">
+    <value>Select the Students to whom the message will be sent or tick All.</value>
+  </data>
+  <data name="SmsEmailMsg2" xml:space="preserve">
+    <value>Make your choice of sending the message. To "Mobile Phone" or "E-Mail Address"</value>
+  </data>
+  <data name="SmsEmailMsg3" xml:space="preserve">
+    <value>Message options;</value>
+  </data>
+  <data name="SmsEmailMsg4" xml:space="preserve">
+    <value>Send message : Used for private messages, the message is edited and sent.</value>
+  </data>
+  <data name="SmsEmailMsg5" xml:space="preserve">
+    <value>Student birthday message : Message for birthday is arranged and sent.</value>
+  </data>
+  <data name="SmsEmailMsg6" xml:space="preserve">
+    <value>Unpaid debt notification : Messages prepared according to the payment status are sent in the student section.</value>
+  </data>
+  <data name="SmsEmailMsg7" xml:space="preserve">
+    <value>Total debt statement : Messages prepared according to all payments are sent in the student section.</value>
+  </data>
+  <data name="SmsEmailMsg8" xml:space="preserve">
+    <value>Message results : A feedback report is prepared for the sent messages.</value>
+  </data>
+  <data name="SmsEmailMsg9" xml:space="preserve">
+    <value>Account info : Given by the Sms.Company with which the Institution/School has an agreement, There are information such as Server Name, User Institution Sms.Credit, User Name, SMS.Title.</value>
+  </data>
+  <data name="SmsEMailTransaction" xml:space="preserve">
+    <value>Sms. and E-Mail Transactions</value>
+  </data>
+  <data name="Sort" xml:space="preserve">
+    <value>Sort</value>
+  </data>
+  <data name="SortByName" xml:space="preserve">
+    <value>Sort By Name</value>
+  </data>
+  <data name="SortBySurname" xml:space="preserve">
+    <value>Sort By Surname</value>
+  </data>
+  <data name="SortMessage" xml:space="preserve">
+    <value>Navigation By This Option.</value>
+  </data>
+  <data name="SortMsg" xml:space="preserve">
+    <value>Students in This School</value>
+  </data>
+  <data name="SortMsgClassroom" xml:space="preserve">
+    <value>Students</value>
+  </data>
+  <data name="SortmsgSchool" xml:space="preserve">
+    <value>There are a Total of</value>
+  </data>
+  <data name="SortOrder" xml:space="preserve">
+    <value>Sort Order</value>
+  </data>
+  <data name="Standard" xml:space="preserve">
+    <value>Standard</value>
+  </data>
+  <data name="Start" xml:space="preserve">
+    <value>Start</value>
+  </data>
+  <data name="StartAccountCode" xml:space="preserve">
+    <value>Initial Master Account Code</value>
+  </data>
+  <data name="StartClassroom" xml:space="preserve">
+    <value>Classroom From</value>
+  </data>
+  <data name="StartDate" xml:space="preserve">
+    <value>Date From</value>
+  </data>
+  <data name="StartDate1" xml:space="preserve">
+    <value>Scholarship Date From</value>
+  </data>
+  <data name="StartDateOfRegistration" xml:space="preserve">
+    <value>Date Of Registration From</value>
+  </data>
+  <data name="StartYear" xml:space="preserve">
+    <value>Year From</value>
+  </data>
+  <data name="StatisticsSnapshot" xml:space="preserve">
+    <value>Statistics Snapshot</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="StockCode" xml:space="preserve">
+    <value>Stock Code</value>
+  </data>
+  <data name="StockList" xml:space="preserve">
+    <value>Stock List</value>
+  </data>
+  <data name="StockLists" xml:space="preserve">
+    <value>Stock Lists</value>
+  </data>
+  <data name="StockQuantity" xml:space="preserve">
+    <value>Stock Quantity</value>
+  </data>
+  <data name="Student" xml:space="preserve">
+    <value>Student</value>
+  </data>
+  <data name="Student2" xml:space="preserve">
+    <value>Stu.</value>
+  </data>
+  <data name="StudentAbsenceEntry" xml:space="preserve">
+    <value>Student Absence Entry</value>
+  </data>
+  <data name="StudentAbsenceEntry1" xml:space="preserve">
+    <value>Student Absence</value>
+  </data>
+  <data name="StudentAddress" xml:space="preserve">
+    <value>Student Address</value>
+  </data>
+  <data name="StudentAddressI" xml:space="preserve">
+    <value>Student Address - I</value>
+  </data>
+  <data name="StudentAddressII" xml:space="preserve">
+    <value>Student Address - II</value>
+  </data>
+  <data name="StudentAddressServices" xml:space="preserve">
+    <value>Student Address/Services</value>
+  </data>
+  <data name="StudentBusServicesInformation" xml:space="preserve">
+    <value>Student Bus Services Information</value>
+  </data>
+  <data name="StudentCard" xml:space="preserve">
+    <value>Student Card</value>
+  </data>
+  <data name="StudentCardandInvoiceInformation" xml:space="preserve">
+    <value>Student Card and Invoice Information</value>
+  </data>
+  <data name="StudentCardCollectionTransactions" xml:space="preserve">
+    <value>Student Card Collection Transactions</value>
+  </data>
+  <data name="StudentClassroom" xml:space="preserve">
+    <value>Student Classroom</value>
+  </data>
+  <data name="StudentCopy1" xml:space="preserve">
+    <value>Selected Student; Address, Invoice, Parent, Bank, Family Information, Transferred to New Student.</value>
+  </data>
+  <data name="StudentDiscountList" xml:space="preserve">
+    <value>Student Discount List</value>
+  </data>
+  <data name="StudentFeesbyClassType" xml:space="preserve">
+    <value>Student Fees by Class Type</value>
+  </data>
+  <data name="StudentFeeStatusList" xml:space="preserve">
+    <value>Student Fee StatusList</value>
+  </data>
+  <data name="StudentFeeStatusListSubDetailed" xml:space="preserve">
+    <value>Student Fee and Stock Status List (Sub Detailed)</value>
+  </data>
+  <data name="StudentGeneralAddressParent" xml:space="preserve">
+    <value>General,Address,Parent...</value>
+  </data>
+  <data name="StudentID2" xml:space="preserve">
+    <value>Student Id</value>
+  </data>
+  <data name="StudentInformation" xml:space="preserve">
+    <value>Student Information</value>
+  </data>
+  <data name="StudentInformationRecord" xml:space="preserve">
+    <value>Student Information Record</value>
+  </data>
+  <data name="StudentInvoiceDetails" xml:space="preserve">
+    <value>Student Invoice Details</value>
+  </data>
+  <data name="StudentInvoicesList" xml:space="preserve">
+    <value>Student Invoices List</value>
+  </data>
+  <data name="StudentMsg01" xml:space="preserve">
+    <value>Briefly, How to Register a Student?</value>
+  </data>
+  <data name="StudentMsg02" xml:space="preserve">
+    <value>1- Enter the Student's Name, Surname and other personal information.</value>
+  </data>
+  <data name="StudentMsg03" xml:space="preserve">
+    <value>2- Name, Surname, Class information, Registration status, Registration type are the fields that must be entered.</value>
+  </data>
+  <data name="StudentMsg04" xml:space="preserve">
+    <value>3- Price information is selected or entered (You can enter manually by double-clicking with the mouse)</value>
+  </data>
+  <data name="StudentMsg041" xml:space="preserve">
+    <value>-- Fee; For Institutions That Want to Enter Sub-Details;</value>
+  </data>
+  <data name="StudentMsg042" xml:space="preserve">
+    <value>-- Fee Details are Entered in the "Fee Entry by Class Type" Table Section in the School Menu.</value>
+  </data>
+  <data name="StudentMsg043" xml:space="preserve">
+    <value>-- While logging in as a student, the DETAIL TABLE is automatically displayed in the Fee Items where Fee Details have been entered.</value>
+  </data>
+  <data name="StudentMsg044" xml:space="preserve">
+    <value>-- Among the Sub-Detailed Fees Shown, the desired selection is made and the Sub-Fee is selected by pressing the REGISTER Button.</value>
+  </data>
+  <data name="StudentMsg045" xml:space="preserve">
+    <value>4- Discount information, if any, is entered, fee discounts are made and the student's registration amount is adjusted.</value>
+  </data>
+  <data name="StudentMsg05" xml:space="preserve">
+    <value>5- Then, the payment planning of the arranged debt is made,
+Installment amount, Advance payment etc. By entering the information, the installment table is created according to the maturities.</value>
+  </data>
+  <data name="StudentMsg06" xml:space="preserve">
+    <value>6- By clicking the SAVE button, the student's personal information and fee and installment information are saved.
+
+</value>
+  </data>
+  <data name="StudentMsg07" xml:space="preserve">
+    <value>After these procedures;</value>
+  </data>
+  <data name="StudentMsg08" xml:space="preserve">
+    <value>- The student's current record is created, you can enter and make transactions in the Collection section.</value>
+  </data>
+  <data name="StudentMsg09" xml:space="preserve">
+    <value>- According to the type of debiting made in the student registration, automatic accounting registration is made,
+Received Check / Promissory Note etc. For payments, DEBT and RECEIVABLE entries are recorded in the Accounting slip.</value>
+  </data>
+  <data name="StudentMsg091" xml:space="preserve">
+    <value>About the Change;</value>
+  </data>
+  <data name="StudentMsg10" xml:space="preserve">
+    <value>- If changes will be made in student fees, "/Change/Change transactions",</value>
+  </data>
+  <data name="StudentMsg11" xml:space="preserve">
+    <value>- If a refund will be made, with the "/Change/Return" transactions,</value>
+  </data>
+  <data name="StudentMsg12" xml:space="preserve">
+    <value>- If a future-dated refund is to be made, with "/Change/Return transactions (Forward dated)",</value>
+  </data>
+  <data name="StudentMsg13" xml:space="preserve">
+    <value>- If cancellations are to be made, you can do so with "/Change/Cancellation".</value>
+  </data>
+  <data name="StudentName" xml:space="preserve">
+    <value>Student Name</value>
+  </data>
+  <data name="StudentNumber" xml:space="preserve">
+    <value>Student Number</value>
+  </data>
+  <data name="StudentNumber1" xml:space="preserve">
+    <value>Student Number</value>
+  </data>
+  <data name="StudentNumberInOrder" xml:space="preserve">
+    <value>Student Number in Order</value>
+  </data>
+  <data name="StudentRegistrationForm" xml:space="preserve">
+    <value>Student Registration Form</value>
+  </data>
+  <data name="StudentRegistrationRenewalForm" xml:space="preserve">
+    <value>Student Registration Renewal Form</value>
+  </data>
+  <data name="StudentRegistrationRenewalFormAndInvoiceInformationList" xml:space="preserve">
+    <value>Student Registration Renewal Form And Invoice Information List</value>
+  </data>
+  <data name="StudentRegistrationRenewalFormListSortByClassroomRegistrationNo" xml:space="preserve">
+    <value>Student Registration Renewal Form List ( Sort By Classroom/Registration No )</value>
+  </data>
+  <data name="Students" xml:space="preserve">
+    <value>Students</value>
+  </data>
+  <data name="StudentSerialNumber" xml:space="preserve">
+    <value>Serial Number</value>
+  </data>
+  <data name="StudentsInvoices" xml:space="preserve">
+    <value>Student's invoices</value>
+  </data>
+  <data name="StudentsoftheClass" xml:space="preserve">
+    <value>Students of the Class</value>
+  </data>
+  <data name="Studentss" xml:space="preserve">
+    <value>Student's</value>
+  </data>
+  <data name="StudentsWhoDoNotReregister" xml:space="preserve">
+    <value>Students Who Do Not Re-register</value>
+  </data>
+  <data name="StudentsWithRegistrationFee" xml:space="preserve">
+    <value>Students With Registration Fee</value>
+  </data>
+  <data name="StudentTotalDebtList" xml:space="preserve">
+    <value>Student Total Debt List</value>
+  </data>
+  <data name="StudentTotalsbyClassrooms" xml:space="preserve">
+    <value>Student Totals by Classrooms</value>
+  </data>
+  <data name="StudentTransactions" xml:space="preserve">
+    <value>Student Transactions</value>
+  </data>
+  <data name="SubFeeName" xml:space="preserve">
+    <value>Sub Fee Name</value>
+  </data>
+  <data name="Submit" xml:space="preserve">
+    <value>Submit</value>
+  </data>
+  <data name="SubTotal" xml:space="preserve">
+    <value>Sub Total:</value>
+  </data>
+  <data name="Successfull" xml:space="preserve">
+    <value>Successfull</value>
+  </data>
+  <data name="TableName" xml:space="preserve">
+    <value>Table Name</value>
+  </data>
+  <data name="Tax" xml:space="preserve">
+    <value>Tax</value>
+  </data>
+  <data name="TaxAmount" xml:space="preserve">
+    <value>Tax Amount</value>
+  </data>
+  <data name="TaxNo" xml:space="preserve">
+    <value>Tax No</value>
+  </data>
+  <data name="TaxNoNotEntered" xml:space="preserve">
+    <value>The information required for invoice printing has not been entered. Please complete the missing information.</value>
+  </data>
+  <data name="TaxNumber" xml:space="preserve">
+    <value>Tax Number</value>
+  </data>
+  <data name="TaxNumberOrId" xml:space="preserve">
+    <value>Tax # or ID #</value>
+  </data>
+  <data name="TaxOffice" xml:space="preserve">
+    <value>Tax Office</value>
+  </data>
+  <data name="TaxPercent" xml:space="preserve">
+    <value>Tax%</value>
+  </data>
+  <data name="Teacher" xml:space="preserve">
+    <value>Teacher</value>
+  </data>
+  <data name="TermOfUse" xml:space="preserve">
+    <value>Term Of Use</value>
+  </data>
+  <data name="Theme" xml:space="preserve">
+    <value>Theme</value>
+  </data>
+  <data name="TheseInvoiceNumbersWillBePrinted" xml:space="preserve">
+    <value>These Invoice Numbers Will Be Printed</value>
+  </data>
+  <data name="ThirtPerson" xml:space="preserve">
+    <value>Third Person in communication</value>
+  </data>
+  <data name="TimeZone" xml:space="preserve">
+    <value>TimeZone</value>
+  </data>
+  <data name="TimeZoneLocation" xml:space="preserve">
+    <value>Time Zone Location</value>
+  </data>
+  <data name="TimeZoneLocationMsg" xml:space="preserve">
+    <value>If the program is used in a different country, get information from our office.</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Title</value>
+  </data>
+  <data name="Title1" xml:space="preserve">
+    <value>Title</value>
+  </data>
+  <data name="TodayH" xml:space="preserve">
+    <value>TODAY COLLECTION</value>
+  </data>
+  <data name="ToEmailAddress" xml:space="preserve">
+    <value>To Email Address</value>
+  </data>
+  <data name="ToMobilePhone" xml:space="preserve">
+    <value>To Mobile Phone</value>
+  </data>
+  <data name="ToolltiipWorkArea" xml:space="preserve">
+    <value>Mark the allowed work areas.</value>
+  </data>
+  <data name="ToolltiipWorkArea2" xml:space="preserve">
+    <value>Mark the allowed Schools</value>
+  </data>
+  <data name="TooltipAccountSerialNumber" xml:space="preserve">
+    <value>Used for Accounting Receipt Number</value>
+  </data>
+  <data name="TooltipId" xml:space="preserve">
+    <value>Enter the Id and press the control button. (Red=Invalid, Green=Valid number.)</value>
+  </data>
+  <data name="tooltipMsg1" xml:space="preserve">
+    <value>Student Selection</value>
+  </data>
+  <data name="tooltipMsg2" xml:space="preserve">
+    <value>Sibling/Group Selection is Made in the Existing Entry, Address Copies are Made When Making a New Registration</value>
+  </data>
+  <data name="TooltipStudentSerialNumber1" xml:space="preserve">
+    <value>The registration number is given by the program (Institution / Serial no / Last Registration No)</value>
+  </data>
+  <data name="TooltipStudentSerialNumber2" xml:space="preserve">
+    <value>It is used for student registration number</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Total</value>
+  </data>
+  <data name="Total1" xml:space="preserve">
+    <value>I</value>
+  </data>
+  <data name="Total2" xml:space="preserve">
+    <value>II</value>
+  </data>
+  <data name="TotalAbsenteeism" xml:space="preserve">
+    <value>Total Absenteeism</value>
+  </data>
+  <data name="TotalAmount" xml:space="preserve">
+    <value>Total Amount</value>
+  </data>
+  <data name="TotalCollection" xml:space="preserve">
+    <value>Total Collection</value>
+  </data>
+  <data name="TotalDebt" xml:space="preserve">
+    <value>Total Debt</value>
+  </data>
+  <data name="TotalDebtMessage" xml:space="preserve">
+    <value>Total Debt Message</value>
+  </data>
+  <data name="TotalDebtNotice" xml:space="preserve">
+    <value>Total Debt Notice</value>
+  </data>
+  <data name="TotalDiscount" xml:space="preserve">
+    <value>Total Discount</value>
+  </data>
+  <data name="TotalFee" xml:space="preserve">
+    <value>Total Fee</value>
+  </data>
+  <data name="TotalH" xml:space="preserve">
+    <value>TOTAL</value>
+  </data>
+  <data name="TotalInvoiced" xml:space="preserve">
+    <value>Total lnvoiced</value>
+  </data>
+  <data name="TotalInvoiced1" xml:space="preserve">
+    <value>Total Issued Invoice</value>
+  </data>
+  <data name="TotalInvoicetoPrint" xml:space="preserve">
+    <value>Invoice to Print (Total/Remaining)</value>
+  </data>
+  <data name="TotalStudentsByClassrooms" xml:space="preserve">
+    <value>Total Students By Classrooms</value>
+  </data>
+  <data name="TotalUnissuedlnvoiced" xml:space="preserve">
+    <value>Total Unissued lnvoiced</value>
+  </data>
+  <data name="Town" xml:space="preserve">
+    <value>Town</value>
+  </data>
+  <data name="TradeRegisterNo" xml:space="preserve">
+    <value>Trade Register No</value>
+  </data>
+  <data name="TransactionDate" xml:space="preserve">
+    <value>Transaction Date</value>
+  </data>
+  <data name="TransactionOptions" xml:space="preserve">
+    <value>Transaction Options</value>
+  </data>
+  <data name="TransactionResult" xml:space="preserve">
+    <value>Transaction Result</value>
+  </data>
+  <data name="Transfer" xml:space="preserve">
+    <value>Transfer</value>
+  </data>
+  <data name="TransferNextH" xml:space="preserve">
+    <value>TRANSFER NEXT</value>
+  </data>
+  <data name="TransferPreviousH" xml:space="preserve">
+    <value>TRANSFER PREVIOUS</value>
+  </data>
+  <data name="TrialBalance" xml:space="preserve">
+    <value>Trial Balance</value>
+  </data>
+  <data name="Turkish" xml:space="preserve">
+    <value>Turkish</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="TypeAMessage" xml:space="preserve">
+    <value>Type a message</value>
+  </data>
+  <data name="Unexcused" xml:space="preserve">
+    <value>Unexcused</value>
+  </data>
+  <data name="UnissuedInvoice" xml:space="preserve">
+    <value>Unissued Invoice</value>
+  </data>
+  <data name="UnissuedInvoiceAmount" xml:space="preserve">
+    <value>Unissued Invoice Amount</value>
+  </data>
+  <data name="UnissuedInvoices" xml:space="preserve">
+    <value>Unissued Invoices</value>
+  </data>
+  <data name="UnissuedZero" xml:space="preserve">
+    <value>Unissued Amount is Zero</value>
+  </data>
+  <data name="UnitPrice" xml:space="preserve">
+    <value>Price</value>
+  </data>
+  <data name="UnpaidDebtMessage" xml:space="preserve">
+    <value>Unpaid Debt Message</value>
+  </data>
+  <data name="UnpaidMessageNotice" xml:space="preserve">
+    <value>Unpaid Message Notice</value>
+  </data>
+  <data name="Unplanned" xml:space="preserve">
+    <value>Unplanned</value>
+  </data>
+  <data name="UnplannedInvoice" xml:space="preserve">
+    <value>Unplanned Invoice</value>
+  </data>
+  <data name="UnplannedInvoiceEntry" xml:space="preserve">
+    <value>Unplanned Invoice Entry</value>
+  </data>
+  <data name="UnplannedInvoiceEntryandPrinting" xml:space="preserve">
+    <value>Unplanned Invoice Entry</value>
+  </data>
+  <data name="UnplannedInvoicePrinting" xml:space="preserve">
+    <value>Unplanned Invoice Printing</value>
+  </data>
+  <data name="Unsuccessfull" xml:space="preserve">
+    <value>Unsuccessfull</value>
+  </data>
+  <data name="UpdatedSuccessfuly" xml:space="preserve">
+    <value>Updated Successfuly</value>
+  </data>
+  <data name="UpdateRegistrationDate" xml:space="preserve">
+    <value>Update Registration Date</value>
+  </data>
+  <data name="UpdateRegistrationDateandDescription1" xml:space="preserve">
+    <value>Update Registration Date and Description</value>
+  </data>
+  <data name="UpdatesRegistrationFormtoRegistrationRenewal" xml:space="preserve">
+    <value>Registration Type</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>User</value>
+  </data>
+  <data name="UserAction" xml:space="preserve">
+    <value>User Action</value>
+  </data>
+  <data name="UserComments" xml:space="preserve">
+    <value>Comments</value>
+  </data>
+  <data name="UserDateOfJoining" xml:space="preserve">
+    <value>User Date Of Joining</value>
+  </data>
+  <data name="UserDefaultWorkArea" xml:space="preserve">
+    <value>Default Work Area</value>
+  </data>
+  <data name="UserIdentification" xml:space="preserve">
+    <value>User Identification</value>
+  </data>
+  <data name="UserInformationEntry" xml:space="preserve">
+    <value>User Information Entry</value>
+  </data>
+  <data name="UserMsg" xml:space="preserve">
+    <value>User message :</value>
+  </data>
+  <data name="UserName" xml:space="preserve">
+    <value>User Name</value>
+  </data>
+  <data name="UserPassword" xml:space="preserve">
+    <value>User Password</value>
+  </data>
+  <data name="UserPermissionOperations" xml:space="preserve">
+    <value>User Permission Operations</value>
+  </data>
+  <data name="UserPermissions" xml:space="preserve">
+    <value>User Permissions</value>
+  </data>
+  <data name="Users" xml:space="preserve">
+    <value>Users</value>
+  </data>
+  <data name="UsersEntry01" xml:space="preserve">
+    <value>1- The desktop picture and other information of the users who will use the program are entered.</value>
+  </data>
+  <data name="UsersEntry02" xml:space="preserve">
+    <value>2- It can change the picture displayed in the program menu.
+You can choose your own images.</value>
+  </data>
+  <data name="UsersEntry03" xml:space="preserve">
+    <value>3- The start and end times of the working hours are entered.
+The user can use the program at the entered time intervals.</value>
+  </data>
+  <data name="UsersEntry04" xml:space="preserve">
+    <value>4- Username and password must be entered
+To the program; You can log in with this information.</value>
+  </data>
+  <data name="UsersEntry05" xml:space="preserve">
+    <value>5- Working areas:
+The user's workspace is limited by unchecking the program workspaces that you do not want the user to enter or use.</value>
+  </data>
+  <data name="UsersEntry06" xml:space="preserve">
+    <value>6- User status:
+Active : Can use the program
+Passive: Can't use the program
+</value>
+  </data>
+  <data name="UsersEntry07" xml:space="preserve">
+    <value>7- (*) Entries found can be entered by the ADMINISTRATOR.</value>
+  </data>
+  <data name="UsersEntry08" xml:space="preserve">
+    <value>8- Only the Administrator can enter and see the Notes About Personnel Section.</value>
+  </data>
+  <data name="UserShiftFrom" xml:space="preserve">
+    <value>Shift From(*)</value>
+  </data>
+  <data name="UserShiftTo" xml:space="preserve">
+    <value>Shift To(*)</value>
+  </data>
+  <data name="UserStatus" xml:space="preserve">
+    <value>User Status(*)</value>
+  </data>
+  <data name="ValidationError" xml:space="preserve">
+    <value>Invalid information entry, Please check your entries.</value>
+  </data>
+  <data name="ValidationError2" xml:space="preserve">
+    <value>No payment found on the entered date.</value>
+  </data>
+  <data name="ValidationError3" xml:space="preserve">
+    <value>No Student Found Between Two Classes Entered</value>
+  </data>
+  <data name="ValidationError4" xml:space="preserve">
+    <value>You Cannot Transfer, The Information for the Entered New Period is Available.</value>
+  </data>
+  <data name="ValidationError5" xml:space="preserve">
+    <value>Your New Term Information Has Been Transferred, Please Check Your Information.</value>
+  </data>
+  <data name="ValidationError6" xml:space="preserve">
+    <value>Transaction Pre-Done, Renew Transaction for Re-Transfer.</value>
+  </data>
+  <data name="ValidationError7" xml:space="preserve">
+    <value>Closing for the Old Term, Opening for the New Term Successfully Made.</value>
+  </data>
+  <data name="ValidationError8" xml:space="preserve">
+    <value>Your School or Company's E-Invoice Information Has Not Been Entered, Please Enter The Information.</value>
+  </data>
+  <data name="ValidationError9" xml:space="preserve">
+    <value>No Entries Found on Entered Date and Receipt No.</value>
+  </data>
+  <data name="ValidEmail" xml:space="preserve">
+    <value>Enter valid e-mail address</value>
+  </data>
+  <data name="ValidNumber" xml:space="preserve">
+    <value>Enter Valid Number</value>
+  </data>
+  <data name="View" xml:space="preserve">
+    <value>View</value>
+  </data>
+  <data name="Visa" xml:space="preserve">
+    <value>Visa</value>
+  </data>
+  <data name="VoucherControl" xml:space="preserve">
+    <value>V.Control</value>
+  </data>
+  <data name="VoucherDelete" xml:space="preserve">
+    <value>V.Delete</value>
+  </data>
+  <data name="VoucherMsg1" xml:space="preserve">
+    <value>Empty voucher no</value>
+  </data>
+  <data name="VoucherMsg2" xml:space="preserve">
+    <value>Not registered, last 10 receipt numbers.</value>
+  </data>
+  <data name="VoucherNo" xml:space="preserve">
+    <value>Voucher No</value>
+  </data>
+  <data name="VoucherTransaction" xml:space="preserve">
+    <value>Transaction</value>
+  </data>
+  <data name="VoucherType" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>Warning :</value>
+  </data>
+  <data name="WarningLettertoOverduePersons" xml:space="preserve">
+    <value>Warning Letter to Overdue Persons</value>
+  </data>
+  <data name="WebAddress" xml:space="preserve">
+    <value>WebAddress</value>
+  </data>
+  <data name="WebSite" xml:space="preserve">
+    <value>Web Site</value>
+  </data>
+  <data name="Withholding" xml:space="preserve">
+    <value>Withholding</value>
+  </data>
+  <data name="WithholdingCode" xml:space="preserve">
+    <value>Withholding Code</value>
+  </data>
+  <data name="WithholdingPercent" xml:space="preserve">
+    <value>Withholding Percent ( 1 / 2 )</value>
+  </data>
+  <data name="WithholdingTax" xml:space="preserve">
+    <value>Withholding Tax</value>
+  </data>
+  <data name="Work" xml:space="preserve">
+    <value>Work</value>
+  </data>
+  <data name="WorkAddress" xml:space="preserve">
+    <value>Work Address</value>
+  </data>
+  <data name="WorkAreas" xml:space="preserve">
+    <value>Work Areas(*)</value>
+  </data>
+  <data name="WorkAreas2" xml:space="preserve">
+    <value>Schools(*)</value>
+  </data>
+  <data name="WorkPhone" xml:space="preserve">
+    <value>Work Phone</value>
+  </data>
+  <data name="WriteDate" xml:space="preserve">
+    <value>Write Date</value>
+  </data>
+  <data name="WriteStudentName" xml:space="preserve">
+    <value>Write Student Name</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="ZipCode" xml:space="preserve">
+    <value>Zip Code</value>
+  </data>
+  <data name="AuditTrailReset1" xml:space="preserve">
+    <value />
+  </data>
+  <data name="BottomImage" xml:space="preserve">
+    <value />
+  </data>
+  <data name="EIUserName" xml:space="preserve">
+    <value />
+  </data>
+  <data name="EIUserPassword" xml:space="preserve">
+    <value />
+  </data>
+  <data name="EIWebAddress" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Quato" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SortBySurname1" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Statu" xml:space="preserve">
+    <value />
+  </data>
+  <data name="TopImage" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ValidationError33" xml:space="preserve">
+    <value>No record found for the entered account.</value>
+  </data>
+  <data name="DebitAccounts" xml:space="preserve">
+    <value>Debit Account List</value>
+  </data>
+  <data name="CreditAccounts" xml:space="preserve">
+    <value>Credit Accounts List</value>
+  </data>
+  <data name="M109Msg0" xml:space="preserve">
+    <value>- Those without debt are not included in the normal listing.</value>
+  </data>
+  <data name="NewVersion" xml:space="preserve">
+    <value>New Version</value>
+    <comment>New Version</comment>
+  </data>
+</root>

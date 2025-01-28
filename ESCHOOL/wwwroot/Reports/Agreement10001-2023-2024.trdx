@@ -1,0 +1,1921 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Report DataSourceName="sqlDataSource1" Width="20.073cm" SkipBlankPages="True" Name="Agreement" SnapGridSize="0.1cm" xmlns="http://schemas.telerik.com/reporting/2021/2.0">
+  <DataSources>
+    <SqlDataSource QueryDesignerState="PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTE2Ij8+PERNIHhtbG5zOno9Imh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vMjAwMy8xMC9TZXJpYWxpemF0aW9uLyIgeG1sbnM6aT0iaHR0cDovL3d3dy53My5vcmcvMjAwMS9YTUxTY2hlbWEtaW5zdGFuY2UiIHhtbG5zPSJodHRwOi8vc2NoZW1hcy5kYXRhY29udHJhY3Qub3JnLzIwMDQvMDcvVGVsZXJpay5SZXBvcnRpbmcuRGVzaWduLlF1ZXJ5RGVzaWduZXIiPjxFcz48RSB6OklkPSJpMSI+PE1CTj5TdHVkZW50PC9NQk4+PE1CUCB6OklkPSJpMiIgaTp0eXBlPSJOYW1lc3BhY2UiPjxNQk4+PC9NQk4+PE1PQz48TUIgejpSZWY9ImkxIiAvPjwvTU9DPjwvTUJQPjxNT0M+PE1CIHo6SWQ9ImkzIiBpOnR5cGU9IlAiPjxNQk4+U3R1ZGVudElEPC9NQk4+PE1CUCB6OlJlZj0iaTEiIC8+PFBPPnRydWU8L1BPPjwvTUI+PE1CIHo6SWQ9Imk0IiBpOnR5cGU9IlAiPjxNQk4+Rmlyc3ROYW1lPC9NQk4+PE1CUCB6OlJlZj0iaTEiIC8+PFBPPnRydWU8L1BPPjwvTUI+PE1CIHo6SWQ9Imk1IiBpOnR5cGU9IlAiPjxNQk4+TGFzdE5hbWU8L01CTj48TUJQIHo6UmVmPSJpMSIgLz48UE8+dHJ1ZTwvUE8+PC9NQj48L01PQz48RVIgLz48L0U+PC9Fcz48RnMgLz48TVI+ZmFsc2U8L01SPjxQcz48UCB6OlJlZj0iaTMiIC8+PFAgejpSZWY9Imk0IiAvPjxQIHo6UmVmPSJpNSIgLz48L1BzPjxScyAvPjwvRE0+" ParameterValues="{&quot;@period&quot;:&quot;2024-2025&quot;,&quot;@schoolID&quot;:&quot;2&quot;,&quot;@studentID&quot;:&quot;1&quot;}" ConnectionString="Data Source=.;Initial Catalog=10001;Integrated Security=True" ProviderName="System.Data.SqlClient" SelectCommand="SELECT        S.IdNumber, S.FirstName, S.Lastname, (S.FirstName + ' ' + S.Lastname) AS StudentName, S.ParentName, Classroom.ClassroomName, S.DateOfRegistration, SA.Address1, SA.ZipCode1,&#xD;&#xA;&#x9;&#x9;&#x9;  P0.CategoryName AS CityParameterID1, P00.CategoryName AS TownParameterID1, SC.CompanyName&#xD;&#xA;FROM       Student S&#xD;&#xA;                        LEFT JOIN StudentPeriods AS SP ON S.StudentID = SP.StudentID and SP.Period = @period&#xD;&#xA;                        INNER JOIN Classroom ON (S.ClassroomID  = Classroom.ClassroomID and S.ClassroomID &gt; 0 and Classroom.Period = @period)&#xD;&#xA;                        LEFT JOIN StudentAddress SA on SA.StudentID = S.StudentID&#xD;&#xA;                        LEFT JOIN Parameter AS P0 ON SA.CityParameterID1 = P0.CategoryID&#xD;&#xA;                        LEFT JOIN Parameter AS P00 ON SA.TownParameterID1 = P00.CategoryID&#xD;&#xA;                        LEFT JOIN SchoolInfo AS SC ON SC.SchoolID = @schoolID&#xD;&#xA;&#xD;&#xA;WHERE S.StudentID = @studentID and Classroom.Period = @period&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;" Name="sqlDataSource1">
+      <Parameters>
+        <SqlDataSourceParameter DbType="String" Name="@period">
+          <Value>
+            <String>= Parameters.period.Value</String>
+          </Value>
+        </SqlDataSourceParameter>
+        <SqlDataSourceParameter DbType="Int32" Name="@schoolID">
+          <Value>
+            <String>= Parameters.schoolID.Value</String>
+          </Value>
+        </SqlDataSourceParameter>
+        <SqlDataSourceParameter DbType="Int32" Name="@studentID">
+          <Value>
+            <String>= Parameters.studentID.Value</String>
+          </Value>
+        </SqlDataSourceParameter>
+      </Parameters>
+    </SqlDataSource>
+    <SqlDataSource QueryDesignerState="null" ParameterValues="{&quot;@studentID&quot;:&quot;1&quot;}" ConnectionString="Data Source=.;Initial Catalog=10001;Integrated Security=True" ProviderName="System.Data.SqlClient" SelectCommand="SELECT        S.ParentName,&#xD;&#xA;              PA.IdNumber, PA.MobilePhone, PA.WorkPhone, PA.HomePhone, PA.EMail,&#xD;&#xA;              PA.HomeAddress, PA.HomeZipCode, PA.WorkAddress, PA.WorkZipCode,&#xD;&#xA;              P0.CategoryName AS Profession, &#xD;&#xA;&#x9;      P3.CategoryName AS HomeCity, P33.CategoryName AS HomeTown, &#xD;&#xA;&#x9;      P4.CategoryName AS WorkCity, P44.CategoryName AS WorkTown&#xD;&#xA;&#xD;&#xA;FROM       StudentParentAddress PA     &#xD;&#xA;                        LEFT JOIN Student AS S ON S.StudentID = PA.StudentID&#xD;&#xA;                        LEFT JOIN Parameter AS P0 ON PA.ProfessionCategoryID = P0.CategoryID  &#xD;&#xA;                        LEFT JOIN Parameter AS P3 ON PA.HomeCityParameterID = P3.CategoryID&#xD;&#xA;                        LEFT JOIN Parameter AS P33 ON PA.HomeTownParameterID = P33.CategoryID&#x9;&#x9;&#xD;&#xA;                        LEFT JOIN Parameter AS P4 ON PA.WorkCityParameterID = P4.CategoryID&#xD;&#xA;                        LEFT JOIN Parameter AS P44 ON PA.WorkTownParameterID = P44.CategoryID&#x9;&#x9;&#xD;&#xA;&#xD;&#xA;WHERE PA.StudentID = @studentID&#xD;&#xA;" Name="sqlDataSource4">
+      <Parameters>
+        <SqlDataSourceParameter DbType="Int32" Name="@studentID">
+          <Value>
+            <String>= Parameters.studentID.Value</String>
+          </Value>
+        </SqlDataSourceParameter>
+      </Parameters>
+    </SqlDataSource>
+    <SqlDataSource QueryDesignerState="null" ParameterValues="{&quot;@userID&quot;:&quot;2&quot;,&quot;@schoolID&quot;:&quot;2&quot;,&quot;@studentID&quot;:&quot;1&quot;}" ConnectionString="Data Source=.;Initial Catalog=10001;Integrated Security=True" ProviderName="System.Data.SqlClient" SelectCommand="SELECT        S.ScholarshipStartDate, S.ScholarshipRate, H.InWriting, H1.Fee01, H2.Fee02, H3.Fee03, H4.Fee04, H5.Fee05, H6.Fee06, H7.Fee07, H8.Fee08, H1.ClassroomID, H2.ClassroomID, H3.ClassroomID, H4.ClassroomID, H5.ClassroomID, H6.ClassroomID, H7.ClassroomID, H8.ClassroomID, H9.ClassroomID, H9.TypeAndNo, &#xD;&#xA;              T.CashPayment, T.TransactionDate, T.Installment, T.SubTotal&#xD;&#xA;FROM          Student S&#xD;&#xA;                        INNER JOIN Users U on U.UserID = @userID&#xD;&#xA;                        LEFT JOIN StudentTemp T on T.StudentID = S.StudentID and T.SchoolID = @schoolID and T.Period = U.UserPeriod&#xD;&#xA;                        LEFT JOIN TempM101 H1 on H1.SchoolID = S.SchoolID and H1.ClassroomID = 1 and H1.Fee01 &gt;0&#xD;&#xA;                        LEFT JOIN TempM101 H2 on H2.SchoolID = S.SchoolID and H2.ClassroomID = 2 and H2.Fee01 &gt;0&#xD;&#xA;                        LEFT JOIN TempM101 H3 on H3.SchoolID = S.SchoolID and H3.ClassroomID = 3 and H3.Fee01 &gt;0&#xD;&#xA;                        LEFT JOIN TempM101 H4 on H4.SchoolID = S.SchoolID and H4.ClassroomID = 4 and H4.Fee01 &gt;0&#xD;&#xA;                        LEFT JOIN TempM101 H5 on H5.SchoolID = S.SchoolID and H5.ClassroomID = 5 and H5.Fee01 &gt;0&#xD;&#xA;                        LEFT JOIN TempM101 H6 on H6.SchoolID = S.SchoolID and H6.ClassroomID = 6 and H6.Fee01 &gt;0&#xD;&#xA;                        LEFT JOIN TempM101 H7 on H7.SchoolID = S.SchoolID and H7.ClassroomID = 7 and H7.Fee01 &gt;0&#xD;&#xA;                        LEFT JOIN TempM101 H8 on H8.SchoolID = S.SchoolID and H8.ClassroomID = 8 and H8.Fee01 &gt;0&#xD;&#xA;&#x9;&#x9;&#x9;LEFT JOIN TempM101 H9 on H9.SchoolID = S.SchoolID and H9.ClassroomID = 999999 and H9.UserID=@userID&#xD;&#xA;                        LEFT JOIN TempM101Header H on H.SchoolID = S.SchoolID and H.UserID = @userID &#x9;&#xD;&#xA;WHERE  S.StudentID = @studentID and S.SchoolID = @schoolID&#xD;&#xA;" Name="sqlDataSource6">
+      <Parameters>
+        <SqlDataSourceParameter DbType="Int32" Name="@userID">
+          <Value>
+            <String>= Parameters.userID.Value</String>
+          </Value>
+        </SqlDataSourceParameter>
+        <SqlDataSourceParameter DbType="Int32" Name="@schoolID">
+          <Value>
+            <String>= Parameters.schoolID.Value</String>
+          </Value>
+        </SqlDataSourceParameter>
+        <SqlDataSourceParameter DbType="Int32" Name="@studentID">
+          <Value>
+            <String>= Parameters.studentID.Value</String>
+          </Value>
+        </SqlDataSourceParameter>
+      </Parameters>
+    </SqlDataSource>
+    <SqlDataSource QueryDesignerState="null" ParameterValues="{&quot;@StudentID&quot;:&quot;1&quot;,&quot;@schoolID&quot;:&quot;2&quot;,&quot;@userID&quot;:&quot;2&quot;}" ConnectionString="Data Source=.;Initial Catalog=10001;Integrated Security=True" ProviderName="System.Data.SqlClient" SelectCommand="SELECT        T.StudentID, T.ClassroomName, T.Name, T.Fee01, T.Fee02, T.Fee03, T.Fee04, T.Fee05, T.Fee06&#xD;&#xA;FROM          TempM101 T&#xD;&#xA;WHERE       T.StudentID = @StudentID and T.SchoolID = @schoolID and T.UserID=@userID and T.Fee01 &gt; 0 and T.ClassroomID = 0&#xD;&#xA; &#xD;&#xA;" Name="sqlDataSource5">
+      <Parameters>
+        <SqlDataSourceParameter DbType="Int32" Name="@StudentID">
+          <Value>
+            <String>= Parameters.studentID.Value</String>
+          </Value>
+        </SqlDataSourceParameter>
+        <SqlDataSourceParameter DbType="Int32" Name="@schoolID">
+          <Value>
+            <String>= Parameters.schoolID.Value</String>
+          </Value>
+        </SqlDataSourceParameter>
+        <SqlDataSourceParameter DbType="Int32" Name="@userID">
+          <Value>
+            <String>= Parameters.userID.Value</String>
+          </Value>
+        </SqlDataSourceParameter>
+      </Parameters>
+    </SqlDataSource>
+    <SqlDataSource QueryDesignerState="null" ParameterValues="{&quot;@studentID&quot;:&quot;1&quot;}" ConnectionString="Data Source=.;Initial Catalog=10001;Integrated Security=True" ProviderName="System.Data.SqlClient" SelectCommand="SELECT        S.ParentName,&#xD;&#xA;              FA.MotherIdNumber, FA.MotherName, FA.MotherProfessionCategoryID, FA.MotherMobilePhone, FA.MotherWorkPhone, FA.MotherHomePhone, FA.MotherEMail,&#xD;&#xA;              FA.MotherHomeAddress, FA.MotherHomeZipCode, FA.MotherWorkAddress, FA.MotherWorkZipCode,&#xD;&#xA;              P0.CategoryName AS MotherProfession, &#xD;&#xA;&#x9;      P3.CategoryName AS MotherHomeCity, P33.CategoryName AS MotherHomeTown, &#xD;&#xA;&#x9;      P4.CategoryName AS MotherWorkCity, P44.CategoryName AS MotherWorkTown&#xD;&#xA;&#xD;&#xA;FROM       StudentFamilyAddress FA             &#xD;&#xA;                        LEFT JOIN Student AS S ON S.StudentID = FA.StudentID         &#xD;&#xA;                        LEFT JOIN Parameter AS P0 ON FA.MotherProfessionCategoryID = P0.CategoryID  &#xD;&#xA;                        LEFT JOIN Parameter AS P3 ON FA.MotherHomeCityParameterID = P3.CategoryID&#xD;&#xA;                        LEFT JOIN Parameter AS P33 ON FA.MotherHomeTownParameterID = P33.CategoryID&#x9;&#x9;&#xD;&#xA;                        LEFT JOIN Parameter AS P4 ON FA.MotherWorkCityParameterID = P4.CategoryID&#xD;&#xA;                        LEFT JOIN Parameter AS P44 ON FA.MotherWorkTownParameterID = P44.CategoryID&#x9;&#x9;&#xD;&#xA;&#xD;&#xA;WHERE FA.StudentID = @studentID&#xD;&#xA;" Name="sqlDataSource2">
+      <Parameters>
+        <SqlDataSourceParameter DbType="Int32" Name="@studentID">
+          <Value>
+            <String>= Parameters.studentID.Value</String>
+          </Value>
+        </SqlDataSourceParameter>
+      </Parameters>
+    </SqlDataSource>
+    <SqlDataSource QueryDesignerState="null" ParameterValues="{&quot;@studentID&quot;:&quot;1&quot;}" ConnectionString="Data Source=.;Initial Catalog=10001;Integrated Security=True" ProviderName="System.Data.SqlClient" SelectCommand="SELECT        S.ParentName,&#xD;&#xA;              FA.FatherIdNumber, FA.FatherName, FA.FatherMobilePhone, FA.FatherWorkPhone, FA.FatherHomePhone, FA.FatherEMail,&#xD;&#xA;              FA.FatherHomeAddress, FA.FatherHomeZipCode, FA.FatherWorkAddress, FA.FatherWorkZipCode,&#xD;&#xA;              P0.CategoryName AS FatherProfession, &#xD;&#xA;&#x9;      P3.CategoryName AS FatherHomeCity, P33.CategoryName AS FatherHomeTown, &#xD;&#xA;&#x9;      P4.CategoryName AS FatherWorkCity, P44.CategoryName AS FatherWorkTown&#xD;&#xA;&#xD;&#xA;FROM       StudentFamilyAddress FA      &#xD;&#xA;                        LEFT JOIN Student AS S ON S.StudentID = FA.StudentID                 &#xD;&#xA;                        LEFT JOIN Parameter AS P0 ON FA.FatherProfessionCategoryID = P0.CategoryID  &#xD;&#xA;                        LEFT JOIN Parameter AS P3 ON FA.FatherHomeCityParameterID = P3.CategoryID&#xD;&#xA;                        LEFT JOIN Parameter AS P33 ON FA.FatherHomeTownParameterID = P33.CategoryID&#x9;&#x9;&#xD;&#xA;                        LEFT JOIN Parameter AS P4 ON FA.FatherWorkCityParameterID = P4.CategoryID&#xD;&#xA;                        LEFT JOIN Parameter AS P44 ON FA.FatherWorkTownParameterID = P44.CategoryID&#x9;&#x9;&#xD;&#xA;&#xD;&#xA;WHERE FA.StudentID = @studentID&#xD;&#xA;" Name="sqlDataSource3">
+      <Parameters>
+        <SqlDataSourceParameter DbType="Int32" Name="@studentID">
+          <Value>
+            <String>= Parameters.studentID.Value</String>
+          </Value>
+        </SqlDataSourceParameter>
+      </Parameters>
+    </SqlDataSource>
+  </DataSources>
+  <Items>
+    <DetailSection Height="6.6cm" Name="detailSection1">
+      <Items>
+        <Table DataSourceName="sqlDataSource5" Width="19.42cm" Height="6.402cm" Left="0.513cm" Top="0.1cm" Name="table6">
+          <Body>
+            <Cells>
+              <TableCell RowIndex="0" ColumnIndex="0" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="4.925cm" Height="0.7cm" Left="0cm" Top="0cm" Value="= Fields.Name" Name="textBox112">
+                    <Style>
+                      <Font Name="Segoe UI Light" />
+                      <BorderStyle Default="Solid" />
+                      <BorderColor Default="187, 220, 235" />
+                    </Style>
+                  </TextBox>
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="0" ColumnIndex="1" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="2.9cm" Height="0.7cm" Left="0cm" Top="0cm" Value="= Fields.Fee01" Format="{0:N2}" Name="textBox114">
+                    <Style BackgroundColor="White" TextAlign="Right">
+                      <Font Name="Segoe UI Light" />
+                      <BorderStyle Default="Solid" />
+                      <BorderColor Default="187, 220, 235" />
+                    </Style>
+                  </TextBox>
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="0" ColumnIndex="2" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="1.552cm" Height="0.7cm" Left="0cm" Top="0cm" Value="= Fields.Fee02" Format="{0:N0}" Name="textBox116">
+                    <Style BackgroundColor="White" TextAlign="Center">
+                      <Font Name="Segoe UI Light" />
+                      <BorderStyle Default="Solid" />
+                      <BorderColor Default="187, 220, 235" />
+                    </Style>
+                  </TextBox>
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="0" ColumnIndex="3" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="2.901cm" Height="0.7cm" Left="0cm" Top="0cm" Value="= Fields.Fee03" Format="{0:N2}" Name="textBox118" StyleName="">
+                    <Style BackgroundColor="White" TextAlign="Right">
+                      <Font Name="Segoe UI Light" />
+                      <BorderStyle Default="Solid" />
+                      <BorderColor Default="187, 220, 235" />
+                    </Style>
+                  </TextBox>
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="0" ColumnIndex="4" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="2.583cm" Height="0.7cm" Left="0cm" Top="0cm" Value="= Fields.Fee04" Format="{0:N2}" Culture="(Default)" Name="textBox120" StyleName="">
+                    <Style BackgroundColor="White" TextAlign="Right">
+                      <Font Name="Segoe UI Light" />
+                      <BorderStyle Default="Solid" />
+                      <BorderColor Default="187, 220, 235" />
+                    </Style>
+                  </TextBox>
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="0" ColumnIndex="6" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="3.481cm" Height="0.7cm" Left="0cm" Top="0cm" Value="= Fields.Fee06" Format="{0:N2}" Name="textBox124" StyleName="">
+                    <Style BackgroundColor="White" TextAlign="Right">
+                      <Font Name="Segoe UI Light" />
+                      <BorderStyle Default="Solid" />
+                      <BorderColor Default="187, 220, 235" />
+                    </Style>
+                  </TextBox>
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="2" ColumnIndex="0" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="4.925cm" Height="0.95cm" Left="0cm" Top="0cm" Value="ÜCRETLER TOPLAMI" Name="textBox1" StyleName="">
+                    <Style BackgroundColor="224, 224, 224" VerticalAlign="Middle">
+                      <Font Bold="True" />
+                      <BorderStyle Default="Solid" />
+                      <BorderColor Default="187, 220, 235" />
+                    </Style>
+                  </TextBox>
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="2" ColumnIndex="1" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="2.9cm" Height="0.95cm" Left="0cm" Top="0cm" Value="= Sum(Fields.Fee01)" Format="{0:N2}" Name="textBox2" StyleName="">
+                    <Style BackgroundColor="224, 224, 224" TextAlign="Right" VerticalAlign="Middle">
+                      <Font Bold="True" />
+                      <BorderStyle Default="Solid" />
+                      <BorderColor Default="187, 220, 235" />
+                    </Style>
+                  </TextBox>
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="2" ColumnIndex="2" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="1.552cm" Height="0.95cm" Left="0cm" Top="0cm" Name="textBox3" StyleName="">
+                    <Style BackgroundColor="224, 224, 224">
+                      <BorderStyle Default="Solid" />
+                      <BorderColor Default="187, 220, 235" />
+                    </Style>
+                  </TextBox>
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="2" ColumnIndex="3" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="2.901cm" Height="0.95cm" Left="0cm" Top="0cm" Value="= Sum(Fields.Fee03)&#xD;&#xA;" Format="{0:N2}" Name="textBox4" StyleName="">
+                    <Style BackgroundColor="224, 224, 224" TextAlign="Right" VerticalAlign="Middle">
+                      <Font Bold="True" />
+                      <BorderStyle Default="Solid" />
+                      <BorderColor Default="187, 220, 235" />
+                    </Style>
+                  </TextBox>
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="2" ColumnIndex="4" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="2.583cm" Height="0.95cm" Left="0cm" Top="0cm" Value="= Sum(Fields.Fee04)" Format="{0:N2}" Name="textBox5" StyleName="">
+                    <Style BackgroundColor="224, 224, 224" TextAlign="Right" VerticalAlign="Middle">
+                      <Font Bold="True" />
+                      <BorderStyle Default="Solid" />
+                      <BorderColor Default="187, 220, 235" />
+                    </Style>
+                  </TextBox>
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="2" ColumnIndex="5" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="1.078cm" Height="0.95cm" Left="0cm" Top="0cm" Name="textBox6" StyleName="">
+                    <Style BackgroundColor="224, 224, 224">
+                      <BorderStyle Default="Solid" />
+                      <BorderColor Default="187, 220, 235" />
+                    </Style>
+                  </TextBox>
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="2" ColumnIndex="6" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="3.481cm" Height="0.95cm" Left="0cm" Top="0cm" Value="= Sum(Fields.Fee06)&#xD;&#xA;" Format="{0:N2}" Name="textBox20" StyleName="">
+                    <Style BackgroundColor="224, 224, 224" TextAlign="Right" VerticalAlign="Middle">
+                      <Font Bold="True" />
+                      <BorderStyle Default="Solid" />
+                      <BorderColor Default="187, 220, 235" />
+                    </Style>
+                  </TextBox>
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="1" ColumnIndex="0" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="4.925cm" Height="1.558cm" Left="0cm" Top="0cm" Value="Okul-Aile Birliğinin AlmışOlduğu Karar DoğrultusundaÖğrenci Kıyafeti ve Kıyafet Ücreti" Name="textBox128" StyleName="">
+                    <Style>
+                      <Font Name="Segoe UI Light" />
+                      <BorderStyle Default="Solid" />
+                      <BorderColor Default="187, 220, 235" />
+                    </Style>
+                  </TextBox>
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="1" ColumnIndex="1" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="2.9cm" Height="1.558cm" Left="0cm" Top="0cm" Name="textBox129" StyleName="">
+                    <Style BackgroundColor="White" TextAlign="Right">
+                      <BorderStyle Default="Solid" />
+                      <BorderColor Default="187, 220, 235" />
+                    </Style>
+                  </TextBox>
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="1" ColumnIndex="2" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="1.552cm" Height="1.558cm" Left="0cm" Top="0cm" Name="textBox131" StyleName="">
+                    <Style BackgroundColor="White" TextAlign="Center">
+                      <BorderStyle Default="Solid" />
+                      <BorderColor Default="187, 220, 235" />
+                    </Style>
+                  </TextBox>
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="1" ColumnIndex="3" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="2.901cm" Height="1.558cm" Left="0cm" Top="0cm" Name="textBox132" StyleName="">
+                    <Style BackgroundColor="White" TextAlign="Right">
+                      <BorderStyle Default="Solid" />
+                      <BorderColor Default="187, 220, 235" />
+                    </Style>
+                  </TextBox>
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="1" ColumnIndex="4" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="2.583cm" Height="1.558cm" Left="0cm" Top="0cm" Name="textBox133" StyleName="">
+                    <Style BackgroundColor="White">
+                      <BorderStyle Default="Solid" />
+                      <BorderColor Default="187, 220, 235" />
+                    </Style>
+                  </TextBox>
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="1" ColumnIndex="5" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="1.078cm" Height="1.558cm" Left="0cm" Top="0cm" Name="textBox134" StyleName="">
+                    <Style BackgroundColor="White">
+                      <BorderStyle Default="Solid" />
+                      <BorderColor Default="187, 220, 235" />
+                    </Style>
+                  </TextBox>
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="1" ColumnIndex="6" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="3.481cm" Height="1.558cm" Left="0cm" Top="0cm" Name="textBox135" StyleName="">
+                    <Style BackgroundColor="White">
+                      <BorderStyle Default="Solid" />
+                      <BorderColor Default="187, 220, 235" />
+                    </Style>
+                  </TextBox>
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="0" ColumnIndex="5" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="1.078cm" Height="0.7cm" Left="0cm" Top="0cm" Value="= Fields.Fee05" Format="{0:N0}" Name="textBox136">
+                    <Style BackgroundColor="White" TextAlign="Center">
+                      <Font Name="Segoe UI Light" />
+                      <BorderStyle Default="Solid" />
+                      <BorderColor Default="187, 220, 235" />
+                    </Style>
+                  </TextBox>
+                </ReportItem>
+              </TableCell>
+            </Cells>
+            <Columns>
+              <Column Width="4.925cm" />
+              <Column Width="2.9cm" />
+              <Column Width="1.552cm" />
+              <Column Width="2.901cm" />
+              <Column Width="2.583cm" />
+              <Column Width="1.078cm" />
+              <Column Width="3.481cm" />
+            </Columns>
+            <Rows>
+              <Row Height="0.7cm" />
+              <Row Height="1.558cm" />
+              <Row Height="0.95cm" />
+            </Rows>
+          </Body>
+          <Corner />
+          <RowGroups>
+            <TableGroup Name="detailTableGroup2">
+              <ChildGroups>
+                <TableGroup Name="group65" />
+              </ChildGroups>
+              <Groupings>
+                <Grouping />
+              </Groupings>
+            </TableGroup>
+            <TableGroup Name="group29">
+              <ChildGroups>
+                <TableGroup Name="group30" />
+              </ChildGroups>
+            </TableGroup>
+            <TableGroup Name="group16">
+              <ChildGroups>
+                <TableGroup Name="group17" />
+              </ChildGroups>
+            </TableGroup>
+          </RowGroups>
+          <ColumnGroups>
+            <TableGroup Name="tableGroup3">
+              <ReportItem>
+                <TextBox Width="19.42cm" Height="0.715cm" Left="0cm" Top="0cm" Value="ÖDEME BİLGİLERİ" Name="textBox111">
+                  <Style BackgroundColor="224, 224, 224" TextAlign="Center" VerticalAlign="Middle">
+                    <Font Name="Segoe UI Light" Size="12pt" Bold="True" />
+                    <BorderColor Default="187, 220, 235" />
+                  </Style>
+                </TextBox>
+              </ReportItem>
+              <ChildGroups>
+                <TableGroup Name="group48">
+                  <ReportItem>
+                    <TextBox Width="19.42cm" Height="0.606cm" Left="0cm" Top="0cm" Value="= &quot;( &quot; + Fields.ClassroomName + &quot; Öğretim Yılı İçin)&quot;" Name="textBox115" StyleName="Normal.TableHeader">
+                      <Style BackgroundColor="224, 224, 224" TextAlign="Center">
+                        <Font Name="Segoe UI Light" Bold="True" />
+                        <BorderColor Default="187, 220, 235" />
+                      </Style>
+                    </TextBox>
+                  </ReportItem>
+                  <ChildGroups>
+                    <TableGroup Name="group52">
+                      <ReportItem>
+                        <TextBox Width="4.925cm" Height="0.791cm" Left="0cm" Top="0cm" Name="textBox125" StyleName="">
+                          <Style>
+                            <Font Name="Segoe UI Light" />
+                            <BorderStyle Default="Solid" />
+                            <BorderColor Default="187, 220, 235" />
+                          </Style>
+                        </TextBox>
+                      </ReportItem>
+                      <ChildGroups>
+                        <TableGroup Name="group51">
+                          <ReportItem>
+                            <TextBox Width="4.925cm" Height="1.082cm" Left="0cm" Top="0cm" Name="textBox119" StyleName="">
+                              <Style>
+                                <Font Name="Segoe UI Light" />
+                                <BorderStyle Default="Solid" />
+                                <BorderColor Default="187, 220, 235" />
+                              </Style>
+                            </TextBox>
+                          </ReportItem>
+                        </TableGroup>
+                      </ChildGroups>
+                    </TableGroup>
+                    <TableGroup Name="group53">
+                      <ReportItem>
+                        <TextBox Width="7.353cm" Height="0.791cm" Left="0cm" Top="0cm" Value="Kurumun İlan Ettiği Ücrteler" Name="textBox113" StyleName="Normal.TableHeader">
+                          <Style TextAlign="Center">
+                            <Font Name="Segoe UI Light" Bold="True" />
+                            <BorderColor Default="187, 220, 235" />
+                          </Style>
+                        </TextBox>
+                      </ReportItem>
+                      <ChildGroups>
+                        <TableGroup Name="group59">
+                          <ReportItem>
+                            <TextBox Width="2.9cm" Height="1.082cm" Left="0cm" Top="0cm" Value="Ücret" Name="textBox121" StyleName="Normal.TableHeader">
+                              <Style TextAlign="Center">
+                                <Font Name="Segoe UI Light" Bold="True" />
+                                <BorderColor Default="187, 220, 235" />
+                              </Style>
+                            </TextBox>
+                          </ReportItem>
+                          <ChildGroups>
+                            <TableGroup Name="group49" />
+                          </ChildGroups>
+                        </TableGroup>
+                        <TableGroup Name="group61">
+                          <ReportItem>
+                            <TextBox Width="1.552cm" Height="1.082cm" Left="0cm" Top="0cm" Value="Kdv. Oranı" Name="textBox126" StyleName="Normal.TableHeader">
+                              <Style TextAlign="Center">
+                                <Font Name="Segoe UI Light" Bold="True" />
+                                <BorderColor Default="187, 220, 235" />
+                              </Style>
+                            </TextBox>
+                          </ReportItem>
+                          <ChildGroups>
+                            <TableGroup Name="group54" />
+                          </ChildGroups>
+                        </TableGroup>
+                        <TableGroup Name="group62">
+                          <ReportItem>
+                            <TextBox Width="2.901cm" Height="1.082cm" Left="0cm" Top="0cm" Value="Ücret + Kdv." Name="textBox127" StyleName="Normal.TableHeader">
+                              <Style TextAlign="Center">
+                                <Font Name="Segoe UI Light" Bold="True" />
+                                <BorderColor Default="187, 220, 235" />
+                              </Style>
+                            </TextBox>
+                          </ReportItem>
+                          <ChildGroups>
+                            <TableGroup Name="group55" />
+                          </ChildGroups>
+                        </TableGroup>
+                      </ChildGroups>
+                    </TableGroup>
+                    <TableGroup Name="group56">
+                      <ReportItem>
+                        <TextBox Width="7.142cm" Height="0.791cm" Left="0cm" Top="0cm" Value="Öğrenci İçin Belirlenen Ücretler" Name="textBox117" StyleName="Normal.TableHeader">
+                          <Style TextAlign="Center">
+                            <Font Name="Segoe UI Light" Bold="True" />
+                            <BorderColor Default="187, 220, 235" />
+                          </Style>
+                        </TextBox>
+                      </ReportItem>
+                      <ChildGroups>
+                        <TableGroup Name="group60">
+                          <ReportItem>
+                            <TextBox Width="2.583cm" Height="1.082cm" Left="0cm" Top="0cm" Value="Ücret" Name="textBox130" StyleName="Normal.TableHeader">
+                              <Style TextAlign="Center">
+                                <Font Name="Segoe UI Light" Bold="True" />
+                                <BorderColor Default="187, 220, 235" />
+                              </Style>
+                            </TextBox>
+                          </ReportItem>
+                          <ChildGroups>
+                            <TableGroup Name="group50" />
+                          </ChildGroups>
+                        </TableGroup>
+                        <TableGroup Name="group63">
+                          <ReportItem>
+                            <TextBox Width="1.078cm" Height="1.082cm" Left="0cm" Top="0cm" Value="Kdv. Oranı" Name="textBox123" StyleName="Normal.TableHeader">
+                              <Style TextAlign="Center">
+                                <Font Name="Segoe UI Light" Bold="True" />
+                                <BorderColor Default="187, 220, 235" />
+                              </Style>
+                            </TextBox>
+                          </ReportItem>
+                          <ChildGroups>
+                            <TableGroup Name="group57" />
+                          </ChildGroups>
+                        </TableGroup>
+                        <TableGroup Name="group64">
+                          <ReportItem>
+                            <TextBox Width="3.481cm" Height="1.082cm" Left="0cm" Top="0cm" Value="Ücret + Kdv." Name="textBox137" StyleName="Normal.TableHeader">
+                              <Style TextAlign="Center">
+                                <Font Name="Segoe UI Light" Bold="True" />
+                                <BorderColor Default="187, 220, 235" />
+                              </Style>
+                            </TextBox>
+                          </ReportItem>
+                          <ChildGroups>
+                            <TableGroup Name="group58" />
+                          </ChildGroups>
+                        </TableGroup>
+                      </ChildGroups>
+                    </TableGroup>
+                  </ChildGroups>
+                </TableGroup>
+              </ChildGroups>
+            </TableGroup>
+          </ColumnGroups>
+          <Bindings>
+            <Binding Path="DataSource.ConnectionString" Expression="= Parameters.cs.Value" />
+          </Bindings>
+        </Table>
+      </Items>
+    </DetailSection>
+    <PageHeaderSection Height="0.132cm" Name="pageHeaderSection1" />
+    <PageFooterSection Height="0.5cm" Name="pageFooterSection1">
+      <Items>
+        <TextBox Width="2cm" Height="0.5cm" Left="17.9cm" Top="0cm" Value="= 'Sayfa : ' + PageNumber" Name="textBox138">
+          <Style TextAlign="Center">
+            <Font Name="Segoe UI Light" Bold="True" />
+          </Style>
+        </TextBox>
+      </Items>
+    </PageFooterSection>
+    <ReportFooterSection Height="14.7cm" Name="reportFooterSection1">
+      <Items>
+        <TextBox Width="6cm" Height="0.6cm" Left="11.8cm" Top="10.3cm" Value="( Kaşe, Mühür ve Yetkilinin İmzası )" Name="textBox147">
+          <Style TextAlign="Center">
+            <Font Name="Segoe UI Light" Bold="True" />
+          </Style>
+        </TextBox>
+        <TextBox Width="6cm" Height="0.5cm" Left="11.8cm" Top="9.8cm" Value="Kurumun " Name="textBox146">
+          <Style TextAlign="Center">
+            <Font Name="Segoe UI Light" Bold="True" />
+          </Style>
+        </TextBox>
+        <TextBox Width="4.565cm" Height="1.1cm" Left="1.188cm" Top="9.8cm" Value="Öğrenci velisi / Vasisinin Adı Soyadı ve İmzası" Name="textBox145">
+          <Style TextAlign="Center">
+            <Font Name="Segoe UI Light" Bold="True" />
+          </Style>
+        </TextBox>
+        <Table DataSourceName="sqlDataSource1" Width="4.565cm" Height="1.208cm" Left="1.188cm" Top="10.9cm" Name="table9">
+          <Body>
+            <Cells>
+              <TableCell RowIndex="0" ColumnIndex="0" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="4.565cm" Height="0.604cm" Left="0cm" Top="0cm" Name="textBox34" />
+                </ReportItem>
+              </TableCell>
+            </Cells>
+            <Columns>
+              <Column Width="4.565cm" />
+            </Columns>
+            <Rows>
+              <Row Height="0.604cm" />
+            </Rows>
+          </Body>
+          <Corner />
+          <RowGroups>
+            <TableGroup Name="detailTableGroup7">
+              <Groupings>
+                <Grouping />
+              </Groupings>
+            </TableGroup>
+          </RowGroups>
+          <ColumnGroups>
+            <TableGroup Name="tableGroup14">
+              <ReportItem>
+                <TextBox Width="4.565cm" Height="0.604cm" Left="0cm" Top="0cm" Value="= Fields.ParentName" Name="textBox40">
+                  <Style TextAlign="Center">
+                    <Font Bold="True" />
+                  </Style>
+                </TextBox>
+              </ReportItem>
+            </TableGroup>
+          </ColumnGroups>
+          <Bindings>
+            <Binding Path="DataSource.ConnectionString" Expression="= Parameters.cs.Value" />
+          </Bindings>
+        </Table>
+        <TextBox Width="19.513cm" Height="0.6cm" Left="0.372cm" Top="0.3cm" Value="ÖZEL HUSUSLAR" Name="textBox108">
+          <Style BackgroundColor="233, 244, 249" TextAlign="Center">
+            <Font Name="Segoe UI Light" Size="12pt" Bold="True" />
+          </Style>
+        </TextBox>
+        <TextBox Width="19.513cm" Height="0.5cm" Left="0.372cm" Top="0.9cm" Value="( Yürürlükteki mevzuata ve Kayıt sözleşmesi şartlarına aykırı olmamak kaydıyla özel şartlar belirlenebilir. )&#x9;" Name="textBox109">
+          <Style TextAlign="Justify">
+            <Font Name="Segoe UI Light" Bold="False" />
+          </Style>
+        </TextBox>
+        <Table Width="19.514cm" Height="5.218cm" Left="0.371cm" Top="1.4cm" Name="table7">
+          <Body>
+            <Cells>
+              <TableCell RowIndex="0" ColumnIndex="0" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="0.914cm" Height="0.609cm" Left="0cm" Top="0cm" Value="10." Name="textBox139">
+                    <Style TextAlign="Center">
+                      <Font Bold="True" />
+                      <BorderStyle Default="Solid" />
+                      <BorderColor Default="187, 220, 235" />
+                    </Style>
+                  </TextBox>
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="0" ColumnIndex="1" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="18.6cm" Height="0.609cm" Left="0cm" Top="0cm" Name="textBox141">
+                    <Style>
+                      <BorderStyle Default="Solid" />
+                      <BorderColor Default="187, 220, 235" />
+                    </Style>
+                  </TextBox>
+                </ReportItem>
+              </TableCell>
+            </Cells>
+            <Columns>
+              <Column Width="0.914cm" />
+              <Column Width="18.6cm" />
+            </Columns>
+            <Rows>
+              <Row Height="0.609cm" />
+            </Rows>
+          </Body>
+          <Corner />
+          <Style>
+            <BorderStyle Default="Solid" />
+            <BorderColor Default="187, 220, 235" />
+          </Style>
+          <RowGroups>
+            <TableGroup Name="detailTableGroup4">
+              <Groupings>
+                <Grouping />
+              </Groupings>
+            </TableGroup>
+          </RowGroups>
+          <ColumnGroups>
+            <TableGroup Name="tableGroup8">
+              <ReportItem>
+                <TextBox Width="0.914cm" Height="0.609cm" Left="0cm" Top="0cm" Value="1." Name="textBox87">
+                  <Style TextAlign="Center">
+                    <Font Bold="True" />
+                    <BorderStyle Default="Solid" />
+                    <BorderColor Default="187, 220, 235" />
+                  </Style>
+                </TextBox>
+              </ReportItem>
+              <ChildGroups>
+                <TableGroup Name="group35">
+                  <ReportItem>
+                    <TextBox Width="0.914cm" Height="0.5cm" Left="0cm" Top="0cm" Value="2." Name="textBox149" StyleName="">
+                      <Style TextAlign="Center">
+                        <Font Bold="True" />
+                        <BorderStyle Default="Solid" />
+                        <BorderColor Default="187, 220, 235" />
+                      </Style>
+                    </TextBox>
+                  </ReportItem>
+                  <ChildGroups>
+                    <TableGroup Name="group33">
+                      <ReportItem>
+                        <TextBox Width="0.914cm" Height="0.5cm" Left="0cm" Top="0cm" Value="3." Name="textBox143" StyleName="">
+                          <Style TextAlign="Center">
+                            <Font Bold="True" />
+                            <BorderStyle Default="Solid" />
+                            <BorderColor Default="187, 220, 235" />
+                          </Style>
+                        </TextBox>
+                      </ReportItem>
+                      <ChildGroups>
+                        <TableGroup Name="group31">
+                          <ReportItem>
+                            <TextBox Width="0.914cm" Height="0.5cm" Left="0cm" Top="0cm" Value="4." Name="textBox110" StyleName="">
+                              <Style TextAlign="Center">
+                                <Font Bold="True" />
+                                <BorderStyle Default="Solid" />
+                                <BorderColor Default="187, 220, 235" />
+                              </Style>
+                            </TextBox>
+                          </ReportItem>
+                          <ChildGroups>
+                            <TableGroup Name="group37">
+                              <ReportItem>
+                                <TextBox Width="0.914cm" Height="0.5cm" Left="0cm" Top="0cm" Value="5." Name="textBox152" StyleName="">
+                                  <Style TextAlign="Center">
+                                    <Font Bold="True" />
+                                    <BorderStyle Default="Solid" />
+                                    <BorderColor Default="187, 220, 235" />
+                                  </Style>
+                                </TextBox>
+                              </ReportItem>
+                              <ChildGroups>
+                                <TableGroup Name="group39">
+                                  <ReportItem>
+                                    <TextBox Width="0.914cm" Height="0.5cm" Left="0cm" Top="0cm" Value="6." Name="textBox154" StyleName="">
+                                      <Style TextAlign="Center">
+                                        <Font Bold="True" />
+                                        <BorderStyle Default="Solid" />
+                                        <BorderColor Default="187, 220, 235" />
+                                      </Style>
+                                    </TextBox>
+                                  </ReportItem>
+                                  <ChildGroups>
+                                    <TableGroup Name="group41">
+                                      <ReportItem>
+                                        <TextBox Width="0.914cm" Height="0.5cm" Left="0cm" Top="0cm" Value="7." Name="textBox156" StyleName="">
+                                          <Style TextAlign="Center">
+                                            <Font Bold="True" />
+                                            <BorderStyle Default="Solid" />
+                                            <BorderColor Default="187, 220, 235" />
+                                          </Style>
+                                        </TextBox>
+                                      </ReportItem>
+                                      <ChildGroups>
+                                        <TableGroup Name="group43">
+                                          <ReportItem>
+                                            <TextBox Width="0.914cm" Height="0.5cm" Left="0cm" Top="0cm" Value="8." Name="textBox158" StyleName="">
+                                              <Style TextAlign="Center">
+                                                <Font Bold="True" />
+                                                <BorderStyle Default="Solid" />
+                                                <BorderColor Default="187, 220, 235" />
+                                              </Style>
+                                            </TextBox>
+                                          </ReportItem>
+                                          <ChildGroups>
+                                            <TableGroup Name="group47">
+                                              <ReportItem>
+                                                <TextBox Width="0.914cm" Height="0.5cm" Left="0cm" Top="0cm" Value="9." Name="textBox162" StyleName="">
+                                                  <Style TextAlign="Center">
+                                                    <Font Bold="True" />
+                                                    <BorderStyle Default="Solid" />
+                                                    <BorderColor Default="187, 220, 235" />
+                                                  </Style>
+                                                </TextBox>
+                                              </ReportItem>
+                                              <ChildGroups>
+                                                <TableGroup Name="group45" />
+                                              </ChildGroups>
+                                            </TableGroup>
+                                          </ChildGroups>
+                                        </TableGroup>
+                                      </ChildGroups>
+                                    </TableGroup>
+                                  </ChildGroups>
+                                </TableGroup>
+                              </ChildGroups>
+                            </TableGroup>
+                          </ChildGroups>
+                        </TableGroup>
+                      </ChildGroups>
+                    </TableGroup>
+                  </ChildGroups>
+                </TableGroup>
+              </ChildGroups>
+            </TableGroup>
+            <TableGroup Name="tableGroup9">
+              <ReportItem>
+                <TextBox Width="18.6cm" Height="0.609cm" Left="0cm" Top="0cm" Name="textBox140">
+                  <Style>
+                    <BorderStyle Default="Solid" />
+                    <BorderColor Default="187, 220, 235" />
+                  </Style>
+                </TextBox>
+              </ReportItem>
+              <ChildGroups>
+                <TableGroup Name="group36">
+                  <ReportItem>
+                    <TextBox Width="18.6cm" Height="0.5cm" Left="0cm" Top="0cm" Name="textBox151" StyleName="">
+                      <Style>
+                        <BorderStyle Default="Solid" />
+                        <BorderColor Default="187, 220, 235" />
+                      </Style>
+                    </TextBox>
+                  </ReportItem>
+                  <ChildGroups>
+                    <TableGroup Name="group34">
+                      <ReportItem>
+                        <TextBox Width="18.6cm" Height="0.5cm" Left="0cm" Top="0cm" Name="textBox144" StyleName="">
+                          <Style>
+                            <BorderStyle Default="Solid" />
+                            <BorderColor Default="187, 220, 235" />
+                          </Style>
+                        </TextBox>
+                      </ReportItem>
+                      <ChildGroups>
+                        <TableGroup Name="group32">
+                          <ReportItem>
+                            <TextBox Width="18.6cm" Height="0.5cm" Left="0cm" Top="0cm" Name="textBox142" StyleName="">
+                              <Style>
+                                <BorderStyle Default="Solid" />
+                                <BorderColor Default="187, 220, 235" />
+                              </Style>
+                            </TextBox>
+                          </ReportItem>
+                          <ChildGroups>
+                            <TableGroup Name="group38">
+                              <ReportItem>
+                                <TextBox Width="18.6cm" Height="0.5cm" Left="0cm" Top="0cm" Name="textBox153" StyleName="">
+                                  <Style>
+                                    <BorderStyle Default="Solid" />
+                                    <BorderColor Default="187, 220, 235" />
+                                  </Style>
+                                </TextBox>
+                              </ReportItem>
+                              <ChildGroups>
+                                <TableGroup Name="group40">
+                                  <ReportItem>
+                                    <TextBox Width="18.6cm" Height="0.5cm" Left="0cm" Top="0cm" Name="textBox155" StyleName="">
+                                      <Style>
+                                        <BorderStyle Default="Solid" />
+                                        <BorderColor Default="187, 220, 235" />
+                                      </Style>
+                                    </TextBox>
+                                  </ReportItem>
+                                  <ChildGroups>
+                                    <TableGroup Name="group42">
+                                      <ReportItem>
+                                        <TextBox Width="18.6cm" Height="0.5cm" Left="0cm" Top="0cm" Name="textBox157" StyleName="">
+                                          <Style>
+                                            <BorderStyle Default="Solid" />
+                                            <BorderColor Default="187, 220, 235" />
+                                          </Style>
+                                        </TextBox>
+                                      </ReportItem>
+                                      <ChildGroups>
+                                        <TableGroup Name="group44">
+                                          <ReportItem>
+                                            <TextBox Width="18.6cm" Height="0.5cm" Left="0cm" Top="0cm" Name="textBox159" StyleName="">
+                                              <Style>
+                                                <BorderStyle Default="Solid" />
+                                                <BorderColor Default="187, 220, 235" />
+                                              </Style>
+                                            </TextBox>
+                                          </ReportItem>
+                                          <ChildGroups>
+                                            <TableGroup Name="group66">
+                                              <ReportItem>
+                                                <TextBox Width="18.6cm" Height="0.5cm" Left="0cm" Top="0cm" Name="textBox163" StyleName="">
+                                                  <Style>
+                                                    <BorderStyle Default="Solid" />
+                                                    <BorderColor Default="187, 220, 235" />
+                                                  </Style>
+                                                </TextBox>
+                                              </ReportItem>
+                                              <ChildGroups>
+                                                <TableGroup Name="group46" />
+                                              </ChildGroups>
+                                            </TableGroup>
+                                          </ChildGroups>
+                                        </TableGroup>
+                                      </ChildGroups>
+                                    </TableGroup>
+                                  </ChildGroups>
+                                </TableGroup>
+                              </ChildGroups>
+                            </TableGroup>
+                          </ChildGroups>
+                        </TableGroup>
+                      </ChildGroups>
+                    </TableGroup>
+                  </ChildGroups>
+                </TableGroup>
+              </ChildGroups>
+            </TableGroup>
+          </ColumnGroups>
+        </Table>
+      </Items>
+    </ReportFooterSection>
+  </Items>
+  <PageSettings PaperKind="A4" Landscape="False">
+    <Margins>
+      <MarginsU Left="0.2in" Right="0.2in" Top="0.2in" Bottom="0.2in" />
+    </Margins>
+  </PageSettings>
+  <StyleSheet>
+    <StyleRule>
+      <Style>
+        <Padding Left="2pt" Right="2pt" />
+      </Style>
+      <Selectors>
+        <TypeSelector Type="TextItemBase" />
+        <TypeSelector Type="HtmlTextBox" />
+      </Selectors>
+    </StyleRule>
+    <StyleRule>
+      <Style Color="Black">
+        <Font Name="Tahoma" Size="9pt" />
+        <BorderStyle Default="Solid" />
+        <BorderColor Default="Black" />
+        <BorderWidth Default="1px" />
+      </Style>
+      <Selectors>
+        <StyleSelector Type="Table" StyleName="Normal.TableNormal" />
+      </Selectors>
+    </StyleRule>
+    <StyleRule>
+      <Style>
+        <Font Name="Tahoma" Size="9pt" />
+        <BorderStyle Default="Solid" />
+        <BorderColor Default="Black" />
+        <BorderWidth Default="1px" />
+      </Style>
+      <Selectors>
+        <DescendantSelector>
+          <Selectors>
+            <TypeSelector Type="Table" />
+            <StyleSelector Type="ReportItem" StyleName="Normal.TableBody" />
+          </Selectors>
+        </DescendantSelector>
+      </Selectors>
+    </StyleRule>
+    <StyleRule>
+      <Style VerticalAlign="Middle">
+        <Font Name="Tahoma" Size="10pt" />
+        <BorderStyle Default="Solid" />
+        <BorderColor Default="Black" />
+        <BorderWidth Default="1px" />
+      </Style>
+      <Selectors>
+        <DescendantSelector>
+          <Selectors>
+            <TypeSelector Type="Table" />
+            <StyleSelector Type="ReportItem" StyleName="Normal.TableHeader" />
+          </Selectors>
+        </DescendantSelector>
+      </Selectors>
+    </StyleRule>
+  </StyleSheet>
+  <Groups>
+    <Group Name="group">
+      <GroupHeader>
+        <GroupHeaderSection Height="27.568cm" Name="groupHeaderSection">
+          <Items>
+            <TextBox Width="14.7cm" Height="2.6cm" Left="2.7cm" Top="0cm" Value="T.C.&#xD;&#xA;MİLLİ EĞİTİM BAKANLIĞI&#xD;&#xA;ÖZEL ÖĞRETİM KURUMLARI GENEL MÜDÜRLÜĞÜ&#xD;&#xA;ÖĞRENCİ KAYIT SÖZLEŞMESİ&#xD;&#xA;( ÖZEL OKULLAR )" Name="textBox7">
+              <Style TextAlign="Center">
+                <Font Name="Segoe UI Light" Size="11pt" Bold="True" />
+              </Style>
+            </TextBox>
+            <PictureBox Image="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" Width="2.6cm" Height="2.6cm" Left="0.1cm" Top="0cm" MimeType="image/png" Name="pictureBox1" />
+            <TextBox Width="2.7cm" Height="0.5cm" Left="0.4cm" Top="2.768cm" Value="Özel Okul Adı :&#xD;&#xA;" Name="textBox8">
+              <Style>
+                <Font Name="Segoe UI Light" Bold="True" Underline="True" />
+              </Style>
+            </TextBox>
+            <PictureBox Image="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" Width="2.6cm" Height="2.6cm" Left="17.4cm" Top="0cm" MimeType="image/png" Name="pictureBox2" />
+            <Panel Width="19.673cm" Height="23.4cm" Left="0.4cm" Top="3.568cm" Name="panel1">
+              <Items>
+                <Table DataSourceName="sqlDataSource1" Width="19.56cm" Height="7.031cm" Left="0cm" Top="0.8cm" Name="table2">
+                  <Body>
+                    <Cells>
+                      <TableCell RowIndex="0" ColumnIndex="0" RowSpan="1" ColumnSpan="1">
+                        <ReportItem>
+                          <TextBox Width="6.407cm" Height="0.924cm" Left="0cm" Top="0cm" Value="Adı ve Soyadı" Name="textBox10">
+                            <Style VerticalAlign="Middle">
+                              <Font Name="Segoe UI Light" Bold="True" />
+                              <BorderStyle Default="Solid" />
+                              <BorderColor Default="187, 220, 235" />
+                            </Style>
+                          </TextBox>
+                        </ReportItem>
+                      </TableCell>
+                      <TableCell RowIndex="0" ColumnIndex="1" RowSpan="1" ColumnSpan="1">
+                        <ReportItem>
+                          <TextBox Width="13.153cm" Height="0.924cm" Left="0cm" Top="0cm" Value="= Fields.FirstName + &quot; &quot; + Fields.Lastname" Name="textBox11">
+                            <Style VerticalAlign="Middle">
+                              <Font Name="Segoe UI Light" />
+                              <BorderStyle Default="Solid" />
+                              <BorderColor Default="187, 220, 235" />
+                            </Style>
+                          </TextBox>
+                        </ReportItem>
+                      </TableCell>
+                      <TableCell RowIndex="2" ColumnIndex="0" RowSpan="1" ColumnSpan="1">
+                        <ReportItem>
+                          <TextBox Width="6.407cm" Height="0.898cm" Left="0cm" Top="0cm" Value="Sınıfı" Name="textBox12" StyleName="">
+                            <Style VerticalAlign="Middle">
+                              <Font Name="Segoe UI Light" Bold="True" />
+                              <BorderStyle Default="Solid" />
+                              <BorderColor Default="187, 220, 235" />
+                            </Style>
+                          </TextBox>
+                        </ReportItem>
+                      </TableCell>
+                      <TableCell RowIndex="2" ColumnIndex="1" RowSpan="1" ColumnSpan="1">
+                        <ReportItem>
+                          <TextBox Width="13.153cm" Height="0.898cm" Left="0cm" Top="0cm" Value="= Fields.ClassroomName" Name="textBox13" StyleName="">
+                            <Style VerticalAlign="Middle">
+                              <Font Name="Segoe UI Light" />
+                              <BorderStyle Default="Solid" />
+                              <BorderColor Default="187, 220, 235" />
+                            </Style>
+                          </TextBox>
+                        </ReportItem>
+                      </TableCell>
+                      <TableCell RowIndex="3" ColumnIndex="0" RowSpan="1" ColumnSpan="1">
+                        <ReportItem>
+                          <TextBox Width="6.407cm" Height="0.998cm" Left="0cm" Top="0cm" Value="Okula Kayıt / Nakil Tarihi" Name="textBox14" StyleName="">
+                            <Style VerticalAlign="Middle">
+                              <Font Name="Segoe UI Light" Bold="True" />
+                              <BorderStyle Default="Solid" />
+                              <BorderColor Default="187, 220, 235" />
+                            </Style>
+                          </TextBox>
+                        </ReportItem>
+                      </TableCell>
+                      <TableCell RowIndex="3" ColumnIndex="1" RowSpan="1" ColumnSpan="1">
+                        <ReportItem>
+                          <TextBox Width="13.153cm" Height="0.998cm" Left="0cm" Top="0cm" Value="= Fields.DateOfRegistration" Format="{0:d}" Name="textBox15" StyleName="">
+                            <Style VerticalAlign="Middle">
+                              <Font Name="Segoe UI Light" />
+                              <BorderStyle Default="Solid" />
+                              <BorderColor Default="187, 220, 235" />
+                            </Style>
+                          </TextBox>
+                        </ReportItem>
+                      </TableCell>
+                      <TableCell RowIndex="4" ColumnIndex="0" RowSpan="1" ColumnSpan="1">
+                        <ReportItem>
+                          <TextBox Width="6.407cm" Height="2.103cm" Left="0cm" Top="0cm" Value="Ev Adresi" Name="textBox16" StyleName="">
+                            <Style VerticalAlign="Middle">
+                              <Font Name="Segoe UI Light" Bold="True" />
+                              <BorderStyle Default="Solid" />
+                              <BorderColor Default="187, 220, 235" />
+                            </Style>
+                          </TextBox>
+                        </ReportItem>
+                      </TableCell>
+                      <TableCell RowIndex="4" ColumnIndex="1" RowSpan="1" ColumnSpan="1">
+                        <ReportItem>
+                          <TextBox Width="13.153cm" Height="2.103cm" Left="0cm" Top="0cm" Value="= IsNull(Fields.Address1,&quot;&quot;) + &quot; &quot; + IsNull(Fields.CityParameterID1,&quot;&quot;) + IIf(Fields.Address1 IS NULL, &quot;&quot;,&quot; / &quot;) + IsNull(Fields.TownParameterID1,&quot;&quot;) + &quot; &quot; + IIf(Fields.Address1 IS NULL, &quot;&quot;,&quot;Pk.:&quot;) + IsNull(Fields.ZipCode1,&quot;&quot;)&#xD;&#xA;" Name="textBox17" StyleName="">
+                            <Style>
+                              <Font Name="Segoe UI Light" />
+                              <BorderStyle Default="Solid" />
+                              <BorderColor Default="187, 220, 235" />
+                            </Style>
+                          </TextBox>
+                        </ReportItem>
+                      </TableCell>
+                      <TableCell RowIndex="1" ColumnIndex="0" RowSpan="1" ColumnSpan="1">
+                        <ReportItem>
+                          <TextBox Width="6.407cm" Height="1.034cm" Left="0cm" Top="0cm" Value="Veli / Vasi Adı ve Soyadı" Name="textBox18" StyleName="">
+                            <Style VerticalAlign="Middle">
+                              <Font Name="Segoe UI Light" Bold="True" />
+                              <BorderStyle Default="Solid" />
+                              <BorderColor Default="187, 220, 235" />
+                            </Style>
+                          </TextBox>
+                        </ReportItem>
+                      </TableCell>
+                      <TableCell RowIndex="1" ColumnIndex="1" RowSpan="1" ColumnSpan="1">
+                        <ReportItem>
+                          <TextBox Width="13.153cm" Height="1.034cm" Left="0cm" Top="0cm" Value="= Fields.ParentName" Name="textBox19" StyleName="">
+                            <Style VerticalAlign="Middle">
+                              <Font Name="Segoe UI Light" />
+                              <BorderStyle Default="Solid" />
+                              <BorderColor Default="187, 220, 235" />
+                            </Style>
+                          </TextBox>
+                        </ReportItem>
+                      </TableCell>
+                    </Cells>
+                    <Columns>
+                      <Column Width="6.407cm" />
+                      <Column Width="13.153cm" />
+                    </Columns>
+                    <Rows>
+                      <Row Height="0.924cm" />
+                      <Row Height="1.034cm" />
+                      <Row Height="0.898cm" />
+                      <Row Height="0.998cm" />
+                      <Row Height="2.103cm" />
+                    </Rows>
+                  </Body>
+                  <Corner />
+                  <RowGroups>
+                    <TableGroup Name="detailTableGroup1">
+                      <ChildGroups>
+                        <TableGroup Name="group6" />
+                        <TableGroup Name="group10" />
+                        <TableGroup Name="group7" />
+                        <TableGroup Name="group8" />
+                        <TableGroup Name="group9" />
+                      </ChildGroups>
+                      <Groupings>
+                        <Grouping />
+                      </Groupings>
+                    </TableGroup>
+                  </RowGroups>
+                  <ColumnGroups>
+                    <TableGroup Name="tableGroup1">
+                      <ReportItem>
+                        <TextBox Width="6.407cm" Height="1.074cm" Left="0cm" Top="0cm" Value="T.C.Kimlik No" Name="textBox77">
+                          <Style VerticalAlign="Middle">
+                            <Font Name="Segoe UI Light" Bold="True" />
+                            <BorderStyle Default="Solid" />
+                            <BorderColor Default="187, 220, 235" />
+                          </Style>
+                        </TextBox>
+                      </ReportItem>
+                    </TableGroup>
+                    <TableGroup Name="tableGroup4">
+                      <ReportItem>
+                        <TextBox Width="13.153cm" Height="1.074cm" Left="0cm" Top="0cm" Value="= Fields.IdNumber" Name="textBox78">
+                          <Style VerticalAlign="Middle">
+                            <Font Name="Segoe UI Light" />
+                            <BorderStyle Default="Solid" />
+                            <BorderColor Default="187, 220, 235" />
+                          </Style>
+                        </TextBox>
+                      </ReportItem>
+                    </TableGroup>
+                  </ColumnGroups>
+                  <Bindings>
+                    <Binding Path="DataSource.ConnectionString" Expression="= Parameters.cs.Value" />
+                  </Bindings>
+                </Table>
+                <Table DataSourceName="sqlDataSource4" Width="19.56cm" Height="11.022cm" Left="0.113cm" Top="10.1cm" Name="table5">
+                  <Body>
+                    <Cells>
+                      <TableCell RowIndex="0" ColumnIndex="0" RowSpan="1" ColumnSpan="1">
+                        <ReportItem>
+                          <TextBox Width="3.099cm" Height="1.123cm" Left="0cm" Top="0cm" Value="Adı ve Soyadı" Name="textBox57">
+                            <Style VerticalAlign="Middle">
+                              <Font Name="Segoe UI Light" Bold="True" />
+                              <BorderStyle Default="Solid" />
+                              <BorderColor Default="187, 220, 235" />
+                            </Style>
+                          </TextBox>
+                        </ReportItem>
+                      </TableCell>
+                      <TableCell RowIndex="0" ColumnIndex="1" RowSpan="1" ColumnSpan="1">
+                        <ReportItem>
+                          <TextBox Width="16.461cm" Height="1.123cm" Left="0cm" Top="0cm" Value="= Fields.ParentName" Name="textBox58">
+                            <Style VerticalAlign="Middle">
+                              <Font Name="Segoe UI Light" />
+                              <BorderStyle Default="Solid" />
+                              <BorderColor Default="187, 220, 235" />
+                            </Style>
+                          </TextBox>
+                        </ReportItem>
+                      </TableCell>
+                      <TableCell RowIndex="1" ColumnIndex="0" RowSpan="1" ColumnSpan="1">
+                        <ReportItem>
+                          <TextBox Width="3.099cm" Height="1.176cm" Left="0cm" Top="0cm" Value="Mesleği" Name="textBox59" StyleName="">
+                            <Style VerticalAlign="Middle">
+                              <Font Name="Segoe UI Light" Bold="True" />
+                              <BorderStyle Default="Solid" />
+                              <BorderColor Default="187, 220, 235" />
+                            </Style>
+                          </TextBox>
+                        </ReportItem>
+                      </TableCell>
+                      <TableCell RowIndex="1" ColumnIndex="1" RowSpan="1" ColumnSpan="1">
+                        <ReportItem>
+                          <TextBox Width="16.461cm" Height="1.176cm" Left="0cm" Top="0cm" Value="= Fields.Profession" Name="textBox60" StyleName="">
+                            <Style VerticalAlign="Middle">
+                              <Font Name="Segoe UI Light" />
+                              <BorderStyle Default="Solid" />
+                              <BorderColor Default="187, 220, 235" />
+                            </Style>
+                          </TextBox>
+                        </ReportItem>
+                      </TableCell>
+                      <TableCell RowIndex="2" ColumnIndex="0" RowSpan="1" ColumnSpan="1">
+                        <ReportItem>
+                          <TextBox Width="3.099cm" Height="1.07cm" Left="0cm" Top="0cm" Value="Cep Telefonu" Name="textBox61" StyleName="">
+                            <Style VerticalAlign="Middle">
+                              <Font Name="Segoe UI Light" Bold="True" />
+                              <BorderStyle Default="Solid" />
+                              <BorderColor Default="187, 220, 235" />
+                            </Style>
+                          </TextBox>
+                        </ReportItem>
+                      </TableCell>
+                      <TableCell RowIndex="2" ColumnIndex="1" RowSpan="1" ColumnSpan="1">
+                        <ReportItem>
+                          <TextBox Width="16.461cm" Height="1.07cm" Left="0cm" Top="0cm" Value="= Fields.MobilePhone" Name="textBox62" StyleName="">
+                            <Style VerticalAlign="Middle">
+                              <Font Name="Segoe UI Light" />
+                              <BorderStyle Default="Solid" />
+                              <BorderColor Default="187, 220, 235" />
+                            </Style>
+                          </TextBox>
+                        </ReportItem>
+                      </TableCell>
+                      <TableCell RowIndex="3" ColumnIndex="0" RowSpan="1" ColumnSpan="1">
+                        <ReportItem>
+                          <TextBox Width="3.099cm" Height="1.097cm" Left="0cm" Top="0cm" Value="Ev Telefonu" Name="textBox63" StyleName="">
+                            <Style VerticalAlign="Middle">
+                              <Font Name="Segoe UI Light" Bold="True" />
+                              <BorderStyle Default="Solid" />
+                              <BorderColor Default="187, 220, 235" />
+                            </Style>
+                          </TextBox>
+                        </ReportItem>
+                      </TableCell>
+                      <TableCell RowIndex="3" ColumnIndex="1" RowSpan="1" ColumnSpan="1">
+                        <ReportItem>
+                          <TextBox Width="16.461cm" Height="1.097cm" Left="0cm" Top="0cm" Value="= Fields.HomePhone" Name="textBox64" StyleName="">
+                            <Style VerticalAlign="Middle">
+                              <Font Name="Segoe UI Light" />
+                              <BorderStyle Default="Solid" />
+                              <BorderColor Default="187, 220, 235" />
+                            </Style>
+                          </TextBox>
+                        </ReportItem>
+                      </TableCell>
+                      <TableCell RowIndex="4" ColumnIndex="0" RowSpan="1" ColumnSpan="1">
+                        <ReportItem>
+                          <TextBox Width="3.099cm" Height="1.123cm" Left="0cm" Top="0cm" Value="İş Telefonu" Name="textBox65" StyleName="">
+                            <Style VerticalAlign="Middle">
+                              <Font Name="Segoe UI Light" Bold="True" />
+                              <BorderStyle Default="Solid" />
+                              <BorderColor Default="187, 220, 235" />
+                            </Style>
+                          </TextBox>
+                        </ReportItem>
+                      </TableCell>
+                      <TableCell RowIndex="4" ColumnIndex="1" RowSpan="1" ColumnSpan="1">
+                        <ReportItem>
+                          <TextBox Width="16.461cm" Height="1.123cm" Left="0cm" Top="0cm" Value="= Fields.WorkPhone" Name="textBox66" StyleName="">
+                            <Style VerticalAlign="Middle">
+                              <Font Name="Segoe UI Light" />
+                              <BorderStyle Default="Solid" />
+                              <BorderColor Default="187, 220, 235" />
+                            </Style>
+                          </TextBox>
+                        </ReportItem>
+                      </TableCell>
+                      <TableCell RowIndex="5" ColumnIndex="0" RowSpan="1" ColumnSpan="1">
+                        <ReportItem>
+                          <TextBox Width="3.099cm" Height="1.765cm" Left="0cm" Top="0cm" Value="Ev Adresi" Name="textBox69" StyleName="">
+                            <Style VerticalAlign="Middle">
+                              <Font Name="Segoe UI Light" Bold="True" />
+                              <BorderStyle Default="Solid" />
+                              <BorderColor Default="187, 220, 235" />
+                            </Style>
+                          </TextBox>
+                        </ReportItem>
+                      </TableCell>
+                      <TableCell RowIndex="5" ColumnIndex="1" RowSpan="1" ColumnSpan="1">
+                        <ReportItem>
+                          <TextBox Width="16.461cm" Height="1.765cm" Left="0cm" Top="0cm" Value="= IsNull(Fields.HomeAddress,&quot;&quot;) + &quot; &quot; + IsNull(Fields.HomeCity,&quot;&quot;) + IIf(Fields.HomeAddress IS NULL, &quot;&quot;,&quot; / &quot;)  + IsNull(Fields.HomeTown,&quot;&quot;) + &quot; &quot; + &#xD;&#xA;IIf(Fields.HomeAddress  IS NULL, &quot;&quot;,&quot;Pk.:&quot;) + IsNull(Fields.HomeZipCode,&quot;&quot;)" Name="textBox70" StyleName="">
+                            <Style>
+                              <Font Name="Segoe UI Light" />
+                              <BorderStyle Default="Solid" />
+                              <BorderColor Default="187, 220, 235" />
+                            </Style>
+                          </TextBox>
+                        </ReportItem>
+                      </TableCell>
+                      <TableCell RowIndex="7" ColumnIndex="0" RowSpan="1" ColumnSpan="1">
+                        <ReportItem>
+                          <TextBox Width="3.099cm" Height="0.938cm" Left="0cm" Top="0cm" Value="E-Posta" Name="textBox71" StyleName="">
+                            <Style VerticalAlign="Middle">
+                              <Font Name="Segoe UI Light" Bold="True" />
+                              <BorderStyle Default="Solid" />
+                              <BorderColor Default="187, 220, 235" />
+                            </Style>
+                          </TextBox>
+                        </ReportItem>
+                      </TableCell>
+                      <TableCell RowIndex="7" ColumnIndex="1" RowSpan="1" ColumnSpan="1">
+                        <ReportItem>
+                          <TextBox Width="16.461cm" Height="0.938cm" Left="0cm" Top="0cm" Value="= Fields.EMail" Name="textBox72" StyleName="">
+                            <Style VerticalAlign="Middle">
+                              <Font Name="Segoe UI Light" />
+                              <BorderStyle Default="Solid" />
+                              <BorderColor Default="187, 220, 235" />
+                            </Style>
+                          </TextBox>
+                        </ReportItem>
+                      </TableCell>
+                      <TableCell RowIndex="6" ColumnIndex="1" RowSpan="1" ColumnSpan="1">
+                        <ReportItem>
+                          <TextBox Width="16.461cm" Height="1.765cm" Left="0cm" Top="0cm" Value="= IsNull(Fields.WorkAddress,&quot;&quot;) + &quot; &quot; + IsNull(Fields.WorkCity,&quot;&quot;) + IIf(Fields.WorkAddress IS NULL, &quot;&quot;,&quot; / &quot;) + IsNull(Fields.WorkTown,&quot;&quot;) + &quot; &quot; + IIf(Fields.WorkAddress  IS NULL, &quot;&quot;,&quot;Pk.:&quot;)+ IsNull(Fields.WorkZipCode,&quot;&quot;)" Name="textBox74" StyleName="">
+                            <Style>
+                              <Font Name="Segoe UI Light" />
+                              <BorderStyle Default="Solid" />
+                              <BorderColor Default="187, 220, 235" />
+                            </Style>
+                          </TextBox>
+                        </ReportItem>
+                      </TableCell>
+                      <TableCell RowIndex="6" ColumnIndex="0" RowSpan="1" ColumnSpan="1">
+                        <ReportItem>
+                          <TextBox Width="3.099cm" Height="1.765cm" Left="0cm" Top="0cm" Value="İş Adresi" Name="textBox75" StyleName="">
+                            <Style VerticalAlign="Middle">
+                              <Font Name="Segoe UI Light" Bold="True" />
+                              <BorderStyle Default="Solid" />
+                              <BorderColor Default="187, 220, 235" />
+                            </Style>
+                          </TextBox>
+                        </ReportItem>
+                      </TableCell>
+                    </Cells>
+                    <Columns>
+                      <Column Width="3.099cm" />
+                      <Column Width="16.461cm" />
+                    </Columns>
+                    <Rows>
+                      <Row Height="1.123cm" />
+                      <Row Height="1.176cm" />
+                      <Row Height="1.07cm" />
+                      <Row Height="1.097cm" />
+                      <Row Height="1.123cm" />
+                      <Row Height="1.765cm" />
+                      <Row Height="1.765cm" />
+                      <Row Height="0.938cm" />
+                    </Rows>
+                  </Body>
+                  <Corner />
+                  <RowGroups>
+                    <TableGroup Name="detailTableGroup">
+                      <ChildGroups>
+                        <TableGroup Name="group1" />
+                        <TableGroup Name="group2" />
+                        <TableGroup Name="group3" />
+                        <TableGroup Name="group4" />
+                        <TableGroup Name="group5" />
+                        <TableGroup Name="group13" />
+                        <TableGroup Name="group15" />
+                        <TableGroup Name="group14" />
+                      </ChildGroups>
+                      <Groupings>
+                        <Grouping />
+                      </Groupings>
+                    </TableGroup>
+                  </RowGroups>
+                  <ColumnGroups>
+                    <TableGroup Name="tableGroup">
+                      <ReportItem>
+                        <TextBox Width="3.099cm" Height="0.965cm" Left="0cm" Top="0cm" Value="T.C. Kimlik No" Name="textBox67">
+                          <Style VerticalAlign="Middle">
+                            <Font Name="Segoe UI Light" Bold="True" />
+                            <BorderStyle Default="Solid" />
+                            <BorderColor Default="187, 220, 235" />
+                          </Style>
+                        </TextBox>
+                      </ReportItem>
+                    </TableGroup>
+                    <TableGroup Name="tableGroup2">
+                      <ReportItem>
+                        <TextBox Width="16.461cm" Height="0.965cm" Left="0cm" Top="0cm" Value="= Fields.IdNumber" Name="textBox68">
+                          <Style VerticalAlign="Middle">
+                            <Font Name="Segoe UI Light" />
+                            <BorderStyle Default="Solid" />
+                            <BorderColor Default="187, 220, 235" />
+                          </Style>
+                        </TextBox>
+                      </ReportItem>
+                    </TableGroup>
+                  </ColumnGroups>
+                  <Bindings>
+                    <Binding Path="DataSource.ConnectionString" Expression="= Parameters.cs.Value" />
+                  </Bindings>
+                </Table>
+                <TextBox Width="19.538cm" Height="0.669cm" Left="0cm" Top="9.2cm" Value="ÖĞRENCİNİN VASİ BİLGİLERİ (Varsa)" Name="textBox56">
+                  <Style BackgroundColor="224, 224, 224" TextAlign="Center" VerticalAlign="Middle">
+                    <Font Name="Segoe UI Light" Size="12pt" Bold="True" />
+                  </Style>
+                </TextBox>
+              </Items>
+            </Panel>
+            <TextBox Width="19.627cm" Height="0.8cm" Left="0.373cm" Top="3.568cm" Value="ÖĞRENCİNİN BİLGİLERİ" Name="textBox9">
+              <Style BackgroundColor="224, 224, 224" TextAlign="Center" VerticalAlign="Middle">
+                <Font Name="Segoe UI Light" Size="12pt" Bold="True" />
+              </Style>
+            </TextBox>
+            <Table DataSourceName="sqlDataSource1" Width="16.761cm" Height="1.208cm" Left="3.152cm" Top="2.868cm" Name="table4">
+              <Body>
+                <Cells>
+                  <TableCell RowIndex="0" ColumnIndex="0" RowSpan="1" ColumnSpan="1">
+                    <ReportItem>
+                      <TextBox Width="16.761cm" Height="0.604cm" Left="0cm" Top="0cm" Name="textBox31" />
+                    </ReportItem>
+                  </TableCell>
+                </Cells>
+                <Columns>
+                  <Column Width="16.761cm" />
+                </Columns>
+                <Rows>
+                  <Row Height="0.604cm" />
+                </Rows>
+              </Body>
+              <Corner />
+              <RowGroups>
+                <TableGroup Name="detailTableGroup7">
+                  <Groupings>
+                    <Grouping />
+                  </Groupings>
+                </TableGroup>
+              </RowGroups>
+              <ColumnGroups>
+                <TableGroup Name="tableGroup14">
+                  <ReportItem>
+                    <TextBox Width="16.761cm" Height="0.604cm" Left="0cm" Top="0cm" Value="= Fields.CompanyName" Name="textBox30">
+                      <Style>
+                        <Font Bold="True" />
+                      </Style>
+                    </TextBox>
+                  </ReportItem>
+                </TableGroup>
+              </ColumnGroups>
+              <Bindings>
+                <Binding Path="DataSource.ConnectionString" Expression="= Parameters.cs.Value" />
+              </Bindings>
+            </Table>
+          </Items>
+        </GroupHeaderSection>
+      </GroupHeader>
+      <GroupFooter>
+        <GroupFooterSection Height="33cm" Name="groupFooterSection">
+          <Items>
+            <Table DataSourceName="sqlDataSource6" Width="19.404cm" Height="7cm" Left="0.509cm" Top="0.4cm" Name="table1">
+              <Body>
+                <Cells>
+                  <TableCell RowIndex="0" ColumnIndex="0" RowSpan="1" ColumnSpan="1">
+                    <ReportItem>
+                      <TextBox Width="6.274cm" Height="0.7cm" Left="0cm" Top="0cm" Value="Taksit Başlangıç Tarihi" Name="textBox73">
+                        <Style VerticalAlign="Middle">
+                          <Font Name="Segoe UI Light" Bold="True" />
+                          <BorderStyle Default="Solid" />
+                          <BorderColor Default="187, 220, 235" />
+                        </Style>
+                      </TextBox>
+                    </ReportItem>
+                  </TableCell>
+                  <TableCell RowIndex="0" ColumnIndex="1" RowSpan="1" ColumnSpan="1">
+                    <ReportItem>
+                      <TextBox Width="6.459cm" Height="0.7cm" Left="0cm" Top="0cm" Value="= Format('{0:dd/MM/yyyy}', Fields.TransactionDate)" Format="{0:d}" Name="textBox79">
+                        <Style VerticalAlign="Middle">
+                          <BorderStyle Default="Solid" />
+                          <BorderColor Default="187, 220, 235" />
+                        </Style>
+                      </TextBox>
+                    </ReportItem>
+                  </TableCell>
+                  <TableCell RowIndex="1" ColumnIndex="0" RowSpan="1" ColumnSpan="1">
+                    <ReportItem>
+                      <TextBox Width="6.274cm" Height="0.7cm" Left="0cm" Top="0cm" Value="Peşinat" Name="textBox82" StyleName="">
+                        <Style VerticalAlign="Middle">
+                          <Font Name="Segoe UI Light" Bold="True" />
+                          <BorderStyle Default="Solid" />
+                          <BorderColor Default="187, 220, 235" />
+                        </Style>
+                      </TextBox>
+                    </ReportItem>
+                  </TableCell>
+                  <TableCell RowIndex="1" ColumnIndex="1" RowSpan="1" ColumnSpan="1">
+                    <ReportItem>
+                      <TextBox Width="6.459cm" Height="0.7cm" Left="0cm" Top="0cm" Value="= Fields.CashPayment" Format="{0:N2}" Name="textBox83" StyleName="">
+                        <Style VerticalAlign="Middle">
+                          <BorderStyle Default="Solid" />
+                          <BorderColor Default="187, 220, 235" />
+                        </Style>
+                      </TextBox>
+                    </ReportItem>
+                  </TableCell>
+                  <TableCell RowIndex="2" ColumnIndex="0" RowSpan="1" ColumnSpan="1">
+                    <ReportItem>
+                      <TextBox Width="6.274cm" Height="0.7cm" Left="0cm" Top="0cm" Value="Taksit Sayısı ve Tutarı" Name="textBox85" StyleName="">
+                        <Style VerticalAlign="Middle">
+                          <Font Name="Segoe UI Light" Bold="True" />
+                          <BorderStyle Default="Solid" />
+                          <BorderColor Default="187, 220, 235" />
+                        </Style>
+                      </TextBox>
+                    </ReportItem>
+                  </TableCell>
+                  <TableCell RowIndex="2" ColumnIndex="1" RowSpan="1" ColumnSpan="1">
+                    <ReportItem>
+                      <TextBox Width="6.459cm" Height="0.7cm" Left="0cm" Top="0cm" Value="= Fields.Installment" Format="{0}" Name="textBox86" StyleName="">
+                        <Style VerticalAlign="Middle">
+                          <BorderStyle Default="Solid" />
+                          <BorderColor Default="187, 220, 235" />
+                        </Style>
+                      </TextBox>
+                    </ReportItem>
+                  </TableCell>
+                  <TableCell RowIndex="3" ColumnIndex="0" RowSpan="1" ColumnSpan="1">
+                    <ReportItem>
+                      <TextBox Width="6.274cm" Height="0.7cm" Left="0cm" Top="0cm" Value="Eğitim Bursu Alıyor mu?" Name="textBox88" StyleName="">
+                        <Style VerticalAlign="Middle">
+                          <Font Name="Segoe UI Light" Bold="True" />
+                          <BorderStyle Default="Solid" />
+                          <BorderColor Default="187, 220, 235" />
+                        </Style>
+                      </TextBox>
+                    </ReportItem>
+                  </TableCell>
+                  <TableCell RowIndex="4" ColumnIndex="0" RowSpan="1" ColumnSpan="1">
+                    <ReportItem>
+                      <TextBox Width="6.274cm" Height="0.7cm" Left="0cm" Top="0cm" Value="Eğitim Bursu Alıyorsa Yüzdesi" Name="textBox91" StyleName="">
+                        <Style VerticalAlign="Middle">
+                          <Font Name="Segoe UI Light" Bold="True" />
+                          <BorderStyle Default="Solid" />
+                          <BorderColor Default="187, 220, 235" />
+                        </Style>
+                      </TextBox>
+                    </ReportItem>
+                  </TableCell>
+                  <TableCell RowIndex="4" ColumnIndex="1" RowSpan="1" ColumnSpan="1">
+                    <ReportItem>
+                      <TextBox Width="6.459cm" Height="0.7cm" Left="0cm" Top="0cm" Value="= Fields.ScholarshipRate" Format="{0:N0}" Name="textBox92" StyleName="">
+                        <Style VerticalAlign="Middle">
+                          <BorderStyle Default="Solid" />
+                          <BorderColor Default="187, 220, 235" />
+                        </Style>
+                      </TextBox>
+                    </ReportItem>
+                  </TableCell>
+                  <TableCell RowIndex="4" ColumnIndex="2" RowSpan="1" ColumnSpan="1">
+                    <ReportItem>
+                      <TextBox Width="6.671cm" Height="0.7cm" Left="0cm" Top="0cm" Name="textBox93" StyleName="">
+                        <Style>
+                          <BorderStyle Default="Solid" />
+                          <BorderColor Default="187, 220, 235" />
+                        </Style>
+                      </TextBox>
+                    </ReportItem>
+                  </TableCell>
+                  <TableCell RowIndex="5" ColumnIndex="0" RowSpan="1" ColumnSpan="1">
+                    <ReportItem>
+                      <TextBox Width="6.274cm" Height="0.7cm" Left="0cm" Top="0cm" Value="İndirim Yapıldı mı?" Name="textBox94" StyleName="">
+                        <Style VerticalAlign="Middle">
+                          <Font Name="Segoe UI Light" Bold="True" />
+                          <BorderStyle Default="Solid" />
+                          <BorderColor Default="187, 220, 235" />
+                        </Style>
+                      </TextBox>
+                    </ReportItem>
+                  </TableCell>
+                  <TableCell RowIndex="5" ColumnIndex="1" RowSpan="1" ColumnSpan="1">
+                    <ReportItem>
+                      <CheckBox Width="6.459cm" Height="0.7cm" Left="8.491cm" Top="3.9cm" Text="  Evet" Name="checkBox3" StyleName="">
+                        <Style VerticalAlign="Middle">
+                          <Font Name="Segoe UI Light" />
+                          <BorderStyle Default="Solid" />
+                          <BorderColor Default="187, 220, 235" />
+                        </Style>
+                        <Value>
+                          <String>= Fields.SubTotal &gt; 0</String>
+                        </Value>
+                      </CheckBox>
+                    </ReportItem>
+                  </TableCell>
+                  <TableCell RowIndex="5" ColumnIndex="2" RowSpan="1" ColumnSpan="1">
+                    <ReportItem>
+                      <CheckBox Width="6.671cm" Height="0.7cm" Left="8.491cm" Top="3.9cm" Text="  Hayır" Name="checkBox4" StyleName="">
+                        <Style VerticalAlign="Middle">
+                          <Font Name="Segoe UI Light" />
+                          <BorderStyle Default="Solid" />
+                          <BorderColor Default="187, 220, 235" />
+                        </Style>
+                        <Value>
+                          <String>= Fields.SubTotal = 0</String>
+                        </Value>
+                      </CheckBox>
+                    </ReportItem>
+                  </TableCell>
+                  <TableCell RowIndex="6" ColumnIndex="1" RowSpan="1" ColumnSpan="1">
+                    <ReportItem>
+                      <CheckBox Width="6.459cm" Height="0.7cm" Left="8.491cm" Top="3.9cm" Text="  Kardeş İndirimi" Name="checkBox5" StyleName="">
+                        <Style VerticalAlign="Middle">
+                          <Font Name="Segoe UI Light" />
+                          <BorderStyle Default="Solid" />
+                          <BorderColor Default="187, 220, 235" />
+                        </Style>
+                        <Value>
+                          <String>= IIf(Fields.Fee01 &gt; 0, 1,  (0))</String>
+                        </Value>
+                        <ConditionalFormatting>
+                          <FormattingRule>
+                            <Filters>
+                              <Filter Expression="= Fields.ClassroomID1" Operator="Equal" Value="1" />
+                            </Filters>
+                          </FormattingRule>
+                        </ConditionalFormatting>
+                      </CheckBox>
+                    </ReportItem>
+                  </TableCell>
+                  <TableCell RowIndex="6" ColumnIndex="0" RowSpan="3" ColumnSpan="1">
+                    <ReportItem>
+                      <TextBox Width="6.274cm" Height="2.1cm" Left="0cm" Top="0cm" Value="İndirim Yapılmışsa Nedeni?" Name="textBox97" StyleName="">
+                        <Style VerticalAlign="Middle">
+                          <Font Name="Segoe UI Light" Bold="True" />
+                          <BorderStyle Default="Solid" />
+                          <BorderColor Default="187, 220, 235" />
+                        </Style>
+                      </TextBox>
+                    </ReportItem>
+                  </TableCell>
+                  <TableCell RowIndex="7" ColumnIndex="1" RowSpan="1" ColumnSpan="1">
+                    <ReportItem>
+                      <CheckBox Width="6.459cm" Height="0.7cm" Left="0cm" Top="0cm" Text="  Personel Çocuğı İndirimi" Name="checkBox6" StyleName="">
+                        <Style VerticalAlign="Middle">
+                          <Font Name="Segoe UI Light" />
+                          <BorderStyle Default="Solid" />
+                          <BorderColor Default="187, 220, 235" />
+                        </Style>
+                        <Value>
+                          <String>= IIf(Fields.Fee02 &gt; 0, 1,  (0))</String>
+                        </Value>
+                        <ConditionalFormatting>
+                          <FormattingRule>
+                            <Filters>
+                              <Filter Expression="= Fields.ClassroomID2" Operator="Equal" Value="2" />
+                            </Filters>
+                          </FormattingRule>
+                        </ConditionalFormatting>
+                      </CheckBox>
+                    </ReportItem>
+                  </TableCell>
+                  <TableCell RowIndex="7" ColumnIndex="2" RowSpan="1" ColumnSpan="1">
+                    <ReportItem>
+                      <CheckBox Width="6.671cm" Height="0.7cm" Left="0cm" Top="0cm" Text="  Başarı İndirimi" Name="checkBox13" StyleName="">
+                        <Style VerticalAlign="Middle">
+                          <Font Name="Segoe UI Light" />
+                          <BorderStyle Default="Solid" />
+                          <BorderColor Default="187, 220, 235" />
+                        </Style>
+                        <Value>
+                          <String>= IIf(Fields.Fee06 &gt; 0, 1,  (0))</String>
+                        </Value>
+                        <ConditionalFormatting>
+                          <FormattingRule>
+                            <Filters>
+                              <Filter Expression="= Fields.ClassroomID6" Operator="Equal" Value="6" />
+                            </Filters>
+                          </FormattingRule>
+                        </ConditionalFormatting>
+                      </CheckBox>
+                    </ReportItem>
+                  </TableCell>
+                  <TableCell RowIndex="3" ColumnIndex="1" RowSpan="1" ColumnSpan="1">
+                    <ReportItem>
+                      <CheckBox Width="6.459cm" Height="0.7cm" Left="0cm" Top="0cm" Text="  Evet" Name="checkBox10" StyleName="">
+                        <Style VerticalAlign="Middle">
+                          <Font Name="Segoe UI Light" />
+                          <BorderStyle Default="Solid" />
+                          <BorderColor Default="187, 220, 235" />
+                        </Style>
+                        <Value>
+                          <String>= IIf(Fields.ScholarshipRate &gt; 0, 1,  (0))</String>
+                        </Value>
+                      </CheckBox>
+                    </ReportItem>
+                  </TableCell>
+                  <TableCell RowIndex="3" ColumnIndex="2" RowSpan="1" ColumnSpan="1">
+                    <ReportItem>
+                      <CheckBox Width="6.671cm" Height="0.7cm" Left="0cm" Top="0cm" Text="  Hayır" Name="checkBox11" StyleName="">
+                        <Style VerticalAlign="Middle">
+                          <Font Name="Segoe UI Light" />
+                          <BorderStyle Default="Solid" />
+                          <BorderColor Default="187, 220, 235" />
+                        </Style>
+                        <Value>
+                          <String>= IIf(Fields.ScholarshipRate &gt; 0, 0,  (1))</String>
+                        </Value>
+                      </CheckBox>
+                    </ReportItem>
+                  </TableCell>
+                  <TableCell RowIndex="0" ColumnIndex="2" RowSpan="3" ColumnSpan="1">
+                    <ReportItem>
+                      <TextBox Width="6.671cm" Height="2.1cm" Left="0cm" Top="0cm" Value="= Fields.InWriting" Format="{0}" Name="textBox81">
+                        <Style>
+                          <Font Size="8pt" />
+                          <BorderStyle Default="Solid" />
+                          <BorderColor Default="187, 220, 235" />
+                        </Style>
+                      </TextBox>
+                    </ReportItem>
+                  </TableCell>
+                  <TableCell RowIndex="8" ColumnIndex="1" RowSpan="1" ColumnSpan="2">
+                    <ReportItem>
+                      <TextBox Width="13.13cm" Height="0.7cm" Left="-1.809cm" Top="-36cm" Value="= &quot;Diğer İndirimler &quot; + &quot;( &quot; + Fields.TypeAndNo + &quot; )&quot;" Name="textBox41" StyleName="">
+                        <Style VerticalAlign="Middle">
+                          <Font Name="Segoe UI Light" />
+                          <BorderStyle Default="Solid" />
+                          <BorderColor Default="187, 220, 235" />
+                        </Style>
+                        <ConditionalFormatting>
+                          <FormattingRule>
+                            <Filters>
+                              <Filter Expression="= Fields.ClassroomID" Operator="Equal" Value="9" />
+                            </Filters>
+                          </FormattingRule>
+                        </ConditionalFormatting>
+                      </TextBox>
+                    </ReportItem>
+                  </TableCell>
+                  <TableCell RowIndex="6" ColumnIndex="2" RowSpan="1" ColumnSpan="1">
+                    <ReportItem>
+                      <CheckBox Width="6.671cm" Height="0.7cm" Left="0cm" Top="0cm" Text="  Şehit/Gazi Çocuğu İndirimi" Name="checkBox8" StyleName="">
+                        <Style VerticalAlign="Middle">
+                          <Font Name="Segoe UI Light" />
+                          <BorderStyle Default="Solid" />
+                          <BorderColor Default="187, 220, 235" />
+                        </Style>
+                        <Value>
+                          <String>= IIf(Fields.Fee04 &gt; 0, 1,  (0))</String>
+                        </Value>
+                        <ConditionalFormatting>
+                          <FormattingRule>
+                            <Filters>
+                              <Filter Expression="= Fields.ClassroomID4" Operator="Equal" Value="4" />
+                            </Filters>
+                          </FormattingRule>
+                        </ConditionalFormatting>
+                      </CheckBox>
+                    </ReportItem>
+                  </TableCell>
+                </Cells>
+                <Columns>
+                  <Column Width="6.274cm" />
+                  <Column Width="6.459cm" />
+                  <Column Width="6.671cm" />
+                </Columns>
+                <Rows>
+                  <Row Height="0.7cm" />
+                  <Row Height="0.7cm" />
+                  <Row Height="0.7cm" />
+                  <Row Height="0.7cm" />
+                  <Row Height="0.7cm" />
+                  <Row Height="0.7cm" />
+                  <Row Height="0.7cm" />
+                  <Row Height="0.7cm" />
+                  <Row Height="0.7cm" />
+                </Rows>
+              </Body>
+              <Corner />
+              <Style>
+                <BorderStyle Default="Solid" />
+                <BorderColor Default="187, 220, 235" />
+              </Style>
+              <RowGroups>
+                <TableGroup Name="detailTableGroup3">
+                  <ChildGroups>
+                    <TableGroup Name="group18" />
+                    <TableGroup Name="group19" />
+                    <TableGroup Name="group20" />
+                    <TableGroup Name="group21" />
+                    <TableGroup Name="group22" />
+                    <TableGroup Name="group23" />
+                    <TableGroup Name="group24" />
+                    <TableGroup Name="group25" />
+                    <TableGroup Name="group28" />
+                  </ChildGroups>
+                  <Groupings>
+                    <Grouping />
+                  </Groupings>
+                </TableGroup>
+              </RowGroups>
+              <ColumnGroups>
+                <TableGroup Name="tableGroup5">
+                  <ReportItem>
+                    <TextBox Width="6.274cm" Height="0.7cm" Left="0cm" Top="0cm" Value="Ödeme Şekli" Name="textBox21">
+                      <Style VerticalAlign="Middle">
+                        <Font Name="Segoe UI Light" Bold="True" />
+                        <BorderStyle Default="Solid" />
+                        <BorderColor Default="187, 220, 235" />
+                      </Style>
+                    </TextBox>
+                  </ReportItem>
+                </TableGroup>
+                <TableGroup Name="tableGroup6">
+                  <ReportItem>
+                    <CheckBox Width="6.459cm" Height="0.7cm" Left="8.491cm" Top="3.9cm" Text="  Peşin" Name="checkBox1" StyleName="">
+                      <Style VerticalAlign="Middle">
+                        <Font Name="Segoe UI Light" />
+                        <BorderStyle Default="Solid" />
+                        <BorderColor Default="187, 220, 235" />
+                      </Style>
+                      <Value>
+                        <String>= Fields.Installment = 0</String>
+                      </Value>
+                    </CheckBox>
+                  </ReportItem>
+                </TableGroup>
+                <TableGroup Name="tableGroup7">
+                  <ReportItem>
+                    <CheckBox Width="6.671cm" Height="0.7cm" Left="8.491cm" Top="3.9cm" Text="  Taksit" Name="checkBox2" StyleName="">
+                      <Style VerticalAlign="Middle">
+                        <Font Name="Segoe UI Light" />
+                        <BorderStyle Default="Solid" />
+                        <BorderColor Default="187, 220, 235" />
+                      </Style>
+                      <Value>
+                        <String>= Fields.Installment &gt; 0</String>
+                      </Value>
+                    </CheckBox>
+                  </ReportItem>
+                </TableGroup>
+              </ColumnGroups>
+              <Bindings>
+                <Binding Path="DataSource.ConnectionString" Expression="= Parameters.cs.Value" />
+              </Bindings>
+            </Table>
+            <TextBox Width="19.4cm" Height="0.7cm" Left="0.513cm" Top="8.851cm" Value="GENEL HUSUSLAR" Name="textBox76">
+              <Style BackgroundColor="233, 244, 249" TextAlign="Center" VerticalAlign="Middle">
+                <Font Name="Segoe UI Light" Size="12pt" Bold="True" />
+              </Style>
+            </TextBox>
+            <TextBox Width="19.4cm" Height="0.951cm" Left="0.513cm" Top="9.602cm" Value=" 1.Öğrencinin bir sonraki eğitim öğretim yılında okula devam etmek istemesi durumunda, yukarıda “Ödeme Bilgileri Bölümünde Öğrenci İçin Belirlenen Öğrenim Ücreti” üzerinden artış yapılacaktır." Name="textBox80">
+              <Style TextAlign="Justify">
+                <Font Name="Segoe UI Light" Bold="False" />
+              </Style>
+            </TextBox>
+            <TextBox Width="19.4cm" Height="1.147cm" Left="0.513cm" Top="10.653cm" Value="2.&#x9;Bir sonraki yılda öğrencinin aynı okulun ara sınıfına devam emek istemesi durumunda eğitim ücreti, yılsonu TÜFE oranı dikkate alınarak Bakanlıkça belirlenen oranı aşmayacak şekilde tespit edilir." Name="textBox89">
+              <Style TextAlign="Justify">
+                <Font Name="Segoe UI Light" Bold="False" />
+              </Style>
+            </TextBox>
+            <TextBox Width="19.4cm" Height="1.5cm" Left="0.513cm" Top="11.9cm" Value=" 3.Kurumumuz, bir sonraki yılın eğitim ve öğretim ücretini ve diğer (takviye kursları, yemek, servis, kıyafet, kırtasiye, yatakhane vb.) ücretleri, ocak ayından itibaren mayıs ayının sonuna kadar ilan eder. Bu ilanlarda ders yılı veya ders saati ücretiyle birlikte, peşin veya taksitli ödemeler ve diğer indirimler de belirtilir." Name="textBox90">
+              <Style TextAlign="Justify">
+                <Font Name="Segoe UI Light" Bold="False" />
+              </Style>
+            </TextBox>
+            <TextBox Width="19.425cm" Height="1cm" Left="0.513cm" Top="13.851cm" Value=" 4.Sosyal ve kültürel faaliyetler, gezi ve gözlem gibi diğer etkinlikler için ücretler, faaliyet öncesi belirlenir. Kurs ve  faaliyetlere katılım ise veli/vasi izni doğrultusunda gerçekleşir." Name="textBox95">
+              <Style TextAlign="Justify">
+                <Font Name="Segoe UI Light" Bold="False" />
+              </Style>
+            </TextBox>
+            <TextBox Width="19.4cm" Height="0.5cm" Left="0.513cm" Top="14.951cm" Value=" 5.Kurumumuz, öğrenci veya velilerinden beceri eğitimi / staj çalışması adı altında ayrı bir ücret talep etmeyecektir." Name="textBox96">
+              <Style TextAlign="Justify">
+                <Font Name="Segoe UI Light" Bold="False" />
+              </Style>
+            </TextBox>
+            <TextBox Width="19.429cm" Height="1.103cm" Left="0.509cm" Top="15.551cm" Value=" 6.Kurumumuzun süresi içinde eğitim ve öğretim ücretini ilan etmemesi halinde, kurumumuzda bir önceki yılın     sözleşmesindeki eğitim ve öğretim ücreti geçerli olacaktır" Name="textBox98">
+              <Style TextAlign="Justify">
+                <Font Name="Segoe UI Light" Bold="False" />
+              </Style>
+            </TextBox>
+            <TextBox Width="19.4cm" Height="1.051cm" Left="0.513cm" Top="16.751cm" Value=" 7.Kurumumuzun eğitim ve öğretim ücreti kurum adına açılan ve valiliğe bildirilen banka hesap numarasına yatırılarak tahsil edilir. Öğrencilerden alınan ücretler e-Okul sistemine işlenir ve velilerin bilgisine sunulur." Name="textBox99">
+              <Style TextAlign="Justify">
+                <Font Name="Segoe UI Light" Bold="False" />
+              </Style>
+            </TextBox>
+            <TextBox Width="19.451cm" Height="1.449cm" Left="0.509cm" Top="17.951cm" Value=" 8.Okulumuz, ders yılı sonunda öğrenim ücreti ödemesi yapmayan öğrencinin kaydını yenilemeyebilir. Kaydı     yenilenmeyen öğrencinin nakli, veli/vasisi tarafından başka bir özel okula veya öğrenci yerleştirme ve nakil     komisyonu aracılığıyla resmî kurumların tabi olduğu ilgili mevzuat hükümleri çerçevesinde uygun olan resmî okula veya açık öğretim lisesine alınır" Name="textBox100">
+              <Style TextAlign="Justify">
+                <Font Name="Segoe UI Light" Bold="False" />
+              </Style>
+            </TextBox>
+            <TextBox Width="19.447cm" Height="2.4cm" Left="0.513cm" Top="19.6cm" Value="9.MEB Özel Öğretim Kurumları Yönetmeliğinin 56 ncı maddesi hükümlerince; sınavla öğrenci alan resmî okulların 9 uncu sınıflarına kayıt yaptırdığını belgelendirenler hariç, eğitim ve öğretim yılı başlamadan kurumumuzdan ayrılanlara, öğrencinin ödeyeceği yıllık ücretin %10 dışındaki kısmı, eğitim ve öğretim yılı başladıktan sonra kurumumuzdan ayrılanlara ise öğrencinin ödeyeceği yıllık ücretin %10’u ile öğrenim gördüğü günlere göre hesaplanan miktarın dışındaki kısmı öğrenci veli/vasisine ücret iadeleri ayrılış tarihinden itibaren en geç bir ay içerisinde yapılır." Name="textBox101">
+              <Style TextAlign="Justify">
+                <Font Name="Segoe UI Light" Bold="False" />
+              </Style>
+            </TextBox>
+            <TextBox Width="19.4cm" Height="1.1cm" Left="0.513cm" Top="22.2cm" Value="10.Kurumumuz tarafından öğrencinin ücretsiz okumasının uygun bulunması veya indirim hakkı elde etmesi        halinde kurumumuza ödenen ücret, eğitim ve öğretimin başladıktan sonra iki ay içinde öğrenci veli/vasisine geri ödenir." Name="textBox102">
+              <Style TextAlign="Justify">
+                <Font Name="Segoe UI Light" Bold="False" />
+              </Style>
+            </TextBox>
+            <TextBox Width="19.404cm" Height="1cm" Left="0.509cm" Top="23.5cm" Value="11.Herhangi bir şekilde kurumumuzdan ayrılan burslu öğrencilerden öğrenim gördüğü süre için kurumumuz tarafından herhangi bir ücret talep edilmeyecektir" Name="textBox103">
+              <Style TextAlign="Justify">
+                <Font Name="Segoe UI Light" Bold="False" />
+              </Style>
+            </TextBox>
+            <TextBox Width="19.404cm" Height="0.449cm" Left="0.509cm" Top="24.7cm" Value="12.Eğitim ve Öğretim Desteğinden faydalanan öğrenci ücretinin ödenmesi;" Name="textBox104">
+              <Style TextAlign="Justify">
+                <Font Name="Segoe UI Light" Bold="True" />
+              </Style>
+            </TextBox>
+            <TextBox Width="19.404cm" Height="1cm" Left="0.509cm" Top="27.6cm" Value="13.MEB Özel Öğretim Kurumları Yönetmeliğinin Ek 2 nci maddesine göre; kurumumuzun ilan ettiği yıllık ücretin % 51’i ve fazlası oranında burslu okutulan öğrencinin eğitim ve öğretim desteği Bakanlığa bildirilerek iptali istenir." Name="textBox105">
+              <Style TextAlign="Justify">
+                <Font Name="Segoe UI Light" Bold="False" />
+              </Style>
+            </TextBox>
+            <TextBox Width="19.404cm" Height="1.503cm" Left="0.509cm" Top="28.8cm" Value="14.Öğrencinin okula devam etmesi esastır. Devamsızlık yapan öğrencilerin velileri/vasileri, öğrencilerin mazeretlerini okula bildirir. veli/vasi tarafından söz konusu bildirimin okula yapılmaması halinde, okul idaresi gelmeyen öğrencilerin velisiyle/vasisiyle iletişim kurarak devamsız öğrenci hakkında veli/vasiye bilgi verir" Name="textBox106">
+              <Style TextAlign="Justify">
+                <Font Name="Segoe UI Light" Bold="False" />
+              </Style>
+            </TextBox>
+            <TextBox Width="19.4cm" Height="2.1cm" Left="0.513cm" Top="30.5cm" Value="15.İş bu sözleşmede yer alan hususların yerine getirilmesi ve gerekli tebligatların yapılabilmesi için veli/vasi tarafından yukarıda belirtilen adresin yasal ikametgâh adresi olduğu ve adres değişikliği durumunda 15 gün içerisinde yazılı olarak okula bildirilmediği takdirde bu adrese yapılacak tebligat geçerli olacaktır. Öğrenci kayıt sözleşmesinin tüm hükümleri veli/vasi tarafından eksiksiz olarak okunmuş, anlaşılmış ve herhangi bir tereddüt olmaksızın tamamen hür irade ve arzu ile kesin olarak kabul edilmiştir." Name="textBox107">
+              <Style TextAlign="Justify">
+                <Font Name="Segoe UI Light" Bold="False" />
+              </Style>
+            </TextBox>
+            <TextBox Width="19.113cm" Height="0.948cm" Left="0.8cm" Top="25.3cm" Value=" a) Öğrencinin velisi/vasisi bu sözleşmede belirlenen eğitim ve öğretim ücretinin Bakanlıkça karşılanacak eğitim ve öğretim desteğinin dışında kalan bedelini okula ödemekle yükümlüdür." Name="textBox148">
+              <Style TextAlign="Justify">
+                <Font Name="Segoe UI Light" Bold="False" />
+              </Style>
+            </TextBox>
+            <TextBox Width="19.113cm" Height="0.948cm" Left="0.8cm" Top="26.4cm" Value=" b) Öğrencinin eğitim ve öğretim desteğinin çeşitli sebeplerden dolayı iptal edilmesi durumunda, kalan tutar öğrencinin velisi/vasisinden tahsil edilir." Name="textBox150">
+              <Style TextAlign="Justify">
+                <Font Name="Segoe UI Light" Bold="False" />
+              </Style>
+            </TextBox>
+          </Items>
+        </GroupFooterSection>
+      </GroupFooter>
+      <Groupings>
+        <Grouping />
+      </Groupings>
+    </Group>
+  </Groups>
+  <ReportParameters>
+    <ReportParameter Name="studentID" Type="Integer" Text="studentID" AutoRefresh="True">
+      <Value>
+        <String>= Parameters.studentID.Value</String>
+      </Value>
+    </ReportParameter>
+    <ReportParameter Name="schoolID" Type="Integer" AutoRefresh="True">
+      <Value>
+        <String>= Parameters.schoolID.Value</String>
+      </Value>
+    </ReportParameter>
+    <ReportParameter Name="cs" AutoRefresh="True" />
+    <ReportParameter Name="userID" Type="Integer" AutoRefresh="True">
+      <Value>
+        <String>= Parameters.userID.Value</String>
+      </Value>
+    </ReportParameter>
+    <ReportParameter Name="period" Text="period" AutoRefresh="True">
+      <Value>
+        <String>= Parameters.period.Value</String>
+      </Value>
+    </ReportParameter>
+  </ReportParameters>
+  <Bindings>
+    <Binding Path="DataSource.ConnectionString" Expression="= Parameters.cs.Value" />
+  </Bindings>
+</Report>

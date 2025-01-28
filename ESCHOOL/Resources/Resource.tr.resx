@@ -1,0 +1,3991 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AboutCancellation" xml:space="preserve">
+    <value>İptal İşlemi Hakkında</value>
+  </data>
+  <data name="AboutTheRefund" xml:space="preserve">
+    <value>İade İşlemleri Hakkında</value>
+  </data>
+  <data name="Absenteeism10" xml:space="preserve">
+    <value>1- Devamsızlık Kodlarını, Adlarını ve Uyarı Sınırlaını Giriniz. Uyarı Sınırını Aşan Öğrenciler Toplam Devamsızlık Durumu Bölümünde Renkli Olarak Gösterilir.</value>
+  </data>
+  <data name="Absenteeism11" xml:space="preserve">
+    <value>2- Tanımlanan (Harf)Kodlardan Sadece "Mazaretsiz Devamsızlık" Kodunu Seç İle Belirleyiniz.</value>
+  </data>
+  <data name="Absenteeism12" xml:space="preserve">
+    <value>3- Giriş Yaparken, Sizin Belirlediğiniz Kodlara Göre Kontrol Yapılmaktadır.</value>
+  </data>
+  <data name="Absenteeism13" xml:space="preserve">
+    <value>4- Tanımlanan (Harf)Kodun Küçük Harfi Yarım Gün/Saat Olarak Hesaplanmaktadır.</value>
+  </data>
+  <data name="Account" xml:space="preserve">
+    <value>Hesap</value>
+  </data>
+  <data name="Accountancy" xml:space="preserve">
+    <value>Muhasebe</value>
+  </data>
+  <data name="AccountancyList" xml:space="preserve">
+    <value>Hesap Dökümü</value>
+  </data>
+  <data name="AccountancySlipRecord" xml:space="preserve">
+    <value>Muhasebe Fiş Girişi</value>
+  </data>
+  <data name="AccountArrangements" xml:space="preserve">
+    <value>Hesap Düzenlemeleri</value>
+  </data>
+  <data name="AccountChanges" xml:space="preserve">
+    <value>Hesap Değişiklikleri</value>
+  </data>
+  <data name="AccountCode" xml:space="preserve">
+    <value>Muhasebe Kodu</value>
+  </data>
+  <data name="AccountCodeMsg1" xml:space="preserve">
+    <value>Muhasebe Kodu Tanımı</value>
+  </data>
+  <data name="AccountCodeMsg10" xml:space="preserve">
+    <value>121 2122 21 07 1 	2122 Dönemi YIL'ı AY'ı 1 nolu ŞB.</value>
+  </data>
+  <data name="AccountCodeMsg2" xml:space="preserve">
+    <value>Hesap kodları aşağıdaki gibi tanımlanır.</value>
+  </data>
+  <data name="AccountCodeMsg3" xml:space="preserve">
+    <value>Durumu pasif hale getirerek, sorgularda kodun görünmesini engelleyebilirsiniz.</value>
+  </data>
+  <data name="AccountCodeMsg4" xml:space="preserve">
+    <value>HESAP KODU		HESAP ADI</value>
+  </data>
+  <data name="AccountCodeMsg5" xml:space="preserve">
+    <value>100 			KASA</value>
+  </data>
+  <data name="AccountCodeMsg6" xml:space="preserve">
+    <value>121 			SENET HESABI</value>
+  </data>
+  <data name="AccountCodeMsg7" xml:space="preserve">
+    <value>121 2122 		2122 Dönemi</value>
+  </data>
+  <data name="AccountCodeMsg8" xml:space="preserve">
+    <value>121 2122 21 		2122 Dönemi YIL'ı</value>
+  </data>
+  <data name="AccountCodeMsg9" xml:space="preserve">
+    <value>121 2122 21 07 		2122 Dönemi YIL'ı AY'ı</value>
+  </data>
+  <data name="AccountCodeName" xml:space="preserve">
+    <value>Hesap Adı</value>
+  </data>
+  <data name="AccountCodes" xml:space="preserve">
+    <value>Muhasebe Kodu</value>
+  </data>
+  <data name="AccountCuttingDay" xml:space="preserve">
+    <value>Hesap Kesim Günü</value>
+  </data>
+  <data name="AccountDate" xml:space="preserve">
+    <value>Muhasebe</value>
+  </data>
+  <data name="AccountDecimation" xml:space="preserve">
+    <value>Muhasebe Kırımı</value>
+  </data>
+  <data name="AccountInfo" xml:space="preserve">
+    <value>Hesap bilgileri</value>
+  </data>
+  <data name="Accounting" xml:space="preserve">
+    <value>Muhasebe</value>
+  </data>
+  <data name="AccountingCodeName" xml:space="preserve">
+    <value>Muhasebe Kod Adı</value>
+  </data>
+  <data name="AccountingDate" xml:space="preserve">
+    <value>Muhasebe Tarihi</value>
+  </data>
+  <data name="AccountingExcel1" xml:space="preserve">
+    <value>1- Muhasebe Fişine Ait Bilgiler Girilir.</value>
+  </data>
+  <data name="AccountingExcel2" xml:space="preserve">
+    <value>2- Başlat Butonu İle Bilgiler Ekrana Getirilir.</value>
+  </data>
+  <data name="AccountingExcel3" xml:space="preserve">
+    <value>3- Bilgileri Gruplamak İçin, Sütun Başlığı Kullanılır.</value>
+  </data>
+  <data name="AccountingExcel4" xml:space="preserve">
+    <value>4- Excel Butonu İle Bilgiler Excel'e Aktarılır.</value>
+  </data>
+  <data name="AccountingMsg1" xml:space="preserve">
+    <value>Muhasebe fişi girişinde</value>
+  </data>
+  <data name="AccountingMsg10" xml:space="preserve">
+    <value>3- "Evrak no" ve "Tarih" girilir</value>
+  </data>
+  <data name="AccountingMsg11" xml:space="preserve">
+    <value>4- Fişe ait "Açıklama" girilir</value>
+  </data>
+  <data name="AccountingMsg12" xml:space="preserve">
+    <value>5- İlgili hesabın "Borç" veya "Alacak" tutarı girilir.</value>
+  </data>
+  <data name="AccountingMsg13" xml:space="preserve">
+    <value>6- Muhasebe hesaplarınız herzaman bir denge içinde olmalıdır.</value>
+  </data>
+  <data name="AccountingMsg14" xml:space="preserve">
+    <value>7- Örnek; 100 KASA hesaba 10.000 Borç girişi yapıldıysa, karşılığında ilgili hesabın Alacak kaydına 10.000 girilmelidir.</value>
+  </data>
+  <data name="AccountingMsg2" xml:space="preserve">
+    <value>1- Fiş türü, Fiş Tarihi ve Fiş numarası girilir</value>
+  </data>
+  <data name="AccountingMsg3" xml:space="preserve">
+    <value>2- Yeni bir fiş girişi yapmak için "Yeni Fiş No" butonuna basınız.</value>
+  </data>
+  <data name="AccountingMsg4" xml:space="preserve">
+    <value>3- Atlanan boş fişleri görmek için "Fiş Kontrol" butonuna kullanınız.</value>
+  </data>
+  <data name="AccountingMsg5" xml:space="preserve">
+    <value>4- Borç Alacak dengesi eşitlenmeden atlanan fişleri görmek için "Bakiye Kontrol" butonunu basınız.
+     Kontrollerinizi bu bölümden yaparak düzenleyebilirsiniz.</value>
+  </data>
+  <data name="AccountingMsg6" xml:space="preserve">
+    <value>5- Borç Alacak dengesi eşitlenmiş fişleri "Fiş İşleme" butonu ile kapatabilir,
+    Yeni bir fiş girişi için yeni bir sayfa açabilirsiniz.</value>
+  </data>
+  <data name="AccountingMsg7" xml:space="preserve">
+    <value>Muhasebe fişi girişi</value>
+  </data>
+  <data name="AccountingMsg8" xml:space="preserve">
+    <value>1- "Muhasebe kodu" girişinde, hesabın alt hesabı olarak seçiminizi yapınız, 
+    Hesap adı önceden tanımlanmış ise ekrana gelecektir.</value>
+  </data>
+  <data name="AccountingMsg9" xml:space="preserve">
+    <value>2- İstenirse "Kodu" girişi yapılır, bu kod girişi sabit parametreler girişi bölümünde tanımlanabilmektedir.
+   Girilen bu alt detaylara göre çeşitli listeleri detaylı filtreleme özelliğini elde etmiş olursunuz.</value>
+  </data>
+  <data name="AccountingPeriodClosingAndOpeningTransaction" xml:space="preserve">
+    <value>Muhasebe Dönemi Kapanış Fişi ve Açılış İşlemleri</value>
+  </data>
+  <data name="AccountingReceipt" xml:space="preserve">
+    <value>Muhasebe Fişi</value>
+  </data>
+  <data name="AccountingTransactions" xml:space="preserve">
+    <value>Muhasebe İşlemleri</value>
+  </data>
+  <data name="AccountingVoucherRegistration" xml:space="preserve">
+    <value>Muhasebe Fiş Girişi</value>
+  </data>
+  <data name="AccountNo" xml:space="preserve">
+    <value>Muhasebe Kod</value>
+  </data>
+  <data name="AccountNo01" xml:space="preserve">
+    <value>Kasa Hesap No</value>
+  </data>
+  <data name="AccountNo02" xml:space="preserve">
+    <value>Alınan Sip. Avansı</value>
+  </data>
+  <data name="AccountNo03" xml:space="preserve">
+    <value>Öğrenci Gelirleri</value>
+  </data>
+  <data name="AccountNo04" xml:space="preserve">
+    <value>Çek Hesap No</value>
+  </data>
+  <data name="AccountNo05" xml:space="preserve">
+    <value>Senet Hesap No</value>
+  </data>
+  <data name="AccountNo06" xml:space="preserve">
+    <value>OTS.Hesap No</value>
+  </data>
+  <data name="AccountNo07" xml:space="preserve">
+    <value>OTS.ve Banka Kasa</value>
+  </data>
+  <data name="AccountNo08" xml:space="preserve">
+    <value>Mail Order Hesap</value>
+  </data>
+  <data name="AccountNo09" xml:space="preserve">
+    <value>Kredi Kartı Hesap</value>
+  </data>
+  <data name="AccountNo10" xml:space="preserve">
+    <value>Teşvik Hesap No</value>
+  </data>
+  <data name="AccountNo11" xml:space="preserve">
+    <value>KMH</value>
+  </data>
+  <data name="AccountNo12" xml:space="preserve">
+    <value>Kayıttan İndirimler Hesabı</value>
+  </data>
+  <data name="AccountNo13" xml:space="preserve">
+    <value>Alacaklı Hesap I</value>
+  </data>
+  <data name="AccountNo14" xml:space="preserve">
+    <value>Alacaklı Hesap II</value>
+  </data>
+  <data name="AccountNo15" xml:space="preserve">
+    <value>Alacaklı Hesap III</value>
+  </data>
+  <data name="AccountNo16" xml:space="preserve">
+    <value>Alacaklı Hesap No</value>
+  </data>
+  <data name="AccountNo17" xml:space="preserve">
+    <value>Borçlu Hesap No</value>
+  </data>
+  <data name="AccountPeriod" xml:space="preserve">
+    <value>Muhasebe Dönemi</value>
+  </data>
+  <data name="AccountPlan" xml:space="preserve">
+    <value>Hesap Planı</value>
+  </data>
+  <data name="AccountPlanList" xml:space="preserve">
+    <value>Hesap Planı Listesi</value>
+  </data>
+  <data name="AccountPlanRecord" xml:space="preserve">
+    <value>Hesap Planı Girişi</value>
+  </data>
+  <data name="AccountReceipt" xml:space="preserve">
+    <value>Muhasebe Makbuzu</value>
+  </data>
+  <data name="AccountReceiptNo" xml:space="preserve">
+    <value>Muhasebe Fiş No</value>
+  </data>
+  <data name="AccountReceiptNo2" xml:space="preserve">
+    <value>Muh. Fiş No</value>
+  </data>
+  <data name="Accrual" xml:space="preserve">
+    <value>Tahakkuk</value>
+  </data>
+  <data name="Active" xml:space="preserve">
+    <value>Etkin</value>
+  </data>
+  <data name="Address" xml:space="preserve">
+    <value>Adresi</value>
+  </data>
+  <data name="Address1" xml:space="preserve">
+    <value>I.Adres</value>
+  </data>
+  <data name="Address11" xml:space="preserve">
+    <value>Öğrencinin I. Adresi</value>
+  </data>
+  <data name="Address2" xml:space="preserve">
+    <value>II.Adres</value>
+  </data>
+  <data name="Address21" xml:space="preserve">
+    <value>Öğrencinin II. Adresi</value>
+  </data>
+  <data name="AdvanceNonPayerList" xml:space="preserve">
+    <value>Peşin Ödemeyenler listesi</value>
+  </data>
+  <data name="Agenda" xml:space="preserve">
+    <value>Ajanda</value>
+  </data>
+  <data name="Agreement" xml:space="preserve">
+    <value>Sözleşme</value>
+  </data>
+  <data name="AgreementType" xml:space="preserve">
+    <value>Sözleşme Tipi</value>
+  </data>
+  <data name="AllClassroom" xml:space="preserve">
+    <value>Tüm Sınıflar</value>
+  </data>
+  <data name="AllDates" xml:space="preserve">
+    <value>Tüm Tarihler</value>
+  </data>
+  <data name="AllStudents" xml:space="preserve">
+    <value>Tüm Öğrenciler</value>
+  </data>
+  <data name="Amount" xml:space="preserve">
+    <value>Tutarı</value>
+  </data>
+  <data name="Amount2" xml:space="preserve">
+    <value>Tutar</value>
+  </data>
+  <data name="AmountToBeRefunded" xml:space="preserve">
+    <value>İade Edilecek Tutar</value>
+  </data>
+  <data name="Application" xml:space="preserve">
+    <value>Uygulama</value>
+  </data>
+  <data name="Applied" xml:space="preserve">
+    <value>Uygulanan</value>
+  </data>
+  <data name="AppliedDiscounts" xml:space="preserve">
+    <value>Uygulanan İndirimler</value>
+  </data>
+  <data name="Apply" xml:space="preserve">
+    <value>Uygula</value>
+  </data>
+  <data name="ApplyCancellation" xml:space="preserve">
+    <value>Bu Kayıt İçin İptal İşlemi Uygula</value>
+  </data>
+  <data name="Approved" xml:space="preserve">
+    <value>Onaylı</value>
+  </data>
+  <data name="Archive" xml:space="preserve">
+    <value>Arsive Aktar</value>
+  </data>
+  <data name="AreYouSure" xml:space="preserve">
+    <value>Silmek istediğinizden Emin misiniz?</value>
+  </data>
+  <data name="ASerialCode" xml:space="preserve">
+    <value>E-Arşiv Seri Kod</value>
+  </data>
+  <data name="Ask" xml:space="preserve">
+    <value>Sor</value>
+  </data>
+  <data name="AskForConfirmation" xml:space="preserve">
+    <value>Her Fatura Dökümünde Onay Sor</value>
+  </data>
+  <data name="AssignedPermissions" xml:space="preserve">
+    <value>Atanan İzinler</value>
+  </data>
+  <data name="AtTheBank" xml:space="preserve">
+    <value>Bankada</value>
+  </data>
+  <data name="AuditTrailReset" xml:space="preserve">
+    <value>Denetim İzlerini Sıfırla</value>
+  </data>
+  <data name="AuditTrial" xml:space="preserve">
+    <value>Denetim İzi</value>
+  </data>
+  <data name="AuthorizedPersonHeader1" xml:space="preserve">
+    <value>İta Amiri</value>
+  </data>
+  <data name="AuthorizedPersonHeader2" xml:space="preserve">
+    <value>Muhasebe Müdürü</value>
+  </data>
+  <data name="AuthorizedPersonHeader3" xml:space="preserve">
+    <value>Vezneci</value>
+  </data>
+  <data name="AuthorizedPersonName" xml:space="preserve">
+    <value>Yetkili Adı</value>
+  </data>
+  <data name="AuthorizedStaff" xml:space="preserve">
+    <value>Yetkili Personeller</value>
+  </data>
+  <data name="Automatic" xml:space="preserve">
+    <value>Otomatik</value>
+  </data>
+  <data name="AvarageAmount" xml:space="preserve">
+    <value>Ortalama Tut.</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>Geri</value>
+  </data>
+  <data name="BackupMsg" xml:space="preserve">
+    <value>Dahili veya Harici Disklerinize Yedek Alın.</value>
+  </data>
+  <data name="BackupMsg1" xml:space="preserve">
+    <value>-Yedeklenecek Dosya Adında Değişiklik Yapabilirsiniz.</value>
+  </data>
+  <data name="BackupMsg2" xml:space="preserve">
+    <value>-Dosya Hazırlandıktan Sonra, Ekrana İndir Mesajı Gelecektir.</value>
+  </data>
+  <data name="BackupMsg3" xml:space="preserve">
+    <value>-Hazırlanan Dosya, Bilgisayarınızın "İndirilenler" Klasörüne Yüklenmektedir.</value>
+  </data>
+  <data name="BackupResult" xml:space="preserve">
+    <value>Yedekleme İşlemi Tamamlandı.</value>
+  </data>
+  <data name="Balance" xml:space="preserve">
+    <value>Kalan</value>
+  </data>
+  <data name="BalanceAmount" xml:space="preserve">
+    <value>Bakiye Tutarı</value>
+  </data>
+  <data name="BalanceControl" xml:space="preserve">
+    <value>Bakiye Kontrol</value>
+  </data>
+  <data name="BalanceMsg" xml:space="preserve">
+    <value>Borç ve Alacak tutarı eşit olmayan Son 10 Fiş Numarası.</value>
+  </data>
+  <data name="Bank" xml:space="preserve">
+    <value>Banka</value>
+  </data>
+  <data name="BankBranchCode" xml:space="preserve">
+    <value>Banka Şube Kodu</value>
+  </data>
+  <data name="BankEntries" xml:space="preserve">
+    <value>Banka Girişleri</value>
+  </data>
+  <data name="BankGivenCode" xml:space="preserve">
+    <value>Bankanın Verdiği Kod</value>
+  </data>
+  <data name="BankName" xml:space="preserve">
+    <value>Banka Adı</value>
+  </data>
+  <data name="BankRecords" xml:space="preserve">
+    <value>Banka Girişleri</value>
+  </data>
+  <data name="BasicInvoice" xml:space="preserve">
+    <value>Temel Fatura</value>
+  </data>
+  <data name="BasicInvoice2" xml:space="preserve">
+    <value>Temel</value>
+  </data>
+  <data name="BatchChequeBondTransaction" xml:space="preserve">
+    <value>Toplu Çek / Senet İşlemi</value>
+  </data>
+  <data name="BatchInvoicePrinting" xml:space="preserve">
+    <value>Toplu Fatura Basımı</value>
+  </data>
+  <data name="BatchInvoiceTransaction" xml:space="preserve">
+    <value>Toplu Fatura İşlemleri</value>
+  </data>
+  <data name="BatchOrSingleInvoicePlanning" xml:space="preserve">
+    <value>Toplu veya Tek Fatura Planlama</value>
+  </data>
+  <data name="Birthdaycelebration" xml:space="preserve">
+    <value>Doğum günü kutlaması</value>
+  </data>
+  <data name="BirthOfPlace" xml:space="preserve">
+    <value>Doğum Yeri</value>
+  </data>
+  <data name="BloodGroup" xml:space="preserve">
+    <value>Kan Grubu</value>
+  </data>
+  <data name="Bond" xml:space="preserve">
+    <value>Senet</value>
+  </data>
+  <data name="Bond2" xml:space="preserve">
+    <value>T.S</value>
+  </data>
+  <data name="BondGuarantor" xml:space="preserve">
+    <value>Senet Kefil Girişi</value>
+  </data>
+  <data name="BondGuarantorId" xml:space="preserve">
+    <value>Kefil T.C.Kimlik No</value>
+  </data>
+  <data name="BondListBank" xml:space="preserve">
+    <value>Senet Dökümü (Banka)</value>
+  </data>
+  <data name="BondListByhand" xml:space="preserve">
+    <value>Senet Dökümü (Elden)</value>
+  </data>
+  <data name="BondListMailOrder" xml:space="preserve">
+    <value>Senet Dökümü (Mail Order)</value>
+  </data>
+  <data name="BondListOTS" xml:space="preserve">
+    <value>Senet Dökümü (OTS)</value>
+  </data>
+  <data name="BondNo" xml:space="preserve">
+    <value>Senet-No</value>
+  </data>
+  <data name="BondNumber" xml:space="preserve">
+    <value>Senet No</value>
+  </data>
+  <data name="BondSettings" xml:space="preserve">
+    <value>Senet Ayarları</value>
+  </data>
+  <data name="BondType" xml:space="preserve">
+    <value>Senet Tipi</value>
+  </data>
+  <data name="Branch" xml:space="preserve">
+    <value>Şube</value>
+  </data>
+  <data name="BusPhone" xml:space="preserve">
+    <value>Servis Telefonu</value>
+  </data>
+  <data name="BusRoute" xml:space="preserve">
+    <value>Güzergah</value>
+  </data>
+  <data name="BusTeacher" xml:space="preserve">
+    <value>Görevli Öğretmen</value>
+  </data>
+  <data name="BusTeacherPhone" xml:space="preserve">
+    <value>Görevli Telefonu</value>
+  </data>
+  <data name="ByAmount" xml:space="preserve">
+    <value>Tutara Göre</value>
+  </data>
+  <data name="BylistOption" xml:space="preserve">
+    <value>Liste Seçeneği Seçilmiş Olan Öğrencilere Göre Listeleme</value>
+  </data>
+  <data name="ByMonthlyAmount" xml:space="preserve">
+    <value>Aylık Tutara Göre</value>
+  </data>
+  <data name="ByRegistrationDate" xml:space="preserve">
+    <value>Kayıt Tarihine Göre</value>
+  </data>
+  <data name="ByTotalAmount" xml:space="preserve">
+    <value>Toplam Tutara Göre</value>
+  </data>
+  <data name="Calculator" xml:space="preserve">
+    <value>Hesap</value>
+  </data>
+  <data name="Calculator1" xml:space="preserve">
+    <value>Hesap</value>
+  </data>
+  <data name="Calculator2" xml:space="preserve">
+    <value>Hes.</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>İptal</value>
+  </data>
+  <data name="CancelDate" xml:space="preserve">
+    <value>İptal Tarihi</value>
+  </data>
+  <data name="CanceledStudents" xml:space="preserve">
+    <value>İptal Edilen Öğrenciler</value>
+  </data>
+  <data name="CancelExampleMsg1" xml:space="preserve">
+    <value>Örnek İptal İşlemi</value>
+  </data>
+  <data name="CancelExampleMsg2" xml:space="preserve">
+    <value>Tahsil Edilmiş Kaydı 5000 TL.</value>
+  </data>
+  <data name="CancelExampleMsg3" xml:space="preserve">
+    <value>Ödenmemiş SENET Borçları 2500 TL.' ye</value>
+  </data>
+  <data name="CancelExampleMsg4" xml:space="preserve">
+    <value>Göre İPTAL İşlem Örneği</value>
+  </data>
+  <data name="CancelExampleMsg5" xml:space="preserve">
+    <value>( İptal Edilen SENET'e Göre )------- Borç ---  --- Alacak ---</value>
+  </data>
+  <data name="CancelExampleMsg6" xml:space="preserve">
+    <value>121 Senetler Hesabı-------------------------------2500</value>
+  </data>
+  <data name="CancelExampleMsg7" xml:space="preserve">
+    <value>340 Öğrenci Hesabı----------------2500---------------</value>
+  </data>
+  <data name="Canceling" xml:space="preserve">
+    <value>İptal İşlemleri</value>
+  </data>
+  <data name="Cancellation" xml:space="preserve">
+    <value>İptal</value>
+  </data>
+  <data name="CancellationAccountingCodes" xml:space="preserve">
+    <value>İptal Muhasebe Kodları</value>
+  </data>
+  <data name="CancellationMsg100" xml:space="preserve">
+    <value>- Kalan Ödemeler İçin İptal İşlemi Uygulanır.</value>
+  </data>
+  <data name="CancellationMsg101" xml:space="preserve">
+    <value>- İptal Edilen Çek/Senet İçin Tediye Dekontu Dökülür, Aynı Zamanda Muhasebenin İlgili Hesaplarına Aşağıdaki Gibi Alacak Kaydı Yapılır.</value>
+  </data>
+  <data name="CancellationMsg102" xml:space="preserve">
+    <value>- Öğrenci Kaydı İPTAL konuma alınır.</value>
+  </data>
+  <data name="CancellationMsg103" xml:space="preserve">
+    <value>- İptal: Kaydı İptal Eder, varsa Önceden düzenlenen Çek/Senet vs. İptal Olur.</value>
+  </data>
+  <data name="CancellationMsg104" xml:space="preserve">
+    <value>- Takipte (İptal): Kaydı İptal Eder, varsa Çek/Senet vs. Listelerde Yer Almaktadır.</value>
+  </data>
+  <data name="CancellationMsgHed" xml:space="preserve">
+    <value>İptal işleminde program ne yapmaktadır?</value>
+  </data>
+  <data name="CancellationOnFollow-up" xml:space="preserve">
+    <value>Takipte ( İptal )</value>
+  </data>
+  <data name="CancellationProcedures" xml:space="preserve">
+    <value>İptal İşlemleri</value>
+  </data>
+  <data name="CancelMsg100" xml:space="preserve">
+    <value>Bu Öğrenci Kaydı İptal Edilmiş</value>
+  </data>
+  <data name="CancelMsg101" xml:space="preserve">
+    <value>Kaydı Geri Getirmek İçin "Durumu : Kesin Kayıt" Yapınız.</value>
+  </data>
+  <data name="CancelPreviousRefund" xml:space="preserve">
+    <value>Önceki İadeyi İptal Et</value>
+  </data>
+  <data name="CardCvc" xml:space="preserve">
+    <value>Cvc</value>
+  </data>
+  <data name="CardFamilySeqNumber" xml:space="preserve">
+    <value>Aile Sıra</value>
+  </data>
+  <data name="CardNameOnCard" xml:space="preserve">
+    <value>Kart Üzerindeki İsim</value>
+  </data>
+  <data name="CardNumber" xml:space="preserve">
+    <value>Cüzdan Nosu</value>
+  </data>
+  <data name="CardPlaceOfIssue" xml:space="preserve">
+    <value>Verildiği Yer</value>
+  </data>
+  <data name="CardRegisteredCity" xml:space="preserve">
+    <value>Kayıtlı Olduğu İl</value>
+  </data>
+  <data name="CardRegisteredTown" xml:space="preserve">
+    <value>Kayıtlı Olduğu İlçe</value>
+  </data>
+  <data name="CardRegisteredVillage" xml:space="preserve">
+    <value>Kayıtlı Olduğu Köy</value>
+  </data>
+  <data name="CardRegisterNo" xml:space="preserve">
+    <value>Kayıt No</value>
+  </data>
+  <data name="CardSeqNumber" xml:space="preserve">
+    <value>Sıra No</value>
+  </data>
+  <data name="CardSerial" xml:space="preserve">
+    <value>Cüzdan Serisi</value>
+  </data>
+  <data name="CardVolumeNumber" xml:space="preserve">
+    <value>Cilt No</value>
+  </data>
+  <data name="Cash" xml:space="preserve">
+    <value>Peşin</value>
+  </data>
+  <data name="Cashier" xml:space="preserve">
+    <value>Vezneci</value>
+  </data>
+  <data name="CashPayment" xml:space="preserve">
+    <value>Peşin Ödeme</value>
+  </data>
+  <data name="CashPaymentsList" xml:space="preserve">
+    <value>Peşin Ödemeler Listesi</value>
+  </data>
+  <data name="CategoryLevel" xml:space="preserve">
+    <value>Kategori</value>
+  </data>
+  <data name="CategoryName" xml:space="preserve">
+    <value>Kategori Adı</value>
+  </data>
+  <data name="Change" xml:space="preserve">
+    <value>Değiştir</value>
+  </data>
+  <data name="ChangeInstallment" xml:space="preserve">
+    <value>Taksit Değiş</value>
+  </data>
+  <data name="ChangeInStudentMsg1" xml:space="preserve">
+    <value>-Ödemesi Yapılmamış Senet/Çek Taksitleri Silinerek, Aşağıdaki Gibi İşlemleri Yapılacaktır.</value>
+  </data>
+  <data name="ChangeInStudentMsg11" xml:space="preserve">
+    <value>Okul Değişikliği:</value>
+  </data>
+  <data name="ChangeInStudentMsg12" xml:space="preserve">
+    <value>- Öğrenci Okul Değişikliği, Yeni Döndemde Yapılır.</value>
+  </data>
+  <data name="ChangeInStudentMsg13" xml:space="preserve">
+    <value>- Ücretleri Girilmemiş Öğrenciler Okul Değiştirebilir.</value>
+  </data>
+  <data name="ChangeInStudentMsg14" xml:space="preserve">
+    <value>- Öğrenci Kaydı Bu Koşulları Taşıyorsa, Kurum/Okul Seçimi Yapabilirsiniz.</value>
+  </data>
+  <data name="ChangeInStudentMsg15" xml:space="preserve">
+    <value>- "Bu Öğrenci İçin Okul Değişikliği Yapılacak", Sorusunda TAMAM Butonuna Basarak, İşlem Uygulanmış Olur.</value>
+  </data>
+  <data name="ChangeInStudentMsg2" xml:space="preserve">
+    <value>.Eski Senet/Çek İlgili Hesaplarına ALACAK,  Öğrenci Hesaplarına BORÇ Kaydedilecektir.</value>
+  </data>
+  <data name="ChangeInStudentMsg3" xml:space="preserve">
+    <value>.Yeni Senet/Çek İlgili Hesaplarına BORÇ,  Öğrenci Hesaplarına ALACAK Kaydedilecektir.</value>
+  </data>
+  <data name="ChangeInStudentMsg4" xml:space="preserve">
+    <value>-İade İşlemleri, Değişiklik İşlemlerinden Sonra Yapılmaktadır.</value>
+  </data>
+  <data name="ChangesInTheInvoicePlan" xml:space="preserve">
+    <value>Fatura Planında Değişiklikler</value>
+  </data>
+  <data name="ChangingInstallmentType" xml:space="preserve">
+    <value>Taksit Kaydında Değişiklik</value>
+  </data>
+  <data name="ChangingMenuPicture" xml:space="preserve">
+    <value>Menu Resmi Değiştirme</value>
+  </data>
+  <data name="Chat01" xml:space="preserve">
+    <value>Kurum içi mesajlaşma sistemi olarak hazırlanan bu yazılımın amacı,
+programı kullanırken ihtiyaç duyulan çeşitli görüşmeleri kurum yönetimi ile 
+bilgisayar başında sağlamak, aynı zamanda kullanıcıların iletişim ihtiyacını
+en hızlı bir şekilde çözümlemektir.</value>
+  </data>
+  <data name="Chat02" xml:space="preserve">
+    <value>Mesajlaşma sistemi; karşılıklı mesajlaşırken gerçek zamanlı çalışmaktadır, 
+Gönderdiğiniz mesaj, ilgili kullanıcının mesaj ekranında sol tarafta kullanıcılar bölümünde mesaj simgesi ile,
+Mesaj sistemi açık değilse, Programın ana menüsünde kullanıcı resminin altında bulunan fonksiyon simgesi değişerek 
+kullanıcı uyarılmaktadır.</value>
+  </data>
+  <data name="Chat03" xml:space="preserve">
+    <value>Sistemin güvenliği ve Virüs ve benzeri tehditler nedeniyle, dosya transfer fonksyonları eklenmemiştir.
+Bu tür ihtiyaçlarınız için email veya transfer hizmeti veren yazılımlardan yararlanabilirsiniz.</value>
+  </data>
+  <data name="Check" xml:space="preserve">
+    <value>Çek</value>
+  </data>
+  <data name="CheckAndBondInquiry" xml:space="preserve">
+    <value>Çek ve Senet Sorgulama</value>
+  </data>
+  <data name="CheckAndBondNumbersList" xml:space="preserve">
+    <value>Çek ve Senet Numaraları Listesi</value>
+  </data>
+  <data name="CheckBank" xml:space="preserve">
+    <value>Çek Banka Adı</value>
+  </data>
+  <data name="CheckCardNo" xml:space="preserve">
+    <value>Çek/Senet No</value>
+  </data>
+  <data name="CheckNo" xml:space="preserve">
+    <value>Çek-No</value>
+  </data>
+  <data name="ChecksAndBondsByPositions" xml:space="preserve">
+    <value>Pozisyonlara Göre Çekler ve Senetler</value>
+  </data>
+  <data name="ChecksAndBondsByPositionsDetailed" xml:space="preserve">
+    <value>Pozisyonlara Göre Çekler ve Senetler (Detaylı)</value>
+  </data>
+  <data name="City" xml:space="preserve">
+    <value>Şehir</value>
+  </data>
+  <data name="CityNameForBond" xml:space="preserve">
+    <value>Senet Şehir</value>
+  </data>
+  <data name="ClassNamesAreResetforNewTerm" xml:space="preserve">
+    <value>Sınıf İsimleri Yeni Dönem İçin Sıfırlanır</value>
+  </data>
+  <data name="Classroom" xml:space="preserve">
+    <value>Sınıfı</value>
+  </data>
+  <data name="ClassroomDefinitions" xml:space="preserve">
+    <value>Sınıf Tanımlama</value>
+  </data>
+  <data name="ClassroomEmpty" xml:space="preserve">
+    <value>Öğrenci Sınıfları Tanımlı Değil, Lütfen Girişlerini Yapınız.</value>
+  </data>
+  <data name="ClassroomList" xml:space="preserve">
+    <value>Sınıf Listeleri</value>
+  </data>
+  <data name="ClassroomMsg" xml:space="preserve">
+    <value>Öğrencisi girilmiş Sınıfları İptal Edemezsiniz.</value>
+  </data>
+  <data name="ClassroomName" xml:space="preserve">
+    <value>Sınıf Adı</value>
+  </data>
+  <data name="Classrooms" xml:space="preserve">
+    <value>Sınıflar</value>
+  </data>
+  <data name="ClassroomTeacher" xml:space="preserve">
+    <value>Sınıf Öğretmeni</value>
+  </data>
+  <data name="ClassroomType" xml:space="preserve">
+    <value>Sınıf Tipi</value>
+  </data>
+  <data name="ClassTimetable" xml:space="preserve">
+    <value>Ders programı</value>
+  </data>
+  <data name="ClickToContinue" xml:space="preserve">
+    <value>Devam etmek için tıklayın</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Kapat</value>
+  </data>
+  <data name="ClosingReceipt" xml:space="preserve">
+    <value>Kapanış Fişi</value>
+  </data>
+  <data name="ClosingReceiptNo" xml:space="preserve">
+    <value>Kapanış Fiş No</value>
+  </data>
+  <data name="ClothingConsentDocument" xml:space="preserve">
+    <value>Giyim Muvafakat Belgesi</value>
+  </data>
+  <data name="Code" xml:space="preserve">
+    <value>Kodu</value>
+  </data>
+  <data name="CodeMax" xml:space="preserve">
+    <value>Sınır</value>
+  </data>
+  <data name="CodeTotal" xml:space="preserve">
+    <value>Öğr.</value>
+  </data>
+  <data name="Collection" xml:space="preserve">
+    <value>Tahsilat</value>
+  </data>
+  <data name="CollectionList" xml:space="preserve">
+    <value>Tahsilat Listesi</value>
+  </data>
+  <data name="CollectionListByMonth" xml:space="preserve">
+    <value>Aylara Göre Tahsilat Listesi</value>
+  </data>
+  <data name="CollectionListByMonths" xml:space="preserve">
+    <value>Tahsilat Listesi ( Aylara Göre )</value>
+  </data>
+  <data name="CollectionListByStudentFeeType" xml:space="preserve">
+    <value>Öğrenci Ücret Tipine Göre Tahsilat Listesi</value>
+  </data>
+  <data name="CollectionMsg" xml:space="preserve">
+    <value>Uygulama</value>
+  </data>
+  <data name="CollectionMsg1" xml:space="preserve">
+    <value>1- Öğrenciyi Seçiniz.</value>
+  </data>
+  <data name="CollectionMsg2" xml:space="preserve">
+    <value>2- Borcunu Seçiniz veya Ödeme Tutarını Giriniz.</value>
+  </data>
+  <data name="CollectionMsg3" xml:space="preserve">
+    <value>3- Tamam Butonu ile Onaylayınız.</value>
+  </data>
+  <data name="CollectionMsg4" xml:space="preserve">
+    <value>4- Kayıt ve Makbuz İçin Yazıcıya Gönderiniz.</value>
+  </data>
+  <data name="CollectionNo" xml:space="preserve">
+    <value>Tahsil Makbuz No</value>
+  </data>
+  <data name="CollectionPaymentTransactions1" xml:space="preserve">
+    <value>Tahsil / Tediye İşlemleri ( Mahsup fişi )</value>
+  </data>
+  <data name="CollectionReceipt" xml:space="preserve">
+    <value>Tahsilat Makbuzu</value>
+  </data>
+  <data name="CollectionReceipt1" xml:space="preserve">
+    <value>Tahsil Makbuzu</value>
+  </data>
+  <data name="CollectionReceiptNo" xml:space="preserve">
+    <value>Tahsil Dekont No</value>
+  </data>
+  <data name="Collections" xml:space="preserve">
+    <value>Tahsilat</value>
+  </data>
+  <data name="Color" xml:space="preserve">
+    <value>Renk</value>
+  </data>
+  <data name="Commentsaredeleted" xml:space="preserve">
+    <value>Açıklamalar Silinir</value>
+  </data>
+  <data name="CommercialInvoice" xml:space="preserve">
+    <value>Ticari Fatura</value>
+  </data>
+  <data name="CommercialInvoice2" xml:space="preserve">
+    <value>Ticari</value>
+  </data>
+  <data name="CompanyAddress" xml:space="preserve">
+    <value>Kurum Adresi</value>
+  </data>
+  <data name="CompanyEmail" xml:space="preserve">
+    <value>E-Posta</value>
+  </data>
+  <data name="CompanyEmailService" xml:space="preserve">
+    <value>Kurumun E-Posta Servisi</value>
+  </data>
+  <data name="CompanyFeeName" xml:space="preserve">
+    <value>Kurum Ücretleri Tanımlama</value>
+  </data>
+  <data name="CompanyInfo" xml:space="preserve">
+    <value>Kurum Bilgileri</value>
+  </data>
+  <data name="CompanyName" xml:space="preserve">
+    <value>Kurum Adı</value>
+  </data>
+  <data name="CompanyNameBondMsg" xml:space="preserve">
+    <value>Senet vb. Evrak Düzenlemelerde Kullanılan Okul/Kurum Adını Giriniz.</value>
+  </data>
+  <data name="CompanyNameForBond" xml:space="preserve">
+    <value>Senet Kurum Adı</value>
+  </data>
+  <data name="CompanyNameMsg" xml:space="preserve">
+    <value>Okul/Kurum Adını Giriniz</value>
+  </data>
+  <data name="CompanyShortCode" xml:space="preserve">
+    <value>Kısa Kod/Ad</value>
+  </data>
+  <data name="CompanyShortCodeMsg" xml:space="preserve">
+    <value>Okul/Kurum İçin (01,02,03) Gibi Bir Kod Giriniz. (Muhasebe vb.İşlemlerde Kullanılacak)</value>
+  </data>
+  <data name="CompanyShortName" xml:space="preserve">
+    <value>Ad</value>
+  </data>
+  <data name="CompanyShortNameMsg" xml:space="preserve">
+    <value>Okul/Kurum İçin Kısa Bir Ad Giriniz. (Muhasebe vb.İşlemlerde Kullanılacak)</value>
+  </data>
+  <data name="Condition" xml:space="preserve">
+    <value>Koşul Girilebilir</value>
+  </data>
+  <data name="Conditions" xml:space="preserve">
+    <value>Koşullar</value>
+  </data>
+  <data name="ConfirmEveryTenPrints" xml:space="preserve">
+    <value>Girilen Fatura Sayısı Kadar Basım Yapar, Daha Sonra Onay Sorar. (Girilmezse (10) Adet Fatura Olarak Basılır.)</value>
+  </data>
+  <data name="ContractDesignProgram" xml:space="preserve">
+    <value>Sözleşme Tasarım Programı</value>
+  </data>
+  <data name="CopiesOfForm" xml:space="preserve">
+    <value>Kayıt Formu</value>
+  </data>
+  <data name="CopyPastMsg" xml:space="preserve">
+    <value>Kopyalamak için ( Fare + Sağ tık )</value>
+  </data>
+  <data name="CopyToTheNewSchoolPeriod" xml:space="preserve">
+    <value>Yeni Döneme Öğrenci Bilgileri Aktarma</value>
+  </data>
+  <data name="Country" xml:space="preserve">
+    <value>Ülke</value>
+  </data>
+  <data name="CreateNew" xml:space="preserve">
+    <value>Yeni</value>
+  </data>
+  <data name="Credit" xml:space="preserve">
+    <value>Alacak</value>
+  </data>
+  <data name="CreditCard" xml:space="preserve">
+    <value>Kredi Kartı</value>
+  </data>
+  <data name="CreditCardMsg1" xml:space="preserve">
+    <value>- Kredi Kartı İşlemleri İçin "VadeGün" Seçeneği Bulunmaktadır.</value>
+  </data>
+  <data name="CreditCardMsg2" xml:space="preserve">
+    <value>- Bu Alana 30 veya 45 Gün gibi giriş yapılırsa, Taksitler 30 veya 45 Günlük Vadelere Göre Düzenlenir. (En az Gün Girişi 5 İle Sınırlandırılmıştır.)</value>
+  </data>
+  <data name="CreditCardNo" xml:space="preserve">
+    <value>Kredi-Kartı</value>
+  </data>
+  <data name="CreditCardNumber" xml:space="preserve">
+    <value>Kredi Kartı Numarası</value>
+  </data>
+  <data name="CreditorAccount" xml:space="preserve">
+    <value>Alacaklı Hesap</value>
+  </data>
+  <data name="CurrencyDecimalPlaces" xml:space="preserve">
+    <value>Para Birimi Ondalık Basamakları</value>
+  </data>
+  <data name="CurrentCard" xml:space="preserve">
+    <value>Cari Kart</value>
+  </data>
+  <data name="CurrentCardEntryTransactions" xml:space="preserve">
+    <value>Cari Kart Giriş İşlemleri</value>
+  </data>
+  <data name="CurrentCardList" xml:space="preserve">
+    <value>Cari Kart Listesi</value>
+  </data>
+  <data name="CurrentCardMsg0" xml:space="preserve">
+    <value>Cari Kart Girişinde</value>
+  </data>
+  <data name="CurrentCardMsg1" xml:space="preserve">
+    <value>1- Hesap Planı Bölümüne Geçerek, Cari Kart Giriş İşlemleri İçin, İlgili Hesapların Karşısındaki Cari Kart Seçeneğini Seçiniz, Hesap Yoksa, Tanımlayınız.</value>
+  </data>
+  <data name="CurrentCardMsg2" xml:space="preserve">
+    <value>2- Seçilen Hesaplar, Cari Kart Giriş İşlemlerininin, Sol Üst Bölümünde "Adı ve Muhasebe Kodu" Olarak Görünecektir.</value>
+  </data>
+  <data name="CurrentCardMsg3" xml:space="preserve">
+    <value>3- İlgili Hesap Seçilerek Yetkili Adı, Telefon, Diğer ve Fatura Bilgilerini Girip Kaydediniz.</value>
+  </data>
+  <data name="CurrentCardMsg4" xml:space="preserve">
+    <value>4- Cari Kayıt İşlemlerini Yapabilmek İçin, Hesabı Seçmeniz Yeterlidir.</value>
+  </data>
+  <data name="CurrentCardMsg5" xml:space="preserve">
+    <value>- Yapılan Bu girişler, Aynı Zamanda Muhasebe Fişi Olarak Kaydedilmektedir.</value>
+  </data>
+  <data name="CurrentCardMsg6" xml:space="preserve">
+    <value>- Bu Nedenle, Fiş Tarihi ve Fiş No Girişlerine Dikkat Ediniz.</value>
+  </data>
+  <data name="CurrentCardTotalDebtList" xml:space="preserve">
+    <value>Cari Kart Toplam Borç Listesi</value>
+  </data>
+  <data name="DailyCashCounterList" xml:space="preserve">
+    <value>Günlük Nakit Sayaç Listesi</value>
+  </data>
+  <data name="DailyCashSheet" xml:space="preserve">
+    <value>Günlük Kasa Föyü</value>
+  </data>
+  <data name="DatabaseBackup" xml:space="preserve">
+    <value>Veritabanı Yedekleme</value>
+  </data>
+  <data name="DatabaseBackup1" xml:space="preserve">
+    <value>Veritabanı Yedeğini Al</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Tarih</value>
+  </data>
+  <data name="Dated" xml:space="preserve">
+    <value>Tarihli</value>
+  </data>
+  <data name="DateFormat" xml:space="preserve">
+    <value>Tarih Formatı</value>
+  </data>
+  <data name="DateOfBird" xml:space="preserve">
+    <value>Doğum Tarihi</value>
+  </data>
+  <data name="DateOfIssue" xml:space="preserve">
+    <value>Verilme Tarihi</value>
+  </data>
+  <data name="DateOfRegistration" xml:space="preserve">
+    <value>Kayıt Tarihi</value>
+  </data>
+  <data name="DebitReceipt" xml:space="preserve">
+    <value>Tahsil Dekontu</value>
+  </data>
+  <data name="Debt" xml:space="preserve">
+    <value>Borç</value>
+  </data>
+  <data name="DebtAccountCode" xml:space="preserve">
+    <value>Borç Hesap Kodu</value>
+  </data>
+  <data name="DebtAndCollectionStatus" xml:space="preserve">
+    <value>Borç ve Tahsilat Durumu</value>
+  </data>
+  <data name="DebtDate" xml:space="preserve">
+    <value>Borç tarihi</value>
+  </data>
+  <data name="DebtFree" xml:space="preserve">
+    <value>Borcu Olmayanlar</value>
+  </data>
+  <data name="DebtList" xml:space="preserve">
+    <value>Borç Listesi</value>
+  </data>
+  <data name="DebtListSiblingGroup" xml:space="preserve">
+    <value>Borç Listesi(Kardeş/Grup)</value>
+  </data>
+  <data name="Debtor" xml:space="preserve">
+    <value>Borçlu</value>
+  </data>
+  <data name="DebtorAccount" xml:space="preserve">
+    <value>Borçlu Hesap</value>
+  </data>
+  <data name="DebtorDOB" xml:space="preserve">
+    <value>Doğum Tarihi</value>
+  </data>
+  <data name="DebtorFatherName" xml:space="preserve">
+    <value>Baba Adı</value>
+  </data>
+  <data name="DebtorName" xml:space="preserve">
+    <value>Borçlu Adı Soyadı</value>
+  </data>
+  <data name="DebtorPlaceOfBirth" xml:space="preserve">
+    <value>Doğum Yeri</value>
+  </data>
+  <data name="DebtsWithDateDetail" xml:space="preserve">
+    <value>Tarih Detaylı Borçlar</value>
+  </data>
+  <data name="DebtTypeSequential" xml:space="preserve">
+    <value>Borç Türü Sıralı</value>
+  </data>
+  <data name="Decimation" xml:space="preserve">
+    <value>Hesap Kırımları</value>
+  </data>
+  <data name="DefaultBank" xml:space="preserve">
+    <value>Varsayılan Banka</value>
+  </data>
+  <data name="DefaultInstallment" xml:space="preserve">
+    <value>Varsayılan Taksit Düzenleme Sayısı</value>
+  </data>
+  <data name="DefaultPaymentType" xml:space="preserve">
+    <value>Varsayılan Ödeme Tipi</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Sil</value>
+  </data>
+  <data name="Delete1" xml:space="preserve">
+    <value>Sil</value>
+  </data>
+  <data name="Delete2" xml:space="preserve">
+    <value>Tahsil Sil</value>
+  </data>
+  <data name="DeleteArchive" xml:space="preserve">
+    <value>Arsiv Sil</value>
+  </data>
+  <data name="DeletedSuccessfuly" xml:space="preserve">
+    <value>Başarıyla Silindi</value>
+  </data>
+  <data name="DeleteMessage" xml:space="preserve">
+    <value>Mesaj Sil</value>
+  </data>
+  <data name="Design" xml:space="preserve">
+    <value>Form Tasarımı</value>
+  </data>
+  <data name="Detail" xml:space="preserve">
+    <value>Detay</value>
+  </data>
+  <data name="Detailed" xml:space="preserve">
+    <value>Detaylı</value>
+  </data>
+  <data name="DetailedFeeEntry" xml:space="preserve">
+    <value>Detaylı Ücret Girişi</value>
+  </data>
+  <data name="DetailedInstallments" xml:space="preserve">
+    <value>Detaylı Taksitlendirme</value>
+  </data>
+  <data name="DetailedInvoice" xml:space="preserve">
+    <value>Detaylı Fatura</value>
+  </data>
+  <data name="DetailedListsByFees" xml:space="preserve">
+    <value>Ücretlere Göre Ayrıntılı Listeler</value>
+  </data>
+  <data name="DetailShow" xml:space="preserve">
+    <value>Detaylı Gözlem</value>
+  </data>
+  <data name="Discount" xml:space="preserve">
+    <value>İndirim</value>
+  </data>
+  <data name="DiscountDefinition" xml:space="preserve">
+    <value>İndirim Tanımlama</value>
+  </data>
+  <data name="DiscountEntries" xml:space="preserve">
+    <value>İskonto Girişleri</value>
+  </data>
+  <data name="DiscountMsg" xml:space="preserve">
+    <value>Bir listede en fazla 10 indirim türü seçebilirsiniz.</value>
+  </data>
+  <data name="DiscountName" xml:space="preserve">
+    <value>İndirim Adı</value>
+  </data>
+  <data name="DiscountPercentageAndAmountEntries" xml:space="preserve">
+    <value>İndirim Oranı ve Tutar Girişleri</value>
+  </data>
+  <data name="DiscountPetition" xml:space="preserve">
+    <value>İndirim Dilekçesi</value>
+  </data>
+  <data name="Discounts" xml:space="preserve">
+    <value>İndirimler</value>
+  </data>
+  <data name="Discounts1" xml:space="preserve">
+    <value>İndirimleri</value>
+  </data>
+  <data name="DiscountsAccountFromRegistration" xml:space="preserve">
+    <value>Kayıttan İndirimler Hesabı</value>
+  </data>
+  <data name="Distraint" xml:space="preserve">
+    <value>Haciz</value>
+  </data>
+  <data name="Div1Msg1" xml:space="preserve">
+    <value>- Bu bölümde, Öğrenciye yeni bir borç girişi yapabilirsiniz.</value>
+  </data>
+  <data name="Div1Msg2" xml:space="preserve">
+    <value>- Öğrencinin Fatura planlaması yapılmışsa, yeni düzenlemeye göre planlama yapmayı unutmayınız.</value>
+  </data>
+  <data name="Div1SmsMsg1" xml:space="preserve">
+    <value>1- SMS. İşlemlerinizi Kullanabilmeniz için SMS. Kontörü Satın Alınız.</value>
+  </data>
+  <data name="Div1SmsMsg2" xml:space="preserve">
+    <value>2- Satın Alma İşlemlerinde Sonra "Kullanıcı Adı" ve "Şifre" Bilgileri Sizlere Bildirilecektir.</value>
+  </data>
+  <data name="Div1SmsMsg3" xml:space="preserve">
+    <value>3- Bu Bilgiler Yukarıdaki Bölümlere Girilmelidir.</value>
+  </data>
+  <data name="Div1SmsMsg4" xml:space="preserve">
+    <value>4- SMS.Gönderiminde Kullanılacak Kurum İçin Başlık Giriniz.</value>
+  </data>
+  <data name="Div1SmsMsg5" xml:space="preserve">
+    <value>Örnek: "Net Computer" gibi</value>
+  </data>
+  <data name="Div1SmsMsg6" xml:space="preserve">
+    <value>5- Bu Bilgileri KAYIT Yaptıktan Sonra SMS. Kredisi Ekranda Görünüyorsa SMS Mesajlarınızı Göndermeye Başlayabilirsiniz.</value>
+  </data>
+  <data name="Div2Msg1" xml:space="preserve">
+    <value>- Bölünecek Tutar : Borç tutarını bölebilir, yeniden taksit düzenleyebilirsiniz.</value>
+  </data>
+  <data name="Div2Msg2" xml:space="preserve">
+    <value>- Tek ödeme          : Kalan tutarı tek ödeme olarak düzenleyebiliirsiniz</value>
+  </data>
+  <data name="Div3Msg1" xml:space="preserve">
+    <value>- İlgili taksitin, Tarihini, Türünü, Banka adını, Çek/Senet numarasını değiştirebilirsiniz.</value>
+  </data>
+  <data name="Div4Msg1" xml:space="preserve">
+    <value>Elden Senet veya Çek Tahsilatlarında, Muhasebe Hesap Kodunu Değiştirebilirsiniz.</value>
+  </data>
+  <data name="Div4Msg2" xml:space="preserve">
+    <value>Değişiklik Yapılmazsa, KASA Hesabına Borç Olarak Kayıt Yapılır.</value>
+  </data>
+  <data name="DivideAmount" xml:space="preserve">
+    <value>Tutar Böl</value>
+  </data>
+  <data name="DividedAmount" xml:space="preserve">
+    <value>Bölünecek Tutar</value>
+  </data>
+  <data name="DividingInstallmentAmount" xml:space="preserve">
+    <value>Taksit Tutarını Bölme İşlemleri</value>
+  </data>
+  <data name="DobMsg" xml:space="preserve">
+    <value>İki tarih arasında bulunan Öğrenci doğum tarihlerine göre sorgulama yapabilirsiniz.</value>
+  </data>
+  <data name="DocumentAddedtoQueue" xml:space="preserve">
+    <value>Döküman Kuruğa Eklendi</value>
+  </data>
+  <data name="DocumentNumber" xml:space="preserve">
+    <value>Evrak No</value>
+  </data>
+  <data name="DownloadMsg" xml:space="preserve">
+    <value>Veritabanını Bilgisayarıma İndir</value>
+  </data>
+  <data name="Drawer" xml:space="preserve">
+    <value>Keşideci</value>
+  </data>
+  <data name="DriverName" xml:space="preserve">
+    <value>Sürücü Adı</value>
+  </data>
+  <data name="EArchive" xml:space="preserve">
+    <value>E-Arşiv</value>
+  </data>
+  <data name="EArchiveEInvoice" xml:space="preserve">
+    <value>E-Arşiv/E-Fatura</value>
+  </data>
+  <data name="EArchiveMsg" xml:space="preserve">
+    <value>E-Arşiv/EFatura İçin Dosyalarınız Hazır Değil. Lütfen Ncs Net Computer'den Bilgi Alınız.</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Düzelt</value>
+  </data>
+  <data name="EditAsSingleBond" xml:space="preserve">
+    <value>Tek Senet Olarak Düzenle</value>
+  </data>
+  <data name="EditingWithholdingonInvoice" xml:space="preserve">
+    <value>Tevkifat Düzenleme</value>
+  </data>
+  <data name="Edityourcontractform" xml:space="preserve">
+    <value>Sözleşme Formunuzu Düzenleyin</value>
+  </data>
+  <data name="EdityourInvoiceForm" xml:space="preserve">
+    <value>Fatura Formunuzu Düzenleyin</value>
+  </data>
+  <data name="EdityourKvkkform" xml:space="preserve">
+    <value>KVKK Formunuzu Düzenleyin</value>
+  </data>
+  <data name="EIInvoiceArcSerial2" xml:space="preserve">
+    <value>Arşiv Fatura Seri_2</value>
+  </data>
+  <data name="EIInvoiceSerial1" xml:space="preserve">
+    <value>Fatura Seri_1</value>
+  </data>
+  <data name="EIInvoiceSerial2" xml:space="preserve">
+    <value>Fatura Seri_2</value>
+  </data>
+  <data name="EIInvoiceSerialCode" xml:space="preserve">
+    <value>Seri Kod</value>
+  </data>
+  <data name="EIIsActive" xml:space="preserve">
+    <value>E-Fatura Etkin</value>
+  </data>
+  <data name="EInvoice" xml:space="preserve">
+    <value>E-Fatura</value>
+  </data>
+  <data name="EInvoiceInformation" xml:space="preserve">
+    <value>E-Fatura Bilgileri</value>
+  </data>
+  <data name="EInvoiceUserInfo" xml:space="preserve">
+    <value>E-Fatura Kullanıcı Bilgileri</value>
+  </data>
+  <data name="EMail" xml:space="preserve">
+    <value>E-Posta</value>
+  </data>
+  <data name="EmailInformation" xml:space="preserve">
+    <value>E-Posta Bilgileri</value>
+  </data>
+  <data name="EMailService1" xml:space="preserve">
+    <value>Örnek; "ncs"</value>
+  </data>
+  <data name="EMailService2" xml:space="preserve">
+    <value>Örnek;  "123456"</value>
+  </data>
+  <data name="EMailService3" xml:space="preserve">
+    <value>Örnek;  "info@ncs.com.tr"</value>
+  </data>
+  <data name="EMailService4" xml:space="preserve">
+    <value>Örnek; "mail.ncs.com.tr"</value>
+  </data>
+  <data name="EMailService5" xml:space="preserve">
+    <value>Örnek;  "587"</value>
+  </data>
+  <data name="EMailService6" xml:space="preserve">
+    <value>Güvenli Protokol</value>
+  </data>
+  <data name="EmailSMTPAddress" xml:space="preserve">
+    <value>E-Posta Adresi</value>
+  </data>
+  <data name="EmailSMTPHost" xml:space="preserve">
+    <value>Posta Sunucu</value>
+  </data>
+  <data name="EmailSMTPPassword" xml:space="preserve">
+    <value>Kullanıcı Şifresi</value>
+  </data>
+  <data name="EmailSMTPPort" xml:space="preserve">
+    <value>Bağlantı Noktası</value>
+  </data>
+  <data name="EmailSMTPSsl" xml:space="preserve">
+    <value>SSL</value>
+  </data>
+  <data name="EmailSMTPUserName" xml:space="preserve">
+    <value>Kullanıcı Adı</value>
+  </data>
+  <data name="EndAccountCode" xml:space="preserve">
+    <value>Bitiş Ana Hesap Kodu</value>
+  </data>
+  <data name="EndClassroom" xml:space="preserve">
+    <value>Bitiş Sınıfı</value>
+  </data>
+  <data name="EndDate" xml:space="preserve">
+    <value>Bitiş Tarihi</value>
+  </data>
+  <data name="EndDate1" xml:space="preserve">
+    <value>Burs Bitiş Tarihi</value>
+  </data>
+  <data name="EndDateOfRegistration" xml:space="preserve">
+    <value>Bitiş Kayıt Tarihi</value>
+  </data>
+  <data name="Endorser" xml:space="preserve">
+    <value>Ciro Eden</value>
+  </data>
+  <data name="EndYear" xml:space="preserve">
+    <value>Bitiş Yılı</value>
+  </data>
+  <data name="English" xml:space="preserve">
+    <value>İngilizce</value>
+  </data>
+  <data name="EnterAccountCodeAndAmountWillBePaid" xml:space="preserve">
+    <value>Ödeme Yapılacak Hesap Kodunu ve Tutarını Giriniz</value>
+  </data>
+  <data name="EnterArchive" xml:space="preserve">
+    <value>Arsiv Girisi</value>
+  </data>
+  <data name="EnterTheInstallment" xml:space="preserve">
+    <value>Taksit Tutarini Girin.</value>
+  </data>
+  <data name="EnterValidAmount" xml:space="preserve">
+    <value>Geçerli Miktarı Girin</value>
+  </data>
+  <data name="EnterYourPassword" xml:space="preserve">
+    <value>Şifrenizi giriniz</value>
+  </data>
+  <data name="EnterYourUsername" xml:space="preserve">
+    <value>Kullanıcı adınızı giriniz</value>
+  </data>
+  <data name="ESerialCode" xml:space="preserve">
+    <value>E-Fatura Seri Kod</value>
+  </data>
+  <data name="EventMsg100" xml:space="preserve">
+    <value>1- Sınıf seçerek Öğrencileri Sınıflara göre gruplayabilirsiniz.</value>
+  </data>
+  <data name="EventMsg101" xml:space="preserve">
+    <value>2- Girişi yapılacak Öğrenciyi Seçiniz.
+</value>
+  </data>
+  <data name="EventMsg102" xml:space="preserve">
+    <value>3- Sağ tarafta bulunan Gün ve Tarih üzerinde çift tıklayınız, Öğrenciye ait etkinlik tarih aralığını ve detaylarını giriniz.</value>
+  </data>
+  <data name="EventMsg103" xml:space="preserve">
+    <value>4- Girişlerinizi Renklere göre sınıflandırabilirsiniz.</value>
+  </data>
+  <data name="EventMsg104" xml:space="preserve">
+    <value>5- Renklendirme çalışması için Okul menüsünde İşaretleyiciler bölümünden, "Öğrenci İşaretleyicileri" girişleri üzerinden değişikliklerinizi yapabilirsiniz.</value>
+  </data>
+  <data name="Events" xml:space="preserve">
+    <value>Etkinlikler</value>
+  </data>
+  <data name="Excel01" xml:space="preserve">
+    <value>1- Listeye dahil etmek istediğiniz bilgileri seçiniz</value>
+  </data>
+  <data name="Excel02" xml:space="preserve">
+    <value>2- Koşul Girilebilir: ( ✓ ) İşaretli olan alanlara koşul girebilirsiniz</value>
+  </data>
+  <data name="Excel03" xml:space="preserve">
+    <value>   Öğrenci numarası 1	-    100 arası</value>
+  </data>
+  <data name="Excel031" xml:space="preserve">
+    <value>Örnek:</value>
+  </data>
+  <data name="Excel04" xml:space="preserve">
+    <value>    Sınıfı  1-A           -    1-C arası gibi.</value>
+  </data>
+  <data name="Excel05" xml:space="preserve">
+    <value>3- Excel'e aktar butonuna basılarak seçtiğiniz bilgiler, Excel'e aktarılır</value>
+  </data>
+  <data name="Excel06" xml:space="preserve">
+    <value>    Excel üzerinde istediğiniz düzenlemeyi yaparak, amacınıza uygun formu üretebilirsiniz.</value>
+  </data>
+  <data name="ExceptionInvoice" xml:space="preserve">
+    <value>İstisna Faturası</value>
+  </data>
+  <data name="ExceptionInvoice2" xml:space="preserve">
+    <value>İstisna</value>
+  </data>
+  <data name="Excluded" xml:space="preserve">
+    <value>Hariç</value>
+  </data>
+  <data name="Excused" xml:space="preserve">
+    <value>Mazeretli</value>
+  </data>
+  <data name="Exit" xml:space="preserve">
+    <value>Çıkış</value>
+  </data>
+  <data name="ExpenseH" xml:space="preserve">
+    <value>BUGÜNKÜ GİDER</value>
+  </data>
+  <data name="ExpiryMonth" xml:space="preserve">
+    <value>Son Kullanma Ayı</value>
+  </data>
+  <data name="ExpiryYear" xml:space="preserve">
+    <value>Son Kullanma Yılı</value>
+  </data>
+  <data name="Explanation" xml:space="preserve">
+    <value>Açıklama</value>
+  </data>
+  <data name="Explanation0" xml:space="preserve">
+    <value>Bu program; yeni döneme geçişlerde kullanılır.</value>
+  </data>
+  <data name="Explanation2" xml:space="preserve">
+    <value>-İşlemden Sonra Sınıflar Sıfırlanmaktadır</value>
+  </data>
+  <data name="Explanation3" xml:space="preserve">
+    <value>-Öğrencinin Kayıt Şekli Bölümü "Kayıt Yenileme" Olarak Değiştirilmektedir.</value>
+  </data>
+  <data name="Explanation50001" xml:space="preserve">
+    <value>Başlangıç Tarihinden Önceki Hareketler Devir Olarak Hesaplanmaktadır.</value>
+  </data>
+  <data name="Explanation50002" xml:space="preserve">
+    <value>Başlangıç ve Bitiş Tarihleri Arasındaki Hareketler Listede Detaylı Çıkmaktadır.</value>
+  </data>
+  <data name="Explanation50003" xml:space="preserve">
+    <value>Muhasebe Girişinde KODU Sütununu Kullanan Kullanıcılar, Ayrıca Filtreli Listeleme Alabilir.</value>
+  </data>
+  <data name="ExplanationSection" xml:space="preserve">
+    <value>Açıklama Bölümünü Sil</value>
+  </data>
+  <data name="ExplanationShow" xml:space="preserve">
+    <value>İlk Girişte Bu Ekranı</value>
+  </data>
+  <data name="ExportAccountingFiletoExcel" xml:space="preserve">
+    <value>Muhasebe Fişlerini Excel'e Aktar</value>
+  </data>
+  <data name="ExportInvoicestoExcel" xml:space="preserve">
+    <value>Faturaları Excel'e Aktar</value>
+  </data>
+  <data name="ExportToExcel" xml:space="preserve">
+    <value>Excel e Aktar</value>
+  </data>
+  <data name="Family" xml:space="preserve">
+    <value>Aile</value>
+  </data>
+  <data name="FamilyInfo" xml:space="preserve">
+    <value>Aile Bilgisi</value>
+  </data>
+  <data name="FamilyInfo1" xml:space="preserve">
+    <value>Aile</value>
+  </data>
+  <data name="Father2" xml:space="preserve">
+    <value>Baba</value>
+  </data>
+  <data name="FatherHomeAddress" xml:space="preserve">
+    <value>Baba Ev Adresi</value>
+  </data>
+  <data name="FatherName" xml:space="preserve">
+    <value>Baba Adı</value>
+  </data>
+  <data name="Fathers" xml:space="preserve">
+    <value>Babasının</value>
+  </data>
+  <data name="FathersInformation" xml:space="preserve">
+    <value>Babasının Bilgileri</value>
+  </data>
+  <data name="FatherWorkAddress" xml:space="preserve">
+    <value>Baba İş Adresi</value>
+  </data>
+  <data name="Fax" xml:space="preserve">
+    <value>Faks</value>
+  </data>
+  <data name="FeeEmpty" xml:space="preserve">
+    <value>Sınıf Tipine Göre Ücret Girişleri Yapılmamış, Lütfen Girişlerini Yapınız.</value>
+  </data>
+  <data name="FeeEntries" xml:space="preserve">
+    <value>Ücret Girişleri</value>
+  </data>
+  <data name="FeeEntriesbyClassType" xml:space="preserve">
+    <value>Sınıf Tipine Göre Ücret Girişleri</value>
+  </data>
+  <data name="FeeHelp100" xml:space="preserve">
+    <value>ALT DETAY Ücret Kullanan Kurumlar İçin Hazırlanmıştır.</value>
+  </data>
+  <data name="FeeHelp101" xml:space="preserve">
+    <value>Bak: Okul Menu/Sınıf Tipine Göre Ücret Girişleri</value>
+  </data>
+  <data name="FeeHelp102" xml:space="preserve">
+    <value>-Alt Ücret Boş Geçilirse, İşlem Gören ALT ÜCRETLER Listelenir.</value>
+  </data>
+  <data name="FeeHelp103" xml:space="preserve">
+    <value>-Alt Ücret Seçilirse, İşlem Gören Alt Detay Ücretler Listelenir.</value>
+  </data>
+  <data name="FeeInformation" xml:space="preserve">
+    <value>Ücret Bilgileri</value>
+  </data>
+  <data name="FeeLists" xml:space="preserve">
+    <value>Ücret Listeleri</value>
+  </data>
+  <data name="FeeName" xml:space="preserve">
+    <value>Ücret Adı</value>
+  </data>
+  <data name="FeeOptions" xml:space="preserve">
+    <value>Ücret Seçenekleri</value>
+  </data>
+  <data name="Fees" xml:space="preserve">
+    <value>Ücretler</value>
+  </data>
+  <data name="FeeStatus" xml:space="preserve">
+    <value>Ücret Durumu</value>
+  </data>
+  <data name="File" xml:space="preserve">
+    <value>Dosya</value>
+  </data>
+  <data name="FileName" xml:space="preserve">
+    <value>Dosya Adı</value>
+  </data>
+  <data name="Filter" xml:space="preserve">
+    <value>Filtre</value>
+  </data>
+  <data name="FinancialYearEnd" xml:space="preserve">
+    <value>Muhasebe Bitiş</value>
+  </data>
+  <data name="FinancialYearStart" xml:space="preserve">
+    <value>Muhasebe Baş.</value>
+  </data>
+  <data name="FirstDateOfRegistration" xml:space="preserve">
+    <value>İlk Kayıt Tarihi</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>Adı</value>
+  </data>
+  <data name="FoodMenu" xml:space="preserve">
+    <value>Yemek Menüsü</value>
+  </data>
+  <data name="ForMailOrder" xml:space="preserve">
+    <value>Mail Order İçin</value>
+  </data>
+  <data name="FormBondPetitionReceipt" xml:space="preserve">
+    <value>Form / Senet / Dilekçe / Makbuz</value>
+  </data>
+  <data name="FormHeaderParent" xml:space="preserve">
+    <value>Veli Ad Soyad</value>
+  </data>
+  <data name="FormHeaderStudent" xml:space="preserve">
+    <value>Ogrenci Ad Soyad</value>
+  </data>
+  <data name="Forms" xml:space="preserve">
+    <value>Formlar</value>
+  </data>
+  <data name="FormTitle" xml:space="preserve">
+    <value>Form Başlığı</value>
+  </data>
+  <data name="FreeList" xml:space="preserve">
+    <value>Ücretsiz Liste</value>
+  </data>
+  <data name="FromHand" xml:space="preserve">
+    <value>Elden</value>
+  </data>
+  <data name="GenderType" xml:space="preserve">
+    <value>Cinsiyeti</value>
+  </data>
+  <data name="General" xml:space="preserve">
+    <value>Genel</value>
+  </data>
+  <data name="Giro" xml:space="preserve">
+    <value>Ciro</value>
+  </data>
+  <data name="GivenCode" xml:space="preserve">
+    <value>Kurum Kodu</value>
+  </data>
+  <data name="GradualDiscount" xml:space="preserve">
+    <value>Kademeli indirim</value>
+  </data>
+  <data name="GrandTotal" xml:space="preserve">
+    <value>Genel Toplam</value>
+  </data>
+  <data name="GuarantorInformation" xml:space="preserve">
+    <value>Kefil Bilgileri</value>
+  </data>
+  <data name="Guidance" xml:space="preserve">
+    <value>Rehberlik</value>
+  </data>
+  <data name="Help" xml:space="preserve">
+    <value>Yardım</value>
+  </data>
+  <data name="Help1" xml:space="preserve">
+    <value>Yardim</value>
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value>Ev</value>
+  </data>
+  <data name="HomeAddress" xml:space="preserve">
+    <value>Ev Adresi</value>
+  </data>
+  <data name="HomePhone" xml:space="preserve">
+    <value>Ev Telefonu</value>
+  </data>
+  <data name="Iban" xml:space="preserve">
+    <value>IBAN</value>
+  </data>
+  <data name="Id" xml:space="preserve">
+    <value>Kayit No</value>
+  </data>
+  <data name="IdControl" xml:space="preserve">
+    <value>TC.No Kontrol</value>
+  </data>
+  <data name="IdentityCard" xml:space="preserve">
+    <value>Nüfus Bilgisi</value>
+  </data>
+  <data name="IdNumber" xml:space="preserve">
+    <value>TC.Kimlik No</value>
+  </data>
+  <data name="IdNumber2" xml:space="preserve">
+    <value>Öğrenci T.C.Kimlik No</value>
+  </data>
+  <data name="IfaSscholarshipSstudent" xml:space="preserve">
+    <value>Burslu Öğrenci İse</value>
+  </data>
+  <data name="Image" xml:space="preserve">
+    <value>Resim</value>
+  </data>
+  <data name="ImageQuality" xml:space="preserve">
+    <value>Kaliteli bir görünüm için yüksek çözünürlükte resim yükleyiniz.</value>
+  </data>
+  <data name="ImportToWeb" xml:space="preserve">
+    <value>E-School Programına Aktarım</value>
+  </data>
+  <data name="Inactive" xml:space="preserve">
+    <value>Pasif</value>
+  </data>
+  <data name="IncludeCashPayments" xml:space="preserve">
+    <value>Peşin Ödemeleri Dahil Et</value>
+  </data>
+  <data name="Included" xml:space="preserve">
+    <value>Dahil</value>
+  </data>
+  <data name="IncomeDistributionTable" xml:space="preserve">
+    <value>Gelir Dağılım Tablosu</value>
+  </data>
+  <data name="InPeriod" xml:space="preserve">
+    <value>Dönemi</value>
+  </data>
+  <data name="Installment" xml:space="preserve">
+    <value>Taksit</value>
+  </data>
+  <data name="InstallmentAmount" xml:space="preserve">
+    <value>Taksit Tutarı</value>
+  </data>
+  <data name="InstallmentDivision" xml:space="preserve">
+    <value>Taksit Böl</value>
+  </data>
+  <data name="InstallmentEntries" xml:space="preserve">
+    <value>Taksit Girişleri</value>
+  </data>
+  <data name="Installments" xml:space="preserve">
+    <value>Taksitler</value>
+  </data>
+  <data name="InstallmentStatus" xml:space="preserve">
+    <value>Taksit Durumu</value>
+  </data>
+  <data name="InstallmentTotal" xml:space="preserve">
+    <value>Taksit Toplamı</value>
+  </data>
+  <data name="InstallmentTransactions" xml:space="preserve">
+    <value>Taksit İşlemleri</value>
+  </data>
+  <data name="InstitutionInvoice" xml:space="preserve">
+    <value>Kurum Fatura Seri No</value>
+  </data>
+  <data name="InstrumentNotToOrder" xml:space="preserve">
+    <value>Namına Yazılı Senet</value>
+  </data>
+  <data name="IntegratorName" xml:space="preserve">
+    <value>Entegrator Adı</value>
+  </data>
+  <data name="Interlocutor" xml:space="preserve">
+    <value>Muhattap</value>
+  </data>
+  <data name="Intheformofreceipt" xml:space="preserve">
+    <value>Makbuz Formunda Çıkacak İsim?</value>
+  </data>
+  <data name="Invoice" xml:space="preserve">
+    <value>Fatura</value>
+  </data>
+  <data name="InvoiceAddress" xml:space="preserve">
+    <value>Fatura Adresi</value>
+  </data>
+  <data name="InvoiceAddressType" xml:space="preserve">
+    <value>Fatura Adres Tipi</value>
+  </data>
+  <data name="InvoiceAmount" xml:space="preserve">
+    <value>Fatura Matrahı</value>
+  </data>
+  <data name="InvoiceArchive" xml:space="preserve">
+    <value>Fatura Arşivi</value>
+  </data>
+  <data name="InvoiceBatchMsg100" xml:space="preserve">
+    <value>Sınıf seçimi  : Sınıflara göre fatura dökmek için sınıfı seçimi yapınız.</value>
+  </data>
+  <data name="InvoiceBatchMsg101" xml:space="preserve">
+    <value>Fatura Tarihi : Toplu fatura dökümü yapılacak tarih girilmelidir.</value>
+  </data>
+  <data name="InvoiceBatchMsg102" xml:space="preserve">
+    <value>Fatura        : Toplu fatura dökümünü başlatır.</value>
+  </data>
+  <data name="InvoiceBatchMsg103" xml:space="preserve">
+    <value>- Fatura basımını, belli bir sayı aralığında uygulayabilirsiniz.
+Bunun için sayı aralığı seçilmelidir, girilmezse varsayılan sayı "10" dur.</value>
+  </data>
+  <data name="InvoiceBatchMsg104" xml:space="preserve">
+    <value>- Fatur basım işlemleri bittikten sonra, fatura numaralarını kaydetmek için onaylamanız gerekmektedir.
+aksi durumda toplu fatura basımı geçersiz sayılacaktır.
+</value>
+  </data>
+  <data name="InvoiceCutDate" xml:space="preserve">
+    <value>Kesilen Tarih</value>
+  </data>
+  <data name="InvoiceDate" xml:space="preserve">
+    <value>Fatura Tarihi</value>
+  </data>
+  <data name="InvoiceDateMsg" xml:space="preserve">
+    <value>Fatura Tarihi, Planlanan Tarihtir, Değiştirilemez.</value>
+  </data>
+  <data name="InvoiceDates" xml:space="preserve">
+    <value>Fatura Tarihleri</value>
+  </data>
+  <data name="InvoiceDesignProgram" xml:space="preserve">
+    <value>Fatura Tasarım Programı</value>
+  </data>
+  <data name="InvoiceDetailed" xml:space="preserve">
+    <value>Detaylı Fatura</value>
+  </data>
+  <data name="InvoiceDiscount" xml:space="preserve">
+    <value>İskonto</value>
+  </data>
+  <data name="InvoicedNotInvoicedCancelledInvoicesList" xml:space="preserve">
+    <value>Kesilen / Kesilmeyen / İptal Edilen Faturalar Listesi</value>
+  </data>
+  <data name="InvoicedNotInvoicedCancelledInvoicesListDetailed" xml:space="preserve">
+    <value>Kesilen / Kesilmeyen / İptal Edilen Faturalar Listesi (Detaylı)</value>
+  </data>
+  <data name="InvoiceEntry01" xml:space="preserve">
+    <value>Fonksiyonlar:</value>
+  </data>
+  <data name="InvoiceEntry02" xml:space="preserve">
+    <value>Kesilmiş faturalar : Bu bölümde önceden kesilmiş faturalar ekrana gelmektedir.
+İstediğiniz şekilde faturayı Başlık veya Fatura numarasına göre
+sorgulayabilirsiniz, ilgili fatura seçildiğinde detayları ile ekranda gösterilmektedir.</value>
+  </data>
+  <data name="InvoiceEntry03" xml:space="preserve">
+    <value>Hesap : Hesap makinası için kulanılır.</value>
+  </data>
+  <data name="InvoiceEntry04" xml:space="preserve">
+    <value>Fatura no : Kurum fatura numaralarını bu bölümden de değiştirebilirsiniz.</value>
+  </data>
+  <data name="InvoiceEntry05" xml:space="preserve">
+    <value>Fatura tipi: Kurum fatura tipini bu bölümden de değiştirebilirsiniz.</value>
+  </data>
+  <data name="InvoiceEntry06" xml:space="preserve">
+    <value>Fatura Girişi:</value>
+  </data>
+  <data name="InvoiceEntry07" xml:space="preserve">
+    <value>Bu bölümde yeni bir fatura girişi yapabilirsiniz.</value>
+  </data>
+  <data name="InvoiceEntry08" xml:space="preserve">
+    <value>Fatura kişi bilgilerini ve Fatura tutarlarını KAYDET butonuna basarak saklayabilirsiniz.</value>
+  </data>
+  <data name="InvoiceEntryProcesses" xml:space="preserve">
+    <value>Fatura Giriş İşlemleri</value>
+  </data>
+  <data name="InvoiceExcel1" xml:space="preserve">
+    <value>1- Faturalara Ait Bilgiler Girilir.</value>
+  </data>
+  <data name="InvoiceListbyTotalAmounts" xml:space="preserve">
+    <value>Toplam Tutarlara Göre Fatura Listesi</value>
+  </data>
+  <data name="InvoiceLists" xml:space="preserve">
+    <value>Fatura Listeleri</value>
+  </data>
+  <data name="InvoiceMsg1" xml:space="preserve">
+    <value>1- Fatura Başlama Tarihini Giriniz.</value>
+  </data>
+  <data name="InvoiceMsg100" xml:space="preserve">
+    <value>1- YENİ PLAN : Öğrencilere fatura planlaması yapmak için kullanılır.  
+Başlangıç tarihi, Toplam fatura sayısı, Detaylı, İskontolu  seçenekleri girilerek
+Başlat butonuna basılır ve Okulun tüm öğrencilerine planlama yapar.</value>
+  </data>
+  <data name="InvoiceMsg101" xml:space="preserve">
+    <value>Tek bir öğrenci için :
+İlgili öğrenci seçilir ve "Seçilen öğrenci" seçeneği seçilir ve Başlat butonuna basılır</value>
+  </data>
+  <data name="InvoiceMsg102" xml:space="preserve">
+    <value>2- DETAY :
+Öğrenci faturalarını ücret detaylarına göre ayrıntılı gösterir.
+
+</value>
+  </data>
+  <data name="InvoiceMsg103" xml:space="preserve">
+    <value>3- PLANSIZ :
+Planlama yapmak istemeyen kurumlar için hazırlanmıştır. Planlanmış bir öğrenciye ayrıca Plansız fatura da düzenlenebilmektedir.</value>
+  </data>
+  <data name="InvoiceMsg104" xml:space="preserve">
+    <value>4- ÖĞRENCİ FATURALARI:
+PLANLI veya PLANSIZ bir faturayı dökmek için ilgili fatura seçilir ve  FATURA butonuna basılır.</value>
+  </data>
+  <data name="InvoiceMsg105" xml:space="preserve">
+    <value>Planlamadan sonra istediğiniz öğrencinin kayıtlarını silebilir,
+   yeni faturalar düzenleyebilirsiniz.</value>
+  </data>
+  <data name="InvoiceMsg106" xml:space="preserve">
+    <value>Etkin sütunundaki seçimi kaldırarak, ilgili ayda dökülmesini engelleyebilirsiniz.</value>
+  </data>
+  <data name="InvoiceMsg107" xml:space="preserve">
+    <value>Kesilmedi veya Kesildi seçeneklerini değiştirebilirsiniz.</value>
+  </data>
+  <data name="InvoiceMsg108" xml:space="preserve">
+    <value>Önceki eğitim döneminde kesilen faturalara erişebilirsiniz.</value>
+  </data>
+  <data name="InvoiceMsg2" xml:space="preserve">
+    <value>2- Kesilecek Fatura Sayısını Giriniz.</value>
+  </data>
+  <data name="InvoiceMsg3" xml:space="preserve">
+    <value>3- Detaylı Faturalandır Seçeneği Kesilen Faturada Genel, İskonto ve Kayıt Ücreti Olarak Detaylandırılacaktır. (Bu İşlemden Sonra Öğrenci Fatura Ekranında Bu Seçeneği Değiştirebilirsiniz.)</value>
+  </data>
+  <data name="InvoiceMsg4" xml:space="preserve">
+    <value>4- Fatura Dökerken Tek Kalemde Eğitim Öğretim Ücreti Olarak Döküm Seçeneği İşaretlenecektir. (Bu İşlemden Sonra Öğrenci Fatura Ekranında Bu Seçeneği Değiştirebilirsiniz.)</value>
+  </data>
+  <data name="InvoiceMsg5" xml:space="preserve">
+    <value>5- Seçtiğiniz Ücretlere Göre Birden Fazla Planlama Yapabilirsiniz.</value>
+  </data>
+  <data name="InvoiceMsg6" xml:space="preserve">
+    <value>6- Faturası Kesilmiş Öğrencilerin Kesilmeyen Faturaları İşleme Dahil Edilmektedir. (Bu işlem için Tarih Değiştirilmemelidir.)</value>
+  </data>
+  <data name="InvoiceName" xml:space="preserve">
+    <value>Fatura Adı</value>
+  </data>
+  <data name="InvoiceName1" xml:space="preserve">
+    <value>Fatura Adı-1</value>
+  </data>
+  <data name="InvoiceName1Hed" xml:space="preserve">
+    <value>E-Arsiv-E-Fatura</value>
+  </data>
+  <data name="InvoiceName2" xml:space="preserve">
+    <value>Fatura Adı-2</value>
+  </data>
+  <data name="InvoiceName3" xml:space="preserve">
+    <value>Fatura Adı-3</value>
+  </data>
+  <data name="InvoiceOnDate" xml:space="preserve">
+    <value>Fatura Açıklamasına Tarih Ekle</value>
+  </data>
+  <data name="InvoiceOnDateMsg" xml:space="preserve">
+    <value>Bu Seçenek, Fatura Planlaması Yapmadan Önce Seçilmelidir.</value>
+  </data>
+  <data name="InvoicePlanning" xml:space="preserve">
+    <value>Fatura Planlama</value>
+  </data>
+  <data name="Invoiceprintingbyclass" xml:space="preserve">
+    <value>Sınıfa Göre Fatura Dökümü</value>
+  </data>
+  <data name="Invoiceprintingbyschool" xml:space="preserve">
+    <value>Tüm Okula Göre Fatura Dökümü</value>
+  </data>
+  <data name="InvoiceProfile" xml:space="preserve">
+    <value>Fatura Profili</value>
+  </data>
+  <data name="InvoiceProgram" xml:space="preserve">
+    <value>Fatura Programı</value>
+  </data>
+  <data name="InvoiceSerialMsg1" xml:space="preserve">
+    <value>- Fatura seri numaralarını bu bölümden de değiştirebilirsiniz.</value>
+  </data>
+  <data name="InvoiceSerialMsg2" xml:space="preserve">
+    <value>- Yapılan değişiklikler KAYDET butonu ile KURUM sabit bilgilere yansıtılır.</value>
+  </data>
+  <data name="InvoiceSerialNo" xml:space="preserve">
+    <value>Fatura No</value>
+  </data>
+  <data name="InvoiceSerialNo11Hed" xml:space="preserve">
+    <value>E-Fatura</value>
+  </data>
+  <data name="InvoiceSerialNo1Hed" xml:space="preserve">
+    <value>E-Arsiv</value>
+  </data>
+  <data name="InvoiceSerialNoHed" xml:space="preserve">
+    <value>Fatura Seri No</value>
+  </data>
+  <data name="InvoiceSerialNoTitle" xml:space="preserve">
+    <value>Fatura Seri (E-Arşiv)-------(E-Fatura)</value>
+  </data>
+  <data name="InvoiceStartDate" xml:space="preserve">
+    <value>Fatura Başlangıç Tarihi</value>
+  </data>
+  <data name="InvoiceTaxNumberOrId" xml:space="preserve">
+    <value>Vergi Numarası Yoksa TC.Kimlik Numarasını Giriniz.</value>
+  </data>
+  <data name="InvoiceTitle" xml:space="preserve">
+    <value>Sayın</value>
+  </data>
+  <data name="InvoicetobePrintedNow" xml:space="preserve">
+    <value>Şu Anda Dökülecek  Fatura</value>
+  </data>
+  <data name="InvoiceTransactions" xml:space="preserve">
+    <value>Fatura İşlemleri</value>
+  </data>
+  <data name="InvoiceType" xml:space="preserve">
+    <value>Fatura Tipi</value>
+  </data>
+  <data name="IsActive" xml:space="preserve">
+    <value>Statü</value>
+  </data>
+  <data name="IsEMail" xml:space="preserve">
+    <value>Gönder</value>
+  </data>
+  <data name="IsShowFeesBottomLine" xml:space="preserve">
+    <value>Ücretleri Alt Satırda Göster</value>
+  </data>
+  <data name="IsSms" xml:space="preserve">
+    <value>Gönder</value>
+  </data>
+  <data name="IssuedInvoice" xml:space="preserve">
+    <value>Kesilen Fatura</value>
+  </data>
+  <data name="IssuedInvoiceAmount" xml:space="preserve">
+    <value>Kesilen Fatura Tutarı</value>
+  </data>
+  <data name="IssuedInvoices" xml:space="preserve">
+    <value>Kesilen Faturalar</value>
+  </data>
+  <data name="IssuedOtherInvoices" xml:space="preserve">
+    <value>Kesilen Diğer Faturalar</value>
+  </data>
+  <data name="Kinship" xml:space="preserve">
+    <value>Yakınlığı</value>
+  </data>
+  <data name="KMH" xml:space="preserve">
+    <value>Kmh.</value>
+  </data>
+  <data name="KmhNo" xml:space="preserve">
+    <value>Kmh-No</value>
+  </data>
+  <data name="Kvkk" xml:space="preserve">
+    <value>KVKK Formu</value>
+  </data>
+  <data name="KvkkFormPrint" xml:space="preserve">
+    <value>Kvkk Formu Dökülecek, Emin misiniz?</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="LastAccountSerialNo" xml:space="preserve">
+    <value>Son Muh. Fiş No</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>Soyadı</value>
+  </data>
+  <data name="LastRegistrationNo" xml:space="preserve">
+    <value>Son Kayıt No</value>
+  </data>
+  <data name="Lenght" xml:space="preserve">
+    <value>Uzunluk</value>
+  </data>
+  <data name="List" xml:space="preserve">
+    <value>Liste</value>
+  </data>
+  <data name="List1000Title" xml:space="preserve">
+    <value>Belge Listeleme</value>
+  </data>
+  <data name="ListByPositions" xml:space="preserve">
+    <value>Pozisyonlara Göre Listeler</value>
+  </data>
+  <data name="ListByRegistrationTypeAndRegistrationStatus" xml:space="preserve">
+    <value>Kayıt Şekline Göre veya Kayıt Durumuna Göre Listeler</value>
+  </data>
+  <data name="Listing" xml:space="preserve">
+    <value>Listeleme</value>
+  </data>
+  <data name="ListingOptions" xml:space="preserve">
+    <value>Listeleme Seçenekleri</value>
+  </data>
+  <data name="ListofPayoutsbyPositions" xml:space="preserve">
+    <value>Pozisyonlara Göre Ödemeler Listesi</value>
+  </data>
+  <data name="ListofStudentsbyEnrollmentTypeandStatus" xml:space="preserve">
+    <value>Kayıt Şekline ve Durumuna Göre Öğrenci Listesi</value>
+  </data>
+  <data name="Lists" xml:space="preserve">
+    <value>Listeler</value>
+  </data>
+  <data name="ListsByFees" xml:space="preserve">
+    <value>Ücretlere Göre Listeler</value>
+  </data>
+  <data name="ListsByFeesPaidNormal" xml:space="preserve">
+    <value>Ücretlere Göre Listeler ( Ücretli / Normal )</value>
+  </data>
+  <data name="ListsByOptionInPriceSection" xml:space="preserve">
+    <value>Ücret Bölümündeki "LİSTE" Seçeneğine Göre İşlem Yapar</value>
+  </data>
+  <data name="ListsByRegistrationTypeAndStatus" xml:space="preserve">
+    <value>Kayıt Şekline ve Durumuna Göre Listeler</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Giriş</value>
+  </data>
+  <data name="Logo" xml:space="preserve">
+    <value>Logo</value>
+  </data>
+  <data name="M108Msg1" xml:space="preserve">
+    <value>Bu Listede Görünen Tahsilatlar, Diğer Tahsilat Listeleri İle Bire Bir Tutmayabilir, Bu Liste Tahsil Edilen Aylara Göre Toplamlar Almaktadır.</value>
+  </data>
+  <data name="M108Msg2" xml:space="preserve">
+    <value>-Bir Ödemenin Tahsil Edilen Tarihlerinin Birden Fazla  Farklı Aylarda Tahsil Edilebileceğini Göz Önüne Alarak Kıyaslama Yapınız.</value>
+  </data>
+  <data name="M109Msg1" xml:space="preserve">
+    <value>- Ücret Toplamı, Toplam Ödenen ve Toplam Geciken Ücretler Hesaplanır</value>
+  </data>
+  <data name="M109Msg2" xml:space="preserve">
+    <value>(Geciken Ücret Toplamları İki Tarih Aralığına Göre Hesaplama Yapmaktadır)</value>
+  </data>
+  <data name="M109Msg3" xml:space="preserve">
+    <value>- Borcu Olmayanlar : Ödemeleri Bitmiş Öğrenciler</value>
+  </data>
+  <data name="M109Msg4" xml:space="preserve">
+    <value>- Geciken Borçlar: Tarih Seçilir, Geciken Borcu Olan Öğrenciler Listelenir.</value>
+  </data>
+  <data name="M109Msg5" xml:space="preserve">
+    <value>- Tarih Detaylı Borçlar : Tarih Seçilir, Tarihlere Göre Borcu Olan Öğrenciler Listelenir</value>
+  </data>
+  <data name="MailOrder" xml:space="preserve">
+    <value>Mail Order</value>
+  </data>
+  <data name="MailOrderAddress" xml:space="preserve">
+    <value>MailOrder Adresi</value>
+  </data>
+  <data name="MailOrderInstructionForm" xml:space="preserve">
+    <value>Mail Order Talimat Formu</value>
+  </data>
+  <data name="MailOrderNo" xml:space="preserve">
+    <value>Mail-Order</value>
+  </data>
+  <data name="ManualBilling" xml:space="preserve">
+    <value>Manuel Fatura Dökümü</value>
+  </data>
+  <data name="Markers" xml:space="preserve">
+    <value>İşaretleyiciler</value>
+  </data>
+  <data name="Master" xml:space="preserve">
+    <value>Master</value>
+  </data>
+  <data name="MenuSchool1" xml:space="preserve">
+    <value>Ücret, E-Posta, E-Fatura,</value>
+  </data>
+  <data name="MenuSchool2" xml:space="preserve">
+    <value> Seri Numaralar, Ayarlar</value>
+  </data>
+  <data name="MersisNo" xml:space="preserve">
+    <value>Fatura Mersis No</value>
+  </data>
+  <data name="Message" xml:space="preserve">
+    <value>Mesaj</value>
+  </data>
+  <data name="Message01" xml:space="preserve">
+    <value>-Taksit Tutarını giriniz.</value>
+  </data>
+  <data name="Message02" xml:space="preserve">
+    <value>-Değişiklik Yapılacak Taksitleri Seçerek Yeni Tutarı Aktarınız.</value>
+  </data>
+  <data name="Message03" xml:space="preserve">
+    <value>-Veya Tarih ve Tutarlarda Manuel Değişiklikler Yapabilirsiniz.</value>
+  </data>
+  <data name="Message04" xml:space="preserve">
+    <value>-Yapılan Değişiklikler İçin Kaydet Butonuna Basınız.</value>
+  </data>
+  <data name="MessageExplanation1" xml:space="preserve">
+    <value>Gelen Mesaj Uyarılarını Açılır Penecereden Uyar.</value>
+  </data>
+  <data name="MessageOptions" xml:space="preserve">
+    <value>Mesaj Seçenekleri</value>
+  </data>
+  <data name="MessageResults" xml:space="preserve">
+    <value>Mesaj Sonuçları</value>
+  </data>
+  <data name="Messages" xml:space="preserve">
+    <value>Mesajlar</value>
+  </data>
+  <data name="MessageWarning" xml:space="preserve">
+    <value>Mesaj Uyarısı</value>
+  </data>
+  <data name="MobileEMail" xml:space="preserve">
+    <value>Mobile / EMail</value>
+  </data>
+  <data name="MobilePhone" xml:space="preserve">
+    <value>Cep Telefonu</value>
+  </data>
+  <data name="Modification" xml:space="preserve">
+    <value>Değişiklik İşlemleri</value>
+  </data>
+  <data name="MonthlyLists" xml:space="preserve">
+    <value>Aylık Listeler</value>
+  </data>
+  <data name="MonthlyPaymentList" xml:space="preserve">
+    <value>Aylık Ödeme Listesi</value>
+  </data>
+  <data name="MonthTotal" xml:space="preserve">
+    <value>Ay/Toplam</value>
+  </data>
+  <data name="Mother2" xml:space="preserve">
+    <value>Anne</value>
+  </data>
+  <data name="MotherHomeAddress" xml:space="preserve">
+    <value>Anne Ev Adresi</value>
+  </data>
+  <data name="MotherName" xml:space="preserve">
+    <value>Anne Adı</value>
+  </data>
+  <data name="Mothers" xml:space="preserve">
+    <value>Annesinin</value>
+  </data>
+  <data name="MothersInformation" xml:space="preserve">
+    <value>Annesinin Bilgileri</value>
+  </data>
+  <data name="MotherWorkAddress" xml:space="preserve">
+    <value>Anne İş Adresi</value>
+  </data>
+  <data name="msgCancel" xml:space="preserve">
+    <value>İptal</value>
+  </data>
+  <data name="msgdelete" xml:space="preserve">
+    <value>Bu Kayıt Silinecek, Emin misiniz?</value>
+  </data>
+  <data name="msgOk" xml:space="preserve">
+    <value>Tamam</value>
+  </data>
+  <data name="msgwarning" xml:space="preserve">
+    <value>Uyarı</value>
+  </data>
+  <data name="MultipurposeLists" xml:space="preserve">
+    <value>Çok Amaçlı Listeler</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Adı</value>
+  </data>
+  <data name="Name3" xml:space="preserve">
+    <value>Üçüncü Kişinin Adı</value>
+  </data>
+  <data name="NameOnReceipt" xml:space="preserve">
+    <value>Makbuz Üzerine İsim</value>
+  </data>
+  <data name="Nationality" xml:space="preserve">
+    <value>Milliyeti</value>
+  </data>
+  <data name="New" xml:space="preserve">
+    <value>Yeni</value>
+  </data>
+  <data name="New2" xml:space="preserve">
+    <value>Yeni Taksit</value>
+  </data>
+  <data name="NewFeeStatus" xml:space="preserve">
+    <value>Yeni Ücret Durumu</value>
+  </data>
+  <data name="NewInstallment" xml:space="preserve">
+    <value>Yeni Taksit</value>
+  </data>
+  <data name="NewInstallmentRegistration" xml:space="preserve">
+    <value>Yeni Taksit Kaydı</value>
+  </data>
+  <data name="NewInstallmentTransactions" xml:space="preserve">
+    <value>Yeni Taksit İşlemleri</value>
+  </data>
+  <data name="NewInvoiceAmount" xml:space="preserve">
+    <value>Yeni Fatura Tutarı</value>
+  </data>
+  <data name="NewNumber" xml:space="preserve">
+    <value>Yeni Çek/Senet No</value>
+  </data>
+  <data name="NewPeriod" xml:space="preserve">
+    <value>Yeni Dönemi</value>
+  </data>
+  <data name="NewPeriod2" xml:space="preserve">
+    <value>Yeni Donem</value>
+  </data>
+  <data name="NewPeriodTransfer" xml:space="preserve">
+    <value>Yeni Döneme Öğrenci Bilgileri Aktarma</value>
+  </data>
+  <data name="NewPlan" xml:space="preserve">
+    <value>Yeni Plan</value>
+  </data>
+  <data name="NewTermTransactions" xml:space="preserve">
+    <value>Yeni Dönem İşlemleri</value>
+  </data>
+  <data name="NewVoucherNo" xml:space="preserve">
+    <value>Yeni Fiş No</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>Hayir</value>
+  </data>
+  <data name="No1" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="NoAddress" xml:space="preserve">
+    <value>Fatura Adresi Girilmemiş</value>
+  </data>
+  <data name="NoCity" xml:space="preserve">
+    <value>Fatura Şehir İsmi Girilmemiş</value>
+  </data>
+  <data name="NoMail" xml:space="preserve">
+    <value>E-Posta Girilmemiş</value>
+  </data>
+  <data name="Normal" xml:space="preserve">
+    <value>Normal</value>
+  </data>
+  <data name="NoTaxId" xml:space="preserve">
+    <value>Vergi/T.C No Girilmemiş</value>
+  </data>
+  <data name="Note" xml:space="preserve">
+    <value>Notlar</value>
+  </data>
+  <data name="Note1" xml:space="preserve">
+    <value>İlk Görüşmeyi Yapan Kişi?</value>
+  </data>
+  <data name="Note2" xml:space="preserve">
+    <value>Öğrenciye Kimler Referans Oldu?</value>
+  </data>
+  <data name="Note3" xml:space="preserve">
+    <value>Sonraki Yıllarda Ödemelerinde Değişiklik Olmuş mu?</value>
+  </data>
+  <data name="Note4" xml:space="preserve">
+    <value>Geldiği Okul</value>
+  </data>
+  <data name="Notes" xml:space="preserve">
+    <value>Not</value>
+  </data>
+  <data name="NoteSV" xml:space="preserve">
+    <value>Notlar(*)</value>
+  </data>
+  <data name="NoTitle" xml:space="preserve">
+    <value>Fatura Ünvan Başlık Girilmemiş</value>
+  </data>
+  <data name="NoTown" xml:space="preserve">
+    <value>Fatura İlçe İsmi Girilmemiş</value>
+  </data>
+  <data name="NotSent" xml:space="preserve">
+    <value>Gönderilmedi</value>
+  </data>
+  <data name="Number" xml:space="preserve">
+    <value>Çek/Sen. No</value>
+  </data>
+  <data name="NumberFrom" xml:space="preserve">
+    <value>Başlangıç Numara</value>
+  </data>
+  <data name="NumberOfFormPrints" xml:space="preserve">
+    <value>Form Baskı Sayısı</value>
+  </data>
+  <data name="NumberOfInstallments" xml:space="preserve">
+    <value>Taksit Sayısı</value>
+  </data>
+  <data name="NumberOfInvoices" xml:space="preserve">
+    <value>Fatura Sayısı</value>
+  </data>
+  <data name="Numbers" xml:space="preserve">
+    <value>Numaralar</value>
+  </data>
+  <data name="NumberTo" xml:space="preserve">
+    <value>Bitiş Numara</value>
+  </data>
+  <data name="Okey" xml:space="preserve">
+    <value>Tamam</value>
+  </data>
+  <data name="OldFeeStatus" xml:space="preserve">
+    <value>Eski Ücret Durumu</value>
+  </data>
+  <data name="OldPeriod" xml:space="preserve">
+    <value>Eski Dönemi</value>
+  </data>
+  <data name="OpenCloseExplanation1" xml:space="preserve">
+    <value>Bu Program Yeni Muhasebe Dönemi İçin Kullanılır.</value>
+  </data>
+  <data name="OpenCloseExplanation2" xml:space="preserve">
+    <value>Kapanış İşlemleri İle Birlikte, Yeni Muhasebe Dönemi İçin Açılış Fişi Hazırlanmaktadır.</value>
+  </data>
+  <data name="OpenCloseExplanation3" xml:space="preserve">
+    <value>Kapanış İşlemlerinden Sonra, Geçmiş Yıllarda Değişiklik İşlemleri Yapılırsa, Bu Program Tekrar Çalıştırılmalıdır.</value>
+  </data>
+  <data name="OpeningReceipt" xml:space="preserve">
+    <value>Açılış Fişi</value>
+  </data>
+  <data name="OpeningReceiptNo" xml:space="preserve">
+    <value>Açılış Fiş No</value>
+  </data>
+  <data name="Operation" xml:space="preserve">
+    <value>İşlem</value>
+  </data>
+  <data name="Operator" xml:space="preserve">
+    <value>Operatör</value>
+  </data>
+  <data name="OrderByDateOfCollection" xml:space="preserve">
+    <value>Tahsil Tarihine Göre Sıralı</value>
+  </data>
+  <data name="OrderNo" xml:space="preserve">
+    <value>Order-No</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>Diğer</value>
+  </data>
+  <data name="Ots" xml:space="preserve">
+    <value>Ots.</value>
+  </data>
+  <data name="Ots1" xml:space="preserve">
+    <value>Ots_1.</value>
+  </data>
+  <data name="Ots2" xml:space="preserve">
+    <value>Ots_2.</value>
+  </data>
+  <data name="OTSInstructionForm" xml:space="preserve">
+    <value>OTS. Talimat Formu</value>
+  </data>
+  <data name="OtsNo" xml:space="preserve">
+    <value>Ots-No</value>
+  </data>
+  <data name="OtsNo1" xml:space="preserve">
+    <value>Ots No-1</value>
+  </data>
+  <data name="OtsNo2" xml:space="preserve">
+    <value>Ots No-2</value>
+  </data>
+  <data name="OverdueDebts" xml:space="preserve">
+    <value>Geciken Borçlar</value>
+  </data>
+  <data name="PaidList" xml:space="preserve">
+    <value>Ücretli Liste</value>
+  </data>
+  <data name="ParametersUsedintheProgram" xml:space="preserve">
+    <value>Sabit Bilgiler Girişi</value>
+  </data>
+  <data name="Parent" xml:space="preserve">
+    <value>Velisi</value>
+  </data>
+  <data name="Parent2" xml:space="preserve">
+    <value>Veli</value>
+  </data>
+  <data name="ParentHomeAddress" xml:space="preserve">
+    <value>Veli Ev Adresi</value>
+  </data>
+  <data name="ParentID2" xml:space="preserve">
+    <value>Veli TC.Kim.No</value>
+  </data>
+  <data name="ParentInformation" xml:space="preserve">
+    <value>Veli Bilgileri</value>
+  </data>
+  <data name="ParentName" xml:space="preserve">
+    <value>Veli Adı</value>
+  </data>
+  <data name="ParentsInformation" xml:space="preserve">
+    <value>Velisinin Bilgileri</value>
+  </data>
+  <data name="ParentWorkAddress" xml:space="preserve">
+    <value>Veli İş Adresi</value>
+  </data>
+  <data name="PartialPayment" xml:space="preserve">
+    <value>Kısmi_ödeme</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Şifre</value>
+  </data>
+  <data name="Payed" xml:space="preserve">
+    <value>Ödenmiş</value>
+  </data>
+  <data name="Payment" xml:space="preserve">
+    <value>Ödeme</value>
+  </data>
+  <data name="PaymentAmount" xml:space="preserve">
+    <value>Ödeme Tutarı</value>
+  </data>
+  <data name="PaymentCancellation" xml:space="preserve">
+    <value>Ödeme İptal</value>
+  </data>
+  <data name="PaymentDate" xml:space="preserve">
+    <value>Ödeme Tar.</value>
+  </data>
+  <data name="PaymentDate2" xml:space="preserve">
+    <value>Ödeme Tarihi</value>
+  </data>
+  <data name="PaymentListbyMonth" xml:space="preserve">
+    <value>Aylara Göre Ödeme Listesi</value>
+  </data>
+  <data name="PaymentNo" xml:space="preserve">
+    <value>Tediye Makbuz No</value>
+  </data>
+  <data name="PaymentReceiptNo" xml:space="preserve">
+    <value>Tediye Dekont No</value>
+  </data>
+  <data name="PaymentRecord" xml:space="preserve">
+    <value>Ödeme Kaydı</value>
+  </data>
+  <data name="Payments" xml:space="preserve">
+    <value>Ödemeler</value>
+  </data>
+  <data name="PaymentStartDate" xml:space="preserve">
+    <value>Ödeme Baş.Tarihi</value>
+  </data>
+  <data name="PaymentStatusListbyMonth" xml:space="preserve">
+    <value>Aylara Göre Ödeme Durumu Listesi</value>
+  </data>
+  <data name="PaymentType" xml:space="preserve">
+    <value>Ödeme Şekli</value>
+  </data>
+  <data name="PaymentTypeSerial" xml:space="preserve">
+    <value>Ödeme Şekli Seri No</value>
+  </data>
+  <data name="Percent" xml:space="preserve">
+    <value>Yüzde %</value>
+  </data>
+  <data name="Period" xml:space="preserve">
+    <value>Dönem</value>
+  </data>
+  <data name="Period1" xml:space="preserve">
+    <value>Donem</value>
+  </data>
+  <data name="Period2" xml:space="preserve">
+    <value>VadeAy</value>
+  </data>
+  <data name="Period3" xml:space="preserve">
+    <value>Donemler</value>
+  </data>
+  <data name="PeriodOfTime" xml:space="preserve">
+    <value>Periyod</value>
+  </data>
+  <data name="Periods" xml:space="preserve">
+    <value>Dönemler</value>
+  </data>
+  <data name="PermissionMsg" xml:space="preserve">
+    <value>Bu bölümü kullanma yetkiniz yok.</value>
+  </data>
+  <data name="Phone" xml:space="preserve">
+    <value>Telefonu</value>
+  </data>
+  <data name="Photo" xml:space="preserve">
+    <value>Fotoğraf</value>
+  </data>
+  <data name="Plan" xml:space="preserve">
+    <value>Planla</value>
+  </data>
+  <data name="Plan1" xml:space="preserve">
+    <value>Plan</value>
+  </data>
+  <data name="Planned" xml:space="preserve">
+    <value>Planlı</value>
+  </data>
+  <data name="PlannedInvoice" xml:space="preserve">
+    <value>Planlanlı Fatura</value>
+  </data>
+  <data name="PlannedInvoiceEntryandPrinting" xml:space="preserve">
+    <value>Planlı Fatura Girişi</value>
+  </data>
+  <data name="PlannedInvoicePrinting" xml:space="preserve">
+    <value>Planlı Fatura Dökümü</value>
+  </data>
+  <data name="PlateNo" xml:space="preserve">
+    <value>Plaka No</value>
+  </data>
+  <data name="PleaseChooseAFee" xml:space="preserve">
+    <value>Lütfen Ücret Seçimi Yapınız</value>
+  </data>
+  <data name="PositionChange" xml:space="preserve">
+    <value>Çek / Senet Posizyon Değişikliği</value>
+  </data>
+  <data name="PositionChangeMsg100" xml:space="preserve">
+    <value>1- Pozisyon Değişikliği:</value>
+  </data>
+  <data name="PositionChangeMsg101" xml:space="preserve">
+    <value>    - Öğrenci seçilir,</value>
+  </data>
+  <data name="PositionChangeMsg102" xml:space="preserve">
+    <value>    - Düzenle butonuna basılarak Pozisyon değişikliğine geçiş yapılır.</value>
+  </data>
+  <data name="PositionChangeMsg103" xml:space="preserve">
+    <value>    - Çek/Senet kaydı için, İzin verilen alanlara girişleri yapılır ve "Durumu" bölümünden pozisyon değişikliği yapılır.</value>
+  </data>
+  <data name="PositionChangeMsg104" xml:space="preserve">
+    <value>    - Güncelle butonuna basılarak işlem tamamlanır.</value>
+  </data>
+  <data name="PositionChangeMsg105" xml:space="preserve">
+    <value>2- Yazıcı Butonu ile Pozisyolara göre listeler alınabilir.</value>
+  </data>
+  <data name="Positions" xml:space="preserve">
+    <value>Pozisyonlar</value>
+  </data>
+  <data name="PrepareaNewPlan" xml:space="preserve">
+    <value>Yeni Fatura Plan Hazırlama</value>
+  </data>
+  <data name="Preregistration" xml:space="preserve">
+    <value>Ön kayıt</value>
+  </data>
+  <data name="PreRegistrationApplicationForm" xml:space="preserve">
+    <value>Ön Kayıt Başvuru Girişi</value>
+  </data>
+  <data name="PreregistrationMessage" xml:space="preserve">
+    <value>Lütfen Öğrenci ve Veli Bilgilerini Girdikten Sonra KAYDET Butonuna Basınız. En Kısa Sürede Sizinle İletişime Geçilecektir.</value>
+  </data>
+  <data name="PreviousBranch" xml:space="preserve">
+    <value>Bölüm</value>
+  </data>
+  <data name="PreviousPayment" xml:space="preserve">
+    <value>Ödeme</value>
+  </data>
+  <data name="PreviousSchool" xml:space="preserve">
+    <value>Geldiği Okulu</value>
+  </data>
+  <data name="PrgMsg01" xml:space="preserve">
+    <value>Programın kullanımı hakkında kısaca notlar:</value>
+  </data>
+  <data name="PrgMsg02" xml:space="preserve">
+    <value>ÖĞRENCİ KAYITLARINA BAŞLAMADAN ÖNCE NELER YAPILMALI</value>
+  </data>
+  <data name="PrgMsg03" xml:space="preserve">
+    <value>1-Önce Okul / Kurum bilgileri girişinden Okul / Kurum'a ait bilgileri, Ücretleri, E-Posta, E-Fatura, Seri No ve Ayarlar bölümünü giriniz.</value>
+  </data>
+  <data name="PrgMsg04" xml:space="preserve">
+    <value>2-Sınıf tanımlama bölümünde sınıf adlarını ve tiplerini giriniz.</value>
+  </data>
+  <data name="PrgMsg05" xml:space="preserve">
+    <value>3-Sınıflara göre ücret girişleri bölümünden, bulunduğunuz döneme ait Okul/Kurum'un uygulayacağı ücret tarifelerini giriniz.</value>
+  </data>
+  <data name="PrgMsg06" xml:space="preserve">
+    <value>4-Uygulanan İndirimler bölümünden, Okul/Kurum'un İndirim kalemleri Tablosunu Giriniz.</value>
+  </data>
+  <data name="PrgMsg07" xml:space="preserve">
+    <value>5-Banka Girişlerini Yapınız, Kurumun Çalıştığı Bankaları detaylı bir şekilde giriniz, Hangi banka ile OTS. çalışılıyorsa o bankanın Banka ve Şube
+hesap kırımlarını girmeyi unutmayınız (Muhasebe fişi işlerken gereklidir).</value>
+  </data>
+  <data name="PrgMsg08" xml:space="preserve">
+    <value>6-Programda kullanılan parametreler bölümünü gözden geçiriniz, İhtiyaç durumunda Okul/Kurumunuza göre ilaveler yapabilirsiniz.</value>
+  </data>
+  <data name="PrgMsg09" xml:space="preserve">
+    <value>7-Servis Girişleri Bölümünden Okul/Kurum'un servis bilgilerine ait ayrıntıları giriniz.</value>
+  </data>
+  <data name="PrgMsg10" xml:space="preserve">
+    <value>8-Sözleşme tasarım programı ile kurumunuzun mevcut sözleşmesini düzenleyiniz veya Şirketimizden veya Bayilerimizden yardım alınız.</value>
+  </data>
+  <data name="PrgMsg11" xml:space="preserve">
+    <value>9-Muhasebe/Hesap planını girişi bölümünü gözden geçiriniz, ilave etmek istediğiniz hesaplar varsa ilave ediniz.</value>
+  </data>
+  <data name="PrgMsg12" xml:space="preserve">
+    <value>10-Kullanıcı girişlerinizi yapınız, Kullanıcı adı, Şifre, Çalışma saatleri ve Çalışma alanlarını belirleyiniz.</value>
+  </data>
+  <data name="PrgMsg13" xml:space="preserve">
+    <value>-Öğrenci Girişlerinde, Tahsilat işlemlerinde, İptal/Değişiklik ve İade işlemlerinde, Muhasebe kayıtları program tarafından işlenmektedir.</value>
+  </data>
+  <data name="PrgMsg14" xml:space="preserve">
+    <value>-Kurum sabit bilgiler girişinde tanımlanan muhasebe hesap kodları referans alınmaktadır.</value>
+  </data>
+  <data name="PrgMsg15" xml:space="preserve">
+    <value>10 AŞAMADAN OLUŞAN İŞLEMLERİ TAMAMLADIKTAN SONRA ÖĞRENCİ KAYIT İŞLEMLERİ YAPABİLİRSİNİZ</value>
+  </data>
+  <data name="PrgMsg16" xml:space="preserve">
+    <value>-Öğrenci kayıt formu bölümüne geçerek Öğrenci kayıtlarınızı yapınız.</value>
+  </data>
+  <data name="PrgMsg17" xml:space="preserve">
+    <value>-İyi bir fatura takibi için, Öğrenci girişlerinden sonra Toplu Fatura planı oluşturunuz.</value>
+  </data>
+  <data name="PrgMsg18" xml:space="preserve">
+    <value>-Bu adımlardan sonra hertürlü işlemi yapabilir, Listelerinizi dökebilirsiniz.</value>
+  </data>
+  <data name="Print" xml:space="preserve">
+    <value>Baskı</value>
+  </data>
+  <data name="Printer" xml:space="preserve">
+    <value>Yazıcı</value>
+  </data>
+  <data name="Printer1" xml:space="preserve">
+    <value>Yazıcı</value>
+  </data>
+  <data name="Printer2" xml:space="preserve">
+    <value>Kayıt/Yazıcı</value>
+  </data>
+  <data name="PrintingWithoutAsking" xml:space="preserve">
+    <value>Sormadan Tüm Fatura Basımı Yapılır.</value>
+  </data>
+  <data name="PrintQuantity" xml:space="preserve">
+    <value>Tahsil Tediye</value>
+  </data>
+  <data name="PrivacyPolicy" xml:space="preserve">
+    <value>Gizlilik politikası</value>
+  </data>
+  <data name="ProcessControlbyGrouping" xml:space="preserve">
+    <value>Gruplayarak İşlem Denetimi</value>
+  </data>
+  <data name="ProcessDate" xml:space="preserve">
+    <value>Dönemi</value>
+  </data>
+  <data name="ProcessType" xml:space="preserve">
+    <value>İşlem Tipi</value>
+  </data>
+  <data name="Profession" xml:space="preserve">
+    <value>Mesleği</value>
+  </data>
+  <data name="PromissoryNote" xml:space="preserve">
+    <value>Elden Senet</value>
+  </data>
+  <data name="PromissoryNote2" xml:space="preserve">
+    <value>Emre Muharrer Senet</value>
+  </data>
+  <data name="Protest" xml:space="preserve">
+    <value>Protesto</value>
+  </data>
+  <data name="Quantity" xml:space="preserve">
+    <value>Miktar</value>
+  </data>
+  <data name="Quota" xml:space="preserve">
+    <value>Kontenjan</value>
+  </data>
+  <data name="RearrangingAccountReceiptNumber" xml:space="preserve">
+    <value>Fiş Numaralarını Yeniden Düzenleme</value>
+  </data>
+  <data name="ReasonForWithholding" xml:space="preserve">
+    <value>Tevkifat Sebebi</value>
+  </data>
+  <data name="ReasonofIssue" xml:space="preserve">
+    <value>Verilme Nedeni</value>
+  </data>
+  <data name="Receipt" xml:space="preserve">
+    <value>Makbuz Dök</value>
+  </data>
+  <data name="ReceiptNo" xml:space="preserve">
+    <value>Makbuz No</value>
+  </data>
+  <data name="ReceiptNumberSequential" xml:space="preserve">
+    <value>Makbuz Numarası Sıralı</value>
+  </data>
+  <data name="ReceiptSerialNumbers" xml:space="preserve">
+    <value>Makbuz Seri Numaraları</value>
+  </data>
+  <data name="RecordSequential" xml:space="preserve">
+    <value>Kayıt Sıralı</value>
+  </data>
+  <data name="RecordsFoundOnTheSameDateAreListed" xml:space="preserve">
+    <value>Aynı tarihte bulunan kayıtlar listelenir.</value>
+  </data>
+  <data name="Refresh" xml:space="preserve">
+    <value>Yenile</value>
+  </data>
+  <data name="Refund" xml:space="preserve">
+    <value>İade İşlemleri</value>
+  </data>
+  <data name="RefundAccountCode" xml:space="preserve">
+    <value>İade Muhasebe Kodu</value>
+  </data>
+  <data name="RefundAccountCodes" xml:space="preserve">
+    <value>İade Muhasebe Kodları</value>
+  </data>
+  <data name="RefundAmount" xml:space="preserve">
+    <value>İade Tutarı</value>
+  </data>
+  <data name="RefundApplication" xml:space="preserve">
+    <value>İade İşlemleri Uygulaması</value>
+  </data>
+  <data name="RefundedDueDate" xml:space="preserve">
+    <value>İade Edilecek Tarih</value>
+  </data>
+  <data name="RefundExampleMsg1" xml:space="preserve">
+    <value>Örnek İADE İşlemi</value>
+  </data>
+  <data name="RefundExampleMsg10" xml:space="preserve">
+    <value>- 340  Öğr.Hesabına İade Edilen----------------1000 TL.</value>
+  </data>
+  <data name="RefundExampleMsg11" xml:space="preserve">
+    <value>( Senet İadesine Göre )</value>
+  </data>
+  <data name="RefundExampleMsg12" xml:space="preserve">
+    <value>- 121  Senetler Hesabı----------------------------450 TL.</value>
+  </data>
+  <data name="RefundExampleMsg13" xml:space="preserve">
+    <value>- 340 Öğrenci Hesabı---------------450 TL.</value>
+  </data>
+  <data name="RefundExampleMsg2" xml:space="preserve">
+    <value>- Tahsil Edilmiş Kaydı 6000 TL.</value>
+  </data>
+  <data name="RefundExampleMsg3" xml:space="preserve">
+    <value>- Ödenmemiş Senet Borcu 450 TL.</value>
+  </data>
+  <data name="RefundExampleMsg4" xml:space="preserve">
+    <value>- Nakit İade Edilecek Tutar 1000 Tl.'ye Göre</value>
+  </data>
+  <data name="RefundExampleMsg5" xml:space="preserve">
+    <value>İade İşlem Örneği :</value>
+  </data>
+  <data name="RefundExampleMsg6" xml:space="preserve">
+    <value>-------------------------------- --- Borç ---  --- Alacak ---</value>
+  </data>
+  <data name="RefundExampleMsg7" xml:space="preserve">
+    <value>- 610  Kayıttan İndirimler---------1000 TL.</value>
+  </data>
+  <data name="RefundExampleMsg8" xml:space="preserve">
+    <value>- 100  Kasa Hesabı------------------------------1000 TL.</value>
+  </data>
+  <data name="RefundExampleMsg9" xml:space="preserve">
+    <value>- 340  Öğr.Hesabına İade Edilen--1000 TL.</value>
+  </data>
+  <data name="RefundFutureDate" xml:space="preserve">
+    <value>İade İşlemleri (İleri Tarihli)</value>
+  </data>
+  <data name="RefundMsg1" xml:space="preserve">
+    <value>Hangi Durumda İade İşlemi Yapılmalıdır ?</value>
+  </data>
+  <data name="RefundMsg10" xml:space="preserve">
+    <value>- Ödeme NAKİT yapılacak İse,  Alacaklı Hesap - I Hesap Kodunun Karşısına Tutarını  Giriniz.</value>
+  </data>
+  <data name="RefundMsg100" xml:space="preserve">
+    <value>Bu öğrenciye</value>
+  </data>
+  <data name="RefundMsg101" xml:space="preserve">
+    <value>TL.</value>
+  </data>
+  <data name="RefundMsg102" xml:space="preserve">
+    <value>Tarihinde İade Edilecek.</value>
+  </data>
+  <data name="RefundMsg103" xml:space="preserve">
+    <value> İade Edildi.</value>
+  </data>
+  <data name="RefundMsg11" xml:space="preserve">
+    <value>- İadenin Bir Bölümü NAKİT, Bir Bölümü ÇEK veya SENET İle Yapılacaksa  Alacaklı Hesap - II ve III Bölümlerine Hesap Kodlarını ve Tutarlarını Yazınız.</value>
+  </data>
+  <data name="RefundMsg12" xml:space="preserve">
+    <value>İptal İşlemi Uygulaması</value>
+  </data>
+  <data name="RefundMsg13" xml:space="preserve">
+    <value>- İade İşlemlerinden Sonra İptal İşlemi Uygulanacak Kayıtlar İçin Kullanabilirsiniz.</value>
+  </data>
+  <data name="RefundMsg2" xml:space="preserve">
+    <value>- Tahsilat İşlemi Yapılmış Öğrenci Ödemeleri İçin Uygulayabilirsiniz.</value>
+  </data>
+  <data name="RefundMsg20" xml:space="preserve">
+    <value>Hesap Kodu ve İade</value>
+  </data>
+  <data name="RefundMsg21" xml:space="preserve">
+    <value>- Hesap Kodunu Girerken Hesabın Üst Hesap Kodu Girilmelidir.</value>
+  </data>
+  <data name="RefundMsg210" xml:space="preserve">
+    <value>Toplam Borç = Ücret Toplamı + İade Tutarı</value>
+  </data>
+  <data name="RefundMsg211" xml:space="preserve">
+    <value>- Dikkat: Fatura Planı Yapıldıktan Sonra veya Fatura Kesildikten Sonra Yapılan Değişiklikler Tutarsızlığa Sebep Olabilir.</value>
+  </data>
+  <data name="RefundMsg212" xml:space="preserve">
+    <value>- Öğrenci Ücret Değişikliklerinden Meydana Gelen Ücret Farkı İle Müşterinin Alacaklı Olduğu Durumlarda Kullanılmalıdır.</value>
+  </data>
+  <data name="RefundMsg22" xml:space="preserve">
+    <value>- İade Edilen Tutarlar Olduğu Gibi İade Bölümüne Girilmelidir.</value>
+  </data>
+  <data name="RefundMsg220" xml:space="preserve">
+    <value>1- Ücret Değişikliği Yapılır.</value>
+  </data>
+  <data name="RefundMsg221" xml:space="preserve">
+    <value>2- Ücretlerden Düşümü Yapılan Tutar, İade Tutarı Olarak Girilir.</value>
+  </data>
+  <data name="RefundMsg222" xml:space="preserve">
+    <value>3- İadesi Yapılacak Tutarın, İade Tarihi Girilir ve Kayıt yapılarak İşlem Tamamlanır.</value>
+  </data>
+  <data name="RefundMsg23" xml:space="preserve">
+    <value>- İade Tutarını Girdikten Sonra  İşlemi Başlatmak İçin KAYDET Düğmesine Basınız.</value>
+  </data>
+  <data name="RefundMsg3" xml:space="preserve">
+    <value>- İade İşlemi İçin  Önceden Tahsil Edilmiş Bir PARA Hareketi Olmak Zorundadır.</value>
+  </data>
+  <data name="RefundMsg4" xml:space="preserve">
+    <value>- İade Edilecek Tutarlar Nakit veya Çek/Senet Olarak İlgili Hesaplardan, 
+Şirketin Kasasından Çıkacak Bir Ödeme Olarak Düşünülmelidir.</value>
+  </data>
+  <data name="RefundMsg5" xml:space="preserve">
+    <value>- İade Tutarı Toplam Ödenen Tutardan Daha Fazla Olamaz.</value>
+  </data>
+  <data name="RefundMsg6" xml:space="preserve">
+    <value>- Borçlu Kayıtlar Yeniden Düzenlenmeli veya Sıfırlanmalıdır.</value>
+  </data>
+  <data name="RefundMsg7" xml:space="preserve">
+    <value>- Bu İşlemden Sonra Tüm Taksitler İptal Edilir ve Taksitlerin (Alınan 
+Çek/Senetler)'in Muhasebe Kayıtların İçin Çıkış İşlemi Yapılır.</value>
+  </data>
+  <data name="RefundMsg8" xml:space="preserve">
+    <value>- Aksi Durumlar İçin Değişiklik İşlemleri Bölümünü Kullanınız.</value>
+  </data>
+  <data name="RegisteratedStudentsListBetweenTwoDates" xml:space="preserve">
+    <value>Kayıt Olan Öğrenciler Listesi ( İki Tarih Aralığında )</value>
+  </data>
+  <data name="RegisteredStudents" xml:space="preserve">
+    <value>Kayıtlı Öğrenciler</value>
+  </data>
+  <data name="RegistrationAgreement" xml:space="preserve">
+    <value>Kayıt Sözleşmesi</value>
+  </data>
+  <data name="RegistrationDateisUpdated" xml:space="preserve">
+    <value>Kayıt Tarihi Güncellenir</value>
+  </data>
+  <data name="RegistrationFee" xml:space="preserve">
+    <value>Kayıt Ücreti</value>
+  </data>
+  <data name="RegistrationForm" xml:space="preserve">
+    <value>Kayıt Formu</value>
+  </data>
+  <data name="RegistrationFormTitle" xml:space="preserve">
+    <value>Kayıt Formu Başlık</value>
+  </data>
+  <data name="RegistrationFormTitleChange" xml:space="preserve">
+    <value>Kayıt Formu Başlık Değişikliği</value>
+  </data>
+  <data name="RegistrationRenewalForm" xml:space="preserve">
+    <value>KAYIT YENILEME FORMU</value>
+  </data>
+  <data name="RegistrationRenewalFormandInvoiceInformation" xml:space="preserve">
+    <value>Kayıt Yenileme Formu ve Fatura Bilgileri</value>
+  </data>
+  <data name="RegistrationSerialNumbers" xml:space="preserve">
+    <value>Kayıt Seri Numaraları</value>
+  </data>
+  <data name="RegistrationStatus" xml:space="preserve">
+    <value>Kayıt Durumu</value>
+  </data>
+  <data name="RegistrationSuspension" xml:space="preserve">
+    <value>Kayıt Dondur</value>
+  </data>
+  <data name="RegistrationType" xml:space="preserve">
+    <value>Kayıt Tipi</value>
+  </data>
+  <data name="Religious" xml:space="preserve">
+    <value>Dini</value>
+  </data>
+  <data name="RenewTransactionforReTransfer" xml:space="preserve">
+    <value>Tekrar Aktarım İçin İşlemi Yenileyin.</value>
+  </data>
+  <data name="RequiredField" xml:space="preserve">
+    <value>Girilmesi zorunlu alan</value>
+  </data>
+  <data name="Reset" xml:space="preserve">
+    <value>Yeniden</value>
+  </data>
+  <data name="ResetPaymentTypeSerial" xml:space="preserve">
+    <value>Ödeme Şekli Seri Numaralarını Sıfırla</value>
+  </data>
+  <data name="ResetReceiptSerialNumbers" xml:space="preserve">
+    <value>Makbuz Seri Numaralarını Sıfırla</value>
+  </data>
+  <data name="ResetRegistrationSerialNumbers" xml:space="preserve">
+    <value>Kayıt Seri Numaralarını Sıfırla</value>
+  </data>
+  <data name="RoomQuota" xml:space="preserve">
+    <value>Kontenjan</value>
+  </data>
+  <data name="SalesInvoice" xml:space="preserve">
+    <value>Satış Faturası</value>
+  </data>
+  <data name="SalesInvoice2" xml:space="preserve">
+    <value>Satış</value>
+  </data>
+  <data name="SavedSuccessfuly" xml:space="preserve">
+    <value>Başarıyla Kaydedildi</value>
+  </data>
+  <data name="ScholarshipRate" xml:space="preserve">
+    <value>Burs Oranı</value>
+  </data>
+  <data name="ScholarshipStudent" xml:space="preserve">
+    <value>Burslu Öğrenci İse</value>
+  </data>
+  <data name="School" xml:space="preserve">
+    <value>Okul</value>
+  </data>
+  <data name="SchoolAgenda" xml:space="preserve">
+    <value>Okul Gündemi ve Planlama</value>
+  </data>
+  <data name="SchoolAndAccountingPeriods" xml:space="preserve">
+    <value>Okul ve Muhasebe Dönemleri</value>
+  </data>
+  <data name="SchoolBusDeparture" xml:space="preserve">
+    <value>Servis Kalkışı</value>
+  </data>
+  <data name="SchoolBusEntries" xml:space="preserve">
+    <value>Okul Servisi Girişleri</value>
+  </data>
+  <data name="SchoolBusReturn" xml:space="preserve">
+    <value>Servis Dönüşü</value>
+  </data>
+  <data name="SchoolBusServiceInformation" xml:space="preserve">
+    <value>Okul Servisi Bilgileri</value>
+  </data>
+  <data name="SchoolBusStatus" xml:space="preserve">
+    <value>Servis Durumu</value>
+  </data>
+  <data name="SchoolCode" xml:space="preserve">
+    <value>Okul/Kurum Kodu</value>
+  </data>
+  <data name="SchoolEnd" xml:space="preserve">
+    <value>Okul Bitiş</value>
+  </data>
+  <data name="SchoolFee01" xml:space="preserve">
+    <value>Öğrenim Ücreti</value>
+  </data>
+  <data name="SchoolFee011" xml:space="preserve">
+    <value>En Uzak</value>
+  </data>
+  <data name="SchoolFee02" xml:space="preserve">
+    <value>Servis Ücreti</value>
+  </data>
+  <data name="SchoolFee022" xml:space="preserve">
+    <value>En Yakın</value>
+  </data>
+  <data name="SchoolFee03" xml:space="preserve">
+    <value>Öğlen Yemeği</value>
+  </data>
+  <data name="SchoolFee033" xml:space="preserve">
+    <value>Orta</value>
+  </data>
+  <data name="SchoolFee04" xml:space="preserve">
+    <value>Pansiyon Ücreti</value>
+  </data>
+  <data name="SchoolFee044" xml:space="preserve">
+    <value>Uzak</value>
+  </data>
+  <data name="SchoolFee05" xml:space="preserve">
+    <value>Diğerleri</value>
+  </data>
+  <data name="SchoolFee055" xml:space="preserve">
+    <value>Yakın</value>
+  </data>
+  <data name="SchoolFees" xml:space="preserve">
+    <value>Okul Ücretleri</value>
+  </data>
+  <data name="SchoolInformationEntry" xml:space="preserve">
+    <value>Okul/Kurum Bilgileri Girişi</value>
+  </data>
+  <data name="SchoolInstitutionInformation" xml:space="preserve">
+    <value>Okul/Kurum Tanımlama</value>
+  </data>
+  <data name="SchoolInstitutionTransactions" xml:space="preserve">
+    <value>Okul/Kurum İşlemleri</value>
+  </data>
+  <data name="SchoolList" xml:space="preserve">
+    <value>Listeye dahil edilecek Okul/Kurumların Seçimi</value>
+  </data>
+  <data name="SchoolLogo" xml:space="preserve">
+    <value>Kurum/Okul Logo</value>
+  </data>
+  <data name="SchoolMsg01" xml:space="preserve">
+    <value>1- Kurumun uzun Adı ve kısa Kodu ve Adı, Senet şehri ve Sözleşmelerde kullanılacak Resim veya Logo girişi yapılır.
+</value>
+  </data>
+  <data name="SchoolMsg02" xml:space="preserve">
+    <value>2- Kurum Adres bilgileri girilir.</value>
+  </data>
+  <data name="SchoolMsg03" xml:space="preserve">
+    <value>3- Okul Başlama ve Bitiş dönemi, Muhasebe Başlama ve Bitiş dönemi tarihleri girilmelidir.
+Program bu tarihlere göre işlem yapmaktadır.</value>
+  </data>
+  <data name="SchoolMsg04" xml:space="preserve">
+    <value>4- Okul/Kurumun hizmet verilen Ücretleri ve Öğrenci Araç Servis ayrıntılı bilgileri girilir.</value>
+  </data>
+  <data name="SchoolMsg05" xml:space="preserve">
+    <value>5- E-Posta bilgileri girilir.</value>
+  </data>
+  <data name="SchoolMsg06" xml:space="preserve">
+    <value>6- E-Fatura bilgileri girilir, Anlaşma yapılan Entegratör seçimi yapılır.
+(Bu konuda herhangi bir bilginiz yoksa Şirketimizden veya Bayilerimizden bilgi alınız.)</value>
+  </data>
+  <data name="SchoolMsg07" xml:space="preserve">
+    <value>7- Programın makbuzlarda, düzenlenen Çek/Senetlerde kullanmakta olduğu fiş numaraları bulunmaktadır.
+Bu numaraları istediğiniz gibi düzenleyebilirsiniz, isterseniz her yıl sıfırlayabilirsiniz.</value>
+  </data>
+  <data name="SchoolMsg08" xml:space="preserve">
+    <value>8- Öğrenciden alınan Çek/Senetler, Muhasebe bölümüne BORÇ/ALACAK fişi olarak kaydedilir.
+Bu fişler işlenirken kullanılan Muhasebe hesap kodları bu bölümden alınmaktadır, değişiklik yapabilirsiniz.</value>
+  </data>
+  <data name="SchoolMsg09" xml:space="preserve">
+    <value>9- Program kullanımında çeşitli ayarlar, kolaylıklar sunulmuştur. Bu ayarları tercihinize göre değiştirebilirsiniz.</value>
+  </data>
+  <data name="SchoolPeriods" xml:space="preserve">
+    <value>Okul/Kurum Dönemleri</value>
+  </data>
+  <data name="Schools" xml:space="preserve">
+    <value>Kurum/Okul</value>
+  </data>
+  <data name="SchoolServiceListByTransportStatus" xml:space="preserve">
+    <value>Okul Servis Listesi (Ulaşım Yerine Göre)</value>
+  </data>
+  <data name="SchoolShuttleCharges" xml:space="preserve">
+    <value>Okul Servisi Ücretleri</value>
+  </data>
+  <data name="SchoolStart" xml:space="preserve">
+    <value>Okul Başlangıç</value>
+  </data>
+  <data name="SchoolStatus" xml:space="preserve">
+    <value>Okulun Durumu</value>
+  </data>
+  <data name="SchoolTransportServiceList" xml:space="preserve">
+    <value>Okul Servisi Listesi</value>
+  </data>
+  <data name="SchoolYearEnd" xml:space="preserve">
+    <value>Okul Bitiş</value>
+  </data>
+  <data name="SchoolYearStart" xml:space="preserve">
+    <value>Okul Başlangıç</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Ara</value>
+  </data>
+  <data name="SearchChequeBond" xml:space="preserve">
+    <value>Çek / Senet Sorgulama</value>
+  </data>
+  <data name="SearchPlaceHolder" xml:space="preserve">
+    <value>Arama yapmak için en az üç harf giriniz.</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>Seç</value>
+  </data>
+  <data name="selectDiscount" xml:space="preserve">
+    <value>Seçim</value>
+  </data>
+  <data name="Selected" xml:space="preserve">
+    <value>Seçilen</value>
+  </data>
+  <data name="SelectedLanguage" xml:space="preserve">
+    <value>Seçilen Dil</value>
+  </data>
+  <data name="SelectedStudent" xml:space="preserve">
+    <value>Seçilen Öğrenci</value>
+  </data>
+  <data name="SelectLanguage" xml:space="preserve">
+    <value>Dil Seçimi</value>
+  </data>
+  <data name="SelectSibling" xml:space="preserve">
+    <value>Kardeş/Grup Seçin ve KAYDET butonuna Basın</value>
+  </data>
+  <data name="Send" xml:space="preserve">
+    <value>Gönder</value>
+  </data>
+  <data name="SendEmail" xml:space="preserve">
+    <value>E-Posta Gönder</value>
+  </data>
+  <data name="SendSms" xml:space="preserve">
+    <value>SMS Gönder</value>
+  </data>
+  <data name="Sent" xml:space="preserve">
+    <value>Gönderildi</value>
+  </data>
+  <data name="SerialCode" xml:space="preserve">
+    <value>Fatura Seri No</value>
+  </data>
+  <data name="SerialInvoiceListing" xml:space="preserve">
+    <value>Toplu Fatura Listeleme</value>
+  </data>
+  <data name="SerialNo" xml:space="preserve">
+    <value>Seri No</value>
+  </data>
+  <data name="SerialNumber" xml:space="preserve">
+    <value>Seri Numarası</value>
+  </data>
+  <data name="SerialNumberReset" xml:space="preserve">
+    <value>Seri Numaralar Sıfırlanır</value>
+  </data>
+  <data name="SerialNumbers" xml:space="preserve">
+    <value>Seri No</value>
+  </data>
+  <data name="SeriNoMsg" xml:space="preserve">
+    <value>Fatura Seri Kod(3) Karakter Olarak Giriniz, Örnek: NCS gibi. ( Fatura Numarası; Fatura Seri Kod(3) + Yıl(4) +Fatura Seri No(9) Olarak Toplam 16 Karakter Uzunluğunda Program Tarafında Oluşturulmaktadır.)</value>
+  </data>
+  <data name="ServiceAgreement" xml:space="preserve">
+    <value>Servis Sözleşmesi</value>
+  </data>
+  <data name="ServicesProvider" xml:space="preserve">
+    <value>Hizmet Sağlayıcı</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Ayarlar</value>
+  </data>
+  <data name="ShortCode" xml:space="preserve">
+    <value>Kod/Ad</value>
+  </data>
+  <data name="ShortName" xml:space="preserve">
+    <value>Kısa Adı</value>
+  </data>
+  <data name="Show" xml:space="preserve">
+    <value>Göster</value>
+  </data>
+  <data name="ShowDebt" xml:space="preserve">
+    <value>Makbuzda Kalan Borç Top. Göster</value>
+  </data>
+  <data name="ShowDiscount" xml:space="preserve">
+    <value>İskontolu Göster</value>
+  </data>
+  <data name="Sibling" xml:space="preserve">
+    <value>Kardes/Grup</value>
+  </data>
+  <data name="SiblingGroupStudentTotalDebtList" xml:space="preserve">
+    <value>Kardeş/Grup Öğrenci Toplam Borç Listesi</value>
+  </data>
+  <data name="Siblings" xml:space="preserve">
+    <value>Kardesler/Gruplar</value>
+  </data>
+  <data name="Siblings2" xml:space="preserve">
+    <value>Kardeş/Grup#</value>
+  </data>
+  <data name="SiblingStudents" xml:space="preserve">
+    <value>Kardeş/Grup Öğrenciler</value>
+  </data>
+  <data name="Signin" xml:space="preserve">
+    <value>Oturum aç</value>
+  </data>
+  <data name="Single" xml:space="preserve">
+    <value>Tek</value>
+  </data>
+  <data name="SingleGroupAll" xml:space="preserve">
+    <value>( Tek, Grup, Tümü ) Seçenekli</value>
+  </data>
+  <data name="SingleNamePaper" xml:space="preserve">
+    <value>Tek Senet</value>
+  </data>
+  <data name="SinglePayment" xml:space="preserve">
+    <value>Kalan Toplam Tutarı Tek Ödemeye Dönüştür</value>
+  </data>
+  <data name="SinglePayment2" xml:space="preserve">
+    <value>veya Tek Ödeme</value>
+  </data>
+  <data name="SinglePaymentAmount" xml:space="preserve">
+    <value>Tek ödeme tutarı</value>
+  </data>
+  <data name="Slip" xml:space="preserve">
+    <value>Fişi</value>
+  </data>
+  <data name="Sms" xml:space="preserve">
+    <value>Sms</value>
+  </data>
+  <data name="SmsandEMailTransactions" xml:space="preserve">
+    <value>Sms. ve E-Posta İşlemleri</value>
+  </data>
+  <data name="SmsCredits" xml:space="preserve">
+    <value>Sms Kontörü</value>
+  </data>
+  <data name="SmsEMailMsg" xml:space="preserve">
+    <value>SMS'e Kapalı Cep Telefonu Numaraları ve E-Posta Adresleri bu ekranda görünmez.</value>
+  </data>
+  <data name="SmsEmailMsg1" xml:space="preserve">
+    <value>Mesaj gönderilecek Öğrencileri seçiniz veya Tümünü işaretleyiniz.</value>
+  </data>
+  <data name="SmsEmailMsg2" xml:space="preserve">
+    <value>Mesajın gönderim seçimini yapınız. "Cep Telefonuna" veya "E-Posta Adresine"</value>
+  </data>
+  <data name="SmsEmailMsg3" xml:space="preserve">
+    <value>Mesaj seçenekleri;</value>
+  </data>
+  <data name="SmsEmailMsg4" xml:space="preserve">
+    <value>Mesaj gönder              : Özel mesajlar için kullanılır, mesaj düzenlenir ve gönderilir.</value>
+  </data>
+  <data name="SmsEmailMsg5" xml:space="preserve">
+    <value>Öğrenci doğum günü mesajı : Doğum günü için mesaj düzenlenir ve gönderilir.</value>
+  </data>
+  <data name="SmsEmailMsg6" xml:space="preserve">
+    <value>Ödenmemiş borç bildirim   : Öğrenci bölümünde ödeme durumuna göre hazırlanmış mesajlar gönderilir.</value>
+  </data>
+  <data name="SmsEmailMsg7" xml:space="preserve">
+    <value>Toplam borç bildirimi     : Öğrenci bölümünde Tüm ödemelerine göre hazırlanmış mesajlar gönderilir.</value>
+  </data>
+  <data name="SmsEmailMsg8" xml:space="preserve">
+    <value>Mesaj sonuçları : Gönderilen mesajlar için geri bildirim raporu hazırlanır.</value>
+  </data>
+  <data name="SmsEmailMsg9" xml:space="preserve">
+    <value>Hesap bilgileri : Kurum/Okulun anlaşma yaptığı Sms.Firmasının vermiş olduğu, Sunucu Adı, Kullanıcı Kurum Sms.Kontörü, Kullanıcı Adı, SMS.Başlığı gibi bilgiler bulunmaktadır.</value>
+  </data>
+  <data name="SmsEMailTransaction" xml:space="preserve">
+    <value>Sms. ve E-Posta İşlemleri</value>
+  </data>
+  <data name="Sort" xml:space="preserve">
+    <value>Sıra</value>
+  </data>
+  <data name="SortByName" xml:space="preserve">
+    <value>Ada Göre Sıralı</value>
+  </data>
+  <data name="SortBySurname" xml:space="preserve">
+    <value>Soyada Göre Sıralı</value>
+  </data>
+  <data name="SortMessage" xml:space="preserve">
+    <value>Bu Seçeneğe Göre Gezinti Yapılacak.</value>
+  </data>
+  <data name="SortMsg" xml:space="preserve">
+    <value>Öğrenci Bulunmaktadır.</value>
+  </data>
+  <data name="SortMsgClassroom" xml:space="preserve">
+    <value>Sınıfında Toplam</value>
+  </data>
+  <data name="SortmsgSchool" xml:space="preserve">
+    <value>Bu Okulda Toplam</value>
+  </data>
+  <data name="SortOrder" xml:space="preserve">
+    <value>Sıra</value>
+  </data>
+  <data name="Standard" xml:space="preserve">
+    <value>Standart</value>
+  </data>
+  <data name="Start" xml:space="preserve">
+    <value>Başlat</value>
+  </data>
+  <data name="StartAccountCode" xml:space="preserve">
+    <value>Başlangıç Ana Hesap Kodu</value>
+  </data>
+  <data name="StartClassroom" xml:space="preserve">
+    <value>Başlangıç Sınıfı</value>
+  </data>
+  <data name="StartDate" xml:space="preserve">
+    <value>Başlangıç Tarihi</value>
+  </data>
+  <data name="StartDate1" xml:space="preserve">
+    <value>Burs Başlangıç Tarihi</value>
+  </data>
+  <data name="StartDateOfRegistration" xml:space="preserve">
+    <value>Başlangıç Kayıt Tarihi</value>
+  </data>
+  <data name="StartYear" xml:space="preserve">
+    <value>Başlangıç Yılı</value>
+  </data>
+  <data name="StatisticsSnapshot" xml:space="preserve">
+    <value>Anlık İstatistikler</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Durumu</value>
+  </data>
+  <data name="StockCode" xml:space="preserve">
+    <value>Stok Kodu</value>
+  </data>
+  <data name="StockList" xml:space="preserve">
+    <value>Stok Listesi</value>
+  </data>
+  <data name="StockLists" xml:space="preserve">
+    <value>Stok Listeleri</value>
+  </data>
+  <data name="StockQuantity" xml:space="preserve">
+    <value>Stok Miktarı</value>
+  </data>
+  <data name="Student" xml:space="preserve">
+    <value>Öğrenci</value>
+  </data>
+  <data name="Student2" xml:space="preserve">
+    <value>Öğr.</value>
+  </data>
+  <data name="StudentAbsenceEntry" xml:space="preserve">
+    <value>Öğrenci Devamsızlık Girişi</value>
+  </data>
+  <data name="StudentAbsenceEntry1" xml:space="preserve">
+    <value>Öğrenci Devamsızlık</value>
+  </data>
+  <data name="StudentAddress" xml:space="preserve">
+    <value>Student Address</value>
+  </data>
+  <data name="StudentAddressI" xml:space="preserve">
+    <value>Öğrenci Adresi - I</value>
+  </data>
+  <data name="StudentAddressII" xml:space="preserve">
+    <value>Öğrenci Adresi - II</value>
+  </data>
+  <data name="StudentAddressServices" xml:space="preserve">
+    <value>Öğrenci Adres/Servis</value>
+  </data>
+  <data name="StudentBusServicesInformation" xml:space="preserve">
+    <value>Öğrenci Servis Bilgileri</value>
+  </data>
+  <data name="StudentCard" xml:space="preserve">
+    <value>Öğrenci Kartı</value>
+  </data>
+  <data name="StudentCardandInvoiceInformation" xml:space="preserve">
+    <value>Öğrenci Kartı ve Fatura Bilgileri</value>
+  </data>
+  <data name="StudentCardCollectionTransactions" xml:space="preserve">
+    <value>Öğrenci Kartı Tahsilat İşlemleri</value>
+  </data>
+  <data name="StudentClassroom" xml:space="preserve">
+    <value>Öğrenci Sınıfı</value>
+  </data>
+  <data name="StudentCopy1" xml:space="preserve">
+    <value>Seçilen Öğrencinin; Adres, Fatura, Veli, Banka, Aile Bilgileri, Yeni Öğrenciye Aktarılır.</value>
+  </data>
+  <data name="StudentDiscountList" xml:space="preserve">
+    <value>Öğrenci İndirim Listesi</value>
+  </data>
+  <data name="StudentFeesbyClassType" xml:space="preserve">
+    <value>Sınıf Tipine Göre Öğrenci Ücret Durumları</value>
+  </data>
+  <data name="StudentFeeStatusList" xml:space="preserve">
+    <value>Öğrenci Ücret Durumu Listesi</value>
+  </data>
+  <data name="StudentFeeStatusListSubDetailed" xml:space="preserve">
+    <value>Öğrenci Ücret ve Stok Durumu Listesi (Alt Detaylı)</value>
+  </data>
+  <data name="StudentGeneralAddressParent" xml:space="preserve">
+    <value>Genel, Adres, Veli...</value>
+  </data>
+  <data name="StudentID2" xml:space="preserve">
+    <value>Öğr. TC.Kim.No</value>
+  </data>
+  <data name="StudentInformation" xml:space="preserve">
+    <value>Öğrenci Bilgileri</value>
+  </data>
+  <data name="StudentInformationRecord" xml:space="preserve">
+    <value>Öğrenci Bilgileri Girişi</value>
+  </data>
+  <data name="StudentInvoiceDetails" xml:space="preserve">
+    <value>Öğrenci Fatura Detayları</value>
+  </data>
+  <data name="StudentInvoicesList" xml:space="preserve">
+    <value>Öğrenci Faturaları Listesi</value>
+  </data>
+  <data name="StudentMsg01" xml:space="preserve">
+    <value>Kısaca Bir Öğrencinin Kaydı Nasıl Yapılır?</value>
+  </data>
+  <data name="StudentMsg02" xml:space="preserve">
+    <value>1- Öğrencinin Adı Soyadı ve diğer kişisel bilgileri girilir.</value>
+  </data>
+  <data name="StudentMsg03" xml:space="preserve">
+    <value>2- Adı Soyadı, Sınıf bilgisi, Kayıt durumu, Kayıt tipi mutlaka girilmesi gereken alanlardır.</value>
+  </data>
+  <data name="StudentMsg04" xml:space="preserve">
+    <value>3- Ücret bilgileri seçilir veya girilir (Mouse/Fare İle Çift Tıklama İle Manuel Giriş Yapabilirsiniz)</value>
+  </data>
+  <data name="StudentMsg041" xml:space="preserve">
+    <value>-- Ücrete; Alt Detay Girişi Yapmak İsteyen Kurumlar İçin;</value>
+  </data>
+  <data name="StudentMsg042" xml:space="preserve">
+    <value>-- Okul Menüsünde, "Sınıf Tipine Göre Ücret Girişi" Tablosu Bölümünde, Ücret Detayları Girilir.</value>
+  </data>
+  <data name="StudentMsg043" xml:space="preserve">
+    <value>-- Öğrenci Girişi Yapılırken, Ücret Detayları Girilmiş Ücret Kalemlerinde  DETAY TABLO su Otomatik Gösterilir.</value>
+  </data>
+  <data name="StudentMsg044" xml:space="preserve">
+    <value>-- Gösterilen Alt Detay Ücretler İçinde, İstenen Seçim Yapılır ve KAYIT Butonuna Basılarak, Alt Ücretin Seçimi Yapılmış Olur.</value>
+  </data>
+  <data name="StudentMsg045" xml:space="preserve">
+    <value>4- Varsa iskonto bilgileri girilir, ücretten indirim işlemleri yapılır ve öğrenciye ait kayıt tutarı düzenlenmiş olur.</value>
+  </data>
+  <data name="StudentMsg05" xml:space="preserve">
+    <value>5- Daha sonra düzenlenen borcun ödeme planlaması yapılır, Taksit miktarı, Peşin ödeme vs. bilgiler girilerek vadelere göre taksit tablosu oluşturulur.</value>
+  </data>
+  <data name="StudentMsg06" xml:space="preserve">
+    <value>6- KAYDET butonuna basılarak Öğrencinin kişisel bilgileri ve ücret, taksit bilgileri kaydedilir.
+
+
+</value>
+  </data>
+  <data name="StudentMsg07" xml:space="preserve">
+    <value>Bu işlemlerden sonra;</value>
+  </data>
+  <data name="StudentMsg08" xml:space="preserve">
+    <value>- Öğrencinin cari kaydı oluşur, Tahsilat bölümünden girebilir, işlem yapabilirsiniz.</value>
+  </data>
+  <data name="StudentMsg09" xml:space="preserve">
+    <value>- Öğrenci kaydında yapılan borçlandırma türüne göre, otomatik Muhasebe kaydı yapılır,
+alınan Çek/Senet vb. ödemeler için Muhasebe fişine BORÇ ve ALACAk kayıtları işlenir.</value>
+  </data>
+  <data name="StudentMsg091" xml:space="preserve">
+    <value>Değişiklik Hakkında;</value>
+  </data>
+  <data name="StudentMsg10" xml:space="preserve">
+    <value>- Öğrenci ücretlerinde değişiklik yapılacaksa, "/Değiştir/Değişiklik işlemleri" ile</value>
+  </data>
+  <data name="StudentMsg11" xml:space="preserve">
+    <value>- Ücret iadesi yapılacaksa "/Değiştir/İade" işlemleri ile</value>
+  </data>
+  <data name="StudentMsg12" xml:space="preserve">
+    <value>- İleri tarihli ücret iadesi yapılacaksa "/Değiştir/İade işlemleri (İleri tarihli)" ile</value>
+  </data>
+  <data name="StudentMsg13" xml:space="preserve">
+    <value>- İptal işlemleri yapılacaksa "/Değiştir/İptal işlemleri ile yapabilirsiniz.</value>
+  </data>
+  <data name="StudentName" xml:space="preserve">
+    <value>Öğrenci Adı</value>
+  </data>
+  <data name="StudentNumber" xml:space="preserve">
+    <value>Öğr. No</value>
+  </data>
+  <data name="StudentNumber1" xml:space="preserve">
+    <value>Öğrenci No</value>
+  </data>
+  <data name="StudentNumberInOrder" xml:space="preserve">
+    <value>ÖğrNo Sıralı</value>
+  </data>
+  <data name="StudentRegistrationForm" xml:space="preserve">
+    <value>Öğrenci Kayıt Formu</value>
+  </data>
+  <data name="StudentRegistrationRenewalForm" xml:space="preserve">
+    <value>Öğrenci Kayıt Yenileme Formu</value>
+  </data>
+  <data name="StudentRegistrationRenewalFormAndInvoiceInformationList" xml:space="preserve">
+    <value>Kayıt Yenileme Formu ve Fatura Bilgileri</value>
+  </data>
+  <data name="StudentRegistrationRenewalFormListSortByClassroomRegistrationNo" xml:space="preserve">
+    <value>Kayıt Yenileme Formu ( Sınıf / Kayıt No Sıralı )</value>
+  </data>
+  <data name="Students" xml:space="preserve">
+    <value>Öğrenciler</value>
+  </data>
+  <data name="StudentSerialNumber" xml:space="preserve">
+    <value>Kayıt No</value>
+  </data>
+  <data name="StudentsInvoices" xml:space="preserve">
+    <value>Öğrenci Faturaları</value>
+  </data>
+  <data name="StudentsoftheClass" xml:space="preserve">
+    <value>Sınıfa Ait Öğrenciler</value>
+  </data>
+  <data name="Studentss" xml:space="preserve">
+    <value>Öğrencinin</value>
+  </data>
+  <data name="StudentsWhoDoNotReregister" xml:space="preserve">
+    <value>Kayıt Yenilemeyen Öğrenciler</value>
+  </data>
+  <data name="StudentsWithRegistrationFee" xml:space="preserve">
+    <value>Kayıt ücreti olan öğrenciler</value>
+  </data>
+  <data name="StudentTotalDebtList" xml:space="preserve">
+    <value>Öğrenci Toplam Borç Listesi</value>
+  </data>
+  <data name="StudentTotalsbyClassrooms" xml:space="preserve">
+    <value>Sınıflara Göre Öğrenci Toplamları</value>
+  </data>
+  <data name="StudentTransactions" xml:space="preserve">
+    <value>Öğrenci İşlemleri</value>
+  </data>
+  <data name="SubFeeName" xml:space="preserve">
+    <value>Alt Ücret Adı</value>
+  </data>
+  <data name="Submit" xml:space="preserve">
+    <value>Kaydet</value>
+  </data>
+  <data name="SubTotal" xml:space="preserve">
+    <value>Ara Toplam</value>
+  </data>
+  <data name="Successfull" xml:space="preserve">
+    <value>Başarılı</value>
+  </data>
+  <data name="Tax" xml:space="preserve">
+    <value>Kdv</value>
+  </data>
+  <data name="TaxAmount" xml:space="preserve">
+    <value>Kdv.Tutarı</value>
+  </data>
+  <data name="TaxNo" xml:space="preserve">
+    <value>Vergi No</value>
+  </data>
+  <data name="TaxNoNotEntered" xml:space="preserve">
+    <value>Fatura Basımı İçin Gerekli Olan Bilgiler Girilmemiştir, Lütfen Eksik Bilgileri Tamamlayınız.</value>
+  </data>
+  <data name="TaxNumber" xml:space="preserve">
+    <value>Vergi Numarası</value>
+  </data>
+  <data name="TaxNumberOrId" xml:space="preserve">
+    <value>Vergi / T.C No</value>
+  </data>
+  <data name="TaxOffice" xml:space="preserve">
+    <value>Vergi Dairesi</value>
+  </data>
+  <data name="TaxPercent" xml:space="preserve">
+    <value>Kdv%</value>
+  </data>
+  <data name="Teacher" xml:space="preserve">
+    <value>Öğretmen</value>
+  </data>
+  <data name="TermOfUse" xml:space="preserve">
+    <value>Kullanım koşulları</value>
+  </data>
+  <data name="Theme" xml:space="preserve">
+    <value>Tema</value>
+  </data>
+  <data name="TheseInvoiceNumbersWillBePrinted" xml:space="preserve">
+    <value>Bu Fatura Numaraları Dökülecek</value>
+  </data>
+  <data name="ThirtPerson" xml:space="preserve">
+    <value>Anne ve Baba Haricinde Ulaşılabilecek Üçüncü Kişi</value>
+  </data>
+  <data name="TimeZone" xml:space="preserve">
+    <value>Saat Dilimi</value>
+  </data>
+  <data name="TimeZoneLocation" xml:space="preserve">
+    <value>Zaman Dilimi Konumu</value>
+  </data>
+  <data name="TimeZoneLocationMsg" xml:space="preserve">
+    <value>Program, farklı ülkede kullanılıyorsa ofisimizden bilgi alınız.</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>İsim/Başlık</value>
+  </data>
+  <data name="Title1" xml:space="preserve">
+    <value>Başlık</value>
+  </data>
+  <data name="TodayH" xml:space="preserve">
+    <value>BUGÜN TAHSİL EDİLEN</value>
+  </data>
+  <data name="ToEmailAddress" xml:space="preserve">
+    <value>E-Posta Adresine</value>
+  </data>
+  <data name="ToMobilePhone" xml:space="preserve">
+    <value>Cep Telefonuna</value>
+  </data>
+  <data name="ToolltiipWorkArea" xml:space="preserve">
+    <value>İzin verilen çalışma alanlarını işaretleyiniz.</value>
+  </data>
+  <data name="ToolltiipWorkArea2" xml:space="preserve">
+    <value>İzin verilen Okulları işaretleyiniz.</value>
+  </data>
+  <data name="TooltipAccountSerialNumber" xml:space="preserve">
+    <value>Muhaseb Fiş Numarası İçin Kullanılmaktadır</value>
+  </data>
+  <data name="TooltipId" xml:space="preserve">
+    <value>Tc.No'yu girin ve kontrol düğmesine basın. (Kırmızı=Geçersiz, Yeşil=Geçerli numara.)</value>
+  </data>
+  <data name="tooltipMsg1" xml:space="preserve">
+    <value>Öğrenci Seçimi</value>
+  </data>
+  <data name="tooltipMsg2" xml:space="preserve">
+    <value>Mevcut Girişte Kardeş/Grup Seçimi Yapılır, Yeni Kayıt Yapılırken Adres Kopyalar</value>
+  </data>
+  <data name="TooltipStudentSerialNumber1" xml:space="preserve">
+    <value>Kayıt numarası program tarafında verilmektedir(Kurum / Seri no / Son Kayıt No)</value>
+  </data>
+  <data name="TooltipStudentSerialNumber2" xml:space="preserve">
+    <value>Öğrenci kayıt numarası için kullanılmaktadır</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Toplam</value>
+  </data>
+  <data name="Total1" xml:space="preserve">
+    <value>I</value>
+  </data>
+  <data name="Total2" xml:space="preserve">
+    <value>II</value>
+  </data>
+  <data name="TotalAbsenteeism" xml:space="preserve">
+    <value>Toplam Devamsızlık Durumu</value>
+  </data>
+  <data name="TotalAmount" xml:space="preserve">
+    <value>Toplam Tutar</value>
+  </data>
+  <data name="TotalCollection" xml:space="preserve">
+    <value>Toplam Tahsil</value>
+  </data>
+  <data name="TotalDebt" xml:space="preserve">
+    <value>Toplam Borç</value>
+  </data>
+  <data name="TotalDebtMessage" xml:space="preserve">
+    <value>Toplam Borç Mesajı</value>
+  </data>
+  <data name="TotalDebtNotice" xml:space="preserve">
+    <value>Toplam borç bildirimi</value>
+  </data>
+  <data name="TotalDiscount" xml:space="preserve">
+    <value>Toplam İndirim</value>
+  </data>
+  <data name="TotalFee" xml:space="preserve">
+    <value>Total Fee</value>
+  </data>
+  <data name="TotalH" xml:space="preserve">
+    <value>YEKÜN</value>
+  </data>
+  <data name="TotalInvoiced" xml:space="preserve">
+    <value>Toplam Kesilen</value>
+  </data>
+  <data name="TotalInvoiced1" xml:space="preserve">
+    <value>Toplam Kesilen Fatura</value>
+  </data>
+  <data name="TotalInvoicetoPrint" xml:space="preserve">
+    <value>Basılacak Fatura (Toplam / Kalan)</value>
+  </data>
+  <data name="TotalUnissuedlnvoiced" xml:space="preserve">
+    <value>Toplam Kesilmemiş Fatura</value>
+  </data>
+  <data name="Town" xml:space="preserve">
+    <value>İlçe</value>
+  </data>
+  <data name="TradeRegisterNo" xml:space="preserve">
+    <value>İşyeri Sicil No</value>
+  </data>
+  <data name="TransactionDate" xml:space="preserve">
+    <value>İşlem Tarihi</value>
+  </data>
+  <data name="TransactionOptions" xml:space="preserve">
+    <value>İşlem Seçenekleri</value>
+  </data>
+  <data name="TransactionResult" xml:space="preserve">
+    <value>İşlem Sonucu</value>
+  </data>
+  <data name="Transfer" xml:space="preserve">
+    <value>Aktar</value>
+  </data>
+  <data name="TransferNextH" xml:space="preserve">
+    <value>YARINA DEVİR</value>
+  </data>
+  <data name="TransferPreviousH" xml:space="preserve">
+    <value>DÜNDEN DEVREDEN</value>
+  </data>
+  <data name="TrialBalance" xml:space="preserve">
+    <value>Mizan Dökümü</value>
+  </data>
+  <data name="Turkish" xml:space="preserve">
+    <value>Türkçe</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>Türü</value>
+  </data>
+  <data name="TypeAMessage" xml:space="preserve">
+    <value>Bir mesaj yazın</value>
+  </data>
+  <data name="Unexcused" xml:space="preserve">
+    <value>Mazeretsiz</value>
+  </data>
+  <data name="UnissuedInvoice" xml:space="preserve">
+    <value>Kesilmeyen Fatura</value>
+  </data>
+  <data name="UnissuedInvoiceAmount" xml:space="preserve">
+    <value>Kesilmeyen Fatura Tutarı</value>
+  </data>
+  <data name="UnissuedInvoices" xml:space="preserve">
+    <value>Kesilmeyen Faturalar</value>
+  </data>
+  <data name="UnissuedZero" xml:space="preserve">
+    <value>Kesilmeyen Tutar Sıfır</value>
+  </data>
+  <data name="UnitPrice" xml:space="preserve">
+    <value>Fiyatı</value>
+  </data>
+  <data name="UnpaidDebtMessage" xml:space="preserve">
+    <value>Ödenmemiş Borç Mesajı</value>
+  </data>
+  <data name="UnpaidMessageNotice" xml:space="preserve">
+    <value>Ödenmemiş borç bildirimi</value>
+  </data>
+  <data name="Unplanned" xml:space="preserve">
+    <value>Plansız</value>
+  </data>
+  <data name="UnplannedInvoice" xml:space="preserve">
+    <value>Plansız Fatura</value>
+  </data>
+  <data name="UnplannedInvoiceEntry" xml:space="preserve">
+    <value>Plansız Fatura Girişi</value>
+  </data>
+  <data name="UnplannedInvoiceEntryandPrinting" xml:space="preserve">
+    <value>Plansız Fatura Girişi</value>
+  </data>
+  <data name="UnplannedInvoicePrinting" xml:space="preserve">
+    <value>Plansız Fatura Dökümü</value>
+  </data>
+  <data name="Unsuccessfull" xml:space="preserve">
+    <value>Başarısız</value>
+  </data>
+  <data name="UpdatedSuccessfuly" xml:space="preserve">
+    <value>Başarıyla Güncellendi</value>
+  </data>
+  <data name="UpdateRegistrationDate" xml:space="preserve">
+    <value>Kayıt Tarihini Güncelle</value>
+  </data>
+  <data name="UpdatesRegistrationFormtoRegistrationRenewal" xml:space="preserve">
+    <value>Kayıt Şekli Güncellenir</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>Kullanıcı</value>
+  </data>
+  <data name="UserAction" xml:space="preserve">
+    <value>Kullanıcı Haraketleri</value>
+  </data>
+  <data name="UserComments" xml:space="preserve">
+    <value>Açıklama</value>
+  </data>
+  <data name="UserDateOfJoining" xml:space="preserve">
+    <value>İşe Başlama Tarihi</value>
+  </data>
+  <data name="UserIdentification" xml:space="preserve">
+    <value>Kullanıcı Tanımlama</value>
+  </data>
+  <data name="UserInformationEntry" xml:space="preserve">
+    <value>Kullanıcı Bilgileri Girişi</value>
+  </data>
+  <data name="UserMsg" xml:space="preserve">
+    <value>Kullanıcı Mesajı :</value>
+  </data>
+  <data name="UserName" xml:space="preserve">
+    <value>Kullanıcı Adı</value>
+  </data>
+  <data name="UserPassword" xml:space="preserve">
+    <value>Kullanıcı Şifresi</value>
+  </data>
+  <data name="UserPermissionOperations" xml:space="preserve">
+    <value>Kullanıcı İzin İşlemleri</value>
+  </data>
+  <data name="UserPermissions" xml:space="preserve">
+    <value>İzin İşlemleri</value>
+  </data>
+  <data name="Users" xml:space="preserve">
+    <value>Kullanıcılar</value>
+  </data>
+  <data name="UsersEntry01" xml:space="preserve">
+    <value>1- Programı kullanacak kullanıcıların, masa üstü resmi ve diğer bilgileri girilir.</value>
+  </data>
+  <data name="UsersEntry02" xml:space="preserve">
+    <value>2- Program Menüsünde Görüntülenen Resmi Değiştirebilir.
+Kendinize Özel Resimler Seçebilirsiniz.</value>
+  </data>
+  <data name="UsersEntry03" xml:space="preserve">
+    <value>3- Mesai Başlangıç ve Bitiş Saatleri Girilir.
+Kullanıcı Girilen Saat Aralıklarında Programı Kullanabilmektedir.</value>
+  </data>
+  <data name="UsersEntry04" xml:space="preserve">
+    <value>4- Kullanıcı Adı ve Şifresi Girilmeldir. Programa; Bu Bilgiler İle Giriş Yapabilirsiniz.</value>
+  </data>
+  <data name="UsersEntry05" xml:space="preserve">
+    <value>5- Çalışma Alanları:
+Kullanıcının; girmesini veya kullanmasını istemediğiniz program çalışma alanlarının işaretleri kaldırılarak, kullanıcının çalışma alanı sınırlandırılır.</value>
+  </data>
+  <data name="UsersEntry06" xml:space="preserve">
+    <value>6- Kullanıcı Durumu:
+Etkin:Programı Kullanabilir
+Pasif: Programı Kullanamaz</value>
+  </data>
+  <data name="UsersEntry07" xml:space="preserve">
+    <value>7- (*) Bulunan Girişler YÖNETİCİ Tarafından Girilebilir.</value>
+  </data>
+  <data name="UsersEntry08" xml:space="preserve">
+    <value>8- Personel Hakkında Notlar Bölümünü Ancak Yönetici Girebilir ve Görebilir.</value>
+  </data>
+  <data name="UserShiftFrom" xml:space="preserve">
+    <value>Mesai Başlangıç(*)</value>
+  </data>
+  <data name="UserShiftTo" xml:space="preserve">
+    <value>Mesai Bitiş(*)</value>
+  </data>
+  <data name="UserStatus" xml:space="preserve">
+    <value>Kullanıcı Durumu(*)</value>
+  </data>
+  <data name="ValidationError" xml:space="preserve">
+    <value>Geçersiz Bilgi Girişi, Lütfen Girişlerinizi Kontrol Ediniz.</value>
+  </data>
+  <data name="ValidationError2" xml:space="preserve">
+    <value>Girilen tarihte ödeme bulunamadı.</value>
+  </data>
+  <data name="ValidationError3" xml:space="preserve">
+    <value>Girilen İki Sınıf Arasında Öğrenci Bulunamadı</value>
+  </data>
+  <data name="ValidationError4" xml:space="preserve">
+    <value>Girilen Yeni Döneme Ait Bilgiler Mevcut, Aktarım Yapamazsınız.</value>
+  </data>
+  <data name="ValidationError5" xml:space="preserve">
+    <value>Yeni Dönem Bilgileriniz Aktarıldı, Lütfen Bilgilerinizi Kontrol Ediniz.</value>
+  </data>
+  <data name="ValidationError6" xml:space="preserve">
+    <value>Açılış ve Kapanış İşlemleri Önceden Yapılmış, Tekrar Aktarım İçin İşlemi Yenileyin.</value>
+  </data>
+  <data name="ValidationError7" xml:space="preserve">
+    <value>Eski Dönem İçin Kapanış, Yeni Dönem İçin Açılış Yapılmıştır.</value>
+  </data>
+  <data name="ValidationError8" xml:space="preserve">
+    <value>Okul veya Kurumunuzun E-Fatura Bilgileri Girilmemiş, Lütfen Bilgileri Giriniz.</value>
+  </data>
+  <data name="ValidationError9" xml:space="preserve">
+    <value>Girilen Tarih ve Fiş Nosunda Giriş Bulunamadı.</value>
+  </data>
+  <data name="ValidEmail" xml:space="preserve">
+    <value>Geçerli Bir e-Posta Adresi Girin.</value>
+  </data>
+  <data name="ValidNumber" xml:space="preserve">
+    <value>Geçerli Bir Sayı Giriniz.</value>
+  </data>
+  <data name="View" xml:space="preserve">
+    <value>Ekran</value>
+  </data>
+  <data name="Visa" xml:space="preserve">
+    <value>Visa</value>
+  </data>
+  <data name="VoucherControl" xml:space="preserve">
+    <value>Fiş Kontrol</value>
+  </data>
+  <data name="VoucherDelete" xml:space="preserve">
+    <value>Fiş Silme</value>
+  </data>
+  <data name="VoucherMsg1" xml:space="preserve">
+    <value>Boş fiş no</value>
+  </data>
+  <data name="VoucherMsg2" xml:space="preserve">
+    <value>Kayıt Yapılmamış, Son 10 Fiş Numarası.</value>
+  </data>
+  <data name="VoucherNo" xml:space="preserve">
+    <value>Fiş No</value>
+  </data>
+  <data name="VoucherTransaction" xml:space="preserve">
+    <value>Fiş İşleme</value>
+  </data>
+  <data name="VoucherType" xml:space="preserve">
+    <value>Fiş Türü</value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>Uyarı : </value>
+  </data>
+  <data name="WarningLettertoOverduePersons" xml:space="preserve">
+    <value>Vadesi Geçenlere Uyarı Mektubu</value>
+  </data>
+  <data name="WebAddress" xml:space="preserve">
+    <value>Web Adresi</value>
+  </data>
+  <data name="WebSite" xml:space="preserve">
+    <value>Web Sayfası</value>
+  </data>
+  <data name="Withholding" xml:space="preserve">
+    <value>Tevkifat</value>
+  </data>
+  <data name="WithholdingCode" xml:space="preserve">
+    <value>Tevkifat Kodu</value>
+  </data>
+  <data name="WithholdingPercent" xml:space="preserve">
+    <value>Tevkifat Oranı ( 1 / 2 )</value>
+  </data>
+  <data name="WithholdingTax" xml:space="preserve">
+    <value>Tevkifatlı_Kdv</value>
+  </data>
+  <data name="Work" xml:space="preserve">
+    <value>İş</value>
+  </data>
+  <data name="WorkAddress" xml:space="preserve">
+    <value>İş Adresi</value>
+  </data>
+  <data name="WorkAreas" xml:space="preserve">
+    <value>Çalışma Alanları(*)</value>
+  </data>
+  <data name="WorkAreas2" xml:space="preserve">
+    <value>Okullar(*)</value>
+  </data>
+  <data name="WorkPhone" xml:space="preserve">
+    <value>İş Telefonu</value>
+  </data>
+  <data name="WriteDate" xml:space="preserve">
+    <value>Tarih Yaz</value>
+  </data>
+  <data name="WriteStudentName" xml:space="preserve">
+    <value>Öğrenci Adını Yaz</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Evet</value>
+  </data>
+  <data name="ZipCode" xml:space="preserve">
+    <value>Posta Kodu</value>
+  </data>
+  <data name="AuditTrailReset1" xml:space="preserve">
+    <value>Denetim İzi Sıfırlanır</value>
+  </data>
+  <data name="BottomImage" xml:space="preserve">
+    <value>Alt Resim</value>
+  </data>
+  <data name="EIUserName" xml:space="preserve">
+    <value>Kullanıcı Adı</value>
+  </data>
+  <data name="EIUserPassword" xml:space="preserve">
+    <value>Kullanıcı Şifre</value>
+  </data>
+  <data name="EIWebAddress" xml:space="preserve">
+    <value>Fatura Web Adresi</value>
+  </data>
+  <data name="Quato" xml:space="preserve">
+    <value>Kontenjan</value>
+  </data>
+  <data name="SortBySurname1" xml:space="preserve">
+    <value>Soyada Göre Sıralı</value>
+  </data>
+  <data name="Statu" xml:space="preserve">
+    <value>Statü</value>
+  </data>
+  <data name="TopImage" xml:space="preserve">
+    <value>Üst Resim</value>
+  </data>
+  <data name="ValidationError33" xml:space="preserve">
+    <value>Girilen Hesaba Ait Kayıt Bulunamadı.</value>
+  </data>
+  <data name="DebitAccounts" xml:space="preserve">
+    <value>Borçlu Hesapları Listele</value>
+  </data>
+  <data name="CreditAccounts" xml:space="preserve">
+    <value>Alacaklı Hesapları Listele</value>
+  </data>
+  <data name="M109Msg0" xml:space="preserve">
+    <value>- Normal Listelemeye Borcu Olmayanlar Dahil Edilmemektedir</value>
+  </data>
+  <data name="NewVersion" xml:space="preserve">
+    <value>Yeni Versiyon</value>
+  </data>
+</root>

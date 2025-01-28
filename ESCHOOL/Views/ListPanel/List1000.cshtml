@@ -1,0 +1,652 @@
+﻿@model ESCHOOL.ViewModels.ListPanelModel
+@{
+    System.Globalization.CultureInfo.CurrentCulture = System.Globalization.CultureInfo.CreateSpecificCulture(@Model.SelectedCulture);
+    System.Globalization.CultureInfo.CurrentUICulture = System.Globalization.CultureInfo.CreateSpecificCulture(@Model.SelectedCulture);
+    var culture = System.Globalization.CultureInfo.CurrentCulture.ToString();
+}
+<html>
+<head>
+    <style>
+        html {
+            font-size: 13px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+    </style>
+    <title></title>
+    <link href="https://kendo.cdn.telerik.com/2021.2.616/styles/kendo.common.min.css" rel="stylesheet" />
+
+    <script src="https://kendo.cdn.telerik.com/2021.2.616/js/jquery.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2021.2.616/js/kendo.all.min.js"></script>
+
+    <script src="@Url.Content("~/telerik/2021.2.616/js//cultures/kendo.culture." + culture + ".min.js")"></script>
+    <script src="@Url.Content("~/telerik/2021.2.616/js//messages/kendo.messages." + culture + ".min.js")"></script>
+    <link rel="stylesheet" id="skin-css" href="@TempData["theme"]" />
+    <link rel="stylesheet" id="skin-css" href="@TempData["themeMobile"]" />
+    <script type="text/javascript">
+        kendo.culture("@culture");
+    </script>
+</head>
+
+<body onload="switchBodyColor(), isLoop();">
+    @if (ViewBag.IsSuccess == true)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>@ESCHOOL.Resources.Resource.Warning</strong>@ESCHOOL.Resources.Resource.ValidationError<br />
+            <a asp-contoller="ListPanel" asp-action="List1000" asp-route-userID="@Model.UserID">@ESCHOOL.Resources.Resource.ClickToContinue</a>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
+    <div id="example">
+        <div class="demo-section k-content center" id="shadow">
+            <div class="center2">
+                <label class="label" style="font-style:italic;">@Model.StudentName</label>
+                <h2>@ESCHOOL.Resources.Resource.List1000Title</h2>
+            </div>
+            <br />
+            <form id="List1000" asp-controller="ListPanel" asp-action="ListPanelInfo1000">
+                <input type="hidden" asp-for="UserID" />
+                <input type="hidden" asp-for="Periods" />
+                <input type="hidden" asp-for="StudentID" />
+                <input type="hidden" asp-for="SchoolID" />
+                <input type="hidden" asp-for="wwwRootPath" />
+                <input type="hidden" asp-for="ExitID" />
+                <input type="hidden" asp-for="ReceiptNo" />
+                <input type="hidden" asp-for="PaymentSW" />
+                <div class="cards-container shadow">
+                    <div class="k-card k-card-horizontal">
+                        <img class="k-card-image" src="../Upload/Images/Document11.png">
+
+                        <div class="k-vbox k-column" style="padding-left:20px;">
+                            <div class="k-card-body">
+                                <div>
+                                    <label class="label">@ESCHOOL.Resources.Resource.ListingOptions</label>
+                                    <input type="hidden" asp-for="Prg" />
+                                    <div class="row">
+                                        <div class="col">
+                                            <input asp-for="List01Options0" id="list01Options0" class="ax-unselectable k-checkbox" type="checkbox">
+                                            <label asp-for="List01Options0" for="list01Options0" class="required"><b>@ESCHOOL.Resources.Resource.RegistrationForm</b></label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <input asp-for="List01Options1" id="list01Options1" class="ax-unselectable k-checkbox" type="checkbox">
+                                            <label asp-for="List01Options1" for="list01Options1" class="required"><b>@ESCHOOL.Resources.Resource.MailOrderInstructionForm</b></label>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col">
+                                            <input asp-for="List01Options2" id="list01Options2" class="ax-unselectable k-checkbox" type="checkbox">
+                                            <label asp-for="List01Options2" for="list01Options2" class="required"><i>@ESCHOOL.Resources.Resource.BondListBank</i></label>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col">
+                                            <input asp-for="List01Options3" id="list01Options3" class="ax-unselectable k-checkbox" type="checkbox">
+                                            <label asp-for="List01Options3" for="list01Options3" class="required"><i>@ESCHOOL.Resources.Resource.BondListByhand</i></label>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col">
+                                            <input asp-for="List01Options4" id="list01Options4" class="ax-unselectable k-checkbox" type="checkbox">
+                                            <label asp-for="List01Options4" for="list01Options4" class="required"><i>@ESCHOOL.Resources.Resource.BondListOTS</i></label>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col">
+                                            <input asp-for="List01Options5" id="list01Options5" class="ax-unselectable k-checkbox" type="checkbox">
+                                            <label asp-for="List01Options5" for="list01Options5" class="required"><i>@ESCHOOL.Resources.Resource.BondListMailOrder</i></label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <input asp-for="List01Options8" id="list01Options8" class="ax-unselectable k-checkbox" type="checkbox">
+                                            <label asp-for="List01Options8" for="list01Options8" class="required"><i>@ESCHOOL.Resources.Resource.CreditCard</i></label>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="row">
+                                        <div class="col">
+                                            <input asp-for="List01Options6" id="list01Options6" class="ax-unselectable k-checkbox" type="checkbox">
+                                            <label asp-for="List01Options6" for="list01Options6" class="required"><b><i>@ESCHOOL.Resources.Resource.CollectionReceipt1</i></b></label>
+                                        </div>
+                                    </div>
+
+                                    <div class="row" id="Options7">
+                                        <div class="col">
+                                            <input asp-for="List01Options7" id="list01Options7" class="ax-unselectable k-checkbox" type="checkbox">
+                                            <label asp-for="List01Options7" for="list01Options7" class="required"><b><i>@ESCHOOL.Resources.Resource.DebitReceipt</i></b></label>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <br />
+                <div class="demo-section">
+                    <ul id="panelbar">
+                        <li>
+                            @ESCHOOL.Resources.Resource.Agreement
+                            <div id="Address">
+                                <h5> @ESCHOOL.Resources.Resource.AgreementType</h5>
+                                <div class="row">
+                                    <div class="row" style="padding-left:80px;">
+                                        <div class="col">
+                                            <input asp-for="AgreementOpt" id="AgreementId" class="ax-unselectable k-checkbox" type="checkbox" checked disabled>
+                                            <label asp-for="AgreementOpt" for="AgreementId" class="required">@ESCHOOL.Resources.Resource.RegistrationAgreement</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="row" style="padding-left:40px;">
+                                        <div class="col">
+                                            <input asp-for="KvkkOpt" id="KvkkId" class="ax-unselectable k-checkbox" type="checkbox" checked>
+                                            <label asp-for="KvkkOpt" for="KvkkId" class="required">@ESCHOOL.Resources.Resource.Kvkk</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <hr />
+                                <div class="row">
+                                    <div>
+                                        <div class="row" style="padding-left:50px;">
+                                            <label class="control-label" style="padding-top:5px;">@ESCHOOL.Resources.Resource.Period</label>&nbsp&nbsp
+                                            <div class="text-section k-content">
+                                                <input asp-for="Periods" id="periodDropDown" style="width: 120px;" />
+                                            </div>
+                                            <div style="padding-left:40px;">
+                                                <button type="button" id="okButton" onclick="okAgreement()" style="width:80px">@ESCHOOL.Resources.Resource.Okey</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br />
+                            </div>
+                        </li>
+
+                        <li>
+                            @ESCHOOL.Resources.Resource.RegistrationFormTitleChange
+                            <div class="row">
+                                <div class="row" style="padding-left:40px;">
+                                    <label asp-for="FormTitle" class="control-label">@ESCHOOL.Resources.Resource.RegistrationFormTitle</label>
+                                    <input asp-for="FormTitle" class="k-textbox" style="width: 90%;" />
+                                </div>
+                                <br />
+                            </div>
+
+                            <div class="row">
+                                <div class="row">
+                                    <div class="row" style="padding-left:40px;">
+                                        <div class="custom-control custom-radio">
+                                            <input type="radio" asp-for="FormOpt" class="k-radio" id="CustomR11" value="true" />
+                                            <label class="k-radio-label" for="CustomR11">@ESCHOOL.Resources.Resource.Parent2</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="row" style="padding-left:40px;">
+                                        <div class="custom-control custom-radio">
+                                            <input type="radio" asp-for="FormOpt" class="k-radio" id="CustomR12" value="false" />
+                                            <label class="k-radio-label" for="CustomR12">@ESCHOOL.Resources.Resource.Student</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br />
+                            </div>
+                        </li>
+
+                        <li>
+                            @ESCHOOL.Resources.Resource.BondGuarantor
+                            <div id="Address" style="padding-left:10px; padding-right:10px;">
+               @*                 <h5>@ESCHOOL.Resources.Resource.GuarantorInformation</h5>*@
+                                <div class="row">
+                                    <div class="col" id="guarantorID">
+                                        <label asp-for="GuarantorID" class="control-label">@ESCHOOL.Resources.Resource.BondGuarantorId</label>
+                                        <input asp-for="GuarantorID" id="id" class="k-textbox" style="width: 100%;" maxlength="15" />
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col" id="guarantorName">
+                                        <label asp-for="GuarantorName" class="control-label">@ESCHOOL.Resources.Resource.Name</label>
+                                        <input asp-for="GuarantorName" id="name" class="k-textbox" style="width: 100%;" maxlength="50" />
+                                    </div>
+
+                                    <div class="col" id="guarantorPhone">
+                                        <label asp-for="GuarantorPhone" class="control-label">@ESCHOOL.Resources.Resource.Phone</label>
+                                        <input asp-for="GuarantorPhone" id="phone" class="k-textbox" style="width: 100%;" maxlength="15" />
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col target" id="guarantorAddress">
+                                        <label asp-for="GuarantorAddress" class="control-label">@ESCHOOL.Resources.Resource.Address</label>
+                                        <textarea asp-for="GuarantorAddress" id="address" class="k-textbox" style="width: 100%; height:50px;" text-wrap="normal" type="text" maxlength="100"></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col" id="guarantorCity">
+                                        <label asp-for="GuarantorCity" class="control-label">@ESCHOOL.Resources.Resource.City</label>
+                                        <input asp-for="GuarantorCity" id="cityDropDown" class="text-section k-content" style="width: 100%;" />
+                                    </div>
+
+                                    <div class="col" id="town">
+                                        <label asp-for="GuarantorTown" class="control-label">@ESCHOOL.Resources.Resource.Town</label>
+                                        <input asp-for="GuarantorTown" id="townDropDown" class="text-section k-content" disabled="disabled" style="width: 100%;" />
+                                    </div>
+
+                                    <div class="col" id="guarantorZip">
+                                        <label asp-for="GuarantorZip" class="control-label">@ESCHOOL.Resources.Resource.ZipCode</label>
+                                        <input asp-for="GuarantorZip" id="zip" class="k-textbox" style="width: 100%;" maxlength="10" />
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col" id="guarantorOther">
+                                        <label asp-for="GuarantorOther" class="control-label">@ESCHOOL.Resources.Resource.Other</label>
+                                        <input asp-for="GuarantorOther" id="other" class="k-textbox" style="width: 100%;" maxlength="50" />
+                                    </div>
+                                </div>
+
+                            </div>
+                        </li>
+                        <li>
+                            @ESCHOOL.Resources.Resource.BondSettings
+                            <div class="row">
+                                <h5>&nbsp;@ESCHOOL.Resources.Resource.BondType</h5>
+                                <div class="row">
+                                    <div class="row" style="padding-left:40px;">
+                                        <div class="custom-control custom-radio">
+                                            <input type="radio" asp-for="BondType" class="k-radio" id="CustomR21" value="true" checked />
+                                            <label class="k-radio-label" for="CustomR21">@ESCHOOL.Resources.Resource.PromissoryNote2</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="row" style="padding-left:40px;">
+                                        <div class="custom-control custom-radio">
+                                            <input type="radio" asp-for="BondType" class="k-radio" id="CustomR22" value="false" />
+                                            <label class="k-radio-label" for="CustomR22">@ESCHOOL.Resources.Resource.InstrumentNotToOrder</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr />
+                            </div>
+
+                            <div class="row">
+                                <h5>&nbsp;@ESCHOOL.Resources.Resource.Bond</h5>
+                                <div class="row">
+                                    <div class="row" style="padding-left:40px;">
+                                        <div class="col">
+                                            <input asp-for="BondSingle" id="editAsSingleBond" class="ax-unselectable k-checkbox" type="checkbox">
+                                            <label asp-for="BondSingle" for="editAsSingleBond" class="required">@ESCHOOL.Resources.Resource.EditAsSingleBond</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="row" style="padding-left:40px;">
+                                        <div class="col">
+                                            <input asp-for="WriteStudentName" id="writeStudentName" class="ax-unselectable k-checkbox" type="checkbox" checked>
+                                            <label asp-for="WriteStudentName" for="writeStudentName" class="required">@ESCHOOL.Resources.Resource.WriteStudentName</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr />
+                            </div>
+
+                            <div class="row">
+                                <h5>&nbsp;@ESCHOOL.Resources.Resource.Interlocutor</h5>
+                                <div class="row">
+                                    <div class="row" style="padding-left:40px;">
+                                        <div class="custom-control custom-radio">
+                                            <input type="radio" asp-for="Interlocutor" class="k-radio CustomR" id="CustomR31" value="1" checked />
+                                            <label class="k-radio-label" for="CustomR31">@ESCHOOL.Resources.Resource.Parent2</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="row" style="padding-left:40px;">
+                                        <div class="custom-control custom-radio">
+                                            <input type="radio" asp-for="Interlocutor" class="k-radio CustomR" id="CustomR32" value="2" />
+                                            <label class="k-radio-label" for="CustomR32">@ESCHOOL.Resources.Resource.Father2</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="row" style="padding-left:40px;">
+                                        <div class="custom-control custom-radio">
+                                            <input type="radio" asp-for="Interlocutor" class="k-radio CustomR" id="CustomR33" value="3" />
+                                            <label class="k-radio-label" for="CustomR33">@ESCHOOL.Resources.Resource.Mother2</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr />
+                            </div>
+
+                            <div class="row">
+                                <h5>&nbsp;@ESCHOOL.Resources.Resource.WriteDate</h5>
+                                <div class="row">
+                                    <div class="row" style="padding-left:40px; padding-top:5px;">
+                                        <div class="col">
+                                            <input asp-for="WriteDate" id="writeDate" class="ax-unselectable k-checkbox" type="checkbox" checked>
+                                            <label asp-for="WriteDate" for="writeDate" class="required">@ESCHOOL.Resources.Resource.WriteDate</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="row" style="padding-left:100px;padding-top:1px;">
+                                        <div class="col">
+                                            <label asp-for="StartListDate" class="control-label">@ESCHOOL.Resources.Resource.Date</label>
+                                            <input asp-for="StartListDate" id="startDateID" class="form-control listDate" style="width: 120px;" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <br />
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <script>
+                    $(document).ready(function() {
+                        $("#panelbar").kendoPanelBar({
+                            expandMode: "multiple"
+                        });
+
+                        $(document.body).keydown(function(e) {
+                            if (e.altKey && e.keyCode == 87) {
+                                $("#panelbar").focus();
+                            }
+                        });
+                    });
+                </script>
+                <div>
+                    <img class="k-card-image center3" src="../Upload/Images/Document22.png" style="height:45px">
+                    <div class="row">
+                        <div class="col col-md-3">
+                            <button type="button" id="okeyButton" onclick="okClick()" style="width:80px">@ESCHOOL.Resources.Resource.Okey</button>
+                        </div>
+                        <div class="col col-md-3">
+                            <button type="button" id="exitButton" onclick="okExit()" style="width:80px;">@ESCHOOL.Resources.Resource.Exit</button>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+    <script>
+        function okExit() {
+            if (@Html.Raw(ViewBag.Msg) == 0)
+                window.location.replace("/M210Student/AddOrEditStudent?studentID=@Model.StudentID&userID=@Model.UserID");
+            else
+                window.location.replace("/M300Collections/Collections?userID=@Model.UserID&studentID=@Model.StudentID&isMenu=3");
+        }
+    </script>
+
+    <script>
+        function waitProgress() {
+            $('#loader-pulsing').kendoLoader({ type: 'pulsing' });
+            $('#loader-infinite-spinner').kendoLoader({ type: 'infinite-spinner' });
+            $('#loader-converging-spinner').kendoLoader({ type: 'converging-spinner' });
+        }
+    </script>
+    <div class="vertical-center">
+        <span id="loader-pulsing"></span>
+        <span id="loader-infinite-spinner"></span>
+        <span id="loader-converging-spinner"></span>
+    </div>
+    <style>
+        .vertical-center {
+            margin: 0;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+        }
+    </style>
+
+
+    <script>
+        function okClick() {
+            waitProgress();
+            $("form").submit();
+        }
+
+        function okAgreement() {
+            var chk2 = document.getElementById("KvkkId").checked;
+            var exitID = 1;
+            if (chk2 == true) var exitID = 11;
+            var dropdownlist = $("#periodDropDown").data("kendoDropDownList");
+            var period = dropdownlist.text();
+
+            $.ajax({
+                type: "POST",
+                url: "/ListPanel/Agreement1000?userID=@Model.UserID&studentID=@Model.StudentID",
+                dataType: "json",
+                complete: function(e) {
+                    var formName = "Agreement" + "@Model.SelectedSchoolCode" + "-" + period;
+                    window.location.replace("../reporting/index/" + formName + "/" + "@Model.StudentID" + "/" + exitID + "?userID=@Model.UserID&language=" + '"' + "@Model.SelectedCulture" + '"' + "&schoolID=@Model.SchoolID" + "&period=" + '"' + period + '"' + "&studentID=@Model.StudentID" + "&schoolCode=@Model.SelectedSchoolCode" + "&cs=" + '"' + "@Model.ConnectionString" + '"');
+                },
+            });
+        }
+
+        function isLoop() {
+            if ("@Model.ExitID" == 13)
+                okAgreement();
+        }
+    </script>
+    <style>
+        .backgroundBlack {
+            background: rgba(0, 0, 0, 0.7) url('../Upload/Login/paper.jpg');
+            /*height: 100%;*/
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-blend-mode: darken;
+        }
+
+        .backgroundWhite {
+            background: url('../Upload/Login/paper.jpg');
+            /*height: 100%;*/
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+    </style>
+    <script>
+        function optionsVisibility() {
+            if (@Html.Raw(ViewBag.Msg) == 9 || @Html.Raw(ViewBag.Msg) == 8)
+                $("#Options7").hide(0);
+        }
+        function switchBodyColor() {
+            optionsVisibility();
+            if ('@TempData["color"]' == "#222") { document.body.className = 'backgroundBlack'; }
+            else { document.body.className = 'backgroundWhite'; }
+        }
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("#periodDropDown").kendoDropDownList({
+                dataTextField: "categoryName",
+                dataValueField: "categoryName",
+                //dataValueField: "categoryID",
+                dataSource: {
+                    transport: {
+                        read: {
+                            dataType: "json",
+                            url: "/ListPanel/PeriodDataRead",
+                        }
+                    }
+                },
+            });
+
+            //var dropdownlist = $("#periodDropDown").data("kendoDropDownList");
+            //dropdownlist.select(function (dataItem) {
+            //    return dataItem.name === "@Model.Periods";
+            //});
+        });
+
+
+
+        $(document).ready(function() {
+            var cityDropDown = $("#cityDropDown").kendoDropDownList({
+                optionLabel: { categoryName: getByCulture('@culture', 'select'), categoryID: "0" },
+                dataTextField: "categoryName",
+                dataValueField: "categoryID",
+                filter: "contains",
+                dataSource: {
+                    transport: {
+                        read: {
+                            dataType: "json",
+                            url: "/ListPanel/CityCombo"
+                        }
+                    }
+                }
+            }).data("kendoDropDownList");
+
+            $("#townDropDown").kendoDropDownList({
+                autoBind: false,
+                cascadeFrom: "cityDropDown",
+                optionLabel: { categoryName: getByCulture('@culture', 'select'), categoryID: "0" },
+                dataTextField: "categoryName",
+                dataValueField: "categoryID",
+                dataSource: {
+                    serverFiltering: true,
+                    transport: {
+                        read: {
+                            dataType: "json",
+                            url: "/ListPanel/TownCombo/",
+                            data: function(e) {
+                                return { id: cityDropDown.value() }
+                            }
+                        }
+                    }
+                }
+            }).data("kendoDropDownList");
+        });
+
+    </script>
+
+    <script>
+        $(".listDate").kendoDatePicker({
+            format: "dd/MM/yyyy"
+        });
+
+        $("#okButton").kendoButton({
+            icon: "check",
+        });
+
+        $("#okeyButton").kendoButton({
+            icon: "check",
+        });
+        $("#exitButton").kendoButton({
+            icon: "logout",
+        });
+        $("#cancel").kendoButton({
+            icon: "cancel",
+        });
+    </script>
+
+    <style>
+        .center {
+            position: absolute;
+            left: 50%;
+            top: 40%;
+            transform: translate(-50%, -50%);
+            border: 1px solid #0a0a0a;
+            padding-top: 10px;
+            padding-left: 30px;
+            padding-right: 30px;
+            padding-bottom: 30px;
+            min-width: 450px;
+            max-width: 450px;
+        }
+
+        div.center2 {
+            text-align: center;
+        }
+
+        .center3 {
+            display: block;
+            margin: 0 auto;
+            padding: 0;
+            width: 50%;
+            height: 120px;
+        }
+
+        #shadow {
+            border: 1px solid;
+            /* padding: 10px;*/
+            box-shadow: 5px 10px 18px #888888;
+        }
+        /*                        #example1 {
+                                          border: 1px solid;
+                                          padding: 10px;
+                                           box-shadow: 5px 10px 18px #888888;
+                                        }
+
+                                        #example2 {
+                                          border: 1px solid;
+                                          padding: 10px;
+                                          box-shadow: 5px 10px #888888;
+                                        }
+
+                                        #example3 {
+                                          border: 1px solid;
+                                          padding: 10px;
+                                          box-shadow: 5px 10px red;
+                                        }*/
+        .k-list-horizontal {
+            margin-top: 5px;
+        }
+
+        .label {
+            font: normal 14px/16px Metric, Arial, Helvetica, sans-serif;
+            color: #828282;
+            display: inline-block;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .k-form-hint {
+            margin-top: 10px;
+        }
+
+    </style>
+
+    <script>
+        var dictionary =
+        {
+            'tr-TR': {
+                select: 'Seç',
+                msgOk: 'Tamam'
+            },
+
+            'en-US': {
+                select: 'Select',
+                msgOk: 'OK'
+            },
+        }
+        function getByCulture(culture, word) {
+            return dictionary[culture][word]
+        }
+    </script>
+
+    <script>
+        function showPopupNotification() {
+            var popupNotification = $("#popupNotification").kendoNotification().data("kendoNotification");
+            var d = new Date();
+            popupNotification.show(kendo.toString(d, 'HH:MM:ss.') + kendo.toString(d.getMilliseconds(), "000"), "error");
+        };
+    </script>
+    <script>
+        window.history.replaceState('', '', window.location.pathname);
+    </script>
+</body>
+</html>

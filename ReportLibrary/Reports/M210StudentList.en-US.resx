@@ -1,0 +1,280 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="textBox2.Value" xml:space="preserve">
+    <value>Student Name</value>
+  </data>
+  <data name="textBox40.Value" xml:space="preserve">
+    <value>Gender</value>
+  </data>
+  <data name="textBox7.Value" xml:space="preserve">
+    <value>Mobile Phone</value>
+  </data>
+  <data name="textBox14.Value" xml:space="preserve">
+    <value>D.O.B.</value>
+  </data>
+  <data name="textBox20.Value" xml:space="preserve">
+    <value>Date Of Register</value>
+  </data>
+  <data name="textBox56.Value" xml:space="preserve">
+    <value>Parent Name</value>
+  </data>
+  <data name="textBox28.Value" xml:space="preserve">
+    <value>Kinship</value>
+  </data>
+  <data name="textBox48.Value" xml:space="preserve">
+    <value>Profession</value>
+  </data>
+  <data name="textBox44.Value" xml:space="preserve">
+    <value>Mobile Phone</value>
+  </data>
+  <data name="textBox36.Value" xml:space="preserve">
+    <value>Home Phone</value>
+  </data>
+  <data name="textBox30.Value" xml:space="preserve">
+    <value>Work Phone</value>
+  </data>
+  <data name="textBox24.Value" xml:space="preserve">
+    <value>E-Mail</value>
+  </data>
+  <data name="textBox23.Value" xml:space="preserve">
+    <value>Period.:</value>
+  </data>
+  <data name="textBox16.Value" xml:space="preserve">
+    <value>= Fields.ParentName</value>
+  </data>
+  <data name="textBox34.Value" xml:space="preserve">
+    <value>= Fields.KinshipCategory</value>
+  </data>
+  <data name="textBox41.Value" xml:space="preserve">
+    <value>= Fields.GENDER</value>
+  </data>
+  <data name="textBox9.Value" xml:space="preserve">
+    <value>= Fields.StudentNumber</value>
+  </data>
+  <data name="textBox17.Value" xml:space="preserve">
+    <value>= Format('{0:MM/dd/yyyy}', Fields.BondDate)</value>
+  </data>
+  <data name="textBox21.Value" xml:space="preserve">
+    <value>= Format('{0:MM/dd/yyyy}', Fields.DateOfRegistration)</value>
+  </data>
+  <data name="textBox31.Value" xml:space="preserve">
+    <value>= Fields.WorkPhone</value>
+  </data>
+  <data name="textBox38.Value" xml:space="preserve">
+    <value>= Fields.HomePhone</value>
+  </data>
+  <data name="textBox46.Value" xml:space="preserve">
+    <value>= Fields.ParentMobilePhone</value>
+  </data>
+  <data name="textBox52.Value" xml:space="preserve">
+    <value>= Fields.ProfessionCategory</value>
+  </data>
+  <data name="textBox25.Value" xml:space="preserve">
+    <value>= Fields.InWriting</value>
+  </data>
+  <data name="sqlDataSource1.SelectCommand" xml:space="preserve">
+    <value>SELECT    TempM101.StudentID, TempM101.StudentName, TempM101.GenderTypeCategoryID, TempM101.StudentNumber,  TempM101.BondDate, TempM101.DateOfRegistration, 
+	  TempM101.ParentName, TempM101.ReceiptNo, TempM101.AccountReceipt, TempM101.ParentMobilePhone, TempM101.HomePhone, TempM101.WorkPhone, TempM101.InWriting,
+          Parameter1.Language1 as GENDER, Parameter2.Language1 as KinshipCategory, Parameter3.Language1 as ProfessionCategory,
+          TempM101Header.DateFrom, TempM101Header.DateTo
+	     
+FROM TempM101 
+              INNER JOIN Users AS U ON U.UserID = @userID
+              JOIN Parameter AS Parameter1 ON TempM101.GenderTypeCategoryID = Parameter1.CategoryID
+              LEFT JOIN Parameter as Parameter2 ON TempM101.ReceiptNo = Parameter2.CategoryID 
+	      LEFT JOIN Parameter as Parameter3 ON TempM101.AccountReceipt = Parameter3.CategoryID
+	      INNER JOIN TempM101Header ON TempM101Header.SchoolID = U.SchoolID and TempM101Header.UserID = @userID
+WHERE   TempM101.SchoolID = U.SchoolID and TempM101.UserID = @userID
+	ORDER BY  CASE
+            WHEN @OrderOptions01 = 1 THEN (RANK() OVER (ORDER BY TempM101.StudentName))
+            WHEN @OrderOptions02 = 1 THEN (RANK() OVER (ORDER BY TempM101.BondDate))
+            WHEN @OrderOptions03 = 1 THEN (RANK() OVER (ORDER BY TempM101.DateOfRegistration))
+            WHEN @OrderOptions04 = 1 THEN (RANK() OVER (ORDER BY TempM101.ParentName))
+         END</value>
+  </data>
+  <data name="sqlDataSource2.SelectCommand" xml:space="preserve">
+    <value>SELECT        S.CompanyName, S.CompanyAddress, S.Phone1, S.Phone2, S.MobilePhone, S.Fax, S.TaxOffice, S.TaxNo, S.CompanyEmail, S.WebSite, U.UserPeriod, TempM101Header.DateFrom,TempM101Header.DateTo
+FROM          SchoolInfo AS S 
+              INNER JOIN Users AS U ON U.UserID = @userID
+              INNER JOIN TempM101Header ON TempM101Header.SchoolID = U.SchoolID and TempM101Header.UserID = @userID
+WHERE         S.SchoolID = U.SchoolID</value>
+  </data>
+  <data name="textBox11.Value" xml:space="preserve">
+    <value>Students Who Do Not Re-register</value>
+  </data>
+  <data name="textBox15.Value" xml:space="preserve">
+    <value>= Format('{0:MM/dd/yyyy}', Fields.DateFrom)</value>
+  </data>
+  <data name="textBox12.Value" xml:space="preserve">
+    <value>Date From.:</value>
+  </data>
+  <data name="textBox1.Value" xml:space="preserve">
+    <value>Date To.:</value>
+  </data>
+  <data name="textBox6.Value" xml:space="preserve">
+    <value>= Format('{0:MM/dd/yyyy}', Fields.DateTo)
+</value>
+  </data>
+  <data name="textBox4.Value" xml:space="preserve">
+    <value>= Fields.TaxNo</value>
+  </data>
+  <data name="textBox49.Value" xml:space="preserve">
+    <value>= Fields.TaxOffice</value>
+  </data>
+  <data name="textBox50.Value" xml:space="preserve">
+    <value>= Fields.WebSite</value>
+  </data>
+  <data name="textBox71.Value" xml:space="preserve">
+    <value>= Fields.CompanyEmail</value>
+  </data>
+  <data name="textBox51.Value" xml:space="preserve">
+    <value>= Fields.Fax</value>
+  </data>
+  <data name="textBox58.Value" xml:space="preserve">
+    <value>= Fields.Phone2</value>
+  </data>
+  <data name="textBox5.Value" xml:space="preserve">
+    <value>= Fields.Phone1</value>
+  </data>
+  <data name="textBox8.Value" xml:space="preserve">
+    <value>= Fields.MobilePhone</value>
+  </data>
+  <data name="reportParameter1.Text" xml:space="preserve">
+    <value>Student Name</value>
+  </data>
+  <data name="reportParameter2.Text" xml:space="preserve">
+    <value>D.O.B.</value>
+  </data>
+  <data name="reportParameter3.Text" xml:space="preserve">
+    <value>Date Of Register</value>
+  </data>
+  <data name="reportParameter4.Text" xml:space="preserve">
+    <value>Parent Name</value>
+  </data>
+  <data name="reportParameter5.Text" xml:space="preserve">
+    <value>By Amount</value>
+  </data>
+  <data name="reportParameter6.Text" xml:space="preserve">
+    <value>By Payment Amount</value>
+  </data>
+  <data name="reportParameter7.Text" xml:space="preserve">
+    <value>By Status</value>
+  </data>
+</root>

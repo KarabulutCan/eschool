@@ -1,0 +1,492 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="textBox117.Value" xml:space="preserve">
+    <value>Peşinat</value>
+  </data>
+  <data name="textBox107.Value" xml:space="preserve">
+    <value>Taksit</value>
+  </data>
+  <data name="textBox7.Value" xml:space="preserve">
+    <value>= Format('{0:dd/MM/yyyy}', Fields.TransactionDate)</value>
+  </data>
+  <data name="textBox95.Value" xml:space="preserve">
+    <value>Ödeme Tarihi</value>
+  </data>
+  <data name="textBox114.Value" xml:space="preserve">
+    <value>= IIf(Fields.CashPayment = 0, "",Fields.CashPayment)</value>
+  </data>
+  <data name="textBox101.Value" xml:space="preserve">
+    <value>Ödeme Tutarı</value>
+  </data>
+  <data name="textBox112.Value" xml:space="preserve">
+    <value>Onay / İmza</value>
+  </data>
+  <data name="textBox76.Value" xml:space="preserve">
+    <value>Taksit</value>
+  </data>
+  <data name="textBox77.Value" xml:space="preserve">
+    <value>Ödeme Tarihi</value>
+  </data>
+  <data name="textBox78.Value" xml:space="preserve">
+    <value>Ödeme Tutarı</value>
+  </data>
+  <data name="textBox79.Value" xml:space="preserve">
+    <value>Onay / İmza</value>
+  </data>
+  <data name="textBox23.Value" xml:space="preserve">
+    <value>KREDİ KARTLI ÖDEME TALİMATI FORMU</value>
+  </data>
+  <data name="textBox8.Value" xml:space="preserve">
+    <value>TAKSİT TABLOSU</value>
+  </data>
+  <data name="textBox26.Value" xml:space="preserve">
+    <value>ÖĞRENCİNİN ADI SOYADI :</value>
+  </data>
+  <data name="textBox41.Value" xml:space="preserve">
+    <value>VELİNİN ADI SOYADI :</value>
+  </data>
+  <data name="textBox59.Value" xml:space="preserve">
+    <value>= Fields.ParentName</value>
+  </data>
+  <data name="textBox29.Value" xml:space="preserve">
+    <value>DÖNEM:</value>
+  </data>
+  <data name="textBox24.Value" xml:space="preserve">
+    <value>TARİH:</value>
+  </data>
+  <data name="textBox12.Value" xml:space="preserve">
+    <value>BOÇLUNUN</value>
+  </data>
+  <data name="textBox13.Value" xml:space="preserve">
+    <value>DOĞUM YERİ :</value>
+  </data>
+  <data name="textBox14.Value" xml:space="preserve">
+    <value>BOÇLUNUN</value>
+  </data>
+  <data name="textBox15.Value" xml:space="preserve">
+    <value>ADI SOYADI :</value>
+  </data>
+  <data name="textBox16.Value" xml:space="preserve">
+    <value>DOĞUM TARİHİ :</value>
+  </data>
+  <data name="textBox20.Value" xml:space="preserve">
+    <value>BABA ADI:</value>
+  </data>
+  <data name="textBox21.Value" xml:space="preserve">
+    <value>1.KREDİ KARTININ TÜRÜ:</value>
+  </data>
+  <data name="textBox25.Value" xml:space="preserve">
+    <value>VISA</value>
+  </data>
+  <data name="textBox31.Value" xml:space="preserve">
+    <value>MASTER</value>
+  </data>
+  <data name="textBox32.Value" xml:space="preserve">
+    <value>KREDİ KARTI NUMARASI:</value>
+  </data>
+  <data name="textBox33.Value" xml:space="preserve">
+    <value>BANKA ADI:</value>
+  </data>
+  <data name="textBox48.Value" xml:space="preserve">
+    <value>SON KULLANMA TARİHİ:</value>
+  </data>
+  <data name="textBox49.Value" xml:space="preserve">
+    <value>HESAP KESİM GÜNÜ:</value>
+  </data>
+  <data name="textBox73.Value" xml:space="preserve">
+    <value>2.KREDİ KARTININ TÜRÜ:</value>
+  </data>
+  <data name="textBox72.Value" xml:space="preserve">
+    <value>VISA</value>
+  </data>
+  <data name="textBox71.Value" xml:space="preserve">
+    <value>MASTER</value>
+  </data>
+  <data name="textBox68.Value" xml:space="preserve">
+    <value>KREDİ KARTI NUMARASI:</value>
+  </data>
+  <data name="textBox58.Value" xml:space="preserve">
+    <value>BANKA ADI:</value>
+  </data>
+  <data name="textBox51.Value" xml:space="preserve">
+    <value>SON KULLANMA TARİHİ:</value>
+  </data>
+  <data name="textBox50.Value" xml:space="preserve">
+    <value>HESAP KESİM GÜNÜ:</value>
+  </data>
+  <data name="textBox18.Value" xml:space="preserve">
+    <value>1. Bu belge ile toplam ödeme tutarı olan (yazı ile)</value>
+  </data>
+  <data name="textBox19.Value" xml:space="preserve">
+    <value>yukarıda belirtilen taksit planına göre </value>
+  </data>
+  <data name="textBox22.Value" xml:space="preserve">
+    <value>nın</value>
+  </data>
+  <data name="textBox28.Value" xml:space="preserve">
+    <value>'ye yukarıdayazılı kredi kartlarımın</value>
+  </data>
+  <data name="textBox30.Value" xml:space="preserve">
+    <value>herhangi birinden tahsil etme yetkisi veriyorum.</value>
+  </data>
+  <data name="textBox34.Value" xml:space="preserve">
+    <value>2. Kredi kartımın değişmesi durumunda, yeni kredi kartıma ilşkin bilgileri şirketinize bildirmeyi taahhüt ederim.</value>
+  </data>
+  <data name="textBox35.Value" xml:space="preserve">
+    <value>3. Kredi kartımın iptali nedeniyle veya herhangi bir sebepten dolayı borcumun tahsil edilmemesi halinde, vadesi gelmemiş taksitlerimin muaccelliyet </value>
+  </data>
+  <data name="textBox36.Value" xml:space="preserve">
+    <value>kazandığını ve borcun tamamını defaten ödeyeceğimi peşinen kabul ve tahhüt ederim.</value>
+  </data>
+  <data name="textBox37.Value" xml:space="preserve">
+    <value>Ek: 1 Adet kimlik fotokopisi</value>
+  </data>
+  <data name="textBox38.Value" xml:space="preserve">
+    <value>ADRES:</value>
+  </data>
+  <data name="textBox39.Value" xml:space="preserve">
+    <value>TELEFON( Ev ) :</value>
+  </data>
+  <data name="textBox40.Value" xml:space="preserve">
+    <value>Tarih</value>
+  </data>
+  <data name="textBox42.Value" xml:space="preserve">
+    <value>Adı Soyadı</value>
+  </data>
+  <data name="textBox43.Value" xml:space="preserve">
+    <value>İmza ve Tarih</value>
+  </data>
+  <data name="textBox44.Value" xml:space="preserve">
+    <value>= Format('{0:dd/MM/yyyy}', Fields.DebtorPlaceOfBirth)</value>
+  </data>
+  <data name="textBox45.Value" xml:space="preserve">
+    <value>= Fields.DebtorName</value>
+  </data>
+  <data name="textBox46.Value" xml:space="preserve">
+    <value>= Format('{0:dd/MM/yyyy}', Fields.DebtorPlaceOfBirth)</value>
+  </data>
+  <data name="textBox47.Value" xml:space="preserve">
+    <value>= Fields.DebtorFatherName</value>
+  </data>
+  <data name="textBox53.Value" xml:space="preserve">
+    <value>KART ÜZERİNDEKI İSİM:</value>
+  </data>
+  <data name="textBox54.Value" xml:space="preserve">
+    <value>KART ÜZERİNDEKI İSİM:</value>
+  </data>
+  <data name="checkBox1.Text" xml:space="preserve">
+    <value />
+  </data>
+  <data name="checkBox2.Text" xml:space="preserve">
+    <value />
+  </data>
+  <data name="textBox55.Value" xml:space="preserve">
+    <value>= Fields.CardNameOnCard1</value>
+  </data>
+  <data name="textBox56.Value" xml:space="preserve">
+    <value>= Fields.CardNumber1</value>
+  </data>
+  <data name="textBox57.Value" xml:space="preserve">
+    <value>= Fields.CardBankName1</value>
+  </data>
+  <data name="textBox60.Value" xml:space="preserve">
+    <value>= Fields.CardExpiryMonth1</value>
+  </data>
+  <data name="textBox61.Value" xml:space="preserve">
+    <value>= Fields.CardExpiryYear1</value>
+  </data>
+  <data name="textBox62.Value" xml:space="preserve">
+    <value>= Fields.CardAccountCuttingDay1</value>
+  </data>
+  <data name="textBox63.Value" xml:space="preserve">
+    <value>= Fields.CardNameOnCard2</value>
+  </data>
+  <data name="textBox64.Value" xml:space="preserve">
+    <value>= Fields.CardNumber2</value>
+  </data>
+  <data name="textBox65.Value" xml:space="preserve">
+    <value>= Fields.CardBankName2</value>
+  </data>
+  <data name="textBox66.Value" xml:space="preserve">
+    <value>= Fields.CardExpiryMonth2</value>
+  </data>
+  <data name="textBox67.Value" xml:space="preserve">
+    <value>= Fields.CardExpiryYear2</value>
+  </data>
+  <data name="textBox69.Value" xml:space="preserve">
+    <value>= Fields.CardAccountCuttingDay2</value>
+  </data>
+  <data name="textBox80.Value" xml:space="preserve">
+    <value>= Fields.DebtorAddress</value>
+  </data>
+  <data name="textBox81.Value" xml:space="preserve">
+    <value>= Fields.City</value>
+  </data>
+  <data name="textBox83.Value" xml:space="preserve">
+    <value>= Fields.Town</value>
+  </data>
+  <data name="textBox84.Value" xml:space="preserve">
+    <value>= Fields.DebtorZipCode</value>
+  </data>
+  <data name="textBox85.Value" xml:space="preserve">
+    <value>= Fields.DebtorHomePhone</value>
+  </data>
+  <data name="textBox86.Value" xml:space="preserve">
+    <value>= Fields.DebtorWorkPhone</value>
+  </data>
+  <data name="textBox87.Value" xml:space="preserve">
+    <value>= Fields.DebtorMobilePhone</value>
+  </data>
+  <data name="textBox88.Value" xml:space="preserve">
+    <value>( İş ) :</value>
+  </data>
+  <data name="textBox89.Value" xml:space="preserve">
+    <value>( Cep ) :</value>
+  </data>
+  <data name="textBox90.Value" xml:space="preserve">
+    <value>= Format('{0:dd/MM/yyyy}', Today())</value>
+  </data>
+  <data name="textBox91.Value" xml:space="preserve">
+    <value>= Fields.DebtorName</value>
+  </data>
+  <data name="textBox93.Value" xml:space="preserve">
+    <value> - </value>
+  </data>
+  <data name="textBox94.Value" xml:space="preserve">
+    <value> - </value>
+  </data>
+  <data name="textBox97.Value" xml:space="preserve">
+    <value>Cvc:</value>
+  </data>
+  <data name="textBox99.Value" xml:space="preserve">
+    <value>= Fields.CardExpiryCVC1</value>
+  </data>
+  <data name="textBox100.Value" xml:space="preserve">
+    <value>Cvc:</value>
+  </data>
+  <data name="textBox98.Value" xml:space="preserve">
+    <value>= Fields.CardExpiryCVC2</value>
+  </data>
+  <data name="textBox17.Value" xml:space="preserve">
+    <value>Pk:</value>
+  </data>
+  <data name="textBox106.Value" xml:space="preserve">
+    <value>= RowNumber("table4")  + '.Taksit'</value>
+  </data>
+  <data name="textBox96.Value" xml:space="preserve">
+    <value>= Format('{0:dd/MM/yyyy}', Fields.InstallmentDate.Date)</value>
+  </data>
+  <data name="textBox6.Value" xml:space="preserve">
+    <value />
+  </data>
+  <data name="sqlDataSource6.SelectCommand" xml:space="preserve">
+    <value>SELECT        S.StudentID, I.InstallmentDate, I.CategoryID as InsCategoryID,  I.InstallmentAmount as InsInstallmentAmount,
+              T.CashPayment, T.TransactionDate, P1.CategoryName
+FROM          Student S
+              INNER JOIN StudentInstallment I on I.StudentID = S.StudentID
+              INNER JOIN Parameter AS P1 ON I.CategoryID = P1.CategoryID
+              LEFT JOIN StudentTemp T on T.StudentID = S.StudentID
+WHERE       (I.StudentID = @studentID and I.CategoryID IN (@statuCategory) )
+order by S.StudentID offset 0 rows fetch next 10 rows only
+
+
+
+</value>
+  </data>
+  <data name="textBox1.Value" xml:space="preserve">
+    <value>= RowNumber() + 10 + '.Taksit'</value>
+  </data>
+  <data name="textBox4.Value" xml:space="preserve">
+    <value>= Format('{0:dd/MM/yyyy}', Fields.InstallmentDate)</value>
+  </data>
+  <data name="textBox5.Value" xml:space="preserve">
+    <value>= Fields.InsInstallmentAmount</value>
+  </data>
+  <data name="sqlDataSource7.SelectCommand" xml:space="preserve">
+    <value>SELECT        S.StudentID, I.InstallmentDate, I.InstallmentNo, I.CategoryID as InsCategoryID, I.CheckCardNo as InsCheckCardNo, I.InstallmentAmount as InsInstallmentAmount,
+              I.PreviousPayment as InsPreviousPayment, I.StatusCategoryID as InsStatus, I.PaymentDate as InsPaymentDate, I.AccountReceiptNo as InsAccountReceiptNo, I.AccountReceiptNo as AccountReceiptNo,
+              P1.CategoryName
+FROM          Student S
+              INNER JOIN StudentInstallment I on I.StudentID = S.StudentID
+              INNER JOIN Parameter AS P1 ON I.CategoryID = P1.CategoryID
+WHERE       (I.StudentID = @studentID and I.CategoryID IN (@statuCategory) )
+order by S.StudentID offset 10 rows fetch next 20 rows only</value>
+  </data>
+  <data name="textBox102.Value" xml:space="preserve">
+    <value>= Format('{0:dd/MM/yyyy}', Today())</value>
+  </data>
+  <data name="checkBox3.Text" xml:space="preserve">
+    <value />
+  </data>
+  <data name="checkBox4.Text" xml:space="preserve">
+    <value />
+  </data>
+  <data name="textBox103.Value" xml:space="preserve">
+    <value>= Fields.Total</value>
+  </data>
+  <data name="textBox104.Value" xml:space="preserve">
+    <value>= Fields.InWriting</value>
+  </data>
+  <data name="textBox105.Value" xml:space="preserve">
+    <value>YAZIYLA</value>
+  </data>
+  <data name="textBox92.Value" xml:space="preserve">
+    <value>= Fields.CompanyName</value>
+  </data>
+  <data name="textBox110.Value" xml:space="preserve">
+    <value>...</value>
+  </data>
+  <data name="textBox111.Value" xml:space="preserve">
+    <value>= Fields.InWriting</value>
+  </data>
+  <data name="sqlDataSource1.SelectCommand" xml:space="preserve">
+    <value>SELECT        S.StudentID, S.FirstName, S.Lastname, (S.FirstName + ' ' + S.Lastname) AS StudentName, S.ParentName, T.CashPayment, 
+              PA.DebtorName, PA.DebtorPlaceOfBirth, PA.DebtorDOB, PA.DebtorFatherName, PA.DebtorAddress, PA.DebtorCityID, PA.DebtorTownID, PA.DebtorZipCode, PA.DebtorMobilePhone, PA.DebtorHomePhone, PA.DebtorWorkPhone, 
+			  PA.CardNameOnCard1, PA.CardBankName1, PA.CardType1, PA.CardNumber1, PA.CardExpiryMonth1, PA.CardExpiryYear1, PA.CardExpiryCVC1, PA.CardAccountCuttingDay1,
+			  PA.CardNameOnCard2, PA.CardBankName2, PA.CardType2, PA.CardNumber2, PA.CardExpiryMonth2, PA.CardExpiryYear2, PA.CardExpiryCVC2, PA.CardAccountCuttingDay2,
+              P1.CategoryName AS City, P2.CategoryName AS Town, TH.CompanyName, TH.Total, TH.InWriting, I.CategoryID
+FROM       Student S
+			LEFT JOIN Users AS U ON U.UserID = @userID
+                        LEFT JOIN StudentTemp T on T.StudentID = S.StudentID
+                        LEFT JOIN StudentParentAddress PA on PA.StudentID = S.StudentID
+                        LEFT JOIN StudentInstallment I on I.StudentID = S.StudentID
+                        LEFT JOIN Parameter AS P1 ON PA.DebtorCityID = P1.CategoryID
+                        LEFT JOIN Parameter AS P2 ON PA.DebtorTownID = P2.CategoryID                       
+                        LEFT JOIN SchoolInfo AS SC ON SC.SchoolID = @schoolID
+                        LEFT JOIN TempM101Header AS TH ON TH.HeaderFee12 is null and TH.SchoolID = @schoolID and TH.UserID = @userID
+WHERE S.StudentID = @studentID and I.CategoryID IN (@statuCategory)
+</value>
+  </data>
+  <data name="reportParameter1.Text" xml:space="preserve">
+    <value />
+  </data>
+  <data name="reportParameter4.Text" xml:space="preserve">
+    <value>Parameter</value>
+  </data>
+  <data name="reportParameter5.Text" xml:space="preserve">
+    <value>Ödeme Tipi</value>
+  </data>
+  <data name="reportParameter6.Text" xml:space="preserve">
+    <value>StudentID</value>
+  </data>
+  <data name="reportParameter7.Text" xml:space="preserve">
+    <value />
+  </data>
+</root>

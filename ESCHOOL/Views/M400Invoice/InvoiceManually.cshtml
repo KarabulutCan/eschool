@@ -1,0 +1,1564 @@
+﻿@model ESCHOOL.ViewModels.InvoiceViewModel
+@{
+    System.Globalization.CultureInfo.CurrentCulture = System.Globalization.CultureInfo.CreateSpecificCulture(@Model.SelectedCulture);
+    System.Globalization.CultureInfo.CurrentUICulture = System.Globalization.CultureInfo.CreateSpecificCulture(@Model.SelectedCulture);
+    var culture = System.Globalization.CultureInfo.CurrentCulture.ToString();
+}
+<!--#region head -->
+<head>
+    <style>
+        html {
+            font-size: 13px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+    </style>
+    <title></title>
+    <link href="https://kendo.cdn.telerik.com/2021.2.616/styles/kendo.common.min.css" rel="stylesheet" />
+    <link rel="stylesheet" id="skin-css" href="@TempData["theme"]" />
+    <link rel="stylesheet" id="skin-css" href="@TempData["themeMobile"]" />
+    <script src="https://kendo.cdn.telerik.com/2021.2.616/js/jquery.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2021.2.616/js/kendo.all.min.js"></script>
+
+    <script src="@Url.Content("~/telerik/2021.2.616/js//cultures/kendo.culture." + culture + ".min.js")"></script>
+    <script src="@Url.Content("~/telerik/2021.2.616/js//messages/kendo.messages." + culture + ".min.js")"></script>
+
+    <script type="text/javascript">
+        kendo.culture("@culture");
+    </script>
+</head>
+<!--#endregion -->
+<body data-spy="scroll" data-target=".navbar" onload="divLoad()">
+    <br />
+    @if (@Model.IsSuccess == true)
+    {
+        <br />
+        <br />
+        <br />
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>@ESCHOOL.Resources.Resource.Warning</strong>@ESCHOOL.Resources.Resource.ValidationError8<br />
+            <a href="/Home/index?@Model.UserID">@ESCHOOL.Resources.Resource.ClickToContinue</a>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
+    @if (@Model.IsSuccess2 == false)
+    {
+        <br />
+        <br />
+        <br />
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>@ESCHOOL.Resources.Resource.Warning</strong>@ESCHOOL.Resources.Resource.EArchiveMsg<br />
+        </div>
+    }
+    <form id="M400Invoice" asp-controller="M400Invoice" asp-action="Invoice" enctype="multipart/form-data" method="post">
+        <div class="demo-section k-content fixed-top wide">
+            <div id="toolbarMenu"></div>
+        </div>
+
+        @*        <br /><br /><br /><br /><br /><br />*@
+        <!--#region hidden -->
+        @*Geri dönüşlerde null olmaması için*@
+        <input type="hidden" asp-for="@Model.StudentID" />
+        <input type="hidden" asp-for="@Model.UserID" />
+        <input type="hidden" asp-for="@Model.Period" />
+        <input type="hidden" asp-for="@Model.SchoolID" />
+        <input type="hidden" asp-for="@TempData["studentID"]" id="studentID" />
+
+        <input type="hidden" id="accountCodeNameId" />
+        <input type="hidden" id="withholdingExplanationIdTmp" />
+        <br />
+        <br />
+        <br />
+        <ul id="panelbarHelp" style="display: none;">
+            <li>
+                <span class="k-link">@ESCHOOL.Resources.Resource.Help</span>
+                <div class="k-card-body" style="padding-left:15px;">
+                    <p><strong>@ESCHOOL.Resources.Resource.InvoiceEntry01</strong></p>
+                    <p>@ESCHOOL.Resources.Resource.InvoiceEntry02</p>
+                    <p>@ESCHOOL.Resources.Resource.InvoiceEntry03</p>
+                    <p>@ESCHOOL.Resources.Resource.InvoiceEntry04</p>
+                    <p>@ESCHOOL.Resources.Resource.InvoiceEntry05</p>
+                    <p><strong>@ESCHOOL.Resources.Resource.InvoiceEntry06</strong></p>
+                    <p>@ESCHOOL.Resources.Resource.InvoiceEntry07</p>
+                    <p>@ESCHOOL.Resources.Resource.InvoiceEntry08</p>
+                    <br />
+                </div>
+                <style>
+                    #panelbarHelp {
+                        width: 100%;
+                        /*     max-width: none;*/
+                        margin: 0 auto;
+                    }
+                </style>
+
+                <script>
+                    $(document).ready(function () {
+                        $("#panelbarHelp").kendoPanelBar({
+                            animation: {
+                                collapse: {
+                                    duration: 500,
+                                    effects: "fadeOut"
+                                },
+                                expand: {
+                                    duration: 500,
+                                    effects: "expandVertical fadeIn"
+                                }
+                            }
+                        });
+                    });
+                </script>
+            </li>
+        </ul>
+        <div style="padding-left: 15px;padding-right: 15px; padding-bottom: 10px;">
+            <div class="form-horizontal k-content  row" id="div3" style="display: none;">
+                <div>
+                    <div>
+                        <div class="k-card-actions k-card-actions-stretched">
+                            <span class="k-card-action"><span class="k-button k-flat k-primary" id="closearchiveid" onclick="InvoiceArchiveControlClose()">@ESCHOOL.Resources.Resource.Close</span></span>
+                        </div>
+                        <script>
+                            $(document).ready(function () {
+                                $("#closearchiveid").kendoButton({
+                                    icon: "close"
+                                });
+                            });
+                        </script>
+
+                    </div>
+
+                    <h5 class="ra-well-title card-header top-left" style=" padding-bottom:2px;">
+                        <kbd>@ESCHOOL.Resources.Resource.InvoiceArchive</kbd>
+                        <kbd style="float: right;">@ESCHOOL.Resources.Resource.ProcessDate:&nbsp;@Model.Period&nbsp;</kbd>
+                    </h5>
+                    <div>
+                        <div id="gridInvoiceArchive" style="max-width:1095px;padding:5px;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="example">
+            <input type="hidden" asp-for="@Model.SchoolID" />
+            <input type="hidden" asp-for="@Model.Period" />
+
+            <div class="form-horizontal k-content" style="border: thin solid rgb(120,120,120); padding-top:0px; padding-bottom:10px;">
+                <div class="container-flued">
+                    <div class="card-body" style="padding-bottom: 0em;">
+                        <div class="row col-md-12">
+                            <div class="col col-md-7">
+                                <!--#region invoice panel -->
+                                <div id="InvoiceAddress">
+                                    <input asp-for="StudentInvoiceAddress.StudentInvoiceAddressID" id="studentInvoiceAddressID" hidden />
+                                    <input asp-for="StudentInvoiceAddress.StudentID" hidden />
+                                    <input asp-for="StudentInvoiceID" id="studentInvoiceID" hidden />
+
+                                    <div class="row">
+                                        <div class="col col-md-2">
+                                            <label asp-for="StudentInvoiceAddress.InvoiceTitle" class="control-label"></label>
+                                        </div>
+                                        <div class="col col-md-10">
+                                            <textarea asp-for="StudentInvoiceAddress.InvoiceTitle" id="invoiceTitleId" class="k-textbox" style="width: 100%; height:30px;" text-wrap="normal" type="text" maxlength="250" placeholder=@ESCHOOL.Resources.Resource.SearchPlaceHolder required validationMessage=@ESCHOOL.Resources.Resource.RequiredField></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col col-md-2">
+                                            <label asp-for="StudentInvoiceAddress.InvoiceAddress" class="control-label"></label>
+                                        </div>
+                                        <div class="col col-md-10" style="padding-top:1px;">
+                                            <textarea asp-for="StudentInvoiceAddress.InvoiceAddress" id="invoiceAddress" title="@ESCHOOL.Resources.Resource.CopyPastMsg" class="k-textbox" style="width: 100%; height:30px;" text-wrap="normal" type="text" maxlength="250" required validationMessage=@ESCHOOL.Resources.Resource.RequiredField></textarea>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col">
+                                            <label asp-for="StudentInvoiceAddress.InvoiceCityParameterID" class="control-label"></label>
+                                            <input asp-for="StudentInvoiceAddress.InvoiceCityParameterID" id="invoiceCityDropDown" class="text-section k-content" style="width: 100%;" />
+                                        </div>
+
+                                        <div class="col">
+                                            <label asp-for="StudentInvoiceAddress.InvoiceTownParameterID" class="control-label"></label>
+                                            <input asp-for="StudentInvoiceAddress.InvoiceTownParameterID" id="invoiceTownDropDown" class="text-section k-content" disabled="disabled" style="width: 100%;" />
+                                        </div>
+
+                                        <div class="col">
+                                            <label asp-for="StudentInvoiceAddress.InvoiceCountry" class="control-label"></label>
+                                            <input asp-for="StudentInvoiceAddress.InvoiceCountry" id="invoiceCountry" class="k-textbox" style="width: 100%;" />
+                                        </div>
+
+                                        <div class="col">
+                                            <label asp-for="StudentInvoiceAddress.InvoiceZipCode" class="control-label"></label>
+                                            <input asp-for="StudentInvoiceAddress.InvoiceZipCode" id="invoiceZip" class="k-textbox" style="width: 100%;" maxlength="10" />
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col">
+                                            <label asp-for="StudentInvoiceAddress.InvoiceTaxOffice" class="control-label"></label>
+                                            <input asp-for="StudentInvoiceAddress.InvoiceTaxOffice" id="invoiceTaxOffice" class="k-textbox" style="width: 100%;" maxlength="50" required validationMessage=@ESCHOOL.Resources.Resource.RequiredField />
+                                        </div>
+
+                                        <div class="col">
+                                            <label asp-for="StudentInvoiceAddress.InvoiceTaxNumber" class="control-label"></label>
+                                            <input asp-for="StudentInvoiceAddress.InvoiceTaxNumber" id="invoiceTaxNumber" class="k-textbox" style="width: 100%;" maxlength="20" required validationMessage=@ESCHOOL.Resources.Resource.RequiredField />
+                                        </div>
+
+                                        <div class="col">
+                                            <label asp-for="StudentInvoiceAddress.EMail" class="control-label"></label>
+                                            <input asp-for="StudentInvoiceAddress.EMail" id="invoiceEmail" class="k-textbox" style="width: 100%;" type="email" maxlength="50" data-email-msg=@ESCHOOL.Resources.Resource.ValidEmail />
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col col-md-2">
+                                            <label asp-for="StudentInvoiceAddress.Notes" class="control-label"></label>
+                                        </div>
+                                        <div class="col col-md-10" style="padding-top:1px;">
+                                            <textarea asp-for="StudentInvoiceAddress.Notes" id="invoiceNotesId" class="k-textbox" style="width: 100%; height:30px;" text-wrap="normal" type="text" maxlength="250"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br />
+                                <!--#endregion -->
+                            </div>
+
+                            <div class="col col-md-5" style="padding-left: 2.5em;">
+                                <div class="row rightAlign" style="float: right;">
+                                    <p>
+                                        <button type="button" id="refreshid" onclick="refreshPlanShow()"></button>
+                                    </p>
+                                    <p>
+                                        <button type="button" id="calculator" style="width:80px;" onclick="window.open('Calculator:///', '_blank', 'noreferrer')">@ESCHOOL.Resources.Resource.Calculator1</button>
+                                    </p>
+
+                                    <p>
+                                        <button type="button" id="serialnoid" style="width:100px;" onclick="serialnoControl()">@ESCHOOL.Resources.Resource.InvoiceSerialNo</button>
+                                    </p>
+                                    <p>
+                                        <button type="button" id="invoiceTypeid" value="Send It!" style="width:100px;" onclick="invoiceTypeControl()">@ESCHOOL.Resources.Resource.InvoiceType</button>
+                                    </p>
+                                    <p>
+                                        <button type="button" id="printerid" style="width:100px;" onclick="InvoiceSaveControl()">@ESCHOOL.Resources.Resource.Printer2</button>
+                                    </p>
+
+                                </div>
+                                <script>
+                                    $(document).ready(function () {
+                                        $("#refreshid").kendoButton({
+                                            icon: "reload"
+                                        });
+                                        $("#calculator").kendoButton({
+                                            icon: "calculator"
+                                        });
+                                        $("#serialnoid").kendoButton({
+                                            icon: "arrows-no-change"
+                                        });
+                                        $("#invoiceTypeid").kendoButton({
+                                            icon: "file-data"
+                                        });
+                                        $("#printerid").kendoButton({
+                                            icon: "printer"
+                                        });
+                                    });
+                                </script>
+                                <div class="row"> </div>
+                                <hr />
+                                <div class="row">
+                                    <div class="row col-md-5">
+                                        <label class="control-label">@ESCHOOL.Resources.Resource.InstitutionInvoice</label>
+                                    </div>
+
+                                    <div class="row col-md-5">
+                                        <input id="invoiceSerialNameDropDown" class="text-section k-content" style="width: 130px;" />
+                                    </div>
+
+                                    <div class="row col-md-2">
+                                        <input asp-for="InvoiceSerialNo" id="invoiceSerialNumber" class="k-textbox" style="width: 130px;" />
+                                    </div>
+                                </div>
+
+
+                                <div class="row">
+                                    <div class="row col-md-5">
+                                        <label class="control-label">@ESCHOOL.Resources.Resource.Date</label>
+                                    </div>
+
+                                    <div class="row col-md-5">
+                                        <input type="date" id="transactiondate" class="text-section k-content" style="width: 130px;" />
+                                    </div>
+                                </div>
+                                <hr />
+                                <div class="row form-group1">
+                                    <label class="control-label" style="width:125px;">@ESCHOOL.Resources.Resource.Invoice</label>
+                                    <div class="row">
+                                        &nbsp;&nbsp;
+                                        <div class="custom-control custom-radio" style="width:130px;">
+                                            <input type="radio" asp-for="SchoolEInvoiceIsActive" class="k-radio" id="EI1" value="false" />
+                                            <label class="k-radio-label" for="EI1">@ESCHOOL.Resources.Resource.View</label>
+                                        </div>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;
+                                        <div class="custom-control custom-radio">
+                                            <input type="radio" asp-for="SchoolEInvoiceIsActive" class="k-radio" id="EI2" value="true" />
+                                            <label class="k-radio-label" for="EI2">@ESCHOOL.Resources.Resource.EArchiveEInvoice</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row form-group2">
+                                    <label class="control-label" style="width:120px;">@ESCHOOL.Resources.Resource.Tax</label>
+                                    <div class="row">
+                                        &nbsp; &nbsp;
+                                        <div class="custom-control custom-radio" style="width:145px;">
+                                            <input type="radio" class="k-radio" name="inv11" id="Inv11" checked="checked" />
+                                            <label class="k-radio-label" for="Inv11">@ESCHOOL.Resources.Resource.Included</label>
+                                        </div>
+
+                                        <div class="custom-control custom-radio">
+                                            <input type="radio" class="k-radio" name="inv11" id="Inv22" />
+                                            <label class="k-radio-label" for="Inv22">@ESCHOOL.Resources.Resource.Excluded</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--#region div  -->
+                <br id="divbr" style="display: none;" />
+                <div class="row" id="div1" style="display: none;  padding-left:30px; padding-bottom:10px;">
+                    <div class="col col-md-5">
+                        <h5 class="ra-well-title card-header top-left"> <kbd>@ESCHOOL.Resources.Resource.InvoiceSerialNoTitle </kbd></h5>
+                        <div class="row">
+                            <div class="col">
+                                <label asp-for="InvoiceName1" class="control-label"></label>
+                                <input asp-for="InvoiceName1" class="k-textbox" id="InvoiceName1" style="width: 100%; background-color:antiquewhite" maxlength="20" />
+                            </div>
+                            <div class="col">
+                                <label asp-for="InvoiceSerialNo1" class="control-label"></label>
+                                <input asp-for="InvoiceSerialNo1" class="k-textbox" id="InvoiceSerialNo1" style="width: 100%;" type="number" max='99999999' validationMessage=@ESCHOOL.Resources.Resource.ValidNumber />
+                            </div>
+                            <div class="col">
+                                <label asp-for="InvoiceSerialNo1" class="control-label"></label>
+                                <input asp-for="InvoiceSerialNo11" class="k-textbox" id="InvoiceSerialNo11" style="width: 100%;" type="number" max='99999999' validationMessage=@ESCHOOL.Resources.Resource.ValidNumber />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <label asp-for="InvoiceName2" class="control-label"></label>
+                                <input asp-for="InvoiceName2" class="k-textbox" id="InvoiceName2" style="width: 100%; background-color:antiquewhite" maxlength="20" />
+                            </div>
+                            <div class="col">
+                                <label asp-for="InvoiceSerialNo1" class="control-label"></label>
+                                <input asp-for="InvoiceSerialNo2" class="k-textbox" id="InvoiceSerialNo2" style="width: 100%;" type="number" max='99999999' validationMessage=@ESCHOOL.Resources.Resource.ValidNumber />
+                            </div>
+                            <div class="col">
+                                <label asp-for="InvoiceSerialNo11" class="control-label"></label>
+                                <input asp-for="InvoiceSerialNo22" class="k-textbox" id="InvoiceSerialNo22" style="width: 100%;" type="number" max='99999999' validationMessage=@ESCHOOL.Resources.Resource.ValidNumber />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <label asp-for="InvoiceName3" class="control-label"></label>
+                                <input asp-for="InvoiceName3" class="k-textbox" id="InvoiceName3" style="width: 100%; background-color:antiquewhite" maxlength="20" />
+                            </div>
+                            <div class="col">
+                                <label asp-for="InvoiceSerialNo1" class="control-label"></label>
+                                <input asp-for="InvoiceSerialNo3" class="k-textbox" id="InvoiceSerialNo3" style="width: 100%;" type="number" max='99999999' validationMessage=@ESCHOOL.Resources.Resource.ValidNumber />
+                            </div>
+                            <div class="col">
+                                <label asp-for="InvoiceSerialNo11" class="control-label"></label>
+                                <input asp-for="InvoiceSerialNo33" class="k-textbox" id="InvoiceSerialNo33" style="width: 100%;" type="number" max='99999999' validationMessage=@ESCHOOL.Resources.Resource.ValidNumber />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col col-md-1" style="padding-left:20px;">
+                        <div class="row rightAlign">
+                            <p>
+                                <button type="button" id="saveButton" style="height: 30px; width: 90px" onclick="div1Button()">@ESCHOOL.Resources.Resource.Submit</button>
+                            </p>
+                        </div>
+                        <div class="row rightAlign">
+                            <span class="k-card-action"><span class="k-button k-flat k-primary" id="closeid" style="height: 30px;" onclick="serialnoControlClose()">@ESCHOOL.Resources.Resource.Close</span></span>
+                        </div>
+                        <script>
+                            $(document).ready(function () {
+                                $("#saveButton").kendoButton({
+                                    icon: "save",
+                                });
+                                $("#closeid").kendoButton({
+                                    icon: "close",
+                                });
+                            });
+                        </script>
+                    </div>
+
+                    <div class="k-card-body col-md-6">
+                        <p><strong>@ESCHOOL.Resources.Resource.CollectionMsg</strong></p>
+                        <p>@ESCHOOL.Resources.Resource.InvoiceSerialMsg1</p>
+                        <p>@ESCHOOL.Resources.Resource.InvoiceSerialMsg2</p>
+                    </div>
+                </div>
+
+                <div class="row" id="div2" style="display: none;  padding-left:30px; padding-bottom:10px;">
+                    <div class="col col-md-8">
+                        <h5 class="ra-well-title card-header top-left"> <kbd>@ESCHOOL.Resources.Resource.InvoiceType </kbd></h5>
+                        <div class="form-group">
+                            <label asp-for="InvoiceProfile" class="control-label"></label>
+                            <div class="row">
+                                &nbsp; &nbsp;
+                                <div class="custom-control custom-radio">
+                                    <input type="radio" asp-for="InvoiceProfile" class="k-radio" id="Prf1" value="true" onclick="hideit()" />
+                                    <label class="k-radio-label" for="Prf1">@ESCHOOL.Resources.Resource.EArchive</label>
+                                </div>
+                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                <div class="custom-control custom-radio">
+                                    <input type="radio" asp-for="InvoiceProfile" class="k-radio" id="Prf2" value="false" onclick="showit()" />
+                                    <label class="k-radio-label" for="Prf2">@ESCHOOL.Resources.Resource.EInvoice</label>
+                                </div>
+
+                                <div style="padding-left: 170px;">
+                                    <div class="row rightAlign">
+                                        <span class="k-card-action"><span class="k-button k-flat k-primary" id="closeid" style="height: 30px;" onclick="invoiceTypeControlClose()">@ESCHOOL.Resources.Resource.Close</span></span>
+                                    </div>
+                                    <script>
+                                        $(document).ready(function () {
+                                            $("#closeid").kendoButton({
+                                                icon: "close",
+                                            });
+                                        });
+                                    </script>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            &nbsp; &nbsp;
+                            <div class="custom-control">
+                                <input type="radio" asp-for="InvoiceTypeParameter" class="k-radio" id="Ssl1" value="0" />
+                                <label class="k-radio-label" for="Ssl1">@ESCHOOL.Resources.Resource.BasicInvoice</label>
+                            </div>
+
+                            <div class="custom-control">
+                                <input type="radio" asp-for="InvoiceTypeParameter" class="k-radio" id="Ssl2" value="1" />
+                                <label class="k-radio-label" for="Ssl2">@ESCHOOL.Resources.Resource.CommercialInvoice</label>
+                            </div>
+
+                            <div class="custom-control">
+                                <input type="radio" asp-for="InvoiceTypeParameter" class="k-radio" id="Ssl3" value="2" />
+                                <label class="k-radio-label" for="Ssl3">@ESCHOOL.Resources.Resource.ExceptionInvoice</label>
+                                <input asp-for="ParameterExceptionCode" class="k-textbox" id="parameterExceptionCodeId" style="font-weight: bold; width: 40px;" maxlength="10" title="@ESCHOOL.Resources.Resource.Code" />
+                            </div>
+
+                            <div class="custom-control">
+                                <input type="radio" asp-for="InvoiceTypeParameter" class="k-radio" id="Ssl4" value="3" />
+                                <label class="k-radio-label" for="Ssl4">@ESCHOOL.Resources.Resource.SalesInvoice</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--#endregion -->
+
+                <div>
+                    <div id="gridInvoice" style="padding:5px;"></div>
+                    <!--#region gridSubText -->
+                    <div id="gridDiv1" class="row" style="padding-left: 1em; height:24px;">
+                        <div style="width:40px;">  </div>
+
+                        <div style="width: 300px; float: right;">
+                            <div id="withholding1" class="row" style="float: right; padding-right: 0; display: none;">
+                                <label class="control-label" style="font-weight:bold;"> @ESCHOOL.Resources.Resource.WithholdingPercent:</label>
+                            </div>
+                        </div>
+                        <div style="width:40px;"> </div>
+                        <div style="width:50px;"> </div>
+                        <div style="width: 110px; float: right;">
+                            <div id="withholding2" class="row" style="float: right; display: none;">
+                                <div class="row">
+                                    <div class="col">
+                                        <input asp-for="WithholdingPercent1" class="k-textbox" id="withholdingPercentId1" style="width: 100%;" type="number" min="1" max='10' value="5" validationMessage=@ESCHOOL.Resources.Resource.ValidNumber />
+                                    </div>
+                                    <div>/</div>
+                                    <div class="col">
+                                        <input asp-for="WithholdingPercent2" class="k-textbox" id="withholdingPercentId2" style="width: 100%;" type="number" min="1" max='10' value="10" validationMessage=@ESCHOOL.Resources.Resource.ValidNumber />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" style="float: right; padding-left: 40px;">
+                            <p>
+                                <button type="button" id="calculateid" style="width: 90px; display: none;" onclick="calculateShow()">@ESCHOOL.Resources.Resource.Calculator</button>
+                            </p>
+                            &nbsp;
+                            <p>
+                                <button type="button" id="withholdingid" style="width:90px;" onclick="withholdingShow()">@ESCHOOL.Resources.Resource.Withholding</button>
+                            </p>
+                            <p>
+                                <button type="button" id="closeid2" style="width:90px; display: none;" onclick="buttonHide()">@ESCHOOL.Resources.Resource.Close</button>
+                            </p>
+                            <div id="btntmp" style="width:90px;"> </div>
+                        </div>
+                        <script>
+                            $(document).ready(function () {
+                                $("#calculateid").kendoButton({
+                                    icon: "gears"
+                                });
+                            });
+                            $(document).ready(function () {
+                                $("#withholdingid").kendoButton({
+                                    icon: "table-cell-delete"
+                                });
+                            });
+                            $("#closeid2").kendoButton({
+                                icon: "close"
+                            });
+                        </script>
+                        &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+
+
+                        <div style="width:118px;">
+                            <label class="control-label" style="font-weight:bold;"> @ESCHOOL.Resources.Resource.Discount:</label>
+                        </div>
+                        <div style="width:125px; border: thin solid lightgray;">
+                            <input id="discountId" class="form-control" style="background-color: ButtonFace; font-weight: bold; height: 24px;" disabled />
+                        </div>
+                    </div>
+
+                    <div id="gridDiv2" class="row" style="padding-left: 1em; height:24px;">
+                        <div style="width:40px;">  </div>
+
+                        <div style="width: 300px; float: right;">
+                            <div id="withholding3" class="row" style="float: right; padding-right: 0; display: none;">
+                                <label class="control-label" style="font-weight:bold;"> @ESCHOOL.Resources.Resource.WithholdingCode:</label>
+                            </div>
+                        </div>
+                        <div style="width:40px;"> </div>
+                        <div style="width:50px;"> </div>
+                        <div style="width: 110px; float: right;">
+                            <div id="withholding4" class="row" style="display: none;">
+                                <div class="row">
+                                    <div class="col">
+                                        <input asp-for="WithholdingCode" class="k-textbox" id="withholdingCodeId" style="width: 100%;" maxlength="10" value="0650" validationMessage=@ESCHOOL.Resources.Resource.ValidNumber />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="width:110px;"> </div>
+                        <div style="width:110px;"> </div>
+
+                        <div style="width:120px;">
+                            <label class="control-label" style="font-weight:bold;"> @ESCHOOL.Resources.Resource.SubTotal:</label>
+                        </div>
+                        <div style="width:125px;">
+                            <input id="subTotalId" class="form-control" style="background-color: ButtonFace; font-weight: bold; height: 24px;" disabled />
+                        </div>
+                    </div>
+
+                    <div id="gridDiv3" class="row" style="padding-left: 1em; height: 24px;">
+                        <div style="width:40px;">  </div>
+
+                        <div style="width: 300px; float: right;">
+                            <div id="withholding5" class="row" style="float: right; padding-right: 0; display: none;">
+                                <label class="control-label" style="font-weight:bold;"> @ESCHOOL.Resources.Resource.ReasonForWithholding:</label>
+                            </div>
+                        </div>
+                        <div style="width:40px;"> </div>
+                        <div style="width:50px;"> </div>
+                        <div style="width: 330px; float: right;">
+                            <div id="withholding6" class="row" style="display: none;">
+                                <div class="row">
+                                    <div class="col" style="width: 170px;">
+                                        <textarea asp-for="WithholdingExplanation" id="withholdingExplanationId" name="withholdingExplanationId" class="k-textbox" style="width: 100%; height:40px;" text-wrap="normal" type="text" maxlength="50" onchange="textareachange()"></textarea>
+                                    </div>
+
+                                    <div>
+                                        <div>
+                                            <div class="row" style="float: left; padding-left: 10px; padding-right:10px; width:140px;">
+                                                <input asp-for="WithholdingTax" id="withholdingTaxId" class="form-control" style="background-color: ButtonFace; font-weight: bold; height: 24px; width:100%;" value="0" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="width:120px;">
+                            <label class="control-label" style="font-weight:bold;"> @ESCHOOL.Resources.Resource.Tax:</label>
+                        </div>
+                        <div style="width:125px;">
+                            <input id="taxId" class="form-control" style="background-color: ButtonFace; font-weight: bold; height: 24px;" disabled />
+                        </div>
+                    </div>
+
+                    <div id="gridDiv4" class="row" style="padding-left: 1em; height: 24px;">
+                        <div style="width:40px;">  </div>
+                        <div style="width:300px;"> </div>
+                        <div style="width:40px;">  </div>
+                        <div style="width:50px;">  </div>
+
+                        <div style="width: 330px; float: right;">
+                            <div id="withholding7" class="row" style="display: none;">
+                                <div class="row">
+                                    <div class="col" style="width:170px;">
+                                    </div>
+
+                                    <div>
+                                        <div>
+                                            <div class="row" style="float: left; padding-left: 10px; padding-right:10px; width:140px;">
+                                                <input asp-for="WithholdingTotal" id="withholdingTotalId" class="form-control" style="background-color: ButtonFace; font-weight: bold; height: 24px; width:100%;" value="0" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="width:120px;">
+                            <label class="control-label" style="font-weight:bold;"> @ESCHOOL.Resources.Resource.TotalAmount:</label>
+                        </div>
+                        <div style="width:125px;">
+                            <input id="totalAmountId" class="form-control" style="background-color: ButtonFace; font-weight: bold; height: 24px;" disabled />
+                        </div>
+                    </div>
+                    <!--#endregion -->
+                    <!--#region style -->
+                    <style>
+                        /*                #gridInvoice .k-grid-toolbar {
+                                                                                                                                                                            padding: .6em 1.3em .6em .4em;
+                                                                                                                                                                        }*/
+
+                        .k-grid-content {
+                            max-height: 590px;
+                        }
+
+                        form label {
+                            font-weight: bold;
+                            font-size: 12px;
+                        }
+
+                        .k-header {
+                            font-weight: bold !important;
+                            font-size: 12px;
+                        }
+
+                        .category-label {
+                            vertical-align: middle;
+                            /*        padding-right: .5em;*/
+                        }
+
+                        #category {
+                            vertical-align: middle;
+                        }
+
+                        .refreshBtnContainer {
+                            display: inline-block;
+                        }
+
+                        .toolbar {
+                            float: left;
+                        }
+                    </style>
+                    <!--#endregion -->
+                </div>
+            </div>
+
+            <script>
+                $(document).ready(function () {
+                    $("#invoiceSerialNameDropDown").kendoDropDownList({
+                        dataTextField: "name",
+                        dataValueField: "id",
+                        index: 0,
+                        dataSource: {
+                            transport: {
+                                read: {
+                                    dataType: "json",
+                                    url: "/M400Invoice/InvoiceSerialNameCombo/" + "@Model.UserID",
+                                }
+                            }
+                        },
+
+                        change: function () {
+                            var studentID = $("#studentID").val();
+                            var value = this.value();
+                            $.ajax({
+                                url: "/M400Invoice/GetInvoiceSerialNameCombo/" + studentID + "/" + "@Model.UserID" + "/" + value,
+                                type: "post",
+                                dataType: "json",
+                                success: function (e) {
+                                    document.getElementById("invoiceSerialNumber").value = e.serialno;
+                                },
+                            });
+                        }
+                    });
+                });
+
+
+                $(document).ready(function () {
+                    var invoiceCityDropDown = $("#invoiceCityDropDown").kendoDropDownList({
+                        optionLabel: { categoryName: getByCulture('@culture', 'select'), categoryID: "0" },
+                        dataTextField: "categoryName",
+                        dataValueField: "categoryID",
+                        filter: "contains",
+                        dataSource: {
+                            transport: {
+                                read: {
+                                    dataType: "json",
+                                    url: "/M400Invoice/CityCombo"
+                                }
+                            }
+                        }
+                    }).data("kendoDropDownList");
+
+                    $("#invoiceTownDropDown").kendoDropDownList({
+                        autoBind: false,
+                        cascadeFrom: "invoiceCityDropDown",
+                        optionLabel: { categoryName: getByCulture('@culture', 'select'), categoryID: "0" },
+                        dataTextField: "categoryName",
+                        dataValueField: "categoryID",
+                        dataSource: {
+                            serverFiltering: true,
+                            transport: {
+                                read: {
+                                    dataType: "json",
+                                    url: "/M400Invoice/TownCombo/",
+                                    data: function (e) {
+                                        return { id: invoiceCityDropDown.value() }
+                                    }
+                                }
+                            }
+                        }
+                    }).data("kendoDropDownList");
+                });
+
+            </script>
+        </div>
+
+        <!--#region grid Invoice Archive -->
+        <script>
+            function onChangeBalance(arg) {
+                var grid = $("#gridInvoiceArchive").data("kendoGrid");
+                var selectedItem = grid.dataItem(grid.select());
+
+                var studentID = selectedItem.studentID;
+                var studentInvoiceID = selectedItem.studentInvoiceID;
+                var studentInvoiceAddressID = selectedItem.studentInvoiceAddressID;
+                document.getElementById('studentInvoiceAddressID').value = studentInvoiceAddressID;
+
+                var grid = $("#gridInvoice").data("kendoGrid");
+                grid.dataSource.options.transport.read.url = "/M400Invoice/InvoiceProgramDataAddressRead/" + "@Model.UserID" + "/" + studentInvoiceID + "/" + studentInvoiceAddressID;
+                grid.dataSource.read();
+                grid.refresh();
+
+                $.ajax({
+                    type: "POST",
+                    url: '/M400Invoice/GetAddress/' + "@Model.UserID" + "/" + studentInvoiceID,
+                    dataType: "json",
+
+                    success: function (result) {
+                        document.getElementById('studentInvoiceID').value = studentInvoiceID;
+                        document.getElementById('studentInvoiceAddressID').value = result.studentInvoiceAddressID;
+                        document.getElementById('invoiceTitleId').value = result.title;
+                        document.getElementById('invoiceAddress').value = result.address;
+                        $(invoiceCityDropDown).data().kendoDropDownList.value(result.city);
+                        $(invoiceTownDropDown).data().kendoDropDownList.value(result.town);
+
+                        document.getElementById('invoiceCountry').value = result.country;
+                        document.getElementById('invoiceZip').value = result.zip;
+                        document.getElementById('invoiceTaxOffice').value = result.taxOffice;
+                        document.getElementById('invoiceTaxNumber').value = result.taxNumber;
+                        document.getElementById('invoiceEmail').value = result.eMail;
+                        document.getElementById('invoiceNotesId').value = result.notes;
+
+                        var date = kendo.toString(kendo.parseDate(result.invoiceDate), "dd/MM/yyyy");
+                        document.getElementById("transactiondate").value = date;
+                        document.getElementById('invoiceSerialNumber').value = result.serialNo;
+                        if (result.withholdingTotal > 0) withholdingShow();
+                        else buttonHide();
+                        document.getElementById('withholdingPercentId1').value = result.withholdingPercent1;
+                        document.getElementById('withholdingPercentId2').value = result.withholdingPercent2;
+                        document.getElementById('withholdingCodeId').value = result.withholdingCode;
+                        if (result.withholdingExplanation == "null")
+                            document.getElementById('withholdingExplanationId').value = "";
+                        else
+                            document.getElementById('withholdingExplanationId').value = result.withholdingExplanation;
+
+                        document.getElementById('withholdingTaxId').value = result.withholdingTax;
+                        document.getElementById('withholdingTotalId').value = result.withholdingTotal;
+
+                        if (result.profile)
+                            document.getElementById('Prf1').checked = true;
+                        else document.getElementById('Prf2').checked = true;
+
+                        if (result.typeParameter == 0) document.getElementById('Ssl1').checked = true;
+                        if (result.typeParameter == 1) document.getElementById('Ssl2').checked = true;
+                        if (result.typeParameter == 2) document.getElementById('Ssl3').checked = true;
+                        if (result.typeParameter == 3) document.getElementById('Ssl4').checked = true;
+
+                    }
+                });
+            }
+
+
+            var record3 = 0;
+            $(document).ready(function () {
+
+                dataSource = new kendo.data.DataSource({
+                    transport: {
+                        read: {
+                            url: "/M400Invoice/InvoiceArchiveDataRead/" + @Model.UserID,
+                            dataType: "json",
+                        },
+
+                        parameterMap: function (options, operation) {
+                            if (operation !== "read" && options.models) {
+                                return { models: kendo.stringify(options.models) };
+                            }
+                        }
+                    },
+                    pageSize: 20,
+                    autoSync: false,
+                    batch: true,
+
+                    schema: {
+                        model: {
+                            id: "studentInvoiceID ",
+                            fields: {
+                                studentInvoiceID: { editable: false, type: "number" },
+                                schoolID: { editable: true, type: "number" },
+                                studentID: { editable: true, type: "number" },
+                                studentInvoiceAddressID: { editable: true, type: "number" },
+                                period: { editable: true, type: "string" },
+                                invoiceSerialNo: { editable: false, type: "number" },
+
+                                invoiceDate: { type: "date", format: "{0:yyyy-MM-dd HH:mm:ss}" },
+                                invoiceCutDate: { type: "date", format: "{0:yyyy-MM-dd HH:mm:ss}" },
+                                explanation: { editable: true, type: "string" },
+                                unitPrice: { type: "number" },
+                                discount: { type: "number", format: "{0:#,##}" },
+                                taxPercent: { type: "number", format: "{0:#,##}" },
+                                tax: { type: "number", format: "{0:#,##}" },
+                                amount: { type: "number", format: "{0:#,##}" },
+
+                                grandTotal: { type: "number", format: "{0:#,##}" },
+                                withholdingPercent1: { editable: true, type: "number" },
+                                withholdingPercent2: { editable: true, type: "number" },
+                                withholdingCode: { editable: true, type: "string" },
+                                withholdingExplanation: { editable: true, type: "string" },
+                                withholdingTax: { type: "number", format: "{0:#,##}" },
+                                withholdingTotal: { type: "number", format: "{0:#,##}" },
+
+                                isPlanned: { editable: true, type: "boolean", defaultValue: false },
+                                invoiceType: { editable: false, type: "boolean", defaultValue: false },
+                                invoiceStatus: { editable: false, type: "boolean", defaultValue: false },
+                                isActive: { editable: true, type: "boolean", defaultValue: true }
+                            }
+                        }
+                    },
+                });
+
+                var grid = $("#gridInvoiceArchive").kendoGrid({
+                    dataSource: dataSource,
+                    autoBind: false,
+                    navigatable: true,
+                    pageable: false,
+                    scrollable: true,
+                    selectable: 'row',
+                    height: 300,
+                    sortable: true,
+                    scrollable: true,
+                    resizable: true,
+
+                    change: onChangeBalance,
+                    toolbar: ["Search"],
+                    columns: [
+                        /*"id",*/
+                        { title: "#", template: "#= ++record3 #", width: 45 },
+                        { field: "invoiceTitle", title: "@ESCHOOL.Resources.Resource.Title", width: "290px", template: "#=invoiceTitle#" },
+                        { field: "invoiceSerialNo", title: "@ESCHOOL.Resources.Resource.InvoiceSerialNo", width: "100px", template: "#=invoiceSerialNo#" },
+                        { field: "invoiceDate", title: "@ESCHOOL.Resources.Resource.InvoiceDate", width: "105px", format: "{0:dd.MM.yyyy}", template: '#= kendo.toString(kendo.parseDate(invoiceDate), "dd/MM/yyyy")#' },
+                        { field: "invoiceCutDate", title: "@ESCHOOL.Resources.Resource.InvoiceCutDate", width: "105px", format: "{0:dd.MM.yyyy}", template: '#= kendo.toString(kendo.parseDate(invoiceCutDate), "dd/MM/yyyy")#' },
+                        { field: "unitPrice", title: "@ESCHOOL.Resources.Resource.Amount", width: "90px", template: "#=unitPrice#", format: "{0:#,##}" },
+                        { field: "discount", title: "@ESCHOOL.Resources.Resource.Discount", width: "90px", template: "#=discount#", format: "{0:#,##}" },
+                        { field: "tax", title: "@ESCHOOL.Resources.Resource.Tax", width: "80px", template: "#=tax#", format: "{0:#,##}" },
+                        { field: "amount", title: "@ESCHOOL.Resources.Resource.Total", width: "90px", template: "#=amount#", format: "{0:#,##}" },
+                        { field: "isPlanned", width: "80px", title: "@ESCHOOL.Resources.Resource.Plan1", template: "\#= isPlanned ? getByCulture('@culture', 'planned') : getByCulture('@culture', 'unPlanned') \#" },
+                    ],
+                    dataBinding: function () {
+                        record = (this.dataSource.page() - 1) * this.dataSource.pageSize();
+                    },
+                });
+
+            });
+
+        </script>
+        <!--#endregion -->
+
+    </form>
+
+    <script>
+        async function InvoiceSaveControl() {
+            var title = document.getElementById('invoiceTitleId').value;
+            var address = document.getElementById('invoiceAddress').value;
+            var taxOffice = document.getElementById('invoiceTaxOffice').value;
+            var invoiceTaxNumber = document.getElementById('invoiceTaxNumber').value;
+
+            if (title == null || address == null || taxOffice == null || invoiceTaxNumber == null || title == "" || address == "" || taxOffice == "" || invoiceTaxNumber == "") 
+            {
+                var msg = getByCulture('@culture', 'invoiceInfo');
+                alert(msg);
+            }
+            else {
+                var type = document.getElementById("Ssl3").checked;
+                if (type) {
+                    var note = document.getElementById('invoiceNotesId').value;
+                    var code = document.getElementById('parameterExceptionCodeId').value;
+                    note += " (" + getByCulture('@culture', 'exceptionInvoice') + " " + code + ")";
+                    document.getElementById('invoiceNotesId').value = note;
+                };
+
+                kendo.ui.progress($(document.body), true);
+                var grid = $("#gridInvoice").data("kendoGrid");
+                await grid.saveChanges();
+                await $("form").submit();
+            };
+        }
+
+        $("#M400Invoice").submit(function (e) {
+            e.preventDefault();
+            var form = $(this);
+            var url = form.attr('action');
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: form.serialize(), // serializes the form's elements.
+                success: function (data) {
+                    okInvoice();
+                }
+            });
+        });
+
+        function refreshPlanShow() {
+            window.location.replace("../M400Invoice/InvoiceManually?userID=" + "@Model.UserID" + "&studentID=" + "0" + "&studentInvoiceID=" + 0);
+        }
+    </script>
+
+    <script>
+        function okInvoice() {
+            var isActive = document.getElementById("EI1").checked;
+            var studentInvoiceID = document.getElementById('studentInvoiceID').value;
+
+            var type = false;
+            var involceType = 0;
+            type = document.getElementById("Ssl2").checked;
+            if (type) involceType = 1;
+            type = document.getElementById("Ssl3").checked;
+            if (type) involceType = 2;
+            type = document.getElementById("Ssl4").checked;
+            if (type) involceType = 3;
+
+            if (isActive == false)
+                window.location.replace("../reporting/XmlCreate?userID=" + "@Model.UserID" + "&studentID=" + "@Model.StudentID" + "&studentInvoiceID=" + studentInvoiceID + "&schoolCode=" + "@Model.SchoolCode" + "&involceType=" + involceType + "&invSW=2");
+            else {
+                var formName = "Invoices" + "@Model.SelectedSchoolCode" + "-" + "@Model.SchoolID";
+                window.location.replace("../reporting/index/" + formName + "/" + "@Model.StudentID" + "/" + "5" + "?userID=@Model.UserID&language=" + '"' + "@Model.SelectedCulture" + '"' + "&schoolID=@Model.SchoolID" + "&studentID=@Model.StudentID" + "&period=" + '"' + "@Model.Period" + '"' + "&studentInvoiceID=" + studentInvoiceID + "&cs=" + '"' + "@Model.ConnectionString" + '"');
+            }
+        }
+    </script>
+
+    <script>
+        var dictionary =
+        {
+            'tr-TR': {
+                select: 'Seç',
+                accountingCode: 'Muhasebe Kodu',
+                accountingCodeName: 'Muhasebe Adı',
+                selectbankName: 'Banka Seçimini Yapınız.',
+                delete: "Bu Muhasebe Fişine Ait Kayıtlar Silinecek, Emin misiniz?",
+                total: "Toplam",
+                itemsfound: "kayıt bulundu",
+                newVoucher: "Yeni Bir Fiş Numarası Verilecek, Emin misiniz?",
+                voucherTransaction: "Bu Fiş İşlenecek, Emin misiniz?",
+                subCategory: "Girilen Hesabın Alt Hesabı Var.",
+                planned: "Planlı",
+                unPlanned: "Plansız",
+                titleMsg: 'Kullanıcı Mesajı:',
+                exceptionInvoice: 'İstisna Faturası Kodu',
+                invoiceInfo: 'Fatura Bilgileri Girilmemiş, Lütfen Girişini Yaapınız.',
+                msgOk: 'Tamam'
+            },
+
+            'en-US': {
+                select: 'Select',
+                accountingCode: 'Accounting Code',
+                accountingCodeName: 'Accounting Name',
+                selectbankName: 'Select the bank name.',
+                delete: "Are you sure, All Records of this Accounting slip will be deleted?",
+                total: "Total",
+                itemsfound: "items found",
+                newVoucher: "Are you sure? A New Receipt Number Will Be Given.",
+                voucherTransaction: "Are you sure? This Receipt will be processed.",
+                subCategory: "The account entered has a sub-account.",
+                planned: "Planned",
+                unPlanned: "Unplanned",
+                titleMsg: 'User message:',
+                exceptionInvoice: 'Exception Invoice Code',
+                invoiceInfo: 'Invoice Information Has Not Been Entered, Please Enter It.',
+                msgOk: 'OK'
+            },
+        }
+        function getByCulture(culture, word) {
+            return dictionary[culture][word]
+        }
+    </script>
+    <!--#region toolbar -->
+    <style>
+        #logoId img {
+            width: 60px;
+        }
+    </style>
+    <script>
+        $(document).ready(function () {
+            $("#toolbarMenu").kendoToolBar({
+                items: [
+                    {
+                        template: "<img src='../Upload/Images/Logo.png' class='user-image' style='width:60px;'/>",
+                        overflow: "never",
+                    },
+                    { template: "<h4 style='padding-left:20px;'>@ESCHOOL.Resources.Resource.InvoiceProgram</h4>" },
+                    { type: "spacer" },
+
+                    { type: "button", id: "invoiceArchive", text: "@ESCHOOL.Resources.Resource.IssuedInvoices", icon: "aggregate-fields" },
+                    { type: "separator" },
+
+                    { type: "button", id: "help", text: "@ESCHOOL.Resources.Resource.Help", icon: "help" },
+                    { type: "separator" },
+
+                    { type: "button", id: "back", text: "@ESCHOOL.Resources.Resource.Back", attributes: { style: "float: right" }, icon: "rewind" },
+                    { type: "separator" },
+
+                    { type: "button", id: "exit", text: "@ESCHOOL.Resources.Resource.Exit", attributes: { style: "float: right; margin-top: .4em;" }, icon: "logout" },
+                    { type: "separator" },
+                ],
+
+                click: function (e) {
+                    if (e.id == "exit" || e.id == "back") {
+                        if (e.id == "exit") {
+                            window.location.replace("/Home/index?userID=@Model.UserID");
+                        }
+                        else
+                            window.location.replace("/M210Student/AddOrEditStudent?studentID=" + @Model.StudentID + "&userID=@Model.UserID");
+                    }
+
+                    if (e.id == "plan")
+                        window.location.replace("/M500Accounting/Plan");
+
+                    if (e.id == "help") {
+                        var myWindow = $("#panelbarHelp").show();
+                        var panelBar = $("#panelbarHelp").data("kendoPanelBar");
+                        panelBar.select(panelBar.element.children("li").eq(0));
+                        panelBar._selected[0].style.display = 'block';
+                        var item = panelBar.select();
+                        panelBar.expand(item);
+                    }
+                    if (e.id == "invoiceArchive")
+                        invoiceArchiveControl();
+                }
+            });
+            if (@Model.StudentID == 0) $("#back").hide();
+            if ("@Model.IsPermission" == 'False') permissionsControl();
+        });
+    </script>
+
+    <!--#endregion -->
+    <script>
+        $(document).ready(function () {
+            $("#invoiceTitleId").kendoAutoComplete({
+                dataTextField: "invoiceTitle",
+                dataValueField: "studentInvoiceAddressID",
+                minLength: 3,
+                dataSource: {
+                    transport: {
+                        read: {
+                            dataType: "json",
+                            url: "/M400Invoice/GetAddressQuery/"
+                        }
+                    }
+                },
+                change: function (e) {
+                    document.getElementById('studentInvoiceAddressID').value = this.dataItem(e.masterRow).studentInvoiceAddressID;
+                    document.getElementById('invoiceAddress').value = this.dataItem(e.masterRow).invoiceAddress;
+                    $(invoiceCityDropDown).data().kendoDropDownList.value(this.dataItem(e.masterRow).invoiceCityParameterID);
+                    $(invoiceTownDropDown).data().kendoDropDownList.value(this.dataItem(e.masterRow).invoiceTownParameterID);
+
+                    document.getElementById('invoiceCountry').value = this.dataItem(e.masterRow).invoiceCountry;
+                    document.getElementById('invoiceZip').value = this.dataItem(e.masterRow).invoiceZipCode;
+                    document.getElementById('invoiceTaxOffice').value = this.dataItem(e.masterRow).invoiceTaxOffice;
+                    document.getElementById('invoiceTaxNumber').value = this.dataItem(e.masterRow).invoiceTaxNumber;
+                    document.getElementById('invoiceEmail').value = this.dataItem(e.masterRow).eMail;
+                    document.getElementById('invoiceNotesId').value = this.dataItem(e.masterRow).notes;
+                }
+            });
+        });
+    </script>
+
+</body>
+
+<div id="alert"></div>
+<script>
+    function permissionsControl() {
+        msg = getByCulture('@culture', 'msgOk');
+        showAlert(msg);
+    };
+
+    function showAlert(message) {
+        msg = getByCulture('@culture', 'titleMsg');
+        $("#alert").kendoAlert({
+            title: msg,
+            content: "<strong>@ESCHOOL.Resources.Resource.PermissionMsg</strong>",
+            messages: {
+                okText: message
+            },
+            actions: [{
+                text: "#: messages.okText #",
+                action: function (e) {
+                    window.location.replace("/Home/index?userID=@Model.UserID");
+                }
+            }]
+        }).data("kendoAlert").open();
+    };
+</script>
+<!--#region gridInvoice -->
+<script>
+    record = 0;
+    $(document).ready(function () {
+        function onChange(e) {
+            balanceCalculate(e);
+        }
+        var studentID = $("#studentID").val();
+
+        var crudServiceBaseUrl = "/M400Invoice/",
+            dataSource = new kendo.data.DataSource({
+                transport: {
+                    read: {
+                        url: crudServiceBaseUrl + "InvoiceProgramDataRead/" + "@Model.UserID" + "/" + "@Model.StudentInvoiceID",
+                        dataType: "json"
+                    },
+
+                    update: {
+                        url: function (options) {
+                            var percent1 = document.getElementById('withholdingPercentId1').value;
+                            var percent2 = document.getElementById('withholdingPercentId2').value;
+                            var code = document.getElementById('withholdingCodeId').value;
+                            var explanation = document.getElementById('withholdingExplanationIdTmp').value;
+                            if (explanation == "") explanation = null;
+                            var withholdingTax = document.getElementById('withholdingTaxId').value;
+                            var withholdingTotal = document.getElementById('withholdingTotalId').value;
+                            var url = crudServiceBaseUrl + "InvoiceProgramDataUpdate/" + options.models[0].id + "/" + percent1 + "/" + percent2 + "/" + code + "/" + explanation + "/" + withholdingTax + "/" + withholdingTotal;
+                            return url;
+                        },
+                        type: "post",
+                        dataType: "json",
+                        complete: function (e) {
+                            $("#gridInvoice").data("kendoGrid").dataSource.read();
+                        },
+                    },
+
+                    destroy: {
+                        url: function (options) {
+                            var url = crudServiceBaseUrl + "InvoiceProgramDataDelete/" + options.models[0].id;
+                            return url;
+                        },
+                        type: "post",
+                        dataType: "json",
+                        complete: function (e) {
+                            $("#gridInvoiceArchive").data("kendoGrid").dataSource.read();
+                        },
+                    },
+
+                    create: {
+                        url: function (options) {
+                            var studentID = 0;
+                            var date = $("#transactiondate").data("kendoDatePicker").value();
+                            var dateString = kendo.toString(date, "dd-MM-yyyy");
+                            var studentInvoiceAddressID = document.getElementById('studentInvoiceAddressID').value;
+                            var invoiceNameId = document.getElementById('invoiceSerialNameDropDown').value;
+                            var serialNo = document.getElementById('invoiceSerialNumber').value;
+
+                            var percent1 = document.getElementById('withholdingPercentId1').value;
+                            var percent2 = document.getElementById('withholdingPercentId2').value;
+                            var code = document.getElementById('withholdingCodeId').value;
+                            var explanation = document.getElementById('withholdingExplanationIdTmp').value;
+                            if (explanation == "") explanation = null;
+                            if (studentInvoiceAddressID == "") studentInvoiceAddressID = 0;
+
+                            var withholdingTax = document.getElementById('withholdingTaxId').value;
+                            var withholdingTotal = document.getElementById('withholdingTotalId').value;
+
+                            var url = crudServiceBaseUrl + "InvoiceProgramDataCreate/" + options.models[0].id + "/" + @Model.UserID + "/" + studentID + "/" + dateString + "/" + percent1 + "/" + percent2 + "/" + code + "/" + explanation + "/" + withholdingTax + "/" + withholdingTotal + "/" + studentInvoiceAddressID + "/" + invoiceNameId + "/" + serialNo;
+                            return url;
+                        },
+                        type: "post",
+                        dataType: "json",
+                        complete: function (e) {
+                            var ID = e.responseJSON.studentInvoiceID;
+                            document.getElementById('studentInvoiceID').value = ID;
+                            $("#gridInvoice").data("kendoGrid").dataSource.read();
+                        },
+                    },
+
+                    parameterMap: function (options, operation) {
+                        if (operation !== "read" && options.models) {
+                            return { models: kendo.stringify(options.models) };
+                        }
+                    }
+                },
+
+                change: function (e) {
+                    if (e.action == "add") {
+                        var newItem = e.items[0];
+                        if (this.filter() != undefined) {
+                            var filter = this.filter().filters;
+                            var i = filter.length;
+                            while (i--) {
+                                filterValue = filter[i].value;
+                                filterField = filter[i].field;
+                                switch (filterField) {
+                                    case "explanation":
+                                        newItem.set("explanation", filterValue);
+                                        break;
+                                    default:
+                                        newItem[filterField] = filterValue;
+                                }
+                            }
+                        }
+                    }
+                },
+
+                batch: true,
+                pageSize: 20,
+                sortable: true,
+                resizable: true,
+                change: onChange,
+                schema: {
+                    model: {
+                        id: "viewModelID",
+                        fields: {
+                            studentID: { editable: false, type: "number" },
+                            schoolID: { editable: false, type: "number" },
+                            period: { editable: false, type: "string" },
+                            invoiceSerialNo: { editable: true, type: "number" },
+                            invoiceDate: { editable: true, type: "date" },
+
+                            studentInvoiceID: { editable: false, type: "number" },
+                            studentInvoiceDetailID: { editable: false, type: "number" },
+                            explanation: { editable: true, type: "string", validation: { required: true } },
+                            quantity: { editable: true, type: "number", defaultValue: 1, validation: { required: true, min: 1, max: 100 } },
+                            unitPrice: { editable: true, type: "number", validation: { required: true, min: 1 } },
+                            discount: { editable: true, type: "number" },
+                            taxPercent: { editable: true, type: "number", validation: { required: true, min: 0 } },
+                            tax: { editable: true, type: "number", validation: { required: true, min: 0 } },
+                            amount: { editable: true, type: "number", validation: { required: true, min: 1 } },
+                        }
+                    },
+                },
+            });
+
+        var grid = $("#gridInvoice").kendoGrid({
+            dataSource: dataSource,
+            navigatable: true,
+            pageable: true,
+            scrollable: true,
+            resizable: true,
+            selectable: 'row',
+            height: '340px',
+            batch: true,
+            toolbar: ["create", "cancel", "search"],
+
+            columns: [
+                { title: "#", template: "#= ++record #", width: 40 },
+                { field: "explanation", title: "@ESCHOOL.Resources.Resource.Explanation", width: "350px", template: "#=explanation#" },
+                { field: "quantity", title: "@ESCHOOL.Resources.Resource.Quantity", width: "70px", template: "#=quantity#" },
+                { field: "unitPrice", title: "@ESCHOOL.Resources.Resource.Amount", width: "120px", template: "<div>#= kendo.toString(unitPrice,'n') # </div>", format: "{0:n}" },
+                { field: "discount", title: "@ESCHOOL.Resources.Resource.Discount", width: "110px", template: "<div>#= kendo.toString(discount,'n') # </div>", format: "{0:n}" },
+                { field: "taxPercent", title: "@ESCHOOL.Resources.Resource.TaxPercent", width: "70px", template: "<div>#= kendo.toString(taxPercent,'n') # </div>", format: "{0:n}" },
+                { field: "tax", title: "@ESCHOOL.Resources.Resource.TaxAmount", width: "110px", template: "<div>#= kendo.toString(tax,'n') # </div>", format: "{0:n}" },
+                { field: "amount", title: "@ESCHOOL.Resources.Resource.Total", width: "120px", template: "<div>#= kendo.toString(amount,'n') # </div>", format: "{0:n}" },
+                { field: "dirtyField", width: "1px" },
+
+                { command: ["destroy"], title: "&nbsp;", width: "80px" }
+            ],
+            save: function (e) {
+                if (e.values.hasOwnProperty("taxPercent") || e.values.hasOwnProperty("taxPercent")) {
+                    var q = e.model.quantity;
+                    var a = e.model.unitPrice;
+                    var d = e.model.discount;
+                    var p = e.values.taxPercent;
+                    var isIncluded = document.getElementById('Inv11').checked;
+
+                    var taxPercent = 1 + (p / 100);
+
+                    var amounttotal = (a - d) * q;
+                    if (isIncluded) {
+                        var taxtotal = amounttotal - (amounttotal / taxPercent);
+                        var total = amounttotal - d;
+                    }
+                    else {
+                        var taxtotal = amounttotal * p / 100;
+                        var total = amounttotal;
+                    }
+
+                    e.model.set("tax", taxtotal);
+                    e.model.set("amount", total);
+                }
+            },
+
+            editable: true,
+            dataBinding: function () {
+                record = (this.dataSource.page() - 1) * this.dataSource.pageSize();
+                this.trigger('dataBound');
+            },
+            dataBound: function (e) {
+                balanceCalculate(e);
+
+                var rows = e.sender.tbody.children();
+                for (var j = 0; j < rows.length; j++) {
+
+                    var row = $(rows[j]);
+                    var dataItem = e.sender.dataItem(row);
+                    dataItem.set("dirtyField", "1");
+                }
+            },
+
+        });
+
+    });
+
+    var grid = $("#gridInvoice").data("kendoGrid");
+    grid.hideColumn(8);
+    dropDown.bind("dataBound", function () {
+        change();
+    });
+    function balanceCalculate(e) {
+        var quantity = 0;
+        var unitPrice = 0;
+        var discount = 0;
+        var tax = 0;
+        var amount = 0;
+        var subTotal = 0;
+        var discount1 = 0;
+        var tax1 = 0;
+
+        var $grid = $('#gridInvoice');
+        var kendo = $grid.data().kendoGrid;
+        var data = kendo.dataSource.data();
+
+        for (var i = 0; i < data.length; i++) {
+            quantity = data[i].quantity;
+            unitPrice += parseFloat(data[i].unitPrice);
+            discount += parseFloat(data[i].discount);
+            tax += parseFloat(data[i].tax);
+        }
+        var discount1 = discount.toFixed(2);
+        var tax1 = tax.toFixed(2);
+
+        subTotal = (unitPrice - discount).toFixed(2);
+        amount = ((unitPrice * quantity) - discount).toFixed(2);
+        document.getElementById('discountId').value = discount1;
+        document.getElementById('subTotalId').value = subTotal;
+        document.getElementById('taxId').value = tax1;
+        document.getElementById('totalAmountId').value = amount;
+    }
+
+</script>
+
+
+<script>
+    $("#transactiondate").kendoDatePicker({
+        format: "dd/MM/yyyy"
+    });
+    var datepicker = $("#transactiondate").data("kendoDatePicker");
+    datepicker.value(new Date());
+</script>
+
+<script>
+    function serialnoControl() {
+        $("#divbr").show(500);
+        $("#div1").show(500);
+    }
+    function serialnoControlClose() {
+        $("#div1").hide(500);
+        $("#divbr").hide(500);
+    }
+
+    function invoiceTypeControl() {
+        $("#divbr").show(500);
+        $("#div2").show(500);
+    }
+    function invoiceTypeControlClose() {
+        $("#div2").hide(500);
+        $("#divbr").hide(500);
+    }
+
+    function InvoiceArchiveControlClose() {
+        $("#div3").hide(500);
+        $("#divbr").hide(500);
+    }
+
+    function withholdingShow() {
+        $("#withholding1").show(500);
+        $("#withholding2").show(500);
+        $("#withholding3").show(500);
+        $("#withholding4").show(500);
+        $("#withholding5").show(500);
+        $("#withholding6").show(500);
+        $("#withholding7").show(500);
+        $("#calculateid").show(500);
+        $("#withholdingid").hide(500);
+        $("#closeid2").show(500);
+        $("#btntmp").hide(500);
+        /* $("#divbr").hide(500);*/
+    }
+    function buttonHide() {
+        $("#withholding1").hide(500);
+        $("#withholding2").hide(500);
+        $("#withholding3").hide(500);
+        $("#withholding4").hide(500);
+        $("#withholding5").hide(500);
+        $("#withholding6").hide(500);
+        $("#withholding7").hide(500);
+        $("#calculateid").hide(500);
+        $("#withholdingid").show(500);
+        $("#closeid2").hide(500);
+        $("#btntmp").show(500);
+    }
+</script>
+
+<script>
+    function calculateShow() {
+        var tax = document.getElementById('taxId').value;
+        var total = document.getElementById('totalAmountId').value;
+
+        var percent1 = document.getElementById('withholdingPercentId1').value;
+        var percent2 = document.getElementById('withholdingPercentId2').value;
+
+        var withholdingTax = ((tax / percent2) * percent1).toFixed(2);;
+        var withholdingTotal = (total - withholdingTax).toFixed(2);;
+
+        document.getElementById('withholdingTaxId').value = withholdingTax;
+        document.getElementById('withholdingTotalId').value = withholdingTotal;
+    }
+</script>
+
+<script>
+    function invoiceArchiveControl() {
+        $("#divbr").show(500);
+        $("#div3").show(500);
+
+        $.ajax({
+            type: "POST",
+            url: "/M400Invoice/InvoiceArchiveDataRead/" + @Model.Period,
+            dataType: "json",
+            complete: function (e) {
+                $("#gridInvoiceArchive").data("kendoGrid").dataSource.read();
+            },
+        });
+    }
+</script>
+
+<script>
+    function div1Button() {
+        var studentID = document.getElementById("studentID").value
+
+        var invoiceName1 = document.getElementById('InvoiceName1').value;
+        var invoiceName2 = document.getElementById('InvoiceName2').value;
+        var invoiceName3 = document.getElementById('InvoiceName3').value;
+
+        var invoiceSerialNo1 = document.getElementById('InvoiceSerialNo1').value;
+        var invoiceSerialNo11 = document.getElementById('InvoiceSerialNo11').value;
+        var invoiceSerialNo2 = document.getElementById('InvoiceSerialNo2').value;
+        var invoiceSerialNo22 = document.getElementById('InvoiceSerialNo22').value;
+        var invoiceSerialNo3 = document.getElementById('InvoiceSerialNo3').value;
+        var invoiceSerialNo33 = document.getElementById('InvoiceSerialNo33').value;
+
+        $.ajax({
+            url: '/M400Invoice/Div1Update/' + "@Model.UserID" + "/" + invoiceName1 + "/" + invoiceName2 + "/" + invoiceName3 + "/" + invoiceSerialNo1 + "/" + invoiceSerialNo11 + "/" + invoiceSerialNo2 + "/" + invoiceSerialNo22 + "/" + invoiceSerialNo3 + "/" + invoiceSerialNo33,
+            type: "post",
+            dataType: "json",
+            success: function (result) {
+                div1ButtonRefresh();
+            },
+        });
+    }
+</script>
+
+<script>
+    function div1ButtonRefresh() {
+        var studentID = $("#studentID").val();
+        var value = document.getElementById('invoiceSerialNameDropDown').value;
+
+        $.ajax({
+            url: "/M400Invoice/GetInvoiceSerialNameCombo/" + studentID + "/" + "@Model.UserID" + "/" + value,
+            type: "post",
+            dataType: "json",
+            success: function (e) {
+                document.getElementById("invoiceSerialNumber").value = e.serialno;
+            },
+        });
+
+        serialnoControlClose();
+    }
+</script>
+
+<script>
+    function divLoad(e) {
+        if ("@Model.IsSuccess2" == "False") $("#EI2").attr("disabled", true);
+
+        var chk = document.getElementById("Prf1").checked;
+        if (chk) hideit();
+        else showit();
+
+        if ("@Model.FirstName" != "") $("#nameId").show(500);
+    }
+    function hideit() {
+        document.getElementById("Ssl1").disabled = true;
+        document.getElementById("Ssl2").disabled = true;
+        document.getElementById("Ssl3").disabled = true;
+        document.getElementById("Ssl4").disabled = true;
+    }
+    function showit() {
+        document.getElementById("Ssl1").disabled = false;
+        document.getElementById("Ssl2").disabled = false;
+        document.getElementById("Ssl3").disabled = false;
+        document.getElementById("Ssl4").disabled = false;
+    }
+</script>
+
+<script>
+    function textareachange() {
+        document.getElementById('withholdingExplanationIdTmp').value = document.getElementById('withholdingExplanationId').value;
+    }
+
+</script>
+<script>
+    $(document).ready(function () {
+        $('#M400Invoice').submit(function () {
+            $('#M400Invoice').find("[required=\"required\"]").attr("required", false);
+            $(".needValidation").attr("required", true);
+        });
+        var validator = $("#M400Invoice").kendoValidator().data("kendoValidator"),
+            status = $(".status");
+    });
+</script>
+
+<!--#endregion -->
+<span id="popupNotification"></span>
+<script>
+    function showPopupNotification() {
+        var popupNotification = $("#popupNotification").kendoNotification().data("kendoNotification");
+        var d = new Date();
+        popupNotification.show(kendo.toString(d, 'HH:MM:ss.') + kendo.toString(d.getMilliseconds(), "000"), "error");
+    };
+</script>
+<script>
+    window.history.replaceState('', '', window.location.pathname);
+</script>
+

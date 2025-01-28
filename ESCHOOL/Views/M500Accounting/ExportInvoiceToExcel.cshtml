@@ -1,0 +1,576 @@
+﻿@model ESCHOOL.ViewModels.InvoiceExcelViewModel
+@{
+    System.Globalization.CultureInfo.CurrentCulture = System.Globalization.CultureInfo.CreateSpecificCulture(@Model.SelectedCulture);
+    System.Globalization.CultureInfo.CurrentUICulture = System.Globalization.CultureInfo.CreateSpecificCulture(@Model.SelectedCulture);
+
+    var culture = System.Globalization.CultureInfo.CurrentCulture.ToString();
+}
+<!--#region head -->
+<head>
+    <style>
+        html {
+            font-size: 13px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+    </style>
+    <title></title>
+    <link href="https://kendo.cdn.telerik.com/2021.2.616/styles/kendo.common.min.css" rel="stylesheet" />
+    <link rel="stylesheet" id="skin-css" href="@TempData["theme"]" />
+    <link rel="stylesheet" id="skin-css" href="@TempData["themeMobile"]" />
+    <script src="https://kendo.cdn.telerik.com/2021.2.616/js/jquery.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2021.2.616/js/kendo.all.min.js"></script>
+    <script src="~/telerik/2021.2.616/js/jszip.min.js"></script>
+    <script src="@Url.Content("~/telerik/2021.2.616/js//cultures/kendo.culture." + culture + ".min.js")"></script>
+    <script src="@Url.Content("~/telerik/2021.2.616/js//messages/kendo.messages." + culture + ".min.js")"></script>
+
+    <script type="text/javascript">
+        kendo.culture("@culture");
+    </script>
+</head>
+<!--#endregion -->
+<body data-spy="scroll" data-target=".navbar">
+    <form id="M500Accounting" asp-controller="M500Accounting" asp-action="ExportInvoiceToExcel" asp-route-id="@Model.UserID&0" enctype="multipart/form-data" method="post">
+        <div class="demo-section k-content fixed-top wide">
+            <div id="toolbarMenu"></div>
+        </div>
+
+        @*<br /><br /><br /><br /><br /><br /><br />*@
+
+        <!--#region hidden -->
+        @*Geri dönüşlerde null olmaması için*@
+        <input type="hidden" asp-for="@Model.Period" />
+        <input type="hidden" asp-for="@Model.UserID" />
+        <input type="hidden" asp-for="@Model.SchoolID" />
+        <input type="hidden" asp-for="@TempData["studentID"]" id="studentID" />
+
+        <br />
+        <br />
+        <br />
+
+        <ul id="panelbarHelp" style="display: none;">
+            <li>
+                <span class="k-link">@ESCHOOL.Resources.Resource.Help</span>
+                <div class="k-card-body" style="padding-left:15px;">
+                    <p>@ESCHOOL.Resources.Resource.InvoiceExcel1</p>
+                    <p>@ESCHOOL.Resources.Resource.AccountingExcel2</p>
+                    <p>@ESCHOOL.Resources.Resource.AccountingExcel3</p>
+                    <p>@ESCHOOL.Resources.Resource.AccountingExcel4</p>
+                    <br />
+                </div>
+                <style>
+                    #panelbarHelp {
+                        width: 100%;
+                        /*     max-width: none;*/
+                        margin: 0 auto;
+                    }
+                </style>
+
+                <script>
+                    $(document).ready(function () {
+                        $("#panelbarHelp").kendoPanelBar({
+                            animation: {
+                                collapse: {
+                                    duration: 500,
+                                    effects: "fadeOut"
+                                },
+                                expand: {
+                                    duration: 500,
+                                    effects: "expandVertical fadeIn"
+                                }
+                            }
+                        });
+                    });
+                </script>
+            </li>
+        </ul>
+        <!--#endregion -->
+        <div id="example">
+            <input type="hidden" asp-for="@Model.SchoolID" />
+            <input type="hidden" asp-for="@Model.Period" />
+
+            <div class="form-horizontal k-content" style="border: thin solid rgb(120,120,120); padding-left:20px; padding-top:1px; padding-bottom:1px;">
+                <div class="container-flued">
+                    <div class="card-body">
+                        <div>
+                            <div lass="col col-md-8">
+                                <div class="row" style="padding-top:2px;">
+                                    <div class="col col-md-1">
+                                        <label class="control-label">@ESCHOOL.Resources.Resource.Date</label>
+                                    </div>
+                                    <div class="col col-md-2">
+                                        <input asp-for="StartDate" type="date" id="transactiondate1" class="form-control" style="width: 130px;" />
+                                    </div>
+                                    <div class="col col-md-2">
+                                        <input asp-for="EndDate" type="date" id="transactiondate2" class="form-control" style="width: 130px;" />
+                                    </div>
+                                    <div class="col col-md-2">
+                                        <button type="button" id="okButton" onclick="okClick()" style="width:80px">@ESCHOOL.Resources.Resource.Start</button>
+                                    </div>
+                                    <script>
+                                        $("#okButton").kendoButton({
+                                            icon: "check",
+                                        });
+                                    </script>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <div id="grid" style="width:1110px;"></div>
+
+            <style>
+                #grid .k-grid-toolbar {
+                    padding: .6em 1.3em .6em .4em;
+                }
+
+                #grid.k-grid tbody td {
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
+                    padding: 0;
+                }
+
+                #grid.k-grid tbody tr {
+                    line-height: 62px;
+                }
+
+
+                .category-label {
+                    vertical-align: middle;
+                    padding-right: .5em;
+                }
+
+                #category {
+                    vertical-align: middle;
+                }
+
+                .refreshBtnContainer {
+                    display: inline-block;
+                }
+
+                .toolbar {
+                    float: left;
+                }
+            </style>
+
+        </div>
+        </div>
+    </form>
+
+    <script>
+        var dictionary =
+        {
+            'tr-TR': {
+                documentType: 'Belge Tipi',
+                date: 'Tarih',
+                time: 'Saat',
+                invoiceSerialNo: 'Fatura Seri',
+                invoiceSequence: 'Fatura Sıra',
+                accountCode: 'Cari kod',
+                accountName: 'Cari Ad',
+                accountRate: 'Cari Kur',
+                currencyCode: 'Döviz kod',
+                rate: 'Kur',
+                stockCode: 'Stok Kodu',
+                stockName: 'Stok Adı',
+                unit: 'Birim',
+                groupCode: 'Grup Kodu',
+                specialCode: 'Özel Kodu',
+                quantity: 'Miktar',
+                unitPrice: 'Birim Fiyatı',
+                amount: 'Tutar',
+                discountPercent: 'İskonto Oranı',
+                discount: 'İskonto',
+                amount1: 'Ötv.Tutarı',
+                taxPercent: 'Kdv.Oranı',
+                tax: 'Kdv.Tutarı',
+                amountPercent2: 'ÖIV.Oran',
+                amount2: 'ÖIV.Tutar',
+                total: 'Toplam',
+                explanation: 'Açıklama',
+                agreement: 'Sözleşme',
+                amount3: 'KK.Tutar',
+                amount4: 'Nakit Tutar',
+                amount5: 'Taksit Sayısı',
+                amount6: 'EFatura Senaryo',
+                invoiceTaxNumber: 'VKN',
+                invoiceTitle: 'Unvan',
+                invoiceIdNumber: 'TCKN',
+                firstName: 'Ad',
+                lastName: 'Soyad',
+                eMail: 'EPosta',
+                invoiceCity: 'İl',
+                invoiceTown: 'İlçe',
+                invoiceNeighbourhood: 'Mahalle',
+
+                cSBMType: 'CSBM Tipi',
+                cSBM: 'CSBM',
+                exteriorDoorNo: 'Dış kapı no',
+                innerDoorNo: 'İç Kapı no',
+                eArchiveType: 'EArşiv Gönderim Tipi',
+                waybillDate: 'İrsaliye Tarihi',
+                waybillSerial: 'İrsaliye Seri No',
+                waybillSequence: 'İrsaliye Sıra No',
+            },
+
+            'en-US': {
+                documentType: 'Document Type',
+                invoiceDate: 'Date',
+                invoiceTime: 'Time',
+                invoiceSerialNo: 'Invoice Serial',
+                invoiceSerialSequence: 'Invoice Sequence',
+                accountCode: 'Account Code',
+                accountName: 'Account Name',
+                accountRate: 'Account Rate',
+                currencyCode: 'Currency Code',
+                rate: 'Rate',
+                stockCode: 'Stock Code',
+                stockName: 'Stock Name',
+                unit: 'Unit',
+                groupCode: 'Group Code',
+                specialCode: 'Special Code',
+                quantity: 'Quantity',
+                unitPrice: 'Unit Price',
+                amount: 'Amount',
+                discountPercent: 'Discount Percent',
+                discount: 'Discount',
+                amount1: 'Otv.Amount',
+                taxPercent: 'Tax Percent',
+                tax: 'Tax',
+                amountPercent2: 'ÖIV.AmountPercent',
+                amount2: 'ÖIV.amount',
+                total: 'Total',
+                explanation: 'explanation',
+                agreement: 'Agreement',
+                amount3: 'KK.Amount',
+                amount4: 'Cash Amount',
+                amount5: 'Installment',
+                amount6: 'EInvoice Scenario',
+                invoiceTaxNumber: 'Tax.ID',
+                invoiceTitle: 'Title',
+                invoiceIdNumber: 'ID',
+                firstName: 'First Name',
+                lastName: 'Last Name',
+                eMail: 'eMail',
+                invoiceCity: 'City',
+                invoiceTown: 'Town',
+                invoiceNeighbourhood: 'Neighbourhood',
+
+                cSBMType: 'CSBM Type',
+                cSBM: 'CSBM',
+                exteriorDoorNo: 'Exterior DoorNo',
+                innerDoorNo: 'Inner DoorNo',
+                eArchiveType: 'EArchive Type',
+                waybillDate: 'Waybill Date',
+                waybillSerial: 'Waybill Serial',
+                waybillSequence: 'Waybill Sequence',
+            },
+        }
+        function getByCulture(culture, word) {
+            return dictionary[culture][word]
+        }
+    </script>
+    <!--#region toolbar -->
+    <style>
+        #logoId img {
+            width: 60px;
+        }
+    </style>
+    <script>
+        $(document).ready(function () {
+            $("#toolbarMenu").kendoToolBar({
+                items: [
+                    {
+                        template: "<img src='../Upload/Images/Logo.png' class='user-image' style='width:60px;'/>",
+                        overflow: "never",
+                    },
+                    { template: "<h4 style='padding-left:20px;'>@ESCHOOL.Resources.Resource.ExportInvoicestoExcel</h4>" },
+                    { type: "spacer" },
+
+                    { type: "button", id: "help", text: "@ESCHOOL.Resources.Resource.Help", icon: "help" },
+                    { type: "separator" },
+
+                    { type: "button", id: "exit", text: "@ESCHOOL.Resources.Resource.Exit", attributes: { style: "float: right; margin-top: .4em;" }, icon: "logout" },
+                    { type: "separator" },
+                ],
+
+                click: function (e) {
+                    if (e.id == "exit") {
+                        if (e.id == "exit")
+                            window.location.replace("/Home/index?userID=@Model.UserID");
+                    }
+
+                    if (e.id == "help") {
+                        var myWindow = $("#panelbarHelp").show();
+                        var panelBar = $("#panelbarHelp").data("kendoPanelBar");
+                        panelBar.select(panelBar.element.children("li").eq(0));
+                        panelBar._selected[0].style.display = 'block';
+                        var item = panelBar.select();
+                        panelBar.expand(item);
+                    }
+                }
+            });
+            if (@Model.StudentID == 0) $("#back").hide();
+        });
+    </script>
+    <!--#endregion -->
+
+</body>
+<div id="alert"></div>
+
+<script>
+    function permissionsControl() {
+        msg = getByCulture('@culture', 'msgOk');
+        showAlert(msg);
+    };
+
+    function showAlert(message) {
+        msg = getByCulture('@culture', 'titleMsg');
+        $("#alert").kendoAlert({
+            title: msg,
+            content: "<strong>@ESCHOOL.Resources.Resource.PermissionMsg</strong>",
+            messages: {
+                okText: message
+            },
+            actions: [{
+                text: "#: messages.okText #",
+                action: function (e) {
+                    window.location.replace("/Home/index?userID=@Model.UserID");
+                }
+            }]
+        }).data("kendoAlert").open();
+    };
+</script>
+<script>
+    <!--#region grid accounting-- >
+    function okClick() {
+        waitProgress();
+        var transactiondate1 = document.getElementById('transactiondate1').value;
+        var date1 = $("#transactiondate1").data("kendoDatePicker").value();
+        var transactiondate1 = kendo.toString(date1, "yyyy-MM-dd");
+        var date2 = $("#transactiondate2").data("kendoDatePicker").value();
+        var transactiondate2 = kendo.toString(date2, "yyyy-MM-dd");
+
+        var grid = $("#grid").data("kendoGrid");
+        grid.dataSource.options.transport.read.url = "/M500Accounting/InvoiceExcelDataRead/" + "@Model.UserID" + "/" + transactiondate1 + "/" + transactiondate2;
+        grid.dataSource.read();
+        grid.refresh();
+        setTimeout(function () {
+            waitProgressFalse();
+        }, 3000);
+    }
+   
+</script>
+
+<script>
+    function waitProgress() {
+        $('#loader-pulsing').kendoLoader({ type: 'pulsing' });
+        $('#loader-infinite-spinner').kendoLoader({ type: 'infinite-spinner' });
+        $('#loader-converging-spinner').kendoLoader({ type: 'converging-spinner' });
+    }
+
+    function waitProgressFalse() {
+        $('#loader-pulsing').kendoLoader({ visible: false });
+        $('#loader-infinite-spinner').kendoLoader({ visible: false });
+        $('#loader-converging-spinner').kendoLoader({ visible: false });
+    }
+</script>
+<div class="vertical-center">
+    <span id="loader-pulsing"></span>
+    <span id="loader-infinite-spinner"></span>
+    <span id="loader-converging-spinner"></span>
+</div>
+<style>
+    .vertical-center {
+        margin: 0;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        -ms-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+    }
+
+    form label {
+        font-weight: bold;
+        font-size: 12px;
+    }
+
+    .k-header {
+        font-weight: bold !important;
+        font-size: 12px;
+    }
+
+</style>
+
+
+<script>
+    record = 0;
+    var transactiondate1 = "0";
+    var transactiondate2 = "0";
+
+    $(document).ready(function () {
+        var crudServiceBaseUrl = "/M500Accounting/",
+            dataSource = new kendo.data.DataSource({
+                transport: {
+                    read: {
+                        url: crudServiceBaseUrl + "M500Accounting/InvoiceExcelDataRead/" + "@Model.UserID" + "/" + transactiondate1 + "/" + transactiondate2,
+                        dataType: "json"
+                    },
+                    parameterMap: function (options, operation) {
+                        if (operation !== "read" && options.models) {
+                            return { models: kendo.stringify(options.models) };
+                        }
+                    }
+                },
+
+                batch: true,
+                sortable: true,
+                resizable: true,
+                schema: {
+                    model: {
+                        id: "sStudentInvoiceID",
+                        fields: {
+                            accountingID: { editable: false, type: "number" },
+                            schoolID: { editable: false, type: "number" },
+                            period: { editable: false, type: "string" },
+                            documentType: { type: "string" },
+                            invoiceDate: { editable: true, type: "date" },
+                            invoiceTime: { editable: true, type: "date" },
+
+                            voucherTypeID: { editable: true, type: "number" },
+                            voucherNo: { editable: true, type: "number" },
+                            invoiceSerialNo: { editable: false, type: "string" },
+                            InvoiceSerialSequence: { editable: false, type: "number" },
+
+                            accountCode: { editable: true, type: "string" },
+                            quantity: { editable: true, type: "number" },
+                            unitPrice: { editable: true, type: "number" },
+                            amount: { editable: true, type: "number" },
+                            discount: { editable: true, type: "number" },
+                            taxPercent: { editable: true, type: "number" },
+                            tax: { editable: true, type: "number" },
+                            quantity: { editable: true, type: "number" },
+                            explanation: { editable: false, type: "string" },
+
+                            invoiceTitle: { editable: false, type: "string" },
+                            firstName: { editable: false, type: "string" },
+                            lastName: { editable: false, type: "string" },
+                            eMail: { editable: false, type: "string" },
+                            invoiceCity: { editable: false, type: "string" },
+                            invoiceTown: { editable: false, type: "string" },
+                            invoiceTaxNumber: { editable: false, type: "string" },
+                            cSBMType: { editable: false, type: "string" },
+                            cSBM: { editable: false, type: "string" },
+                        },
+                    },
+                },
+            });
+
+        var first = 1;
+        var grid = $("#grid").kendoGrid({
+            dataSource: dataSource,
+            navigatable: true,
+            groupable: true,
+            selectable: "multiple row",
+            height: '630px',
+            resizable: true,
+            toolbar: ["search", "excel"],
+            excelExport: function (e) {
+                e.workbook.fileName = "ExcelInvoices-" + kendo.toString(new Date, "yyyy/MM/dd HH:mm") + ".xlsx";
+            },
+            columns: [
+                { title: "#", template: "#= ++record #", width: 40 },
+                { field: "documentType", title: getByCulture('@culture', 'documentType'), width: "80px", template: "#=documentType#" },
+                { field: "invoiceDate", title: getByCulture('@culture', 'date'), width: "80px", format: "{0:dd.MM.yyyy}", template: '#= kendo.toString(kendo.parseDate(invoiceDate), "dd.MM.yyyy")#' },
+                { field: "invoiceTime", title: getByCulture('@culture', 'time'), width: "80px", format: "{0:HH:mm:ss}", template: '#= kendo.toString(kendo.parseDate(invoiceTime), "HH:mm")#' },
+                { field: "invoiceSerialNo", title: getByCulture('@culture', 'invoiceSerialNo'), width: "40px", template: "#=invoiceSerialNo#" },
+                { field: "invoiceSerialSequence", title: getByCulture('@culture', 'invoiceSequence'), width: "60px", template: "#=invoiceSerialSequence#" },
+                { field: "accountCode", title: getByCulture('@culture', 'accountCode'), width: "80px", template: "#=accountCode#" },
+                { field: "accountName", title: getByCulture('@culture', 'accountName'), width: "200px", template: "#=accountName#" },
+                { field: "accountRate", title: getByCulture('@culture', 'accountRate'), width: "40px", template: "#=accountRate#" },
+
+                { field: "currencyCode", title: getByCulture('@culture', 'currencyCode'), width: "40px", template: "#=currencyCode#" },
+                { field: "rate", title: getByCulture('@culture', 'rate'), width: "40px", template: "#=rate#" },
+                { field: "stockCode", title: getByCulture('@culture', 'stockCode'), width: "40px", template: "#=stockCode#" },
+                { field: "stockName", title: getByCulture('@culture', 'stockName'), width: "40px", template: "#=stockName#" },
+                { field: "unit", title: getByCulture('@culture', 'unit'), width: "40px", template: "#=unit#" },
+                { field: "groupCode", title: getByCulture('@culture', 'groupCode'), width: "40px", template: "#=groupCode#" },
+                { field: "specialCode", title: getByCulture('@culture', 'specialCode'), width: "40px", template: "#=specialCode#" },
+
+                { field: "quantity", title: getByCulture('@culture', 'quantity'), width: "30px", template: "#if(quantity == 0){#  #}else{# #=kendo.toString(quantity,'n0')# #}#", },
+                { field: "unitPrice", title: getByCulture('@culture', 'unitPrice'), width: "80px", template: "#if(unitPrice == 0){#  #}else{# #=kendo.toString(unitPrice,'n')# #}#", },
+                { field: "amount", title: getByCulture('@culture', 'amount'), width: "80px", template: "#if(amount == 0){#  #}else{# #=kendo.toString(amount,'n')# #}#", },
+                { field: "discountPercent", title: getByCulture('@culture', 'discountPercent'), width: "40px", template: "#if(discountPercent == 0){#  #}else{# #=kendo.toString(discountPercent,'n0')# #}#", },
+                { field: "discount", title: getByCulture('@culture', 'discount'), width: "80px", template: "#if(discount == 0){#  #}else{# #=kendo.toString(discount,'n')# #}#", },
+                { field: "amount1", title: getByCulture('@culture', 'amount1'), width: "80px", template: "#if(amount1 == 0){#  #}else{# #=kendo.toString(amount1,'n')# #}#", },
+                { field: "taxPercent", title: getByCulture('@culture', 'taxPercent'), width: "40px", template: "#if(taxPercent == 0){#  #}else{# #=kendo.toString(taxPercent,'n0')# #}#", },
+                { field: "tax", title: getByCulture('@culture', 'tax'), width: "80px", template: "#=tax#" },
+
+                { field: "amountPercent2", title: getByCulture('@culture', 'amountPercent2'), width: "40px", template: "#if(amountPercent2 == 0){#  #}else{# #=kendo.toString(amountPercent2,'n0')# #}#", },
+                { field: "amount2", title: getByCulture('@culture', 'amount2'), width: "40px", template: "#if(amount2 == 0){#  #}else{# #=kendo.toString(amount2,'n0')# #}#", },
+                { field: "total", title: getByCulture('@culture', 'total'), width: "80px", template: "#if(total == 0){#  #}else{# #=kendo.toString(total,'n')# #}#", },
+                { field: "explanation", title: getByCulture('@culture', 'explanation'), width: "300px", template: "#=explanation#" },
+
+                { field: "agreement", title: getByCulture('@culture', 'agreement'), width: "40px", template: "#=agreement#" },
+                { field: "amount3", title: getByCulture('@culture', 'amount3'), width: "40px", template: "#=amount3#" },
+                { field: "amount4", title: getByCulture('@culture', 'amount4'), width: "40px", template: "#=amount4#" },
+                { field: "amount5", title: getByCulture('@culture', 'amount5'), width: "40px", template: "#=amount5#" },
+                { field: "amount6", title: getByCulture('@culture', 'amount6'), width: "40px", template: "#=amount6#" },
+
+                { field: "invoiceTaxNumber", title: getByCulture('@culture', 'invoiceTaxNumber'), width: "100px", template: "#=invoiceTaxNumber#" },
+                { field: "invoiceTitle", title: getByCulture('@culture', 'invoiceTitle'), width: "200px", template: "#=invoiceTitle#" },
+                { field: "invoiceIdNumber", title: getByCulture('@culture', 'invoiceIdNumber'), width: "100px", template: "#=invoiceIdNumber#" },
+                { field: "firstName", title: getByCulture('@culture', 'firstName'), width: "100px", template: "#=firstName#" },
+                { field: "lastName", title: getByCulture('@culture', 'lastName'), width: "100px", template: "#=lastName#" },
+                { field: "eMail", title: getByCulture('@culture', 'eMail'), width: "140px", template: "#=eMail#" },
+                { field: "invoiceCity", title: getByCulture('@culture', 'invoiceCity'), width: "100px", template: "#=invoiceCity#" },
+                { field: "invoiceTown", title: getByCulture('@culture', 'invoiceTown'), width: "100px", template: "#=invoiceTown#" },
+                { field: "invoiceNeighbourhood", title: getByCulture('@culture', 'invoiceNeighbourhood'), width: "40px", template: "#=invoiceNeighbourhood#" },
+
+                { field: "cSBMType", title: getByCulture('@culture', 'cSBMType'), width: "40px", template: "#=cSBMType#" },
+                { field: "cSBM", title: getByCulture('@culture', 'cSBM'), width: "40px", template: "#=cSBM#" },
+                { field: "exteriorDoorNo", title: getByCulture('@culture', 'exteriorDoorNo'), width: "40px", template: "#=exteriorDoorNo#" },
+                { field: "innerDoorNo", title: getByCulture('@culture', 'innerDoorNo'), width: "40px", template: "#=innerDoorNo#" },
+                { field: "eArchiveType", title: getByCulture('@culture', 'eArchiveType'), width: "100px", template: "#=eArchiveType#" },
+                { field: "waybillDate", title: getByCulture('@culture', 'waybillDate'), width: "40px", template: "#=waybillDate#" },
+                { field: "waybillSerial", title: getByCulture('@culture', 'waybillSerial'), width: "40px", template: "#=waybillSerial#" },
+                { field: "waybillSequence", title: getByCulture('@culture', 'waybillSequence'), width: "40px", template: "#=waybillSequence#" },
+            ],
+
+            dataBinding: function () {
+                record = 0;
+            },
+
+        });
+    });
+
+</script>
+
+<script>
+    $("#transactiondate1").kendoDatePicker({
+        format: "dd/MM/yyyy"
+    });
+    $("#transactiondate2").kendoDatePicker({
+        format: "dd/MM/yyyy"
+    });
+    var datepicker1 = $("#transactiondate1").data("kendoDatePicker");
+    datepicker1.value(new Date().AddMonths(-1));
+    var datepicker2 = $("#transactiondate2").data("kendoDatePicker");
+    datepicker2.value(new Date());
+
+</script>
+<!--#endregion -->
+<span id="popupNotification"></span>
+<script>
+    function showPopupNotification() {
+        var popupNotification = $("#popupNotification").kendoNotification().data("kendoNotification");
+        var d = new Date();
+        popupNotification.show(kendo.toString(d, 'HH:MM:ss.') + kendo.toString(d.getMilliseconds(), "000"), "error");
+    };
+</script>
+<script>
+    window.history.replaceState('', '', window.location.pathname);
+</script>

@@ -1,0 +1,221 @@
+﻿@model ESCHOOL.ViewModels.ListPanelModel
+@{
+    System.Globalization.CultureInfo.CurrentCulture = System.Globalization.CultureInfo.CreateSpecificCulture(@Model.SelectedCulture);
+    System.Globalization.CultureInfo.CurrentUICulture = System.Globalization.CultureInfo.CreateSpecificCulture(@Model.SelectedCulture);
+    var culture = System.Globalization.CultureInfo.CurrentCulture.ToString();
+}
+<html>
+<head>
+    <style>
+        html {
+            font-size: 13px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+    </style>
+    <title></title>
+    <link href="https://kendo.cdn.telerik.com/2021.2.616/styles/kendo.common.min.css" rel="stylesheet" />
+    <link rel="stylesheet" id="skin-css" href="@TempData["theme"]" />
+    <link rel="stylesheet" id="skin-css" href="@TempData["themeMobile"]" />
+    <script src="https://kendo.cdn.telerik.com/2021.2.616/js/jquery.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2021.2.616/js/kendo.all.min.js"></script>
+
+    <script src="@Url.Content("~/telerik/2021.2.616/js//cultures/kendo.culture." + culture + ".min.js")"></script>
+    <script src="@Url.Content("~/telerik/2021.2.616/js//messages/kendo.messages." + culture + ".min.js")"></script>
+
+    <script type="text/javascript">
+        kendo.culture("@culture");
+    </script>
+</head>
+<body onload="switchBodyColor()">
+    @if (ViewBag.IsSuccess == true)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>@ESCHOOL.Resources.Resource.Warning</strong>@ESCHOOL.Resources.Resource.ValidationError3<br />
+            <a asp-contoller="ListPanel" asp-action="List203" asp-route-userID="@Model.UserID&studentID=StudentID&msg=0&exitID=0">@ESCHOOL.Resources.Resource.ClickToContinue</a>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
+    <div id="example">
+        <div class="demo-section k-content center" id="shadow">
+            <div class="center2">
+                <h3>@ESCHOOL.Resources.Resource.ListofStudentsbyEnrollmentTypeandStatus</h3>
+            </div>
+
+            <hr />
+            <form id="List203" asp-controller="ListPanel" asp-action="ListPanelInfo203" asp-route-id="@Model.UserID">
+                <input type="hidden" asp-for="UserID" />
+                <input type="hidden" asp-for="StudentID" />
+                <input type="hidden" asp-for="ExitID" />
+                <div class="row">
+                    <div class="col">
+                        <label asp-for="StartListDate" class="control-label">@ESCHOOL.Resources.Resource.StartDateOfRegistration</label>
+                        <input asp-for="StartListDate" id="startDateID" class="form-control listDate" style="width: 100%;" />
+                    </div>
+                    <div class="col">
+                        <label asp-for="EndListDate" class="control-label">@ESCHOOL.Resources.Resource.EndDateOfRegistration</label>
+                        <input asp-for="EndListDate" id="endDateID" class="form-control listDate" style="width: 100%;" />
+                    </div>
+                </div>
+                <br /><br />
+                <div class="row">
+                    <div class="col col-md-3">
+                        <button type="button" id="okButton" onclick="okClick()" style="width:80px">@ESCHOOL.Resources.Resource.Okey</button>
+                    </div>
+                    <div class="col col-md-3">
+                        <button type="button" id="exitButton" onclick="okExit()" style="width:80px">@ESCHOOL.Resources.Resource.Exit</button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+
+    </div>
+    <script>
+        function okExit() {
+            if (@Model.ExitID == 0) window.location.replace("/Home/index?userID=@Model.UserID");
+            if (@Model.ExitID == 1) window.location.replace("/M210Student/AddOrEditStudent?studentID=@Model.StudentID&userID=@Model.UserID");
+        }
+
+        function okClick() {
+            waitProgress();
+
+            $("form").submit();
+        }
+    </script>
+
+    <script>
+        function waitProgress() {
+            $('#loader-pulsing').kendoLoader({ type: 'pulsing' });
+            $('#loader-infinite-spinner').kendoLoader({ type: 'infinite-spinner' });
+            $('#loader-converging-spinner').kendoLoader({ type: 'converging-spinner' });
+        }
+    </script>
+    <div class="vertical-center">
+        <span id="loader-pulsing"></span>
+        <span id="loader-infinite-spinner"></span>
+        <span id="loader-converging-spinner"></span>
+    </div>
+    <style>
+        .vertical-center {
+            margin: 0;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+        }
+    </style>
+
+    <script>
+        $(".listDate").kendoDatePicker({
+            format: "dd/MM/yyyy"
+        });
+
+        $("#okButton").kendoButton({
+            icon: "check",
+        });
+        $("#exitButton").kendoButton({
+            icon: "logout",
+        });
+    </script>
+    <script>
+        $('#list01Options0').click(function(e) {
+            if ($(this).is(':checked')) {
+                $('#startDateID').data('kendoDatePicker').enable(true);
+                $('#endDateID').data('kendoDatePicker').enable(true);
+            }
+            else {
+                $('#startDateID').data('kendoDatePicker').enable(false);
+                $('#endDateID').data('kendoDatePicker').enable(false);
+            }
+        })
+    </script>
+    <style>
+        .center {
+            position: absolute;
+            left: 50%;
+            top: 40%;
+            transform: translate(-50%, -50%);
+            border: 1px solid #0a0a0a;
+            padding: 40px;
+            min-width: 420px;
+            max-width: 420px;
+        }
+
+        div.center2 {
+            text-align: center;
+        }
+
+        .k-list-horizontal {
+            margin-top: 5px;
+        }
+
+        .label {
+            font: normal 14px/16px Metric, Arial, Helvetica, sans-serif;
+            color: #828282;
+            display: inline-block;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .k-form-hint {
+            margin-top: 10px;
+        }
+
+        form label {
+            font-weight: bold;
+            font-size: 12px;
+        }
+        #shadow {
+            border: 1px solid;
+            box-shadow: 5px 10px 18px #888888;
+        }
+    </style>
+
+    <script>
+        var dictionary =
+        {
+            'tr-TR': {
+                select: 'Seç',
+                msgOk: 'Tamam'
+            },
+
+            'en-US': {
+                select: 'Select',
+                msgOk: 'OK'
+            },
+        }
+        function getByCulture(culture, word) {
+            return dictionary[culture][word]
+        }
+    </script>
+
+    <style>
+        .backgroundBlack {
+            background: rgba(0, 0, 0, 0.7) url('../Upload/Login/paper.jpg');
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-blend-mode: darken;
+        }
+
+        .backgroundWhite {
+            background: url('../Upload/Login/paper.jpg');
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+    </style>
+    <script>
+        function switchBodyColor() {
+            if ('@TempData["color"]' == "#222") { document.body.className = 'backgroundBlack'; }
+            else { document.body.className = 'backgroundWhite'; }
+        }
+    </script>
+    <script>
+        window.history.replaceState('', '', window.location.pathname);
+    </script>
+</body>
+</html>

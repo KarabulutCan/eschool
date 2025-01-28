@@ -1,0 +1,202 @@
+﻿<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<!DOCTYPE html>
+@model ESCHOOL.ViewModels.SchoolViewModel
+@{
+    System.Globalization.CultureInfo.CurrentCulture = System.Globalization.CultureInfo.CreateSpecificCulture(@Model.SelectedCulture);
+    System.Globalization.CultureInfo.CurrentUICulture = System.Globalization.CultureInfo.CreateSpecificCulture(@Model.SelectedCulture);
+    var culture = System.Globalization.CultureInfo.CurrentCulture.ToString();
+}
+<head>
+    <style>
+        html {
+            font-size: 13px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+    </style>
+    <title></title>
+    <link href="~/telerik/2021.2.616/styles/kendo.common.min.css" rel="stylesheet" />
+    <link href="~/telerik/2021.2.616/styles/kendo.metro.min.css" rel="stylesheet" />
+    <link href="~/telerik/2021.2.616/styles/kendo.metro.mobile.min.css" rel="stylesheet" />
+
+    <script src="~/telerik/2021.2.616/js/jquery.min.js"></script>
+    <script src="~/telerik/2021.2.616/js/kendo.all.min.js"></script>
+
+    <script src="@Url.Content("~/telerik/2021.2.616/js//cultures/kendo.culture." + culture + ".min.js")"></script>
+    <script src="@Url.Content("~/telerik/2021.2.616/js//messages/kendo.messages." + culture + ".min.js")"></script>
+
+    <script type="text/javascript">
+        kendo.culture(culture);
+    </script>
+    @{
+        Layout = "_LoginLayout";
+    }
+</head>
+
+<body>
+    <div class="container">
+        <div class="row main">
+            <div class="main-center box form">
+                <form class="form-horizontal" method="post" action="#">
+                    <div>
+                        <center>
+                            <span>  <img src="~/Upload/Menu/Student.png" style="height: 50px; width: 50px;" alt="logo" /> </span><br />
+                            <h2 class="title" style="padding-left: 10px; margin-top: 10px; margin-bottom: 10px;">@ESCHOOL.Resources.Resource.PreRegistrationApplicationForm</h2>
+                        </center>
+                    </div>
+                    <br />
+                    <div class="form-group">
+                        <label for="schoolCodeId" class="cols-sm-2 control-label">@ESCHOOL.Resources.Resource.SchoolCode</label>
+                        <div class="cols-sm-10">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-home" ></i></span>
+                                <input type="text" class="form-control" name="schoolCode" id="schoolCodeId" placeholder="@ESCHOOL.Resources.Resource.SchoolCode" required validationMessage=@ESCHOOL.Resources.Resource.ValidNumber />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group ">
+                        <button type="submit" id="loginId" class="btn btn-primary btn-lg btn-block login-button" onclick="loginControl()">@ESCHOOL.Resources.Resource.Signin</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="assets/js/bootstrap.js"></script>
+
+    <script>
+        function loginControl(e) {
+            var schoolCode = document.getElementById("schoolCodeId").value;
+            $.ajax({
+                async: false,
+                type: "POST",
+                url: "/M210Student/LoginControlDataRead/" + schoolCode,
+                dataType: "json",
+
+                success: function(result) {
+                    if (result.isExist == true) {
+                        window.history.pushState("", "", "/M210Student/Preregistration?" + "studentID=0");
+                    }
+                    else
+                        if (!result.isExist) {
+                            msg = getByCulture('@culture', 'incorrectSchool');
+                            alert(msg);
+                        }
+                }
+            });
+        }
+    </script>
+</body>
+
+<style>
+        body {
+            margin: 0;
+            padding: 0;
+            /*background-image: url(https:../Upload/Login/Login.jpg);*/
+            background-image: url(https:../Upload/Login/Paper.jpg);
+            background-size: cover;
+            font-family: 'Oxygen', sans-serif;
+        }
+
+        .box {
+          position: absolute;
+          top: 40%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          width: 25rem;
+          padding: 2.5rem;
+          box-sizing: border-box;
+          background:rgba(255,255,255, 0.5);
+          border-radius: 0.625rem;
+        }
+
+        .main {
+            margin-top: 70px;
+        }
+
+        h1.title {
+            font-size: 50px;
+            font-family: 'Passion One', cursive;
+            font-weight: 400;
+        }
+
+        hr {
+            width: 10%;
+            color: #fff;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            margin-bottom: 15px;
+        }
+
+        input,
+        input::-webkit-input-placeholder {
+            font-size: 11px;
+            padding-top: 3px;
+        }
+
+        .main-center {
+            margin-top: 30px;
+            margin: 0 auto;
+            max-width: 330px;
+            padding: 40px 40px;
+        }
+
+        .login-button {
+            margin-top: 5px;
+        }
+
+        .login-register {
+            font-size: 11px;
+            text-align: center;
+        }
+
+              .form {
+/*                width: 350px;
+                height: 450px;*/
+/*                background-color: rgba(41, 39, 39, 0.3);*/
+                box-shadow: 0 5px 30px black;
+                }
+                   .formGroup {
+                    display: flex;
+                    justify-content: center;
+                }
+</style>
+
+<script>
+    var dictionary =
+    {
+        'tr-TR': {
+            incorrectSchool: 'Okul veya Kurum kodu tanmlı değil. \rLütfen Kayıt Yapmak İstediğiniz Okulu Arayıp OKUL KODUnu Öğreniniz.',
+            incorrectEmail: 'E-Mail adresi tanmlı değil.',
+            expireDate1: 'Bu Kurumun Kullanım Sözleşmesi Sona Ermiştir, ',
+            expireDate2: 'Lütfen Şirketimizi Arayarak Program Sözleşmesini Yenileyiniz.',
+            expireDateMsg1: 'Bu Kurumun Kullanım Sözleşmesi Sona Ermek Üzeredir, ',
+            expireDateMsg2: 'Lütfen Şirketimizi Arayarak Program Sözleşmesini Yenileyiniz.',
+            date: 'Sözleşme Tarihi : ',
+        },
+
+        'en-US': {
+            incorrectSchool: 'School or Institution code not defined. \rPlease call the school you want to register and learn the SCHOOL CODE',
+            incorrectEmail: 'E-Mail address not defined.',
+            expireDate1: "This Institution/School's Use Agreement Has Expired, ",
+            expireDate2: "Please Renew the Program Agreement by Calling Our Company.",
+            expireDateMsg1: "This Institution/School's Usage Agreement is about to Expire, ",
+            expireDateMsg2: "Please Renew the Program Agreement by Calling Our Company.",
+            date: 'Date of contract : ',
+        },
+    }
+    function getByCulture(culture, word) {
+        return dictionary[culture][word]
+    }
+</script>
+<script>
+    window.history.replaceState('', '', window.location.pathname);
+</script>

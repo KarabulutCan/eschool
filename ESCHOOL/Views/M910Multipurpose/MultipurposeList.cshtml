@@ -1,0 +1,711 @@
+﻿@model ESCHOOL.ViewModels.StudentViewModel
+@{
+    System.Globalization.CultureInfo.CurrentCulture = System.Globalization.CultureInfo.CreateSpecificCulture(@Model.SelectedCulture);
+    System.Globalization.CultureInfo.CurrentUICulture = System.Globalization.CultureInfo.CreateSpecificCulture(@Model.SelectedCulture);
+    var culture = System.Globalization.CultureInfo.CurrentCulture.ToString();
+}
+<!--#region head -->
+<head>
+    <style>
+        html {
+            font-size: 13px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+    </style>
+    <title></title>
+    <link href="https://kendo.cdn.telerik.com/2021.2.616/styles/kendo.common.min.css" rel="stylesheet" />
+    <link rel="stylesheet" id="skin-css" href="@TempData["theme"]" />
+    <link rel="stylesheet" id="skin-css" href="@TempData["themeMobile"]" />
+    <script src="https://kendo.cdn.telerik.com/2021.2.616/js/jquery.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2021.2.616/js/kendo.all.min.js"></script>
+    <script src="~/telerik/2021.2.616/js/jszip.min.js"></script>
+    <script src="@Url.Content("~/telerik/2021.2.616/js//cultures/kendo.culture." + culture + ".min.js")"></script>
+    <script src="@Url.Content("~/telerik/2021.2.616/js//messages/kendo.messages." + culture + ".min.js")"></script>
+
+    <script type="text/javascript">
+        kendo.culture("@culture");
+    </script>
+</head>
+<!--#endregion -->
+<body data-spy="scroll" data-target=".navbar">
+    <form id="M910Multipurpose" asp-controller="M910Multipurpose" asp-action="MultipurposeList" asp-route-id="@Model.UserID" enctype="multipart/form-data" method="post">
+        <div class="demo-section k-content fixed-top wide">
+            <div id="toolbarMenu"></div>
+        </div>
+        <br />
+        <br />
+        <br />
+
+        <!--#region panelbarHelp -->
+        <ul id="panelbarHelp" style="display: none;">
+            <li>
+                <span class="k-link">@ESCHOOL.Resources.Resource.Help</span>
+                <div class="k-card-body" style="padding-left:15px;">
+                    <p>@ESCHOOL.Resources.Resource.Excel01</p>
+                    <p>@ESCHOOL.Resources.Resource.Excel02</p>
+                    <p><strong>@ESCHOOL.Resources.Resource.Excel031</strong></p>
+                    <p>@ESCHOOL.Resources.Resource.Excel03</p>
+                    <p>@ESCHOOL.Resources.Resource.Excel04</p>
+                    <p>@ESCHOOL.Resources.Resource.Excel05</p>
+                    <p>@ESCHOOL.Resources.Resource.Excel06</p>
+                    <br />
+                </div>
+                <style>
+                    #panelbarHelp {
+                        width: 100%;
+                        /*     max-width: none;*/
+                        margin: 0 auto;
+                    }
+                </style>
+
+                <script>
+                    $(document).ready(function() {
+                        $("#panelbarHelp").kendoPanelBar({
+                            animation: {
+                                collapse: {
+                                    duration: 500,
+                                    effects: "fadeOut"
+                                },
+                                expand: {
+                                    duration: 500,
+                                    effects: "expandVertical fadeIn"
+                                }
+                            }
+                        });
+                    });
+                </script>
+            </li>
+        </ul>
+        <!--#endregion -->
+
+        <div id="example">
+            <div id="grid"></div>
+            <!--#region style -->
+            <style>
+                #grid table {
+                    min-width: 100%;
+                }
+
+                #grid .k-grid-toolbar {
+                    padding: .6em 1.3em .6em .4em;
+                }
+
+                .k-grid-content {
+                    max-height: 720px;
+                    padding: 0;
+                }
+
+                .category-label {
+                    vertical-align: middle;
+                    padding-right: .5em;
+                }
+
+                #category {
+                    vertical-align: middle;
+                }
+
+                .refreshBtnContainer {
+                    display: inline-block;
+                }
+
+                .toolbar {
+                    float: left;
+                }
+
+                .k-grid-header .k-grid-header-wrap th.k-header {
+                    text-align: center;
+                    vertical-align: middle;
+                    /*                line-height: 0.7em*/
+                }
+
+                a.k-button.k-outline:hover {
+                    color: white;
+                }
+
+            </style>
+            <!--#endregion -->
+        </div>
+    </form>
+</body>
+
+<!--#region toolbar -->
+<style>
+    #logoId img {
+        width: 60px;
+    }
+</style>
+<script>
+    $(document).ready(function() {
+        $("#toolbarMenu").kendoToolBar({
+            items: [
+                {
+                    template: "<img src='../Upload/Images/Logo.png' class='user-image' style='width:60px;'/>",
+                    overflow: "never",
+                },
+                { template: "<h4 style='padding-left:20px;'>@ESCHOOL.Resources.Resource.MultipurposeLists</h4>" },
+                { type: "spacer" },
+
+                { type: "button", id: "help", text: "@ESCHOOL.Resources.Resource.Help", icon: "help" },
+                { type: "separator" },
+
+                { type: "button", id: "exit", text: "@ESCHOOL.Resources.Resource.Exit", attributes: { style: "float: right; margin-top: .4em;" }, icon: "logout" },
+                { type: "separator" },
+            ],
+
+            click: function(e) {
+                if (e.id == "exit") {
+                    if (e.id == "exit")
+                        window.location.replace("/Home/index?UserID=@Model.UserID");
+                }
+
+                if (e.id == "help") {
+                    var myWindow = $("#panelbarHelp").show();
+                    var panelBar = $("#panelbarHelp").data("kendoPanelBar");
+                    panelBar.select(panelBar.element.children("li").eq(0));
+                    panelBar._selected[0].style.display = 'block';
+                    var item = panelBar.select();
+                    panelBar.expand(item);
+                }
+            }
+        });
+        if ("@Model.IsPermission" == 'False') permissionsControl();
+    });
+</script>
+<!--#endregion -->
+
+<div id="alert"></div>
+<script>
+    function permissionsControl() {
+        msg = getByCulture('@culture', 'msgOk');
+        showAlert(msg);
+    };
+
+    function showAlert(message) {
+        msg = getByCulture('@culture', 'titleMsg');
+        $("#alert").kendoAlert({
+            title: msg,
+            content: "<strong>@ESCHOOL.Resources.Resource.PermissionMsg</strong>",
+            messages: {
+                okText: message
+            },
+            actions: [{
+                text: "#: messages.okText #",
+                action: function(e) {
+                    window.location.replace("/Home/index?userID=@Model.UserID");
+                }
+            }]
+        }).data("kendoAlert").open();
+    };
+</script>
+
+<style>
+    .boldColor {
+        font-weight: bold;
+        /*      color: #f00;*/
+    }
+</style>
+<!--#region grid  -->
+<script>
+    record = 0;
+    $(document).ready(function() {
+        var crudServiceBaseUrl = "/M910Multipurpose/",
+            dataSource = new kendo.data.DataSource({
+                transport: {
+                    read: {
+                        url: crudServiceBaseUrl + "MultipurposeListRead/" + "@Model.UserID",
+                        dataType: "json"
+                    },
+                    update: {
+                        url: function(options) {
+                            var url = crudServiceBaseUrl + "MultipurposeListUpdate/" + options.models[0].id + "/" + "@Model.UserID";
+                            return url;
+                        },
+                        complete: function(e) {
+                            $("#grid").data("kendoGrid").dataSource.read();
+                            multipurposeExcelExport();
+                            showPopupNotification();
+                            setTimeout(function () {
+                                waitProgressOff();
+                            }, 2000)
+                        },
+                        type: "post",
+                        dataType: "json",
+                    },
+
+                    parameterMap: function(options, operation) {
+                        if (operation !== "read" && options.models) {
+                            return { models: kendo.stringify(options.models) };
+                        }
+                    }
+                },
+
+                batch: true,
+                sortable: true,
+                schema: {
+                    model: {
+                        id: "multipurposeListID",
+                        fields: {
+                            multipurposeListID: { editable: false, type: "number" },
+                            lenght: { editable: false, validation: { required: true } },
+                            name: { editable: false, validation: { required: true } },
+                            condition: { editable: false, type: "boolean", defaultValue: false },
+                            id: { type: "number", editable: false },
+                            type: { type: "string", editable: false },
+                            isSelect: { editable: true, type: "boolean", defaultValue: true }
+                        }
+                    },
+                }
+            });
+
+        var first = 1;
+        var grid = $("#grid").kendoGrid({
+            dataSource: dataSource,
+            resizable: true,
+            height: '680px',
+            selectable: "row",
+            toolbar: ["cancel", "Search",
+                {
+                    template: '<div> <a class="k-button" id="refreshId" onclick="return detailRefresh()" ><i class="k-icon k-i-reload"></i></a> </div>',
+                    attributes: { style: 'float: right' },
+                },
+                {
+                    template: '<div> <a class="k-button" id="onclickId" onclick="return multipurposeExcelExportFile()"><i class="k-icon k-i-excel" ></i>@ESCHOOL.Resources.Resource.ExportToExcel</a> </div>',
+                }
+            ],
+
+            columns: [
+                { title: "#", template: "#= ++record #", width: 35 },
+                { field: "isSelect", title: "@ESCHOOL.Resources.Resource.Select", width: "80px", template: "<input  #if (isSelect) { # checked='checked' # } # type='checkbox' />", attributes: { style: "text-align:center;" } },
+                { field: "userID", width: 1 },
+                { field: "lenght", title: "@ESCHOOL.Resources.Resource.Lenght", width: "60px", template: "#=lenght#" },
+                { field: "@Model.CategoryName1", title: "@ESCHOOL.Resources.Resource.Name", width: "340px", template: "#=@Model.CategoryName1#" },
+                { field: "condition", title: "@ESCHOOL.Resources.Resource.Condition", width: "100px", template: "<input  #if (condition) { # checked='checked' # } # type='checkbox' disabled />", attributes: { style: "text-align:center;" } },
+                {
+                    field: "conditions1", title: "@ESCHOOL.Resources.Resource.Conditions" + " >=", width: "150px", attributes: { style: "text-align:center;" },
+                    template: "#= customTemplate(type,conditions1) #",
+                    editor: chooseEditor
+                },
+                {
+                    field: "conditions2", title: "@ESCHOOL.Resources.Resource.Conditions" + " <=", width: "150px", attributes: { style: "text-align:center;" },
+                    template: "#= customTemplate(type,conditions2) #",
+                    editor: chooseEditor
+                },
+                { field: "language4"},
+            ],
+            editable: true,
+            dataBound: function(e) {
+                var rows = e.sender.tbody.children();
+                for (var j = 0; j < rows.length; j++) {
+                    if (j == 0 || j == 10 || j == 16 || j == 20 || j == 23 || j == 26 || j == 32 || j == 36 || j == 41 || j == 45 || j == 49 || j == 64 || j == 79 || j == 82 || j == 84 || j == 87 || j == 89 || j == 99 || j == 101 || j == 103 || j == 111) {
+                        var row = $(rows[j]);
+                        var dataItem = e.sender.dataItem(row);
+
+                        var boldColor = dataItem.get("name");
+
+                        if (boldColor) {
+                            row.addClass("boldColor");
+                        }
+                    }
+                    // Dirty
+                    if (j == 0) {
+                        var row = $(rows[j]);
+                        var dataItem = e.sender.dataItem(row);
+                        dataItem.set("userID", 1)
+                    }
+                }
+
+            },
+
+            dataBinding: function() {
+                record = 0;
+            },
+        });
+        var grid = $("#grid").data("kendoGrid");
+        grid.hideColumn(8);
+    });
+
+    function dirtyField(data, fieldName) {
+        var hasClass = $("[data-uid=" + data.uid + "]").find(".k-dirty-cell").length < 1;
+        if (data.dirty && data.dirtyFields[fieldName] && hasClass) {
+            return "<span class='k-dirty'></span>"
+        }
+        else {
+            return "";
+        }
+    }
+    function customTemplate(type, value) {
+        if (value == null)
+            return "";
+        switch (type) {
+            case "date":
+                return kendo.toString(kendo.parseDate(value), 'dd/MM/yyyy');
+            default:
+                return value;
+        }
+    }
+
+    function chooseEditor(container, options) {
+        switch (options.model.type) {
+            case "dropdown1":
+            case "dropdown2":
+            case "dropdown3":
+            case "dropdown4":
+            case "dropdown5":
+            case "dropdown6":
+            case "dropdown7":
+            case "dropdown8":
+            case "dropdown9":
+            case "dropdown10":
+            case "dropdown11":
+            case "dropdown12":
+            case "dropdown13":
+            case "dropdown14":
+            case "dropdown15":
+            case "dropdown16":
+            case "dropdown17":
+            case "dropdown18":
+            case "dropdown19":
+            case "dropdown20":
+            case "dropdown21":
+            case "dropdown22":
+                dropdownEditor(container, options);
+                break;
+            case "text":
+                textEditor(container, options);
+                break;
+            case "numeric":
+                numericEditor(container, options);
+                break;
+            case "date":
+                dateEditor(container, options);
+                break;
+            default:
+                textEditor(container, options);
+                break;
+        }
+    }
+
+    function dateEditor(container, options) {
+        $('<input name="' + options.field + '"/>')
+            .appendTo(container)
+            .kendoDatePicker({
+                format: 'dd/MM/yyyy/',
+                change: function(e) {
+                    if (e.sender.value() == null) {
+                        options.model.set("result", null);
+                    } else {
+                        options.model.set("result", 1);
+                    }
+                }
+            })
+    }
+
+    function dropdownEditor(container, options) {
+        var Url = null;
+        if (options.model.type == "dropdown2") { Url = "/M910Multipurpose/GenderTypeCombo"; }
+        if (options.model.type == "dropdown3") { Url = "/M910Multipurpose/StatuCombo"; }
+        if (options.model.type == "dropdown4") { Url = "/M910Multipurpose/RegistrationTypeCombo"; }
+        if (options.model.type == "dropdown5" || options.model.type == "dropdown6" || options.model.type == "dropdown7" || options.model.type == "dropdown8" ||
+            options.model.type == "dropdown9" || options.model.type == "dropdown10" || options.model.type == "dropdown11" || options.model.type == "dropdown12" ||
+            options.model.type == "dropdown13") { Url = "/M910Multipurpose/CityCombo"; }
+
+        if (options.model.type == "dropdown14") { Url = "/M910Multipurpose/SchoolBusServiceDataRead/" + "@Model.UserID"; }
+        if (options.model.type == "dropdown15") { Url = "/M910Multipurpose/SchoolBusServiceDataRead/" + "@Model.UserID"; }
+        if (options.model.type == "dropdown16") { Url = "/M910Multipurpose/ServicesStatusCombo"; }
+
+        if (options.model.type == "dropdown17") { Url = "/M910Multipurpose/KinshipCombo"; }
+        if (options.model.type == "dropdown18" || options.model.type == "dropdown19" || options.model.type == "dropdown20") { Url = "/M910Multipurpose/ProfessionCombo"; }
+
+        if (options.model.type == "dropdown21") { Url = "/M910Multipurpose/PreviousSchoolCombo"; }
+        if (options.model.type == "dropdown22") { Url = "/M910Multipurpose/PreviousBranchCombo"; }
+
+        switch (options.model.type) {
+            case "dropdown2":
+            case "dropdown3":
+            case "dropdown4":
+            case "dropdown5":
+            case "dropdown6":
+            case "dropdown7":
+            case "dropdown8":
+            case "dropdown9":
+            case "dropdown10":
+            case "dropdown11":
+            case "dropdown12":
+            case "dropdown13":
+            case "dropdown16":
+            case "dropdown17":
+            case "dropdown18":
+            case "dropdown19":
+            case "dropdown20":
+            case "dropdown21":
+            case "dropdown22":
+                $('<input name="' + options.field + '"/>')
+                    .appendTo(container)
+                    .kendoDropDownList({
+                        valuePrimitive: true,
+                        autoBind: false,
+                        optionLabel: { "@Model.CategoryName2": getByCulture('@culture', 'select'), categoryID: "0" },
+                        dataTextField: "@Model.CategoryName2",
+                        dataValueField: "@Model.CategoryName2",
+                        filter: "contains",
+                        dataSource: {
+                            transport: {
+                                read: {
+                                    dataType: "json",
+                                    url: Url
+                                }
+                            }
+                        },
+                    });
+                break;
+
+            case "dropdown14":
+            case "dropdown15":
+                $('<input name="' + options.field + '"/>')
+                    .appendTo(container)
+                    .kendoDropDownList({
+                        valuePrimitive: true,
+                        autoBind: false,
+                        optionLabel: { busRoute: getByCulture('@culture', 'select'), schoolBusServicesID: "0" },
+                        dataTextField: "busRoute",
+                        dataValueField: "busRoute",
+                        filter: "contains",
+                        dataSource: {
+                            transport: {
+                                read: {
+                                    dataType: "json",
+                                    url: Url
+                                }
+                            }
+                        },
+                    });
+                break;
+
+            case "dropdown1":
+                $('<input name="' + options.field + '"/>')
+                    .appendTo(container)
+                    .kendoDropDownList({
+                        valuePrimitive: true, //N.B. this is needed to have correct behavior when the initial value can be null
+                        autoBind: false,
+                        optionLabel: { classroomName: getByCulture('@culture', 'select'), classroomID: "0" },
+                        dataTextField: "classroomName",
+                        dataValueField: "classroomName",
+                        filter: "contains",
+                        dataSource: {
+                            transport: {
+                                read: {
+                                    dataType: "json",
+                                    url: "/M910Multipurpose/ClassroomCombo/" + "@Model.UserID",
+                                }
+                            }
+                        },
+                        change: function(e) {
+                            if (e.sender.dataItem() == null) {
+                                options.model.set("result", null);
+                            } else {
+                                options.model.set("result", e.sender.dataItem().classroomID);
+                            }
+                        }
+                    });
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    function textEditor(container, options) {
+        $('<input type="text" name="' + options.field + '"/>')
+            .addClass('k-textbox')
+            .appendTo(container)
+            .blur(function(e) {
+                if (e.originalEvent.target.value) {
+                    options.model.set("result", 1);
+                } else {
+                    options.model.set("result", null);
+                }
+            })
+    }
+
+    function numericEditor(container, options) {
+        $('<input name="' + options.field + '"/>')
+            .appendTo(container)
+            .kendoNumericTextBox({
+                change: function(e) {
+                    if (e.sender.value() == null) {
+                        options.model.set("result", null);
+                    } else {
+                        options.model.set("result", e.sender.value());
+                    }
+                }
+            })
+    }
+
+    function detailRefresh() {
+        kendo.ui.progress($(document.body), true);
+        var grid = $("#grid").data("kendoGrid");
+        //showPopupNotification();
+        $.each(grid.dataSource.data(), function(index, row) {
+            row.set("isSelect"), false;
+            row.set('conditions1', null);
+            row.set('conditions2', null);
+        });
+        setTimeout(function() {
+           kendo.ui.progress($(document.body), false);
+        }, 1000);
+        
+    }
+</script>
+<script>
+    function waitProgress() {
+        $('#loader-pulsing').kendoLoader({ type: 'pulsing' });
+        $('#loader-infinite-spinner').kendoLoader({ type: 'infinite-spinner' });
+        $('#loader-converging-spinner').kendoLoader({ type: 'converging-spinner' });
+    }
+</script>
+<div class="vertical-center">
+    <span id="loader-pulsing"></span>
+    <span id="loader-infinite-spinner"></span>
+    <span id="loader-converging-spinner"></span>
+</div>
+<style>
+    .vertical-center {
+        margin: 0;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        -ms-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+    }
+</style>
+
+
+<!--#endregion -->
+<span id="popupNotification"></span>
+<script>
+    function showPopupNotification() {
+        var popupNotification = $("#popupNotification").kendoNotification().data("kendoNotification");
+        var d = new Date();
+        popupNotification.show(kendo.toString(d, 'HH:MM:ss.') + kendo.toString(d.getMilliseconds(), "000"), "error");
+    };
+</script>
+
+<script>
+    var dictionary =
+    {
+        'tr-TR': {
+            titleMsg: 'Kullanıcı Mesajı:',
+            msgOk: 'Tamam',
+        },
+        'en-US': {
+            titleMsg: 'User message:',
+            msgOk: 'OK',
+
+        },
+    }
+    function getByCulture(culture, word) {
+        return dictionary[culture][word]
+    }
+</script>
+
+<script>
+    function multipurposeExcelExportFile() {
+        var grid = $("#grid").data("kendoGrid");
+
+        var dataItem = $("#grid").data("kendoGrid").dataSource.data()[0];
+        dataItem.set("language4", "1");
+
+        kendo.ui.progress($(document.body), true);
+        grid.saveChanges();
+        setTimeout(function () {
+            kendo.ui.progress($(document.body), false);
+            waitProgress();
+        }, 100)
+    };
+</script>
+
+<script>
+    function multipurposeExcelExport() {
+        window.location.replace("/M910Multipurpose/ExportExcel/" + "@Model.UserID");
+        waitProgressOff();
+        document.getElementById("onclickId").disabled = true;
+
+        var dataItem = $("#grid").data("kendoGrid").dataSource.data()[0];
+        dataItem.set("language4", "0");
+    };
+</script>
+
+<script>
+    function waitProgress() {
+        var loader1 = $('#loader-pulsing').kendoLoader({ type: 'pulsing' });
+        var loader2 = $('#loader-infinite-spinner').kendoLoader({ type: 'infinite-spinner' });
+        var loader3 = $('#loader-converging-spinner').kendoLoader({ type: 'converging-spinner' });
+        setTimeout(function () {
+            loader1.show();
+        }, 1000)
+        setTimeout(function () {
+            loader2.show();
+        }, 2000)
+        setTimeout(function () {
+            loader3.show();
+        }, 3000)
+    }
+
+    function waitProgressOff() {
+        var loader1 = $('#loader-pulsing').kendoLoader({ type: 'pulsing' });
+        var loader2 = $('#loader-infinite-spinner').kendoLoader({ type: 'infinite-spinner' });
+        var loader3 = $('#loader-converging-spinner').kendoLoader({ type: 'converging-spinner' });
+        setTimeout(function () {
+            loader1.hide();
+        }, 1000)
+        setTimeout(function () {
+            loader2.hide();
+        }, 2000)
+        setTimeout(function () {
+            loader3.hide();
+        }, 3000)
+    }
+</script>
+<div class="vertical-center">
+    <span id="loader-pulsing"></span>
+    <span id="loader-infinite-spinner"></span>
+    <span id="loader-converging-spinner"></span>
+</div>
+<style>
+    .vertical-center {
+        margin: 0;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        -ms-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+    }
+
+    .k-header {
+        font-weight: bold !important;
+        font-size: 12px;
+    }
+
+</style>
+
+<script>
+    var dictionary =
+    {
+        'tr-TR': {
+            select: 'Seç',
+ 
+        },
+
+        'en-US': {
+            select: 'Select',
+
+        },
+    }
+    function getByCulture(culture, word) {
+        return dictionary[culture][word]
+    }
+</script>
+
+<script>
+    window.history.replaceState('', '', window.location.pathname);
+</script>

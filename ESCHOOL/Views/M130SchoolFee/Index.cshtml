@@ -1,0 +1,580 @@
+﻿@model ESCHOOL.ViewModels.SchoolViewModel
+@{
+    System.Globalization.CultureInfo.CurrentCulture = System.Globalization.CultureInfo.CreateSpecificCulture(@Model.SelectedCulture);
+    System.Globalization.CultureInfo.CurrentUICulture = System.Globalization.CultureInfo.CreateSpecificCulture(@Model.SelectedCulture);
+    var culture = System.Globalization.CultureInfo.CurrentCulture.ToString();
+}
+<!--#region head -->
+<head>
+    <style>
+        html {
+            font-size: 13px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+    </style>
+    <title></title>
+    <link href="https://kendo.cdn.telerik.com/2021.2.616/styles/kendo.common.min.css" rel="stylesheet" />
+    <link rel="stylesheet" id="skin-css" href="@TempData["theme"]" />
+    <link rel="stylesheet" id="skin-css" href="@TempData["themeMobile"]" />
+    <script src="https://kendo.cdn.telerik.com/2021.2.616/js/jquery.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2021.2.616/js/kendo.all.min.js"></script>
+
+    <script src="@Url.Content("~/telerik/2021.2.616/js//cultures/kendo.culture." + culture + ".min.js")"></script>
+    <script src="@Url.Content("~/telerik/2021.2.616/js//messages/kendo.messages." + culture + ".min.js")"></script>
+
+    <script type="text/javascript">
+        kendo.culture("@culture");
+    </script>
+</head>
+<!--#endregion -->
+
+<body>
+    <div class="demo-section k-content fixed-top wide">
+        <div id="toolbarMenu"></div>
+    </div>
+    <br />
+    <br />
+    <br />
+    <br />
+    <input type="hidden" id="viewModelID" />
+    <input type="hidden" id="schoolFeeID" />
+    <input type="hidden" id="categoryID" />
+
+    <script id="templateMoreDetail" type="text/x-kendo-template">
+        <button id="refreshIdMoreDetail" class="k-button" type="submit" onclick="return newTransfer()" disabled><i class="k-icon k-i-aggregate-fields"></i>@ESCHOOL.Resources.Resource.Transfer</button>
+    </script>
+
+    <script id="templateEvenMore" type="text/x-kendo-template">
+        <button id="refreshIdEvenMore" class="k-button" type="submit" onclick="return newTransfer()" disabled><i class="k-icon k-i-aggregate-fields"></i>@ESCHOOL.Resources.Resource.Transfer</button>
+    </script>
+
+    <div id="example">
+        <div id="grid" style="padding:5px;"></div>
+
+        <script type="text/x-kendo-template" id="template">
+            <div class="schoolFeeTable"></div>
+        </script>
+    </div>
+    <!--#region toolbar -->
+    <style>
+        #logoId img {
+            width: 60px;
+        }
+    </style>
+    <script>
+        $(document).ready(function () {
+            $("#toolbarMenu").kendoToolBar({
+                items: [
+                    {
+                        template: "<img src='../Upload/Images/Logo.png' class='user-image' style='width:60px;'/>",
+                        overflow: "never",
+                    },
+
+                    { template: "<h4 style='padding-left:20px;'>@Model.UserPeriod  @ESCHOOL.Resources.Resource.FeeEntriesbyClassType</h4>" },
+                    { type: "spacer" },
+
+                    { type: "button", id: "back", text: "@ESCHOOL.Resources.Resource.Back", attributes: { style: "float: right" }, icon: "rewind" },
+                    { type: "separator" },
+
+                    { type: "button", id: "exit", text: "@ESCHOOL.Resources.Resource.Exit", attributes: { style: "float: right; margin-top: .4em;" }, icon: "logout" },
+                    { type: "separator" },
+                ],
+
+                click: function (e) {
+                    if (e.id == "exit")
+                        window.location.replace("/Home/index?userID=@Model.UserID");
+                    else
+                        window.location.replace("/M210Student/AddOrEditStudent?studentID=" + "@Model.StudentID" + "&userID=@Model.UserID");
+                }
+            });
+            if (@Model.StudentID == 0) $("#back").hide();
+        });
+    </script>
+    <!--#endregion -->
+</body>
+
+<!--#region head -->
+<script>
+    var expanded = {};
+    var grid, id, subId;
+    $(document).ready(function () {
+        var element = $("#grid").kendoGrid({
+            dataSource: {
+                transport: {
+                    read: {
+                        url: "/M130SchoolFee/SchoolFeeRead/" + "@Model.UserID" + "/" + "L1",
+                        dataType: "json"
+                    },
+                    parameterMap: function (options, operation) {
+                        if (operation !== "read" && options.models) {
+                            return { models: kendo.stringify(options.models) };
+                        }
+                    }
+                },
+                batch: true,
+                //pageSize: 6,
+                sserverPaging: true,
+                serverSorting: true,
+                schema: {
+                    model: {
+                        id: "categoryName",
+                        fields: {
+                            tableName: { editable: false, nullable: true },
+                        }
+                    }
+                },
+            },
+            height: 720,
+            sortable: true,
+            pageable: true,
+            detailInit: detailInit,
+            detailExpand: function (e) {
+                e.sender.tbody.find('.k-detail-row').each(function (idx, item) {
+                    if (item !== e.detailRow[0]) {
+                        e.sender.collapseRow($(item).prev());
+                    }
+                })
+            },
+            selectable: 'row',
+            columns: [
+                {
+                    field: "@Model.CategoryName",
+                    title: "@ESCHOOL.Resources.Resource.Name",
+                    width: "300px"
+                },
+            ],
+            editable: true,
+            navigatable: true,
+        });
+    });
+
+    function detailInit(e) {
+        grid = this;
+        grid.bind("detailExpand", function (e) {
+            id = this.dataItem(e.masterRow).categoryID;
+            document.getElementById('categoryID').value = id;
+            expanded[id] = true;
+            subId = id;
+        });
+
+        setTimeout(function () {
+            // Yukarıdaki id ile senkronize çalışması için küçük bir bekletme yapıldı
+            $("<div/>").appendTo(e.detailCell).kendoGrid({
+                dataSource: {
+                    transport: {
+                        read: {
+                            url: "/M130SchoolFee/SchoolFeeDetailRead/" + "@Model.UserID" + "/" + e.data.categoryID + "/" + "L1",
+                            dataType: "json"
+                        },
+                        update: {
+                            url: function (options) {
+                                var url = "/M130SchoolFee/SchoolFeeDetailUpdate1/" + options.models[0].id + "/" + "@Model.UserID" + "/" + "L1";
+                                return url;
+                            },
+                            complete: function (e) {
+                                showPopupNotification();
+                                $("#grid").data("kendoGrid").dataSource.read();
+                            },
+                            type: "post",
+                            dataType: "json",
+                        },
+                        parameterMap: function (options, operation) {
+                            if (operation !== "read" && options.models) {
+                                return { models: kendo.stringify(options.models) };
+                            }
+                        }
+                    },
+
+                    batch: true,
+                    schema: {
+                        model: {
+                            id: "viewModelID",
+                            fields: {
+                                schoolFeeTableID: { editable: false, nullable: true },
+                                schoolFeeID: { type: "number" },
+                                schoolFeeTypeAmount: { type: "number", validation: { min: 0, required: true, format: '{0:0.00}' } },
+                                sortOrder: { type: "number", validation: { min: 0, required: true } },
+                                isActive: { type: "boolean", defaultValue: true },
+                            }
+                        }
+                    },
+                },
+
+                scrollable: false,
+                sortable: true,
+                detailInit: moreDetail,
+                detailExpand: function (e) {
+                    e.sender.tbody.find('.k-detail-row').each(function (idx, item) {
+                        if (item !== e.detailRow[0]) {
+                            e.sender.collapseRow($(item).prev());
+                        }
+                    })
+                },
+                pageable: true,
+                selectable: 'row',
+
+                toolbar: ["cancel", "save"],
+                columns: [
+                    { title: "#", template: "#= ++record #", width: 40 },
+                    { field: "schoolFeeTable.schoolFeeID", title: "@ESCHOOL.Resources.Resource.Name", width: "200px", editable: true, template: "#=schoolFee.@Model.CategoryNameSub#" },
+                    { field: "schoolFeeTable.schoolFeeTypeAmount", title: "@ESCHOOL.Resources.Resource.Amount", width: "120px", editable: false, editor: numberEditor, },
+                    { field: "schoolFeeTable.sortOrder", title: "@ESCHOOL.Resources.Resource.Sort", width: "50px", format: "?", template: "#=schoolFeeTable.sortOrder#" },
+                    { field: "schoolFeeTable.isActive", title: "@ESCHOOL.Resources.Resource.Status", editor: customBoolEditor2, width: "60px", template: "<input  #if (schoolFeeTable.isActive) { # checked='checked' # } # type='checkbox' disabled />" },
+                ],
+                dataBinding: function () {
+                    record = 0;
+                },
+                editable: true,
+                navigatable: true,
+
+            });
+
+        }, 1);
+
+        function numberEditor(container, options) {
+            $('<input name="' + options.field + '"/>')
+                .appendTo(container)
+                .kendoNumericTextBox({
+                    format: "{0:n2}",
+                    decimals: 2,
+                });
+        };
+
+        function customBoolEditor2(container, options) {
+            $('<input class="k-checkbox" type="checkbox" name="schoolFeeTable.isActive" data-type="boolean" data-bind="checked:schoolFeeTable.isActive">').appendTo(container);
+        };
+    }
+
+    function moreDetail(e) {
+        grid = this;
+        grid.bind("detailExpand", function (e) {
+            id = this.dataItem(e.masterRow).categoryID;
+            viewModelID = this.dataItem(e.masterRow).viewModelID;
+            expanded[id] = true;
+        });
+
+        setTimeout(function () {
+            $("<div/>").appendTo(e.detailCell).kendoGrid({
+                dataSource: {
+                    transport: {
+                        read: {
+                            url: "/M130SchoolFee/SchoolFeeMoreDetailRead/" + "@Model.UserID" + "/" + viewModelID + "/" + document.getElementById('categoryID').value + "/" + "L2",
+                        },
+                        create: {
+                            url: function (options) {
+                                var categoryID = document.getElementById('categoryID').value;
+                                document.getElementById('schoolFeeID').value = e.data.viewModelID;
+                                var url = "/M130SchoolFee/SchoolFeeDetailCreate/" + options.models[0].id + "/" + "@Model.UserID" + "/" + e.data.viewModelID + "/" + categoryID + "/" + "L2";
+                                return url;
+                            },
+                            complete: function (e) {
+                                showPopupNotification();
+                                $("#grid").data("kendoGrid").dataSource.read();
+                            },
+                            type: "post",
+                            dataType: "json"
+                        },
+                        update: {
+                            url: function (options) {
+                                var url = "/M130SchoolFee/SchoolFeeDetailUpdate2/" + options.models[0].id + "/" + "@Model.UserID" + "/" + "L2";
+                                return url;
+                            },
+                            complete: function (e) {
+                                showPopupNotification();
+                                $("#grid").data("kendoGrid").dataSource.read();
+                            },
+                            type: "post",
+                            dataType: "json",
+                        },
+                        destroy: {
+                            url: function (options) {
+                                var url = "/M130SchoolFee/SchoolFeeDetailDelete/" + options.models[0].id;
+                                return url;
+                            },
+                            type: "post",
+                            dataType: "json",
+                            complete: function (e) {
+                                showPopupNotification();
+                            },
+                        },
+                        parameterMap: function (options, operation) {
+                            if (operation !== "read" && options.models) {
+                                return { models: kendo.stringify(options.models) };
+                            }
+                        }
+                    },
+
+                    batch: true,
+                    serverPaging: true,
+                    serverSorting: true,
+                    serverFiltering: true,
+                    pageSize: 10,
+                    schema: {
+                        model: {
+                            id: "schoolFeeTableID",
+                            fields: {
+                                schoolFeeTableID: { type: "number", validation: { required: true, min: 0 } },
+                                schoolFeeName: { validation: { required: true, maxlenght: 30 } },
+                                schoolFeeID: { type: "number" },
+                                feeCategory: { type: "number" },
+                                schoolID: { type: "number" },
+                                schoolFeeTypeAmount: { type: "number", validation: { min: 0, required: true }, format: '{0:0.00}' },
+                                stockQuantity: { type: "number", validation: { min: 0, format: '{0:n}' } },
+                                stockCode: { validation: { maxlenght: 30 } },
+                                sortOrder: { type: "number", validation: { min: 0, required: true } },
+                                isActive: { type: "boolean", defaultValue: true },
+                            }
+                        },
+                    },
+                },
+
+                detailInit: evenMore,
+                detailExpand: function (e) {
+                    e.sender.tbody.find('.k-detail-row').each(function (idx, item) {
+                        if (item !== e.detailRow[0]) {
+                            e.sender.collapseRow($(item).prev());
+                        }
+                    })
+                },
+                scrollable: false,
+                sortable: true,
+                pageable: true,
+                selectable: 'row',
+                toolbar: [
+                    { name: "create" }, { name: "cancel" }, { name: "save" },
+                    { template: kendo.template($("#templateMoreDetail").html()) }
+                ],
+                columns: [
+                    { title: "#", template: "#= ++record #", width: 40 },
+                    { field: "schoolFeeName", title: "@ESCHOOL.Resources.Resource.Name", width: "200px" },
+                    { field: "schoolFeeTypeAmount", title: "@ESCHOOL.Resources.Resource.Amount", width: "120px", editable: false, format: "{0:0.00}", editor: numberEditor2, template: "#=schoolFeeTypeAmount#" },
+                    { field: "stockCode", title: "@ESCHOOL.Resources.Resource.StockCode", width: "150px" },
+                    { field: "stockQuantity", title: "@ESCHOOL.Resources.Resource.StockQuantity", width: "80px", editable: false, format: '{0:n}', template: "#=stockQuantity#" },
+                    { field: "sortOrder", title: "@ESCHOOL.Resources.Resource.Sort", width: "50px", format: "?", template: "#=sortOrder#" },
+                    { field: "isActive", title: "@ESCHOOL.Resources.Resource.Status", editor: customBoolEditorMoreDetail, width: "60px", template: "<input  #if (isActive) { # checked='checked' # } # type='checkbox' disabled />" },
+                    { command: [{ name: "destroy", }], title: "&nbsp;", width: "80px" }
+                ],
+                edit: function (e) {
+                    var grid = $('#grid').data('kendoGrid');
+                    var items = e.sender.items();
+                    document.getElementById('viewModelID').value = e.model.viewModelID;
+                    document.getElementById('schoolFeeID').value = e.model.schoolFeeID;
+                    document.getElementById("refreshIdMoreDetail").disabled = false;
+                },
+                editable: true,
+                navigatable: true,
+            });
+
+        }, 1);
+
+        function customBoolEditorMoreDetail(container, options) {
+            $('<input class="k-checkbox" type="checkbox" name="isActive" data-type="boolean" data-bind="checked:isActive">').appendTo(container);
+        };
+        function numberEditor2(container, options) {
+            $('<input name="' + options.field + '"/>')
+                .appendTo(container)
+                .kendoNumericTextBox({
+                    format: "{0:0.00}",
+                    decimals: 2,
+                });
+        };
+    }
+
+    function evenMore(e) {
+        grid = this;
+        grid.bind("detailExpand", function (e) {
+            id = this.dataItem(e.masterRow).categoryID;
+            schoolFeeID = this.dataItem(e.masterRow).schoolFeeID;
+            viewModelID = this.dataItem(e.masterRow).viewModelID;
+            expanded[id] = true;
+        })
+        setTimeout(function () {
+            $("<div/>").appendTo(e.detailCell).kendoGrid({
+                dataSource: {
+                    transport: {
+                        read: {
+                            url: "/M130SchoolFee/SchoolFeeMoreDetailRead2/" + "@Model.UserID" + "/" + viewModelID + "/" + schoolFeeID + "/" + document.getElementById('categoryID').value + "/" + "L3",
+                        },
+                        create: {
+                            url: function (options) {
+                                var categoryID = document.getElementById('categoryID').value;
+                                var url = "/M130SchoolFee/SchoolFeeDetailCreate2/" + options.models[0].id + "/" + "@Model.UserID" + "/" + viewModelID + "/" + categoryID + "/" + "L3";
+                                return url;
+                            },
+                            complete: function (e) {
+                                showPopupNotification();
+                                $("#grid").data("kendoGrid").dataSource.read();
+                            },
+                            type: "post",
+                            dataType: "json"
+                        },
+                        update: {
+                            url: function (options) {
+                                var url = "/M130SchoolFee/SchoolFeeDetailUpdate2/" + options.models[0].id + "/" + "@Model.UserID" + "/" + "L3";
+                                return url;
+                            },
+                            complete: function (e) {
+                                showPopupNotification();
+                                $("#grid").data("kendoGrid").dataSource.read();
+                            },
+                            type: "post",
+                            dataType: "json",
+                        },
+                        destroy: {
+                            url: function (options) {
+                                var url = "/M130SchoolFee/SchoolFeeDetailDelete/" + options.models[0].id;
+                                return url;
+                            },
+                            type: "post",
+                            dataType: "json",
+                            complete: function (e) {
+                                showPopupNotification();
+                            },
+                        },
+                        parameterMap: function (options, operation) {
+                            if (operation !== "read" && options.models) {
+                                return { models: kendo.stringify(options.models) };
+                            }
+                        }
+                    },
+
+                    batch: true,
+                    serverPaging: true,
+                    serverSorting: true,
+                    serverFiltering: true,
+                    pageSize: 10,
+                    schema: {
+                        model: {
+                            id: "schoolFeeTableID",
+                            fields: {
+                                schoolFeeTableID: { type: "number", validation: { required: true, min: 0 } },
+                                schoolFeeName: { validation: { required: true, maxlenght: 30 } },
+                                schoolFeeID: { type: "number" },
+                                feeCategory: { type: "number" },
+                                schoolID: { type: "number" },
+                                schoolFeeTypeAmount: { type: "number", validation: { min: 0, required: true, format: '{0:0.00}' } },
+                                stockCode: { validation: { maxlenght: 30 } },
+                                stockQuantity: { type: "number", validation: { min: 0, format: '{0:n}' } },
+                                sortOrder: { type: "number", validation: { min: 0, required: true } },
+                                isActive: { type: "boolean", defaultValue: true },
+                            }
+                        },
+                    },
+                },
+
+                scrollable: false,
+                sortable: true,
+                pageable: true,
+                selectable: 'row',
+                toolbar: [
+                    { name: "create" }, { name: "cancel" }, { name: "save" },
+                    //{ template: kendo.template($("#templateEvenMore").html()) }
+                ],
+                columns: [
+                    { title: "#", template: "#= ++record #", width: 40 },
+                    { field: "schoolFeeName", title: "@ESCHOOL.Resources.Resource.Name", width: "200px" },
+                    { field: "schoolFeeTypeAmount", title: "@ESCHOOL.Resources.Resource.Amount", width: "120px", editable: false, editor: numberEditor3, format: "{0:0.00}", template: "#=schoolFeeTypeAmount#" },
+                    { field: "stockCode", title: "@ESCHOOL.Resources.Resource.StockCode", width: "150px" },
+                    { field: "stockQuantity", title: "@ESCHOOL.Resources.Resource.StockQuantity", width: "80px", editable: false, format: '{0:n}', template: "#=stockQuantity#" },
+                    { field: "sortOrder", title: "@ESCHOOL.Resources.Resource.Sort", width: "50px", format: "?", template: "#=sortOrder#" },
+                    { field: "isActive", title: "@ESCHOOL.Resources.Resource.Status", editor: customBoolEditorEvenMore, width: "60px", template: "<input  #if (isActive) { # checked='checked' # } # type='checkbox' disabled />" },
+                    { command: [{ name: "destroy", }], title: "&nbsp;", width: "80px" }
+                ],
+                edit: function (e) {
+                    var grid = $('#grid').data('kendoGrid');
+                    var items = e.sender.items();
+                    document.getElementById('viewModelID').value = e.model.viewModelID;
+                    document.getElementById('schoolFeeID').value = e.model.schoolFeeID;
+                    document.getElementById("refreshIdEvenMore").disabled = false;
+                },
+                editable: true,
+                navigatable: true,
+            });
+        }, 1);
+
+        function numberEditor3(container, options) {
+            $('<input name="' + options.field + '"/>')
+                .appendTo(container)
+                .kendoNumericTextBox({
+                    format: "{0:0.00}",
+                    decimals: 2,
+                });
+        };
+        function customBoolEditorEvenMore(container, options) {
+            $('<input class="k-checkbox" type="checkbox" name="isActive" data-type="boolean" data-bind="checked:isActive">').appendTo(container);
+        }
+    }
+</script>
+<!--#endregion -->
+<style>
+    .k-grid-content {
+        max-height: 720px;
+    }
+
+    .k-header {
+        font-weight: bold !important;
+        font-size: 12px;
+    }
+</style>
+<span id="popupNotification"></span>
+<script>
+    function showPopupNotification() {
+        var popupNotification = $("#popupNotification").kendoNotification().data("kendoNotification");
+        var d = new Date();
+        popupNotification.show(kendo.toString(d, 'HH:MM:ss.') + kendo.toString(d.getMilliseconds(), "000"), "error");
+    };
+</script>
+
+<script>
+    function newTransfer() {
+        msg = getByCulture('@culture', 'newTransfer');
+            kendo.confirm(msg)
+                .then(function () {
+                    $('body').addClass('waiting');
+                    $('html,body').css('cursor', 'wait');
+                    $('cancel').addClass('disabled');
+                    newTransfer2();
+                    $('body').removeClass('waiting');
+                    $('html,body').css('cursor', 'default');
+                }, function () {
+                    //kendo.alert("You chose to Cancel action.");
+                });
+        }
+</script>
+
+<script>
+    function newTransfer2() {
+        var viewModelID = document.getElementById('viewModelID').value;
+        var schoolFeeID = document.getElementById('schoolFeeID').value;
+        var categoryID = document.getElementById('categoryID').value;
+        console.log(categoryID);
+        $.ajax({
+            type: "POST",
+            url: '/M130SchoolFee/SchoolFeeDetailTransfer/' + "@Model.UserID" + "/" + viewModelID + "/" + schoolFeeID + "/" + categoryID,
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+        });
+    }
+</script>
+
+<script>
+    var dictionary =
+    {
+        'tr-TR': {
+            select: 'Seç',
+            newTransfer: 'Tüm Kategorilere Aktarım Yapılacak.',
+        },
+
+        'en-US': {
+            select: 'Select',
+            newTransfer: 'Transfer will be made to all categories.',
+           
+        },
+    }
+    function getByCulture(culture, word) {
+        return dictionary[culture][word]
+    }
+</script>
+<script>
+    window.history.replaceState('', '', window.location.pathname);
+</script>

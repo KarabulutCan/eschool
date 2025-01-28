@@ -1,0 +1,503 @@
+﻿@model ESCHOOL.ViewModels.ListPanelModel
+@{
+    System.Globalization.CultureInfo.CurrentCulture = System.Globalization.CultureInfo.CreateSpecificCulture(@Model.SelectedCulture);
+    System.Globalization.CultureInfo.CurrentUICulture = System.Globalization.CultureInfo.CreateSpecificCulture(@Model.SelectedCulture);
+    var culture = System.Globalization.CultureInfo.CurrentCulture.ToString();
+}
+<html>
+<head>
+    <style>
+        html {
+            font-size: 13px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+    </style>
+    <title></title>
+    <link href="https://kendo.cdn.telerik.com/2021.2.616/styles/kendo.common.min.css" rel="stylesheet" />
+    <link rel="stylesheet" id="skin-css" href="@TempData["theme"]" />
+    <link rel="stylesheet" id="skin-css" href="@TempData["themeMobile"]" />
+    <script src="https://kendo.cdn.telerik.com/2021.2.616/js/jquery.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2021.2.616/js/kendo.all.min.js"></script>
+
+    <script src="@Url.Content("~/telerik/2021.2.616/js//cultures/kendo.culture." + culture + ".min.js")"></script>
+    <script src="@Url.Content("~/telerik/2021.2.616/js//messages/kendo.messages." + culture + ".min.js")"></script>
+
+    <script type="text/javascript">
+        kendo.culture("@culture");
+    </script>
+</head>
+<body onload="switchBodyColor()">
+    @if (ViewBag.IsSuccess == true)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>@ESCHOOL.Resources.Resource.Warning</strong>@ESCHOOL.Resources.Resource.ValidationError2<br />
+            <a asp-contoller="ListPanel" asp-action="List107" asp-route-id="@Model.UserID">@ESCHOOL.Resources.Resource.ClickToContinue</a>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
+
+    <div id="example">
+        <div class="demo-section k-content center" id="shadow">
+            <div class="center2">
+                <h3>@TempData["title"]</h3>
+            </div>
+
+            <hr />
+            <form id="List112" asp-controller="ListPanel" asp-action="ListPanelInfo12" asp-route-id="@Model.UserID&0">
+                <input type="hidden" asp-for="SchoolID" />
+                <input type="hidden" asp-for="UserID" />
+                <input type="hidden" asp-for="Prg" />
+
+                <div class="row">
+                    <div class="col">
+                        <label asp-for="StartListDate" class="control-label">@ESCHOOL.Resources.Resource.StartDateOfRegistration</label>
+                        <input asp-for="StartListDate" id="startDateID" class="form-control listDate" style="width: 100%;" />
+                    </div>
+                    <div class="col">
+                        <label asp-for="EndListDate" class="control-label">@ESCHOOL.Resources.Resource.EndDateOfRegistration</label>
+                        <input asp-for="EndListDate" id="endDateID" class="form-control listDate" style="width: 100%;" />
+                    </div>
+                </div>
+                <br />
+                <div class="row" id="bank">
+                    <div class="col">
+                        <label asp-for="StartClassroom" class="control-label">@ESCHOOL.Resources.Resource.BankName</label>
+                        <div class="text-section k-content">
+                            <input asp-for="StartClassroom" class="bankDropDown" style="width: 100%;" />
+                        </div>
+                    </div>
+                </div>
+
+                <br />
+                <div class="row">
+                    <div class="col">
+                        <div id="grid"></div>
+
+                    </div>
+                    <div class="col">
+                        <div id="gridp"></div>
+                    </div>
+                </div>
+                <style>
+                    .k-grid-content {
+                        max-height: 300px;
+                        /*     max-width: 220px;*/
+                    }
+                </style>
+
+                <br />
+                <div class="row">
+                    <div class="col col-md-3">
+                        <button type="button" id="okButton" onclick="okClick()" style="width:80px">@ESCHOOL.Resources.Resource.Okey</button>
+                    </div>
+                    <div class="col col-md-3">
+                        <button type="button" id="exitButton" onclick="okExit()" style="width:80px">@ESCHOOL.Resources.Resource.Exit</button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+
+    </div>
+    <script>
+        $('#List01Options3').kendoCheckBox({
+            checked: true,
+            label: "Rear side airbags"
+        });
+    </script>
+
+    <script>
+        record = 0;
+        $(document).ready(function () {
+            var crudServiceBaseUrl = "/ListPanel/",
+                dataSource = new kendo.data.DataSource({
+                    transport: {
+                        read: {
+                            url: crudServiceBaseUrl + "SchoolPaymentTypeDataRead12/" + "@Model.SchoolID",
+                            dataType: "json"
+                        },
+                        update: {
+                            url: function (options) {
+                                var url = crudServiceBaseUrl + "SchoolPaymentTypeDataUpdate/" + options.models[0].id;
+                                return url;
+                            },
+                            type: "post",
+                            dataType: "json"
+                        },
+                        parameterMap: function (options, operation) {
+                            if (operation !== "read" && options.models) {
+                                return { models: kendo.stringify(options.models) };
+                            }
+                        }
+                    },
+
+                    batch: true,
+                    schema: {
+                        model: {
+                            id: "categoryID",
+                            fields: {
+                                categoryName: { editable: false, },
+                                categoryID: { type: "number" },
+                                sortOrder: { type: "number" },
+                                isActive: { type: "boolean", defaultValue: true },
+                                isProtected: { type: "boolean", defaultValue: true },
+                                isSelect: { type: "boolean", defaultValue: true },
+                                isDirtySelect: { editable: false, },
+                            }
+                        },
+                    }
+                });
+
+            var first = 1;
+            var grid = $("#grid").kendoGrid({
+                dataSource: dataSource,
+                editable: true,
+                selectable: 'row',
+                columns: [
+                    { title: "#", template: "#= ++record #", width: 30 },
+                    { field: "isSelect", title: "@ESCHOOL.Resources.Resource.Select", width: "60px", template: "<input  #if (isSelect) { # checked='checked' # } # type='checkbox' />", attributes: { style: "text-align:center;" } },
+                    { field: "categoryName", title: "@ESCHOOL.Resources.Resource.PaymentType", width: "100px", template: "#=@Model.CategoryName#" },
+                ],
+
+                dataBinding: function () {
+                    record = 0;
+                },
+            });
+        });
+    </script>
+
+    <script>
+        record = 0;
+        $(document).ready(function () {
+            var crudServiceBaseUrl = "/ListPanel/",
+                dataSource = new kendo.data.DataSource({
+                    transport: {
+                        read: {
+                            url: crudServiceBaseUrl + "PositionsTypeDataRead12/" + "@Model.UserID",
+                            dataType: "json"
+                        },
+                        update: {
+                            url: function (options) {
+                                var url = crudServiceBaseUrl + "PositionsTypeDataUpdate/" + options.models[0].id;
+                                return url;
+                            },
+                            type: "post",
+                            dataType: "json"
+                        },
+                        parameterMap: function (options, operation) {
+                            if (operation !== "read" && options.models) {
+                                return { models: kendo.stringify(options.models) };
+                            }
+                        }
+                    },
+                    // 7 den fazla checkbox seçildiğinde uppdate tetikleme çalışmadı
+                    // Her seçimde tetikleme yapan "autoSync: true," özelliği kullanıldı
+                    //autoSync: true,
+                    // Bu bölüm daha sonra IsDirtySelect ile çözümlendi
+                    batch: true,
+                    schema: {
+                        model: {
+                            id: "categoryID",
+                            fields: {
+                                categoryName: { editable: false, },
+                                categoryID: { type: "number" },
+                                sortOrder: { type: "number" },
+                                isActive: { type: "boolean", defaultValue: true },
+                                isProtected: { type: "boolean", defaultValue: true },
+                                isSelect: { type: "boolean", defaultValue: true },
+                                isDirtySelect: { editable: false, },
+                            }
+                        },
+                    }
+                });
+
+            var first = 1;
+            var grid = $("#gridp").kendoGrid({
+                dataSource: dataSource,
+                editable: true,
+                resizable: true,
+                //selectable: 'row',
+                columns: [
+                    { title: "#", template: "#= ++record #", width: 30 },
+                    { field: "isSelect", title: "@ESCHOOL.Resources.Resource.Select", width: "60px", template: "<input  #if (isSelect) { # checked='checked' # } # type='checkbox' />", attributes: { style: "text-align:center;" }, editor: customBoolEditor },
+                    { field: "categoryName", title: "@ESCHOOL.Resources.Resource.Positions", width: "100px", template: "#=@Model.CategoryName#" },
+                ],
+
+                dataBinding: function () {
+                    record = 0;
+                },
+                editable: true,
+            });
+        });
+        function customBoolEditor(container, options) {
+            $('<input class="k-checkbox" type="checkbox" name="isSelect" data-type="boolean" data-bind="checked:isSelect">').appendTo(container);
+        }
+    </script>
+
+    <script>
+        function okExit() {
+            window.location.replace("/Home/index?userID=@Model.UserID");
+        }
+
+        function okClick() {
+            waitProgress();
+
+            var grid = $("#grid").data("kendoGrid");
+            $.each(grid.dataSource.data(), function (index, row) {
+                row.set('isDirtySelect', 'True');
+                setTimeout(function () {
+                    var TD = grid.table.find("[data-uid=" + row.uid + "]");
+                    var cell = TD.find("td").eq(1);
+                    cell.addClass("k-dirty-cell").prepend("<span class='k-dirty' />");
+                });
+            });
+            grid.saveChanges();
+
+            var grid = $("#gridp").data("kendoGrid");
+            $.each(grid.dataSource.data(), function (index, row) {
+                row.set('isDirtySelect', 'True');
+                setTimeout(function () {
+                    var TD = grid.table.find("[data-uid=" + row.uid + "]");
+                    var cell = TD.find("td").eq(1);
+                    cell.addClass("k-dirty-cell").prepend("<span class='k-dirty' />");
+                });
+            });
+
+            grid.saveChanges();
+
+            $("form").submit();
+        }
+    </script>
+
+    <script>
+        function waitProgress() {
+            $('#loader-pulsing').kendoLoader({ type: 'pulsing' });
+            $('#loader-infinite-spinner').kendoLoader({ type: 'infinite-spinner' });
+            $('#loader-converging-spinner').kendoLoader({ type: 'converging-spinner' });
+        }
+    </script>
+    <div class="vertical-center">
+        <span id="loader-pulsing"></span>
+        <span id="loader-infinite-spinner"></span>
+        <span id="loader-converging-spinner"></span>
+    </div>
+    <style>
+        .vertical-center {
+            margin: 0;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+        }
+    </style>
+
+    <script>
+        $(document).ready(function () {
+            $(".bankDropDown").kendoDropDownList({
+                optionLabel: { bankName: getByCulture('@culture', 'select'), bankID: "0" },
+                dataTextField: "bankName",
+                dataValueField: "bankID",
+                dataSource: {
+                    transport: {
+                        read: {
+                            dataType: "json",
+                            url: "/ListPanel/BankNameCombo?userID=" + "@Model.UserID",
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+    <script>
+        $(".listDate").kendoDatePicker({
+            format: "dd/MM/yyyy"
+        });
+
+        $("#okButton").kendoButton({
+            icon: "check",
+        });
+        $("#exitButton").kendoButton({
+            icon: "logout",
+        });
+    </script>
+
+    <style>
+        .label {
+            font: normal 14px/16px Metric, Arial, Helvetica, sans-serif;
+            color: #828282;
+            display: inline-block;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .k-form-hint {
+            margin-top: 10px;
+        }
+    </style>
+
+
+    <style>
+        .center {
+            position: absolute;
+            left: 50%;
+            top: 45%;
+            transform: translate(-50%, -50%);
+            border: 1px solid #0a0a0a;
+            padding: 20px;
+            min-width: 500px;
+            max-width: 500px;
+        }
+
+        div.center2 {
+            text-align: center;
+        }
+
+        #shadow {
+            border: 1px solid;
+            /* padding: 10px;*/
+            box-shadow: 5px 10px 18px #888888;
+        }
+
+        form label {
+            font-weight: bold;
+            font-size: 12px;
+        }
+
+        .k-header {
+            font-weight: bold !important;
+            font-size: 12px;
+        }
+
+    </style>
+    <style>
+        .k-list-horizontal {
+            margin-top: 5px;
+        }
+    </style>
+    <style>
+        .fieldlist {
+            margin: 0 0 -1em;
+            padding: 0;
+        }
+
+            .fieldlist li {
+                list-style: none;
+                padding-bottom: 1em;
+            }
+    </style>
+    <script>
+        var dictionary =
+        {
+            'tr-TR': {
+                select: 'Seç',
+                msgOk: 'Tamam'
+            },
+
+            'en-US': {
+                select: 'Select',
+                msgOk: 'OK'
+            },
+        }
+        function getByCulture(culture, word) {
+            return dictionary[culture][word]
+        }
+    </script>
+
+    <style>
+        .backgroundBlack {
+            background: rgba(0, 0, 0, 0.7) url('../Upload/Login/paper.jpg');
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-blend-mode: darken;
+        }
+
+        .backgroundWhite {
+            background: url('../Upload/Login/paper.jpg');
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+    </style>
+    <script>
+        function switchBodyColor() {
+            if ('@TempData["color"]' == "#222") { document.body.className = 'backgroundBlack'; }
+            else { document.body.className = 'backgroundWhite'; }
+        }
+    </script>
+
+    <script>
+        record = 0;
+        $(document).ready(function () {
+            var crudServiceBaseUrl = "/ListPanel/",
+                dataSource = new kendo.data.DataSource({
+                    transport: {
+                        read: {
+                            url: crudServiceBaseUrl + "PositionsTypeDataRead12/" + "@Model.UserID",
+                            dataType: "json"
+                        },
+                        update: {
+                            url: function (options) {
+                                var url = crudServiceBaseUrl + "PositionsTypeDataUpdate/" + options.models[0].id;
+                                return url;
+                            },
+                            type: "post",
+                            dataType: "json"
+                        },
+                        parameterMap: function (options, operation) {
+                            if (operation !== "read" && options.models) {
+                                return { models: kendo.stringify(options.models) };
+                            }
+                        }
+                    },
+                    // 7 den fazla checkbox seçildiğinde uppdate tetikleme çalışmadı
+                    // Her seçimde tetikleme yapan "autoSync: true," özelliği kullanıldı
+                    //autoSync: true,
+                    // Bu bölüm daha sonra IsDirtySelect ile çözümlendi
+                    batch: true,
+                    schema: {
+                        model: {
+                            id: "categoryID",
+                            fields: {
+                                categoryName: { editable: false, },
+                                categoryID: { type: "number" },
+                                sortOrder: { type: "number" },
+                                isActive: { type: "boolean", defaultValue: true },
+                                isProtected: { type: "boolean", defaultValue: true },
+                                isSelect: { type: "boolean", defaultValue: true },
+                                isDirtySelect: { editable: false, },
+                            }
+                        },
+                    }
+                });
+
+            var first = 1;
+            var grid = $("#gridp").kendoGrid({
+                dataSource: dataSource,
+                editable: true,
+                resizable: true,
+                //selectable: 'row',
+                columns: [
+                    { title: "#", template: "#= ++record #", width: 30 },
+                    { field: "isSelect", title: "@ESCHOOL.Resources.Resource.Select", width: "60px", template: "<input  #if (isSelect) { # checked='checked' # } # type='checkbox' />", attributes: { style: "text-align:center;" }, editor: customBoolEditor },
+                    { field: "categoryName", title: "@ESCHOOL.Resources.Resource.Positions", width: "100px", template: "#=@Model.CategoryName#" },
+                ],
+
+                dataBinding: function () {
+                    record = 0;
+                },
+                editable: true,
+            });
+        });
+        function customBoolEditor(container, options) {
+            $('<input class="k-checkbox" type="checkbox" name="isSelect" data-type="boolean" data-bind="checked:isSelect">').appendTo(container);
+        }
+    </script>
+    <script>
+        window.history.replaceState('', '', window.location.pathname);
+    </script>
+</body>
+</html>

@@ -1,0 +1,425 @@
+﻿@model ESCHOOL.ViewModels.TaskViewModel
+@{
+    ViewData["Title"] = "index";
+}
+
+@{
+    System.Globalization.CultureInfo.CurrentCulture = System.Globalization.CultureInfo.CreateSpecificCulture(@Model.SelectedCulture);
+    System.Globalization.CultureInfo.CurrentUICulture = System.Globalization.CultureInfo.CreateSpecificCulture(@Model.SelectedCulture);
+    var culture = System.Globalization.CultureInfo.CurrentCulture.ToString();
+}
+<!--#region head -->
+<head>
+    <style>
+        html {
+            font-size: 13px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+    </style>
+    <title></title>
+    @*  <base href="https://demos.telerik.com/kendo-ui/scheduler/search-events">*@
+    <link href="https://kendo.cdn.telerik.com/2021.2.616/styles/kendo.common.min.css" rel="stylesheet" />
+    <link rel="stylesheet" id="skin-css" href="@TempData["theme"]" />
+    <link rel="stylesheet" id="skin-css" href="@TempData["themeMobile"]" />
+    <script src="https://kendo.cdn.telerik.com/2021.2.616/js/jquery.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2021.2.616/js/kendo.all.min.js"></script>
+    <script src="~/telerik/2021.2.616/js/jszip.min.js"></script>
+    <script src="@Url.Content("~/telerik/2021.2.616/js//cultures/kendo.culture." + culture + ".min.js")"></script>
+    <script src="@Url.Content("~/telerik/2021.2.616/js//messages/kendo.messages." + culture + ".min.js")"></script>
+
+    @*<script src="https://kendo.cdn.telerik.com/2021.2.616/js/kendo.timezones.min.js"></script>*@
+    <script type="text/javascript">
+        kendo.culture("@culture");
+    </script>
+
+</head>
+<!--#endregion -->
+
+<body>
+    <div id="example" class="k-content" style="padding-top:5px; width:100%;" align="left">
+        <div style="padding-top:5px;" >
+            <div id="people" style="height:30px;">
+                <ul class="row fieldlist" style="overflow: auto;height:30px;">
+                    <li class="color01" style="padding-right:5px;padding-top:5px; height:30px;">
+                        <span class="label">@Model.Color01Name</span>
+                        <input type="checkbox" id="color01" aria-label="color01" value=@Model.Color01Value />
+                    </li>
+                    <li class="color02" style="padding-right:5px;padding-top:5px; height:30px;">
+                        <span class="label">@Model.Color02Name</span>
+                        <input type="checkbox" id="color02" aria-label="color02" value=@Model.Color02Value />
+                    </li>
+                    <li class="color03" style="padding-right:5px;padding-top:5px; height:30px;">
+                        <span class="label">@Model.Color03Name</span>
+                        <input type="checkbox" id="color03" aria-label="color03" value=@Model.Color03Value />
+                    </li>
+                    <li class="color04" style="padding-right:5px;padding-top:5px; height:30px;">
+                        <span class="label">@Model.Color04Name</span>
+                        <input type="checkbox" id="color04" aria-label="color04" value=@Model.Color04Value />
+                    </li>
+                    <li class="color05" style="padding-right:5px;padding-top:5px; height:30px;">
+                        <span class="label">@Model.Color05Name</span>
+                        <input type="checkbox" id="color05" aria-label="color05" value=@Model.Color05Value />
+                    </li>
+                    <li class="color06" style="padding-right:5px;padding-top:5px; height:30px;">
+                        <span class="label">@Model.Color06Name</span>
+                        <input type="checkbox" id="color06" aria-label="color06" value=@Model.Color06Value />
+                    </li>
+                    <li class="color07" style="padding-right:5px;padding-top:5px; height:30px;">
+                        <span class="label">@Model.Color07Name</span>
+                        <input type="checkbox" id="color07" aria-label="color07" value=@Model.Color07Value />
+                    </li>
+                    <li class="color08" style="padding-right:5px;padding-top:5px; height:30px;">
+                        <span class="label">@Model.Color08Name</span>
+                        <input type="checkbox" id="color08" aria-label="color08" value=@Model.Color08Value />
+                    </li>
+                    <li class="color09" style="padding-right:5px;padding-top:5px; height:30px;">
+                        <span class="label">@Model.Color09Name</span>
+                        <input type="checkbox" id="color09" aria-label="color09" value=@Model.Color09Value />
+                    </li>
+                    <li class="color10" style="padding-right:5px;padding-top:5px; height:30px;">
+                        <span class="label">@Model.Color10Name</span>
+                        <input type="checkbox" id="color10" aria-label="color10" value=@Model.Color10Value />
+                    </li>
+
+                    <li class="color11" style="padding-right:5px;padding-top:5px; height:30px;">
+                        <span class="label">@Model.Color11Name</span>
+                        <input type=@Model.Type11 id="color11" aria-label="color11" value=@Model.Color11Value />
+                    </li>
+                    <li class="color12" style="padding-right:5px;padding-top:5px; height:30px;">
+                        <span class="label">@Model.Color12Name</span>
+                        <input type=@Model.Type12 id="color12" aria-label="color12" value=@Model.Color12Value />
+                    </li>
+                    <li class="color13" style="padding-right:5px;padding-top:5px; height:30px;">
+                        <span class="label">@Model.Color13Name</span>
+                        <input type=@Model.Type13 id="color13" aria-label="color13" value=@Model.Color13Value />
+                    </li>
+                    <li class="color14" style="padding-right:5px;padding-top:5px; height:30px;">
+                        <span class="label">@Model.Color14Name</span>
+                        <input type=@Model.Type14 id="color14" aria-label="color14" value=@Model.Color14Value />
+                    </li>
+                    <li class="color15" style="padding-right:5px;padding-top:5px; height:30px;">
+                        <span class="label">@Model.Color15Name</span>
+                        <input type=@Model.Type15 id="color15" aria-label="color15" value=@Model.Color15Value />
+                    </li>
+                    <li class="color16" style="padding-right:5px;padding-top:5px; height:30px;">
+                        <span class="label">@Model.Color16Name</span>
+                        <input type=@Model.Type16 id="color16" aria-label="color16" value=@Model.Color16Value />
+                    </li>
+                    <li class="color17" style="padding-right:5px;padding-top:5px; height:30px;">
+                        <span class="label">@Model.Color17Name</span>
+                        <input type=@Model.Type17 id="color17" aria-label="color17" value=@Model.Color17Value />
+                    </li>
+                    <li class="color18" style="padding-right:5px;padding-top:5px; height:30px;">
+                        <span class="label">@Model.Color18Name</span>
+                        <input type=@Model.Type18 id="color18" aria-label="color18" value=@Model.Color18Value />
+                    </li>
+                    <li class="color19" style="padding-right:5px;padding-top:5px; height:30px;">
+                        <span class="label">@Model.Color19Name</span>
+                        <input type=@Model.Type19 id="color19" aria-label="color19" value=@Model.Color19Value />
+                    </li>
+                    <li class="color20" style="padding-right:5px;padding-top:5px; height:30px;">
+                        <span class="label">@Model.Color20Name</span>
+                        <input type=@Model.Type20 id="color20" aria-label="color20" value=@Model.Color20Value />
+                    </li>
+                </ul>
+            </div>
+        </div>
+       @* <hr />*@
+        <div id="scheduler" style="padding-top:5px;width:100%;"></div>
+        <input id="schoolID" type="hidden" asp-for="@Model.SchoolID" />
+        <input id="studentID" type="hidden" asp-for="@Model.StudentID" />
+        <input type="hidden" asp-for="@Model.TaskTypeID" />
+        <script>
+            $(function () {
+                var schoolID = document.getElementById("schoolID").value;
+                var studentID = document.getElementById("studentID").value;
+
+                var d = new Date();
+                var startString = kendo.toString(d, 'yyyy/MM/dd') + ' 07:00 AM';
+                var endString = kendo.toString(d, 'yyyy/MM/dd') + ' 23:00';
+                $("#scheduler").kendoScheduler({
+                    toolbar: ["pdf", "search"],
+                    pdf: {
+                        fileName: "@Model.PdfName" + "-" + kendo.toString(new Date, "yyyy/MM/dd HH:mm") + ".pdf",
+                        proxyURL: "https://demos.telerik.com/kendo-ui/service/export"
+                    },
+                    date: new Date(),
+                    startTime: new Date(startString),
+                    endTime: new Date(endString),
+                    height: 800,
+                    views: [
+                        "day",
+                        { type: "workWeek", selected: true },
+                        "week",
+                        "month",
+                        "year",
+                        "agenda",
+                        { type: "timeline", eventHeight: 50 }
+                    ],
+                    timezone: "Etc/UTC",
+
+                    dataSource: {
+                        batch: true,
+                        transport: {
+                            read: {
+                                url: "/M210Student/TaskDataRead/" + "@Model.SchoolID" + "/" + "@Model.UserID" + "/" + studentID + "/" + "@Model.TaskTypeID",
+                                dataType: "json"
+                            },
+
+                            create: {
+                                url: function (options) {
+                                    var url = "/M210Student/TaskDataCreate/" + options.models[0].id + "/" + schoolID + "/" + studentID + "/" + "@Model.TaskTypeID";
+                                    return url;
+                                },
+                                type: "post",
+                                dataType: "json"
+                            },
+                            update: {
+                                url: function (options) {
+                                    var url = "/M210Student/TaskDataUpdate/" + options.models[0].id;
+                                    return url;
+                                },
+                                complete: function (e) {
+                                    $("#scheduler").data("kendoScheduler").dataSource.read();
+                                },
+                                type: "post",
+                                dataType: "json",
+                            },
+
+                            destroy: {
+                                url: function (options) {
+                                    var url = "/M210Student/TaskDataDelete/" + options.models[0].id;
+                                    return url;
+                                },
+                                type: "post",
+                                dataType: "json",
+                            },
+
+                            parameterMap: function (options, operation) {
+                                if (operation !== "read" && options.models) {
+                                    return { models: kendo.stringify(options.models) };
+                                }
+                            }
+                        },
+                        schema: {
+                            model: {
+                                id: "taskID",
+                                fields: {
+                                    schoolID: { editable: false, type: "number" },
+                                    studentID: { editable: false, type: "number" },
+
+                                    taskID: { from: "taskID", type: "number" },
+                                    title: { from: "title", defaultValue: getByCulture('@culture', 'title'), validation: { required: true } },
+                                    start: { type: "date", from: "start" },
+                                    end: { type: "date", from: "end" },
+                                    description: { from: "description" },
+                                    recurrenceId: { from: "recurrenceID", defaultValue: 0 },
+                                    recurrenceRule: { from: "recurrenceRule" },
+                                    recurrenceException: { from: "recurrenceException" },
+                                    ownerId: { from: "ownerID", defaultValue: "@Model.ResourceDefaultValue" },
+                                    isAllDay: { type: "boolean", from: "isAllDay" },
+                                }
+                            }
+                        }
+                    },
+
+                    resources: [{
+                        dataSource: {
+                            transport: {
+                                read: {
+                                    url: "/M210Student/ResourceTypeCombo",
+                                    dataType: "json",
+                                    contentType: "application/json; charset=utf-8"
+                                }
+                            }
+                        },
+                        title: getByCulture('@culture', 'marker'),
+                        field: "ownerId",
+                        dataTextField: "categoryName",
+                        dataValueField: "categoryID",
+                        dataColorField: "color",
+                    }],
+                });
+
+                $("#people :checkbox").change(function (e) {
+                    var checked = $.map($("#people :checked"), function (checkbox) {
+                        return parseInt($(checkbox).val());
+                    });
+                    var filter;
+                    if (checked.length == 0) {
+                        var filter = {
+                            logic: "or",
+                            filters: $.map(checked, function (value) {
+                                return {
+                                    operator: "neq",
+                                    field: "ownerId",
+                                    value: 0
+                                };
+                            })
+                        };
+                        var scheduler = $("#scheduler").data("kendoScheduler");
+                        scheduler.dataSource.filter(filter);
+                    }
+                    else {
+                        var scheduler = $("#scheduler").data("kendoScheduler");
+
+                        scheduler.dataSource.filter({
+                            operator: function (task) {
+                                return $.inArray(task.ownerId, checked) >= 0;
+                            }
+                        });
+                    }
+                });
+            });
+        </script>
+
+        <style>
+            .fieldlist {
+                margin: 0 0 -1em;
+                padding: 0;
+            }
+
+                .fieldlist li {
+                    list-style: none;
+                    padding-bottom: 1em;
+                }
+
+            .label {
+                color: white;
+                padding: 8px;
+            }
+
+            .color01 {
+                background-color: @Model.Color01;
+            }
+
+            .color02 {
+                background-color: @Model.Color02;
+            }
+
+            .color03 {
+                background-color: @Model.Color03;
+            }
+
+            .color04 {
+                background-color: @Model.Color04;
+            }
+
+            .color05 {
+                background-color: @Model.Color05;
+            }
+
+            .color06 {
+                background-color: @Model.Color06;
+            }
+
+            .color07 {
+                background-color: @Model.Color07;
+            }
+
+            .color08 {
+                background-color: @Model.Color08;
+            }
+
+            .color09 {
+                background-color: @Model.Color09;
+            }
+
+            .color10 {
+                background-color: @Model.Color10;
+            }
+
+            .color11 {
+                background-color: @Model.Color11;
+            }
+
+            .color12 {
+                background-color: @Model.Color12;
+            }
+
+            .color13 {
+                background-color: @Model.Color13;
+            }
+
+            .color14 {
+                background-color: @Model.Color14;
+            }
+
+            .color15 {
+                background-color: @Model.Color15;
+            }
+
+            .color16 {
+                background-color: @Model.Color16;
+            }
+
+            .color17 {
+                background-color: @Model.Color13;
+            }
+
+            .color18 {
+                background-color: @Model.Color14;
+            }
+
+            .color19 {
+                background-color: @Model.Color15;
+            }
+
+            .color20 {
+                background-color: @Model.Color16;
+            }
+
+            .color17 {
+                background-color: @Model.Color17;
+            }
+
+            .color18 {
+                background-color: @Model.Color18;
+            }
+
+            .color19 {
+                background-color: @Model.Color19;
+            }
+
+            .color20 {
+                background-color: @Model.Color20;
+            }
+
+
+            /*empty checkbox*/
+            .k-checkbox {
+                background: white;
+            }
+
+                /*checked checkbox*/
+                .k-checkbox:checked {
+                    background: red;
+                    color: white;
+                }
+        </style>
+        <style>
+            hr {
+                border: 1px solid darkgrey;
+                /*   margin-bottom: 40px;*/
+            }
+        </style>
+
+        <script>
+            var dictionary =
+            {
+                'tr-TR': {
+                    marker: 'İşaretleyici',
+                },
+                'en-US': {
+                    marker: 'Marker',
+                },
+            }
+            function getByCulture(culture, word) {
+                return dictionary[culture][word]
+            }
+        </script>
+        <script>
+            window.history.replaceState('', '', window.location.pathname);
+        </script>
+    </div>
+</body>

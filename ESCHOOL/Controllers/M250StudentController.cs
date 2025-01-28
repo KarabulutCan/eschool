@@ -1,0 +1,842 @@
+﻿using DocumentFormat.OpenXml.Spreadsheet;
+using ESCHOOL.Models;
+using ESCHOOL.Services;
+using ESCHOOL.ViewModels;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
+using Nancy.Json;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace ESCHOOL.Controllers
+{
+    public class M250StudentController : Controller
+    {
+
+        ISchoolInfoRepository _schoolInfoRepository;
+        IStudentRepository _studentRepository;
+        IStudentPeriodsRepository _studentPeriodsRepository;
+        IStudentDebtRepository _studentDebtRepository;
+        IStudentDebtDetailTableRepository _studentDebtDetailTableRepository;
+        IStudentInstallmentRepository _studentInstallmentRepository;
+        ITempDataRepository _tempDataRepository;
+        IStudentPaymentRepository _studentPaymentRepository;
+
+        IStudentAddressRepository _studentAddressRepository;
+        IStudentParentAddressRepository _studentParentAddressRepository;
+        IStudentFamilyAddressRepository _studentFamilyAddressRepository;
+        IStudentNoteRepository _studentNoteRepository;
+        IStudentTempRepository _studentTempRepository;
+        IStudentInvoiceAddressRepository _studentInvoiceAddressRepository;
+        IBankRepository _bankRepository;
+        IClassroomRepository _classroomRepository;
+        IDiscountTableRepository _discountTableRepository;
+        IStudentDiscountRepository _studentDiscountRepository;
+        IPSerialNumberRepository _pSerialNumberRepository;
+        ISchoolFeeRepository _schoolFeeRepository;
+        ISchoolFeeTableRepository _schoolFeeTableRepository;
+        IParameterRepository _parameterRepository;
+        ISchoolBusServicesRepository _schoolBusServicesRepository;
+        IAccountingRepository _accountingRepository;
+        IUsersRepository _usersRepository;
+        IUsersLogRepository _usersLogRepository;
+        IAccountCodesRepository _accountCodesRepository;
+        IUsersWorkAreasRepository _usersWorkAreasRepository;
+        IWebHostEnvironment _hostEnvironment;
+        public M250StudentController(
+            ISchoolInfoRepository schoolInfoRepository,
+            IStudentRepository studentRepository,
+            IStudentPeriodsRepository studentPeriodsRepository,
+            IStudentDebtRepository studentDebtRepository,
+            IStudentDebtDetailTableRepository studentDebtDetailTableRepository,
+            IStudentInstallmentRepository studentInstallmentRepository,
+            ITempDataRepository tempDataRepository,
+            IStudentPaymentRepository studentPaymentRepository,
+
+            IStudentAddressRepository studentAddressRepository,
+            IStudentParentAddressRepository studentParentAddressRepository,
+            IStudentFamilyAddressRepository studentFamilyAddressRepository,
+            IStudentNoteRepository studentNoteRepository,
+            IStudentTempRepository studentTempRepository,
+            IStudentInvoiceAddressRepository studentInvoiceAddressRepository,
+            IBankRepository bankRepository,
+            IClassroomRepository classroomRepository,
+            IDiscountTableRepository discountTableRepository,
+            IStudentDiscountRepository studentDiscountRepository,
+            IPSerialNumberRepository pSerialNumberRepository,
+            ISchoolFeeRepository schoolFeeRepository,
+            ISchoolFeeTableRepository schoolFeeTableRepository,
+            IParameterRepository parameterRepository,
+            ISchoolBusServicesRepository schoolBusServicesRepository,
+            IAccountingRepository accountingRepository,
+            IAccountCodesRepository accountingCodeRepository,
+            IUsersRepository usersRepository,
+            IUsersLogRepository usersLogRepository,
+            IUsersWorkAreasRepository usersWorkAreasRepository,
+        IWebHostEnvironment hostEnvironment)
+        {
+            _schoolInfoRepository = schoolInfoRepository;
+            _studentRepository = studentRepository;
+            _studentPeriodsRepository = studentPeriodsRepository;
+            _studentDebtRepository = studentDebtRepository;
+            _studentDebtDetailTableRepository = studentDebtDetailTableRepository;
+            _studentInstallmentRepository = studentInstallmentRepository;
+            _discountTableRepository = discountTableRepository;
+            _studentDiscountRepository = studentDiscountRepository;
+            _tempDataRepository = tempDataRepository;
+            _studentPaymentRepository = studentPaymentRepository;
+
+            _studentAddressRepository = studentAddressRepository;
+            _studentParentAddressRepository = studentParentAddressRepository;
+            _studentFamilyAddressRepository = studentFamilyAddressRepository;
+            _studentNoteRepository = studentNoteRepository;
+            _studentTempRepository = studentTempRepository;
+            _studentInvoiceAddressRepository = studentInvoiceAddressRepository;
+            _bankRepository = bankRepository;
+            _classroomRepository = classroomRepository;
+            _pSerialNumberRepository = pSerialNumberRepository;
+            _schoolFeeRepository = schoolFeeRepository;
+            _schoolFeeTableRepository = schoolFeeTableRepository;
+            _parameterRepository = parameterRepository;
+            _schoolBusServicesRepository = schoolBusServicesRepository;
+            _accountCodesRepository = accountingCodeRepository;
+            _usersRepository = usersRepository;
+            _usersLogRepository = usersLogRepository;
+            _accountingRepository = accountingRepository;
+            _accountCodesRepository = accountingCodeRepository;
+            _usersWorkAreasRepository = usersWorkAreasRepository;
+            _hostEnvironment = hostEnvironment;
+        }
+        #region CancellationProcedures
+        [HttpGet]
+        public IActionResult CancellationProcedures(int studentID, int userID)
+        {
+            var user = _usersRepository.GetUser(userID);
+            var school = _schoolInfoRepository.GetSchoolInfo(user.SchoolID);
+            var student = _studentRepository.GetStudent(studentID);
+
+            var categoryID = _parameterRepository.GetParameterCategoryName("Ücret Değişikliği").CategoryID;
+            bool isPermission = _usersWorkAreasRepository.GetUsersWorkAreas(userID, categoryID).IsSelect;
+
+            ViewBag.date = user.UserDate;
+
+            bool isExist2 = false;
+            int classroomID = 0;
+            string classroomName = "";
+            if (school.NewPeriod != user.UserPeriod)
+            {
+                isExist2 = _studentPeriodsRepository.ExistStudentPeriods(student.SchoolID, student.StudentID, user.UserPeriod);
+                if (isExist2)
+                {
+                    classroomName = _studentPeriodsRepository.GetStudentPeriod(student.SchoolID, student.StudentID, user.UserPeriod).ClassroomName;
+                    isExist2 = _classroomRepository.ExistClassroomName(user.UserPeriod, classroomName);
+                    if (isExist2)
+                    { classroomID = _classroomRepository.GetClassroomNamePeriod(user.UserPeriod, classroomName).ClassroomID; }
+
+                    student.ClassroomID = classroomID;
+                }
+            }
+
+            // Clean Data
+            var studentInstallment = _studentInstallmentRepository.GetStudentInstallment(student.SchoolID, studentID, user.UserPeriod);
+            var tempDataClean = _tempDataRepository.GetTempData(studentID);
+            if (tempDataClean != null)
+            {
+                foreach (var item in tempDataClean)
+                {
+                    _tempDataRepository.DeleteTempData(item);
+                }
+            }
+            // Old StudentInstallment Data
+            foreach (var item in studentInstallment)
+            {
+                var tempData = new TempData();
+                tempData.TempDataID = 0;
+                tempData.StudentID = studentID;
+                tempData.InstallmentDate = item.InstallmentDate;
+                tempData.InstallmentNo = item.InstallmentNo;
+                tempData.CategoryID = item.CategoryID;
+                tempData.InstallmentAmount = item.InstallmentAmount;
+                tempData.PreviousPayment = item.PreviousPayment;
+                _tempDataRepository.CreateTempData(tempData);
+            }
+
+            var studentTemp = _studentTempRepository.GetStudentTemp(user.SchoolID, user.UserPeriod, studentID);
+            if (studentTemp == null)
+            {
+                studentTemp = new StudentTemp();
+                studentTemp.StudentID = studentID;
+                studentTemp.CancellationOption = true;
+                studentTemp.CancelDate = DateTime.Now;
+                _studentTempRepository.CreateStudentTemp(studentTemp);
+            }
+            else
+            {
+                studentTemp.CancellationOption = true;
+                studentTemp.CancelDate = DateTime.Now;
+                studentTemp.Installment = school.DefaultInstallment;
+                _studentTempRepository.UpdateStudentTemp(studentTemp);
+            }
+
+            var pSerialNumber = _pSerialNumberRepository.GetPSerialNumber(student.SchoolID);
+            if (pSerialNumber == null)
+                pSerialNumber = new PSerialNumber();
+
+            categoryID = _parameterRepository.GetParameterCategoryName("Entegratörler").CategoryID;
+            var parameter = _parameterRepository.GetParameterSubID(categoryID);
+
+            decimal unpaid = 0;
+            var studentinstallment = _studentInstallmentRepository.GetStudentInstallment(user.SchoolID, studentID, user.UserPeriod);
+            foreach (var item in studentinstallment)
+            {
+                if (item.InstallmentAmount > 0)
+                {
+                    if (item.PreviousPayment == 0)
+                    {
+                        unpaid += item.InstallmentAmount;
+                    }
+                    else
+                    if (item.InstallmentAmount != item.PreviousPayment)
+                    {
+                        unpaid += item.PreviousPayment;
+                    }
+                }
+            }
+
+            studentTemp.CancelCredit = unpaid;
+            studentTemp.CancelDebt = unpaid;
+            studentTemp.CancelCreditNoID = school.CancelCreditNoID;
+            studentTemp.CancelDebtNoID = school.CancelDebtNoID;
+
+            string date = string.Format("{0:dd/MM/yyyy}", user.UserDate);
+            TempData["SchoolName"] = school.CompanyName;
+            TempData["Period"] = user.UserPeriod;
+            TempData["Date"] = date;
+
+            ThemeController theme = new ThemeController();
+            TempData["theme"] = theme.GetTheme(user.SelectedTheme);
+            TempData["themeMobile"] = theme.GetThemeMobile(user.SelectedTheme);
+            TempData["color"] = theme.GetThemeColor(user.SelectedTheme);
+
+            var studentViewModel = new StudentViewModel
+            {
+                IsPermission = isPermission,
+                UserID = userID,
+                StudentID = studentID,
+                SchoolID = student.SchoolID,
+                Period = user.UserPeriod,
+
+                Student = student,
+                StudentTemp = studentTemp,
+                PSerialNumber = pSerialNumber,
+                Parameter = parameter,
+                SchoolInfo = school,
+                SelectedCulture = user.SelectedCulture.Trim(),
+            };
+
+            return View(studentViewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult CancellationProcedures(StudentViewModel studentViewModel)
+        {
+            var school = _schoolInfoRepository.GetSchoolInfo(studentViewModel.SchoolID);
+            var period = studentViewModel.Period;
+
+            if (!ModelState.IsValid)
+                ViewBag.IsSuccess = true;
+
+            var getCode = _studentTempRepository.GetStudentTemp(studentViewModel.SchoolID, period, studentViewModel.Student.StudentID);
+            if (ModelState.IsValid)
+            {
+                getCode.CancellationOption = studentViewModel.StudentTemp.CancellationOption;
+                getCode.CancelCredit = studentViewModel.StudentTemp.CancelCredit;
+                getCode.CancelDebt = studentViewModel.StudentTemp.CancelDebt;
+                getCode.CancelDate = studentViewModel.StudentTemp.CancelDate;
+                getCode.AboutCancellation = studentViewModel.StudentTemp.AboutCancellation;
+
+                ViewBag.IsSuccess = false;
+                _studentTempRepository.UpdateStudentTemp(getCode);
+                _studentTempRepository.Save();
+            }
+
+            ///////////////////////////// ACCOUNTING ////////////////////////////////////
+            var studentinstallment = _studentInstallmentRepository.GetStudentInstallment(studentViewModel.SchoolID, studentViewModel.Student.StudentID, period).ToList();
+            var pserialNumbers = _pSerialNumberRepository.GetPSerialNumber(studentViewModel.SchoolID);
+            if (pserialNumbers == null)
+                pserialNumbers = new PSerialNumber();
+            var lastNumber = pserialNumbers.AccountSerialNo += 1;
+            pserialNumbers.AccountSerialNo = lastNumber;
+            _pSerialNumberRepository.UpdatePSerialNumber(pserialNumbers);
+
+            var tempData = _tempDataRepository.GetTempData(studentViewModel.Student.StudentID);
+            var classroom = _classroomRepository.GetClassroomID(studentViewModel.Student.ClassroomID);
+
+            var classroomName = classroom.ClassroomName;
+            int temdatacount = tempData.Count();
+            int count = studentinstallment.Count();
+            decimal total340 = 0;
+            var sortOrder = 0;
+            //bool isFirst = true;
+
+            decimal isCash1 = 0;
+            decimal isCash2 = 0;
+            decimal tempdatatotal = 0;
+            decimal total = 0;
+
+            if (tempData != null)
+            {
+                foreach (var item in tempData)
+                {
+                    tempdatatotal += item.InstallmentAmount;
+                    if (item.CashPayment > 0) isCash1 = item.CashPayment;
+                }
+            }
+            isCash2 = _studentTempRepository.GetStudentTemp(studentViewModel.SchoolID, period, studentViewModel.Student.StudentID).CashPayment;
+
+            if (studentinstallment != null)
+            {
+                foreach (var item in studentinstallment)
+                {
+                    if (item.PreviousPayment > 0)
+                    {
+                        if (item.InstallmentAmount != item.PreviousPayment)
+                        {
+                            total += item.InstallmentAmount - item.PreviousPayment;
+                        }
+                    }
+                }
+            }
+            // isEqual
+            if (temdatacount != count || tempdatatotal != total)
+            {
+                if (tempData != null)
+                {
+                    foreach (var item in tempData)
+                    {
+                        sortOrder += 1;
+                        if (item.InstallmentAmount != item.PreviousPayment)
+                        {
+                            total340 += item.InstallmentAmount - item.PreviousPayment;
+                            AccountingCreate2(studentViewModel, school, item, sortOrder, period, classroomName, lastNumber);
+                        }
+                    }
+                    if (total340 > 0)
+                        AccountingCreate3(studentViewModel, school, sortOrder, period, classroomName, total340, lastNumber);
+                }
+
+                if (tempData != null)
+                {
+                    foreach (var item in tempData)
+                    {
+                        _tempDataRepository.DeleteTempData(item);
+                    }
+                }
+            }
+
+            //Statu changing
+            var student = _studentRepository.GetStudent(studentViewModel.Student.StudentID);
+            if (studentViewModel.StudentTemp.CancellationOption == true)
+                student.StatuCategoryID = _parameterRepository.GetParameterCategoryName("İptal").CategoryID;
+            else
+                student.StatuCategoryID = _parameterRepository.GetParameterCategoryName("Takipte (İptal)").CategoryID;
+            _studentRepository.UpdateStudent(student);
+
+            //////Users Log//////////////////
+            var log = new UsersLog();
+            log.SchoolID = studentViewModel.SchoolID;
+            log.Period = studentViewModel.Period;
+            log.UserID = studentViewModel.UserID;
+            log.TransactionID = _parameterRepository.GetParameterCategoryName("İptal İşlemi").CategoryID;
+            log.UserLogDate = DateTime.Now;
+            classroomName = _classroomRepository.GetClassroomID(studentViewModel.Student.ClassroomID).ClassroomName;
+            var studentTemp = _studentTempRepository.GetStudentTemp(studentViewModel.SchoolID, studentViewModel.Period, studentViewModel.StudentID);
+            decimal cashPayment = Math.Round(studentTemp.CashPayment, school.CurrencyDecimalPlaces);
+            decimal subTotal = Math.Round(studentTemp.SubTotal, school.CurrencyDecimalPlaces);
+            int intstallment = studentTemp.Installment;
+            decimal cancelAmount = Math.Round(studentTemp.CancelDebt, school.CurrencyDecimalPlaces);
+
+            log.UserLogDescription = student.FirstName + " " + student.LastName + " Öğrenci Kaydında İptal İşlemleri Yapıldı, " + "Sınıfı:" + classroomName + ", Peşinat:" + cashPayment + "," + intstallment + " Ay Vadeli, " + "Toplam:" + subTotal + ", İptal Edilen Tutar:" + cancelAmount;
+            _usersLogRepository.CreateUsersLog(log);
+            ///////////////////////////////////
+
+            return RedirectToAction("AddOrEditStudent", "M210Student", new { studentID = studentViewModel.StudentID, schoolID = +studentViewModel.SchoolID });
+        }
+        #endregion
+
+        #region Accounting
+        public void AccountingCreate2(StudentViewModel studentViewModel, SchoolInfo schoolInfo, TempData item, int sortOrder, string period, string classroomName, int lastNumber)
+        {
+            var accountingCode = new AccountCodes();
+            accountingCode.Period = period;
+            var accounting = new Accounting();
+
+            DateTime dt = Convert.ToDateTime(item.InstallmentDate);
+            int DD = dt.Day;
+            int MM = dt.Month;
+            string YY = dt.ToString("yy");
+
+            var pserialNumbers = _pSerialNumberRepository.GetPSerialNumber(studentViewModel.SchoolID);
+            if (pserialNumbers == null)
+                pserialNumbers = new PSerialNumber();
+
+            string controlCode = schoolInfo.AccountNoID05;
+            if (controlCode == null) controlCode = "121";
+
+            var paymentTypetxt = "";
+            string code = null;
+
+            string periodCode = period.Substring(2, 2) + period.Substring(7, 2);
+            string deptCode = schoolInfo.CompanyShortCode;
+
+            //PaymentNo
+            var paymentNo = pserialNumbers.PaymentNo += 1;
+            pserialNumbers.PaymentNo = paymentNo;
+
+            var paymentReceiptNo = pserialNumbers.PaymentReceiptNo += 1;
+            pserialNumbers.PaymentReceiptNo = paymentReceiptNo;
+            _pSerialNumberRepository.UpdatePSerialNumber(pserialNumbers);
+
+            var bankName = _bankRepository.GetBank(studentViewModel.StudentTemp.BankID).BankName;
+            var categoryID = _parameterRepository.GetParameterCategoryName("Ödeme Şekli").CategoryID;
+            var parameters = _parameterRepository.GetParameterSubID(categoryID);
+
+            var param = parameters.FirstOrDefault(p => p.CategoryID == item.CategoryID);
+
+            string categoryName = "";
+            if (studentViewModel.SelectedCulture.Trim() == "en-US")
+                categoryName = param.Language1;
+            else categoryName = param.CategoryName;
+
+            if (categoryName == "Banka" || categoryName == "BANKA") { paymentTypetxt += "Banka Senet"; code = _accountCodesRepository.GetAccountCode(schoolInfo.AccountNoID05, period).AccountCode; };
+            if (categoryName == "Çek" || categoryName == "ÇEK") { paymentTypetxt += "Çek"; code = _accountCodesRepository.GetAccountCode(schoolInfo.AccountNoID04, period).AccountCode; };
+            if (categoryName == "Elden" || categoryName == "ELDEN") { paymentTypetxt += "Elden Senet"; code = _accountCodesRepository.GetAccountCode(schoolInfo.AccountNoID05, period).AccountCode; };
+            if (categoryName == "Kmh" || categoryName == "KMH") { paymentTypetxt += "KMH"; code = _accountCodesRepository.GetAccountCode(schoolInfo.AccountNoID11, period).AccountCode; };
+            if (categoryName == "Kredi kartı" || categoryName == "KREDİ KARTI") { paymentTypetxt += "Kredi kartı"; code = _accountCodesRepository.GetAccountCode(schoolInfo.AccountNoID09, period).AccountCode; };
+            if (categoryName == "Mail order" || categoryName == "MAİL ORDER") { paymentTypetxt += "Mail order"; code = _accountCodesRepository.GetAccountCode(schoolInfo.AccountNoID08, period).AccountCode; };
+            if (categoryName == "Ots_1" || categoryName == "OTS_1") { paymentTypetxt += "OTS1"; code = _accountCodesRepository.GetAccountCode(schoolInfo.AccountNoID06, period).AccountCode; };
+            if (categoryName == "Ots_2" || categoryName == "OTS_2") { paymentTypetxt += "OTS2"; code = _accountCodesRepository.GetAccountCode(schoolInfo.AccountNoID06, period).AccountCode; };
+            if (categoryName == "Teşvik" || categoryName == "TEŞVİK") { paymentTypetxt += "Teşvik"; code = _accountCodesRepository.GetAccountCode(schoolInfo.AccountNoID10, period).AccountCode; };
+            if (studentViewModel.SelectedCulture.Trim() == "en-US")
+            {
+                if (categoryName == "Bank" || categoryName == "BANK") { paymentTypetxt += "Bank Bond"; code = _accountCodesRepository.GetAccountCode(schoolInfo.AccountNoID05, period).AccountCode; };
+                if (categoryName == "Check" || categoryName == "CHECK") { paymentTypetxt += "Check"; code = _accountCodesRepository.GetAccountCode(schoolInfo.AccountNoID04, period).AccountCode; };
+                if (categoryName == "Bond by Hand" || categoryName == "BOND BY HAND") { paymentTypetxt += "Bond by Hand"; code = _accountCodesRepository.GetAccountCode(schoolInfo.AccountNoID05, period).AccountCode; };
+                if (categoryName == "Overdraft Account" || categoryName == "OVERDRAFT ACCOUNT") { paymentTypetxt += "Overdraft Account"; code = _accountCodesRepository.GetAccountCode(schoolInfo.AccountNoID11, period).AccountCode; };
+                if (categoryName == "Credit Card" || categoryName == "CREDIT CARD") { paymentTypetxt += "Credit Card"; code = _accountCodesRepository.GetAccountCode(schoolInfo.AccountNoID09, period).AccountCode; };
+                if (categoryName == "Mail order" || categoryName == "MAİL ORDER") { paymentTypetxt += "Mail order"; code = _accountCodesRepository.GetAccountCode(schoolInfo.AccountNoID08, period).AccountCode; };
+                if (categoryName == "Ots_1" || categoryName == "OTS_1") { paymentTypetxt += "OTS1"; code = _accountCodesRepository.GetAccountCode(schoolInfo.AccountNoID06, period).AccountCode; };
+                if (categoryName == "Ots_2" || categoryName == "OTS_2") { paymentTypetxt += "OTS2"; code = _accountCodesRepository.GetAccountCode(schoolInfo.AccountNoID06, period).AccountCode; };
+                if (categoryName == "Gov.Support" || categoryName == "GOV.SUPPORT") { paymentTypetxt += "Gov.Support"; code = _accountCodesRepository.GetAccountCode(schoolInfo.AccountNoID10, period).AccountCode; };
+            }
+            var exp3 = " Nolu Makbuz, ";
+            string periodTxt = " Dönemi, ";
+            string monthTxt = " Ayı ";
+            string deptText = " Nolu Şb.";
+            string mainCodeName = "ALACAK SENETLERİ";
+            var exp4 = " Tarihli " + paymentTypetxt + " Tediyesi ";
+            if (studentViewModel.SelectedCulture.Trim() == "en-US")
+            {
+                exp3 = " Receipt No, ";
+                periodTxt = " Period, ";
+                monthTxt = " Month ";
+                deptText = " Branch No.";
+                mainCodeName = "CERTIFICATES CREDIT";
+                exp4 = " Dated " + paymentTypetxt + " Payment ";
+            }
+
+            controlCode = code + " " + periodCode + " " + YY + " " + MM + " " + deptCode;
+            accounting.Explanation = classroomName + " " + studentViewModel.Student.FirstName + " " + studentViewModel.Student.LastName + " " + paymentReceiptNo + exp3 + DD + "/" + MM + "/" + YY + exp4 + "/" + bankName;
+
+            var codeName = periodCode + " " + periodTxt + " " + YY + "/" + MM + monthTxt + " " + deptCode + " " + deptText + ", " + mainCodeName;
+            bool isExist = _accountCodesRepository.ExistAccountCode(period, controlCode);
+            if (!isExist)
+            {
+                CodeCreate(accountingCode, controlCode, codeName);
+            }
+
+            accounting.AccountingID = 0;
+            accounting.SchoolID = schoolInfo.SchoolID;
+            accounting.Period = period;
+            var catID = _parameterRepository.GetParameterCategoryName("Mahsup").CategoryID;
+            accounting.VoucherTypeID = catID;
+            accounting.VoucherNo = lastNumber;
+            accounting.AccountDate = DateTime.Today;
+            accounting.AccountCode = controlCode;
+            accounting.AccountCodeName = _accountCodesRepository.GetAccountCode(controlCode, period).AccountCodeName;
+            accounting.CodeTypeName = "";
+            accounting.DocumentNumber = paymentReceiptNo.ToString();
+            accounting.DocumentDate = DateTime.Today;
+
+            accounting.Debt = 0;
+            accounting.Credit = item.InstallmentAmount;
+            accounting.SortOrder = sortOrder;
+            accounting.IsTransaction = false;
+            _accountingRepository.CreateAccounting(accounting);
+        }
+        public void AccountingCreate3(StudentViewModel studentViewModel, SchoolInfo schoolInfo, int sortOrder, string period, string classroomName, decimal total340, int lastNumber)
+        {
+            var accountingCode = new AccountCodes();
+            accountingCode.Period = period;
+            var accounting = new Accounting();
+            string studentNo = studentViewModel.Student.StudentNumber;
+            string studentName = studentViewModel.Student.FirstName + " " + studentViewModel.Student.LastName + "'ün ";
+
+            var pserialNumbers = _pSerialNumberRepository.GetPSerialNumber(studentViewModel.SchoolID);
+            if (pserialNumbers == null)
+                pserialNumbers = new PSerialNumber();
+
+            //100 ACOOUNT RECORDS 
+            //PaymentNo
+            var paymentNo = pserialNumbers.PaymentNo += 1;
+            pserialNumbers.PaymentNo = paymentNo;
+
+            var paymentReceiptNo = pserialNumbers.PaymentReceiptNo += 1;
+            pserialNumbers.PaymentReceiptNo = paymentReceiptNo;
+            _pSerialNumberRepository.UpdatePSerialNumber(pserialNumbers);
+
+            var categoryID = _parameterRepository.GetParameterCategoryName("Ödeme Şekli").CategoryID;
+            var parameters = _parameterRepository.GetParameterSubID(categoryID);
+
+            //340 ACOOUNT RECORDS 
+            string periodCode = period.Substring(2, 2) + period.Substring(7, 2);
+            string deptCode = schoolInfo.CompanyShortCode;
+            string periodTxt = " Dönemi, ";
+            string deptName = schoolInfo.CompanyShortName + " Şb. ";
+            string controlCode = schoolInfo.AccountNoID02;
+            if (controlCode == null) controlCode = "340";
+            string codeName = "ALINAN SİPARİŞ AVANSLARI";
+            string mainCodeName = codeName;
+
+            string code340 = controlCode;
+            controlCode = code340 + " " + periodCode + " " + deptCode + " " + studentNo;
+            codeName = studentName + periodCode + periodTxt + deptName + mainCodeName;
+
+            bool isExist = _accountCodesRepository.ExistAccountCode(period, controlCode);
+            if (!isExist)
+            {
+                CodeCreate(accountingCode, controlCode, codeName);
+            }
+
+            accounting.AccountingID = 0;
+            accounting.SchoolID = schoolInfo.SchoolID;
+            accounting.Period = period;
+            var catID = _parameterRepository.GetParameterCategoryName("Mahsup").CategoryID;
+            accounting.VoucherTypeID = catID;
+            accounting.VoucherNo = lastNumber;
+            accounting.AccountDate = DateTime.Today;
+            accounting.AccountCode = controlCode;
+            accounting.AccountCodeName = _accountCodesRepository.GetAccountCode(controlCode, period).AccountCodeName;
+            accounting.CodeTypeName = "";
+            accounting.DocumentNumber = paymentReceiptNo.ToString();
+            accounting.DocumentDate = DateTime.Today;
+            var exp5 = " Tarihinde Öğrenciden Alınanların İptali";
+            accounting.Explanation = classroomName + " " + studentViewModel.Student.FirstName + " " + studentViewModel.Student.LastName + " " + DateTime.Today.ToString("dd.MM.yyyy") + exp5;
+            accounting.Debt = total340;
+            accounting.Credit = 0;
+            accounting.SortOrder = sortOrder;
+            accounting.IsTransaction = false;
+            _accountingRepository.CreateAccounting(accounting);
+        }
+        private void CodeCreate(AccountCodes accountingCode, string controlCode, string codeName)
+        {
+            accountingCode.AccountCodeID = 0;
+            accountingCode.Period = accountingCode.Period;
+            accountingCode.AccountCode = controlCode;
+            accountingCode.AccountCodeName = codeName;
+            accountingCode.IsActive = true;
+            _accountCodesRepository.CreateAccountCode(accountingCode);
+        }
+        #endregion
+
+        #region Others
+        [Route("M250Student/SchoolDebtDataRead/{userID}/{studentid}")]
+        public IActionResult SchoolDebtDataRead(int userID, int studentid)
+        {
+            var user = _usersRepository.GetUser(userID);
+            var period = user.UserPeriod;
+
+            List<StudentDebtViewModel> list = new List<StudentDebtViewModel>();
+
+            var fee = _schoolFeeRepository.GetSchoolFeeAllTrue(user.SchoolID, "L1");
+            var student = _studentRepository.GetStudent(studentid);
+            var typeId = 0;
+            if (student.ClassroomID > 0)
+                typeId = _classroomRepository.GetClassroomID(student.ClassroomID).ClassroomTypeID;
+
+            Boolean isExist = _studentDebtRepository.ExistStudentDebt(user.UserPeriod, studentid);
+            if (!isExist)
+                foreach (var item in fee)
+                {
+                    var getCode = new StudentDebt();
+                    getCode.StudentID = studentid;
+                    getCode.SchoolID = item.SchoolID;
+                    getCode.SchoolFeeID = item.SchoolFeeID;
+                    getCode.ClassroomTypeID = typeId;
+                    getCode.Period = period;
+                    getCode.UnitPrice = 0;
+                    getCode.Discount = 0;
+                    getCode.Amount = 0;
+                    getCode.IsList = true;
+
+                    _studentDebtRepository.CreateStudentDebt(getCode);
+                }
+
+            foreach (var item in fee)
+            {
+                var studentDebtViewModel = new StudentDebtViewModel();
+                var debt = _studentDebtRepository.GetStudentDebt22(period, user.SchoolID, studentid, item.SchoolFeeID);
+
+                studentDebtViewModel.ViewModelId = studentid;
+                studentDebtViewModel.StudentID = studentid;
+                studentDebtViewModel.FeeName = item.Name;
+                studentDebtViewModel.SchoolFeeID = item.SchoolFeeID;
+                if (debt != null)
+                {
+                    studentDebtViewModel.StudentDebtID = debt.StudentDebtID;
+                    studentDebtViewModel.SchoolID = debt.SchoolID;
+                    studentDebtViewModel.Period = debt.Period;
+                    studentDebtViewModel.SelectFee = false;
+                    studentDebtViewModel.SelectDiscount = false;
+                    studentDebtViewModel.UnitPrice = debt.UnitPrice;
+                    studentDebtViewModel.Discount = debt.Discount;
+                    studentDebtViewModel.Amount = debt.Amount;
+                    studentDebtViewModel.IsList = debt.IsList;
+                }
+                list.Add(studentDebtViewModel);
+            }
+
+            return Json(list);
+        }
+
+        [HttpPost]
+        [Route("M250Student/SchoolDebtDataUpdate/{strResult}")]
+        public IActionResult SchoolDebtDataUpdate([Bind(Prefix = "models")] string strResult)
+        {
+            var json = new JavaScriptSerializer().Deserialize<List<StudentDebtViewModel>>(strResult);
+            List<StudentDebt> list = new List<StudentDebt>();
+            var i = 0;
+            var student = _studentRepository.GetStudent(json[i].StudentID);
+            var typeId = 0;
+            if (student.ClassroomID > 0)
+                typeId = _classroomRepository.GetClassroomID(student.ClassroomID).ClassroomTypeID;
+
+            foreach (var item in json)
+            {
+                var getCode = _studentDebtRepository.GetStudentDebtID((int)json[i].SchoolID, json[i].StudentDebtID);
+
+                if (getCode == null)
+                {
+                    if (ModelState.IsValid)
+                    {
+                        getCode = new StudentDebt();
+                        getCode.StudentDebtID = json[i].StudentDebtID;
+                        getCode.SchoolID = json[i].SchoolID;
+                        getCode.StudentID = json[i].StudentID;
+                        getCode.SchoolFeeID = json[i].SchoolFeeID;
+                        getCode.ClassroomTypeID = typeId;
+                        getCode.Period = json[i].Period;
+
+                        getCode.UnitPrice = json[i].UnitPrice;
+                        getCode.Discount = json[i].Discount;
+                        getCode.Amount = json[i].Amount;
+                        getCode.IsList = json[i].IsList;
+                        list.Add(getCode);
+                        _studentDebtRepository.CreateStudentDebt(getCode);
+                    }
+                }
+                else
+                if (ModelState.IsValid)
+                {
+                    getCode.StudentDebtID = json[i].StudentDebtID;
+                    getCode.UnitPrice = json[i].UnitPrice;
+                    getCode.Discount = json[i].Discount;
+                    getCode.Amount = json[i].Amount;
+                    getCode.IsList = json[i].IsList;
+                    getCode.ClassroomTypeID = typeId;
+                    _studentDebtRepository.UpdateStudentDebt(getCode);
+                    _studentDebtRepository.Save();
+                }
+                i = i + 1;
+            }
+            return Json(list);
+        }
+
+        //Installment
+        [Route("M250Student/InstallmentDataRead/{userID}/{studentid}")]
+        public IActionResult InstallmentDataRead(int userID, int studentid)
+        {
+            var user = _usersRepository.GetUser(userID);
+            var period = user.UserPeriod;
+
+            var schoolInfo = _schoolInfoRepository.GetSchoolInfo(user.SchoolID);
+
+            var categoryID2 = _parameterRepository.GetParameterCategoryName("Ödeme Şekli").CategoryID;
+            var parameterList2 = _parameterRepository.GetParameterSubID(categoryID2);
+            var categoryID3 = _parameterRepository.GetParameterCategoryName("Çek / Senet Pozisyonları").CategoryID;
+            var parameterList3 = _parameterRepository.GetParameterSubID(categoryID3);
+
+            var bankList = _bankRepository.GetBankAll(user.SchoolID);
+            var studentinstallment = _studentInstallmentRepository.GetStudentInstallment(user.SchoolID, studentid, period);
+
+            List<StudentViewModel> list = new List<StudentViewModel>();
+
+            foreach (var item in studentinstallment)
+            {
+                var parameter2 = parameterList2.FirstOrDefault(p => p.CategoryID == item.CategoryID);
+                var parameter3 = parameterList3.FirstOrDefault(p => p.CategoryID == item.StatusCategoryID);
+
+                if (parameter2 == null)
+                {
+                    parameter2 = parameterList2.FirstOrDefault(p => p.CategorySubID == categoryID2);
+                }
+                if (parameter3 == null)
+                {
+                    parameter3 = parameterList3.FirstOrDefault(p => p.CategorySubID == categoryID3);
+                }
+
+
+                var bank = bankList.FirstOrDefault(p => p.BankID == item.BankID);
+
+                var studentViewModel = new StudentViewModel
+                {
+                    ViewModelID = item.StudentInstallmentID,
+                    StudentInstallment = item,
+                    Parameter2 = parameter2,
+                    Parameter3 = parameter3,
+                    Bank = bank,
+                };
+
+                list.Add(studentViewModel);
+            }
+
+            return Json(list);
+        }
+
+        [Route("M250Student/PaymentsDataRead/{userID}/{studentID}")]
+        public IActionResult PaymentsDataRead(int userID, int studentID)
+        {
+            decimal totaldebt = 0, totalpaid = 0, cashPayment = 0, paid = 0, remainingDebit = 0;
+
+            var user = _usersRepository.GetUser(userID);
+            string culture = user.SelectedCulture.Trim();
+            var studentTemp = _studentTempRepository.GetStudentTemp(user.SchoolID, user.UserPeriod, studentID);
+            var period = user.UserPeriod;
+
+            var studentInstallment = _studentInstallmentRepository.GetStudentInstallment(user.SchoolID, studentID, period);
+
+            decimal refund = 0;
+            if (studentTemp != null)
+            {
+                cashPayment = studentTemp.CashPayment;
+                refund = studentTemp.RefundAmount1 + studentTemp.RefundAmount2 + studentTemp.RefundAmount3;
+                totaldebt += studentTemp.CashPayment;
+            }
+            foreach (var item in studentInstallment)
+            {
+                if (item.PreviousPayment > 0) paid += item.PreviousPayment;
+                totaldebt += item.InstallmentAmount;
+            }
+            totalpaid = cashPayment + paid;
+            remainingDebit = totaldebt - totalpaid;
+            if (refund > 0)
+            {
+                totaldebt -= refund;
+            }
+            string[] dim1;
+            if (culture == "tr-TR")
+            {
+                dim1 = new string[] { "Borç Tutarı", "İade Edilen Tutar", "Peşin Ödenen Tutar", "Ödenen Taksitler", "Toplam Ödenen Tutar ", "Kalan Borç Tutarı " };
+            }
+            else
+            {
+                dim1 = new string[] { "Debt Amount", "Refund", "Prepaid Amount", "Paid Installments", "Total Paid Amount", "Remaining Debt Amount" };
+            }
+
+            decimal[] dim2 = new decimal[] { totaldebt, refund, cashPayment, paid, totalpaid, remainingDebit };
+
+            List<StudentPaymentInfo> list = new List<StudentPaymentInfo>();
+
+            var inx = 0;
+            for (int i = 0; i < 6; i++)
+            {
+                var studentPaymentInfo = new StudentPaymentInfo
+                {
+                    ViewModelId = inx,
+                    Name = dim1[inx],
+                    Payment = dim2[inx],
+                };
+                inx += 1;
+                list.Add(studentPaymentInfo);
+            }
+            return Json(list);
+        }
+
+        [Route("M250Student/SerialNumbersDataRead/{userID}")]
+        public IActionResult SerialNumbersDataRead(int userID)
+        {
+            var culture = System.Globalization.CultureInfo.CurrentCulture.ToString();
+            var user = _usersRepository.GetUser(userID);
+
+            var schoolInfo = _schoolInfoRepository.GetSchoolInfo(user.SchoolID);
+            var categoryID = _parameterRepository.GetParameterCategoryName("Ödeme Şekli").CategoryID;
+            var parameters = _parameterRepository.GetParameterSubID(categoryID);
+            var serialNumbers = _pSerialNumberRepository.GetPSerialNumber(user.SchoolID);
+            if (serialNumbers == null)
+                serialNumbers = new PSerialNumber();
+
+            string[] dim1;
+            if (culture == "tr-TR")
+            {
+                dim1 = new string[] { "Kayıt No", "Banka", "Çek No", "Kmh.No", "Kredi Kartı", "Mail Order", "Ots No-1", "Ots No-2", "Teşvik" };
+            }
+            else
+            {
+                dim1 = new string[] { "Register No", "Bank", "Check No", "Kmh.No", "Credit Card", "Mail Order", "Ots No-1", "Ots No-2", "Gov.Pro.No" };
+            }
+
+            int[] dim2 = new int[] { serialNumbers.RegisterNo, serialNumbers.BondNo, serialNumbers.CheckNo, serialNumbers.KmhNo, serialNumbers.CreditCardNo, serialNumbers.MailOrderNo, serialNumbers.OtsNo1, serialNumbers.OtsNo2, serialNumbers.GovernmentPromotionNo };
+
+            List<SchoolProccessSerialNumbers> list = new List<SchoolProccessSerialNumbers>();
+
+            var inx = 0;
+            foreach (var item in parameters)
+            {
+                var schoolProccessSerialNumbers = new SchoolProccessSerialNumbers
+                {
+                    ViewModelId = inx,
+                    Name = dim1[inx],
+                    SerialNo = dim2[inx],
+                };
+                inx += 1;
+                list.Add(schoolProccessSerialNumbers);
+            }
+            return Json(list);
+        }
+
+        [Route("M250Student/ClassroomCombo/{userID}")]
+        public IActionResult ClassroomCombo(int userID)
+        {
+            var user = _usersRepository.GetUser(userID);
+            var classroom = _classroomRepository.GetClassroomPeriods(user.SchoolID, user.UserPeriod);
+            return Json(classroom);
+        }
+        public IActionResult BankNameCombo(int userID)
+        {
+            var user = _usersRepository.GetUser(userID);
+            var bankNameType = _bankRepository.GetBankAll(user.SchoolID);
+            return Json(bankNameType);
+        }
+
+        [Route("M250Student/AccountCodes/{period}")]
+        public IActionResult AccountCodes(string period)
+        {
+            var accountingCode = _accountCodesRepository.GetAccountCodeAllTrue(period);
+            return Json(accountingCode);
+        }
+        #endregion
+    }
+}
+

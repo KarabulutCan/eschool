@@ -1,0 +1,1003 @@
+﻿@model ESCHOOL.ViewModels.SchoolViewModel
+@{
+    System.Globalization.CultureInfo.CurrentCulture = System.Globalization.CultureInfo.CreateSpecificCulture(@Model.SelectedCulture);
+    System.Globalization.CultureInfo.CurrentUICulture = System.Globalization.CultureInfo.CreateSpecificCulture(@Model.SelectedCulture);
+    var culture = System.Globalization.CultureInfo.CurrentCulture.ToString();
+}
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+        html {
+            font-size: 13px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+    </style>
+    <title>@ViewData["Title"] - ESCHOOL</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <script src="~/fontawesome/f2c0857980.js"></script>
+
+    <script src="@Url.Content("~/telerik/2021.2.616/js//cultures/kendo.culture." + culture + ".min.js")"></script>
+    <script src="~/telerik/2021.2.616/js//messages/kendo.messages.tr-TR.min.js"></script>
+
+    <script type="text/javascript">
+        kendo.culture("@culture");
+    </script>
+
+</head>
+<body>
+    @*<br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />*@
+    <input type="hidden" id="chatID" />
+    <input type="hidden" id="rowID" />
+
+    <header class="imgclass text-muted" id="divheader" style="display: none; height:25px;">
+        <div id="wrap" style="padding-right: 60px; padding-top: 10px;">
+            <img src="@("~/Upload/Users/"+Model.UserPicture)" asp-append-version="true" title="@Model.UserName" />
+        </div>
+
+        <div class="row rightAlign" style="padding-top: 80px;">
+            <button id="fab"></button>
+        </div>
+    </header>
+
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            <div class="row">
+                <div class="col col-md-3" style="float: left;">
+                    <a href="https://www.ncs.com.tr" target="_blank">
+                        <img src="~/Upload/Images/Quality.png" style="width:50px;" />
+                    </a>
+                    &copy; 2021 - E-School &nbsp;
+                </div>
+
+                <div class="col col-md-6 textLabel">
+                    <label class="control-label" style="color:forestgreen">@TempData["SchoolName"]</label>
+                </div>
+
+                <div class="col col-md-3" style="float: right;">
+                    <strong>
+                        <label class="control-label">@TempData["Period"] - @TempData["Date"]</label>
+                    </strong>
+                    <img src="~/Upload/Images/NumberOne.png" style="width:50px;" />
+                </div>
+            </div>
+        </div>
+
+    </footer>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @RenderSection("Scripts", required: false)
+
+    <script>
+        $("#userDateID").kendoDatePicker({
+            format: "dd/MM/yyyy"
+        });
+
+        $("#divheader").show(2000);
+    </script>
+
+    <script>
+        $("#wrap img").hover(function () {
+            kendo.fx(this).zoom("in").startValue(1).endValue(2).play();
+        }, function () {
+            kendo.fx(this).zoom("out").endValue(1).startValue(2).play();
+        });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            $('body').kendoTooltip({
+                filter: '[title]:not([title=""])',
+                autoHide: true,
+                position: "top",
+                animation: {
+                    open: {
+                        effects: "zoom",
+                        duration: 150
+                    }
+                }
+            });
+        });
+    </script>
+
+
+    <script>
+        $(document).ready(function () {
+            $("#fab").kendoFloatingActionButton({
+                icon: '@Model.Icon',
+                text: '@Model.MessageCount',
+                positionMode: "absolute",
+                align: "right end",
+                alignOffset: {
+                    x: 70,
+                    y: 10
+                },
+                themeColor: "dark",
+                size: "medium",
+                items: [{
+                    label: getByCulture('@culture', 'chat'),
+                    icon: "comment",
+                    click: onItemClick
+                }, {
+                    label: getByCulture('@culture', 'users'),
+                    icon: "myspace",
+                    click: onItemClick
+                }, {
+                    label: getByCulture('@culture', 'email'),
+                    icon: "envelop",
+                    click: onItemClick
+                }, {
+                    label: getByCulture('@culture', 'agenda'),
+                    icon: "calendar",
+                    click: onItemClick
+                }],
+                expand: onExpand,
+                collapse: onCollapse
+            });
+
+            function onExpand() {
+                kendoConsole.log("event: expand");
+            };
+
+            function onCollapse() {
+                kendoConsole.log("event: collapse");
+            };
+
+            function onItemClick(e) {
+                if (e.item.label == "Chat" || e.item.label == "İletişim") {
+                    $("#chatGrid1").data("kendoGrid").dataSource.read();
+                    var myWindow = $("#windowChat"),
+                        undo = $("#undo");
+
+                    undo.click(function () {
+                        myWindow.data("kendoWindow").open();
+                        undo.fadeOut();
+                    });
+
+                    function onClose() {
+                        undo.fadeIn();
+                    }
+
+                    myWindow.kendoWindow({
+                        title: getByCulture('@culture', 'title'),
+
+                        visible: false,
+                        actions: [
+                            "Close"
+                        ],
+                        close: onClose
+                    }).data("kendoWindow").open();
+                    myWindow.data("kendoWindow").open().center().element.closest(".k-window").css({ top: 100, });
+                }
+
+                if (e.item.label == "E-Mail" || e.item.label == "E-Posta")
+                    location.href = "mailto:";
+
+                if (e.item.label == "Users" || e.item.label == "Kullanıcılar") {
+                    $("#userGrid").data("kendoGrid").dataSource.read();
+                    var myWindow = $("#windowUsers"),
+                        undo = $("#undo");
+
+                    undo.click(function () {
+                        myWindow.data("kendoWindow").open();
+                        undo.fadeOut();
+                    });
+
+                    function onClose() {
+                        undo.fadeIn();
+                    }
+
+                    myWindow.kendoWindow({
+                        title: getByCulture('@culture', 'users'),
+                        position: {
+                            top: 150,
+                            left: "70%",
+                        },
+                        visible: false,
+                        actions: [
+                            "Close"
+                        ],
+                        close: onClose
+                    }).data("kendoWindow").open();
+                }
+
+                if (e.item.label == "Agenda" || e.item.label == "Ajanda") {
+                    var myWindow = $("#windowAgenda"),
+                        undo = $("#undo");
+
+                    undo.click(function () {
+                        myWindow.data("kendoWindow").open();
+                        undo.fadeOut();
+                    });
+
+                    function onClose() {
+                        undo.fadeIn();
+                    }
+
+                    myWindow.kendoWindow({
+                        title: getByCulture('@culture', 'agendaTitle'),
+
+                        visible: false,
+                        actions: [
+                            "Close"
+                        ],
+                        close: onClose
+                    }).data("kendoWindow").open();
+                    myWindow.data("kendoWindow").open().center().element.closest(".k-window").css({ top: 70, });
+
+                    agendaStart();
+                }
+
+            };
+
+        });
+    </script>
+
+
+    <div id="windowUsers" style="display: none;  padding:0px;">
+        <div id="userGrid" style="width:320px; max-height:600px;"></div>
+    </div>
+    <script>
+        $(document).ready(function () {
+            var crudServiceBaseUrl = "/Home/",
+                dataSource = new kendo.data.DataSource({
+                    transport: {
+                        read: {
+                            url: crudServiceBaseUrl + "GridLoginUsersDataRead/" + "@Model.UserID",
+                            dataType: "json"
+                        },
+
+                        parameterMap: function (options, operation) {
+                            if (operation !== "read" && options.models) {
+                                return { models: kendo.stringify(options.models) };
+                            }
+                        }
+                    },
+                    batch: true,
+                    schema: {
+                        model: {
+                            id: "userID",
+                            fields: {
+                                id: { editable: false, nullable: true },
+                                userID: { editable: false, validation: { required: true } },
+                                loginDate: { editable: false, type: "date" },
+                            }
+                        }
+                    }
+                });
+
+            var grid = $("#userGrid").kendoGrid({
+                dataSource: dataSource,
+                selectable: 'row',
+                autoBind: false,
+                scrollable: false,
+                columns: [
+                    {
+                        template: kendo.template($("#rowTemplate").html())
+                    },
+                ],
+            }).data("kendoGrid");
+            $(".k-grid .k-grid-header").hide();
+        });
+
+    </script>
+    <style>
+        #userGrid .no-scrollbar .k-grid-header {
+            padding: 0 !important;
+        }
+
+        #userGrid .no-scrollbar .k-grid-content {
+            overflow-y: visible;
+        }
+    </style>
+
+    <div id="windowChat" style="display: none; width:1100px;max-height:600px;">
+        <ul id="panelbarHelp" style="display: none;">
+            <li>
+                <span class="k-link">@ESCHOOL.Resources.Resource.Help</span>
+                <div class="k-card-body" style="padding-left:15px;">
+                    <p>@ESCHOOL.Resources.Resource.Chat01</p>
+                    <p>@ESCHOOL.Resources.Resource.Chat02</p>
+                    <p>@ESCHOOL.Resources.Resource.Chat03</p>
+                    <br />
+                </div>
+                <style>
+                    #panelbarHelp {
+                        width: 100%;
+                        /*     max-width: none;*/
+                        margin: 0 auto;
+                    }
+                </style>
+
+                <script>
+                    $(document).ready(function () {
+                        $("#panelbarHelp").kendoPanelBar({
+                            animation: {
+                                collapse: {
+                                    duration: 500,
+                                    effects: "fadeOut"
+                                },
+                                expand: {
+                                    duration: 500,
+                                    effects: "expandVertical fadeIn"
+                                }
+                            }
+                        });
+                    });
+                </script>
+            </li>
+        </ul>
+
+        <div class="row">
+            <div class="col col-md-3" id="chatGrid1"></div>
+            <div class="col md=auto">
+                <div id="chatGrid2" style="height:450px;"> </div>
+
+                <div style="padding-top:2px;">
+                    <textarea asp-for="Messages" id="messageTextId" class="k-textbox" style="width: 85%; height:80px" placeholder="@ESCHOOL.Resources.Resource.TypeAMessage" text-wrap="normal type="text" maxlength="250"></textarea>
+                    <button type="button" id="okButton" style="width: 14%; height:85px;" onclick="okClick()" disabled></button>
+                </div>
+            </div>
+        </div>
+        <script>
+            $(document).ready(function () {
+                $("#okButton").kendoButton({
+                    icon: "flip-vertical"
+                });
+            });
+        </script>
+    </div>
+
+    <div id="windowAgenda">
+        <iframe name="theFrame" style='width:1000px; height:720px;' frameborder="0" scrolling="no" id="iframe"> </iframe>
+    </div>
+    <script>
+        function agendaStart() {
+            window.open("/M900Users/UsersTask?UserID=@Model.UserID", 'theFrame');
+        }
+    </script>
+
+    <script>
+        function okClick() {
+            var messageText = document.getElementById("messageTextId").value;
+
+            var grid = $("#chatGrid1").data("kendoGrid");
+            var selectedItem = grid.dataItem(grid.select());
+            if (selectedItem == null)
+                alert(getByCulture('@culture', 'noUserSelected'));
+            else {
+                var chatID = selectedItem.userID;
+                if (chatID > 0 && messageText != "") {
+                    $.ajax({
+                        type: "POST",
+                        url: "/Home/SendMessage/" + "@Model.SchoolID" + "/" + "@Model.UserID" + "/" + chatID + "/" + messageText,
+
+                        dataType: "json",
+                        success: function (result) {
+                            document.getElementById("messageTextId").value = "";
+                        },
+                        type: "post",
+                        dataType: "json"
+                    });
+                }
+                else
+                    alert(getByCulture('@culture', 'messageEntryNotMade'));
+            }
+        }
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            var crudServiceBaseUrl = "/Home/",
+                dataSource = new kendo.data.DataSource({
+                    transport: {
+                        read: {
+                            url: crudServiceBaseUrl + "GridLoginUsersDataRead/" + "@Model.UserID",
+                            dataType: "json"
+                        },
+
+                        parameterMap: function (options, operation) {
+                            if (operation !== "read" && options.models) {
+                                return { models: kendo.stringify(options.models) };
+                            }
+                        }
+                    },
+                    batch: true,
+                    schema: {
+                        model: {
+                            id: "userID",
+                            fields: {
+                                id: { editable: false, nullable: true },
+                                userID: { editable: false, validation: { required: true } },
+                            }
+                        }
+                    }
+                });
+
+            var grid = $("#chatGrid").kendoGrid({
+                dataSource: dataSource,
+                selectable: 'row',
+                autoBind: false,
+                columns: [
+                    {
+                        template: "<div class='customer-photo'" +
+                            "style='background-image: url(../Upload/Users//#:userPicture#);'></div>" +
+                            "<div class='customer-name' style='width: 100px;'>#: name #</div>",
+                        field: "name", width: "100px",
+                    },
+                ],
+            }).data("kendoGrid");
+            $(".k-grid .k-grid-header").hide();
+        });
+    </script>
+
+    <style type="text/css">
+        .imgclass img {
+            width: 50px;
+            height: 52px;
+            border-radius: 50px;
+            margin: 10px;
+            border: .1px solid solid;
+            /*            overflow: hidden;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        border-radius: 50%;*/
+            float: right;
+        }
+
+        .textLabel {
+            width: 150px;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .customer-photo {
+            display: inline-block;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background-size: 32px 35px;
+            background-position: center center;
+            vertical-align: middle;
+            line-height: 32px;
+            box-shadow: inset 0 0 1px #999, inset 0 0 10px rgba(0,0,0,.2);
+            margin-left: 5px;
+        }
+
+        .customer-photoUsers {
+            display: inline-block;
+            width: 62px;
+            height: 62px;
+            border-radius: 50%;
+            background-size: 62px 65px;
+            background-position: center center;
+            vertical-align: middle;
+            line-height: 62px;
+            box-shadow: inset 0 0 1px #999, inset 0 0 10px rgba(0,0,0,.2);
+            margin-left: 5px;
+        }
+
+        .customer-photo1 {
+            display: inline-block;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background-size: 42px 45px;
+            background-position: center center;
+            vertical-align: middle;
+            line-height: 42px;
+            box-shadow: inset 0 0 1px #999, inset 0 0 10px rgba(0,0,0,.2);
+            margin-left: 5px;
+        }
+
+        .customer-name {
+            display: inline-block;
+            vertical-align: middle;
+            line-height: 32px;
+            padding-left: 3px;
+        }
+
+        .k-grid-header .k-grid-header-wrap th.k-header {
+            text-align: center;
+            vertical-align: middle;
+            line-height: 0.7em
+        }
+
+        #chatGrid1 .k-grid-content {
+            max-height: 530px;
+        }
+
+        #chatGrid2 .k-grid-content {
+            max-height: 460px;
+            min-height: 100px;
+        }
+
+        .k-window-title {
+            text-align: center;
+        }
+
+        .k-window-titlebar {
+            height: 30px !important;
+            font-size: 10pt !important;
+        }
+
+        /*        chatGrid1.k-window div.k-window-content {
+                                                            overflow: hidden;
+                                                        }
+
+                                                        chatGrid2.k-window div.k-window-content {
+                                                            overflow: hidden;
+                                                        }*/
+
+        .k-window div.k-window-content {
+            overflow: hidden;
+        }
+
+        #radiusID1 {
+            inline-size: 500px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            margin-left: 20px;
+            border-radius: 10px 40px;
+            border: 1px solid #797676;
+        }
+
+        #radiusID2 {
+            float: right;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            margin-right: 30px;
+            inline-size: 500px;
+            border-radius: 40px 10px;
+            border: 1px solid #797676;
+        }
+
+        .wrapper {
+            max-width: 400px;
+            text-overflow: ellipsis;
+            overflow-wrap: break-word
+        }
+    </style>
+
+    <script>
+        var dictionary =
+        {
+            'tr-TR': {
+                users: 'Kullanıcılar',
+                chat: 'İletişim',
+                email: 'E-Posta',
+                agenda: 'Ajanda',
+                title: 'Kurum İçi Mesajlaşma Sistemi',
+                agendaTitle: 'Kullanıcı Ajandası',
+                typeAMessageWarning: 'Mesaj Girilmedi.',
+                noUserSelected: 'Önce Kullanıcıyı Seçiniz.',
+                messageEntryNotMade: 'Mesaj Girişi Yapılmadı.',
+                noUser: 'Kullanıcılar Tanımlanmamış.',
+            },
+
+            'en-US': {
+                users: 'Users',
+                chat: 'Chat',
+                email: 'E-Mail',
+                agenda: 'Agenda',
+                title: 'Internal Messaging System',
+                agendaTitle: 'Kullanıcı Ajandası',
+                typeAMessageWarning: 'User Agenda',
+                noUserSelected: 'Select User First.',
+                messageEntryNotMade: 'Message Entry Not Made.',
+                noUser: 'Users Not Defined.',
+            },
+        }
+        function getByCulture(culture, word) {
+            return dictionary[culture][word]
+        }
+    </script>
+
+    <script>
+        function onChange(e) {
+            $("#okButton").data("kendoButton").enable(true);
+
+            var grid = $("#chatGrid1").data("kendoGrid");
+            var selectedItem = grid.dataItem(grid.select());
+            var chatUserID = selectedItem.userID;
+            document.getElementById("chatID").value = chatUserID
+
+            var dataItem = grid.dataItem(grid.select());
+            var index = grid.dataSource.indexOf(dataItem);
+
+            document.getElementById("rowID").value = index;
+
+
+            var grid = $("#chatGrid2").data("kendoGrid");
+            grid.dataSource.options.transport.read.url = "/Home/GridChatDataRead2/" + "@Model.UserID" + "/" + chatUserID + "/" + false;
+            grid.dataSource.read();
+            grid.refresh();
+        };
+        var noRec = true;
+        $(document).ready(function () {
+            var crudServiceBaseUrl = "/Home/",
+                dataSource = new kendo.data.DataSource({
+                    transport: {
+                        read: {
+                            url: crudServiceBaseUrl + "GridLoginUsersDataRead1/" + "@Model.UserID" + "/" + false,
+                            dataType: "json"
+                        },
+
+                        parameterMap: function (options, operation) {
+                            if (operation !== "read" && options.models) {
+                                return { models: kendo.stringify(options.models) };
+                            }
+                        }
+                    },
+                    batch: true,
+                    schema: {
+                        model: {
+                            id: "userID",
+                            fields: {
+                                id: { editable: false, nullable: true },
+                                userID: { editable: false, validation: { required: true } },
+                            }
+                        }
+                    }
+                });
+
+            var grid = $("#chatGrid1").kendoGrid({
+                dataSource: dataSource,
+                selectable: 'row',
+                change: onChange,
+                autoBind: false,
+                columns: [
+                    {
+                        template: kendo.template($("#rowTemplate1").html())
+                    },
+                ],
+                dataBound: function (e) {
+                    var count = e.sender.dataSource.total();
+                    if (count != 0) {
+                        noRec = false;
+                    }
+                },
+                noRecords: noRec,
+                messages: { noRecords: getByCulture('@culture', 'noUser') }
+            }).data("kendoGrid");
+            $(".k-grid .k-grid-header").hide();
+        });
+    </script>
+
+    <script id="template1" type="text/x-kendo-template">
+        <a class="k-button" href="\#" onclick="return toolbar_click1()" title="@ESCHOOL.Resources.Resource.Archive"> <i class="k-icon k-i-export"></i></a>
+        <a class="k-button" href="\#" onclick="return toolbar_click2()" title="@ESCHOOL.Resources.Resource.EnterArchive"> <i class="k-icon k-i-import"></i></a>&nbsp
+        <a class="k-button" href="\#" onclick="return toolbar_click3()" title="@ESCHOOL.Resources.Resource.DeleteArchive"> <i class="k-icon k-i-delete"></i></a>&nbsp
+        <a class="k-button" href="\#" onclick="return toolbar_click4()" title="@ESCHOOL.Resources.Resource.DeleteMessage"> <i class="k-icon k-i-comment-remove"></i></a>&nbsp
+        <a class="k-button" href="\#" onclick="return toolbar_click5()" title="@ESCHOOL.Resources.Resource.Refresh"> <i class="k-icon k-i-refresh"></i></a>&nbsp
+        <a class="k-button" href="\#" onclick="return toolbar_help()" title="@ESCHOOL.Resources.Resource.Help1"> <i class="k-icon k-i-help"></i></a>&nbsp
+
+        <a class="k-button" href="\#" onclick="return toolbar_click7()" title="@ESCHOOL.Resources.Resource.Close"> <i class="k-icon k-i-logout"></i></a>
+        <span class="k-textbox k-grid-search k-display-flex"  style="width:240px;">
+            <input autocomplete="off" placeholder=@ESCHOOL.Resources.Resource.Search class="k-input">
+            <span class="k-input-icon">
+                <span class="k-icon k-i-search"></span>
+            </span>
+        </span>
+    </script>
+    <script>
+        function toolbar_click1() {
+            var grid = $("#chatGrid1").data("kendoGrid");
+            var selectedItem = grid.dataItem(grid.select());
+            if (selectedItem == null)
+                alert(getByCulture('@culture', 'noUserSelected'));
+            else
+                var chatID = selectedItem.userID;
+            {
+                $.ajax({
+                    type: "POST",
+                    url: "/Home/PostArchive/" + "@Model.UserID" + "/" + chatID,
+
+                    dataType: "json",
+                    success: function (result) {
+                        $("#chatGrid1").data("kendoGrid").dataSource.read();
+                        $("#chatGrid2").data("kendoGrid").dataSource.read();
+                    },
+                    type: "post",
+                    dataType: "json"
+                });
+            }
+        }
+
+        function toolbar_click2() {
+            var grid = $("#chatGrid1").data("kendoGrid");
+            var selectedItem = grid.dataItem(grid.select());
+            if (selectedItem == null)
+                alert(getByCulture('@culture', 'noUserSelected'));
+            else
+                var chatUserID = selectedItem.userID;
+            {
+                var grid = $("#chatGrid1").data("kendoGrid");
+                var selectedItem = grid.dataItem(grid.select());
+                var chatUserID = selectedItem.userID;
+
+                document.getElementById("chatID").value = chatUserID;
+
+                var grid = $("#chatGrid2").data("kendoGrid");
+                grid.dataSource.options.transport.read.url = "/Home/GridChatDataRead2/" + "@Model.UserID" + "/" + chatUserID + "/" + true;
+                grid.dataSource.read();
+                grid.refresh();
+            }
+        };
+
+        function toolbar_click3() {
+            var grid = $("#chatGrid1").data("kendoGrid");
+            var selectedItem = grid.dataItem(grid.select());
+            if (selectedItem == null)
+                alert(getByCulture('@culture', 'noUserSelected'));
+            else
+                var chatID = selectedItem.userID;
+            {
+                $.ajax({
+                    type: "POST",
+                    url: "/Home/DeleteArchive/" + "@Model.UserID" + "/" + chatID,
+
+                    dataType: "json",
+                    success: function (result) {
+                        $("#chatGrid1").data("kendoGrid").dataSource.read();
+                        $("#chatGrid2").data("kendoGrid").dataSource.read();
+                    },
+                    type: "post",
+                    dataType: "json"
+                });
+            }
+        }
+
+        function toolbar_click4() {
+            var grid = $("#chatGrid1").data("kendoGrid");
+            var selectedItem = grid.dataItem(grid.select());
+            if (selectedItem == null)
+                alert(getByCulture('@culture', 'noUserSelected'));
+            else
+                var chatID = selectedItem.userID;
+            {
+                $.ajax({
+                    type: "POST",
+                    url: "/Home/DeleteMessages/" + "@Model.UserID" + "/" + chatID,
+
+                    dataType: "json",
+                    success: function (result) {
+                        $("#chatGrid1").data("kendoGrid").dataSource.read();
+                        $("#chatGrid2").data("kendoGrid").dataSource.read();
+                    },
+                    type: "post",
+                    dataType: "json"
+                });
+            }
+        }
+
+        function toolbar_click5() {
+            var grid = $("#chatGrid1").data("kendoGrid");
+            var selectedItem = grid.dataItem(grid.select());
+            if (selectedItem == null)
+                alert(getByCulture('@culture', 'noUserSelected'));
+            else
+                var chatUserID = selectedItem.userID;
+            {
+                var grid = $("#chatGrid1").data("kendoGrid");
+                var selectedItem = grid.dataItem(grid.select());
+                var chatUserID = selectedItem.userID;
+
+                document.getElementById("chatID").value = chatUserID;
+
+                var grid = $("#chatGrid2").data("kendoGrid");
+                grid.dataSource.options.transport.read.url = "/Home/GridChatDataRead2/" + "@Model.UserID" + "/" + chatUserID + "/" + false;
+                grid.dataSource.read();
+                grid.refresh();
+            }
+        };
+
+        function toolbar_help() {
+            var myWindow = $("#panelbarHelp").show();
+            var panelBar = $("#panelbarHelp").data("kendoPanelBar");
+            panelBar.select(panelBar.element.children("li").eq(0));
+            panelBar._selected[0].style.display = 'block';
+            var item = panelBar.select();
+            panelBar.expand(item);
+        };
+
+        function toolbar_click7() {
+            var window = $("#windowChat").data("kendoWindow");
+            window.close();
+
+            okExit();
+
+            return false;
+        }
+    </script>
+    <script>
+        function okExit() {
+            window.location.replace("/Home/index?userID=@Model.UserID");
+        }
+    </script>
+
+    <script id="rowTemplate" type="text/x-kendo-template">
+        <div class="row" style="min-height:40px;" >
+            <div class="col col-md-2">
+                 <div class='customer-photoUsers' style='background-image: url(../Upload/Users//#:userPicture#);'></div>
+            </div>
+            <div class="col col-md-5" style="padding-left:20px;">
+                <div class="row">
+                    <div class='customer-name1' style='font-size: 12pt; color:darkgray;'>#: userName #</div>
+                </div>
+                <div class="row">
+                    <div class='customer-name1' style='font-size: 8pt;'>#: name #</div>
+                </div>
+                  <div class="row">
+                     <div class='customer-name1' style='font-size: 7pt; color:darkgray;'>#= kendo.toString(loginDate, "D") #</div>&nbsp;
+                     <div class='customer-name1' style='font-size: 7pt; color:darkgray;'>#= kendo.toString(loginDate, "HH:mm") #</div>&nbsp;
+                     <span  style='background-color:green color:white;'>#: isLoginToday #</span>
+                </div>
+            </div>
+        </div>
+    </script>
+
+    <script id="rowTemplate1" type="text/x-kendo-template">
+        <div class="row" style="height:60px;" >
+            <div class="col col-md-2">
+                 <div class='customer-photo1' style='background-image: url(../Upload/Users//#:userPicture#);'></div>
+            </div>
+            <div class="col col-md-4">
+                <div class="row">
+                    <div class='customer-name1' style='font-size: 12pt; color:darkgray;'>#: userName #</div>
+                </div>
+                <div class="row">
+                    <div class='customer-name1' style='font-size: 8pt;'>#: name #</div>
+                </div>
+            </div>
+             <div class="col col-md-2" align="center" style="padding-top:15px;">
+                <span  style='background-color:green color:white;'>#: userSendMessage #</span>
+                <span  style='background-color:red'>#: userMessageCounter #</span>
+            </div>
+        </div>
+    </script>
+
+    <script id="rowTemplate2" type="text/x-kendo-template">
+         #if("@Model.UserID" == chatUserID1)
+         {#
+         <div id="radiusID1" class="row" style="height:auto;" >
+             <div class="col col-md-1">
+                  <div class='customer-photo1' style='background-image: url(../Upload/Users//#:userPicture1#);'></div>
+             </div>
+             <div class="col col-md-9">
+                 <div>
+                     <p class='customer-name1 wrapper' style='font-size: 9pt;'>#: messages1 #</p>
+                 </div>
+                 <div class="row" style="float: right; padding-right: 5px;">
+                     <div class='customer-name1' style='font-size: 7pt; color:darkgray;'>#= kendo.toString(chatDate1, "D") #</div>&nbsp;
+                     <div class='customer-name1' style='font-size: 7pt; color:darkgray;'>#= kendo.toString(chatDate1, "HH:mm") #</div>
+                 </div>
+             </div>
+         </div>
+        #}else{#
+        <div class="col">
+         <div id="radiusID2" class="row"style="height:auto; background:rgba(63,193,192, 0.1); padding-left: 20px;" >
+             <div class="col col-md-9" style="padding-left: 35px;">
+                 <div class="row">
+                     <p class='customer-name1 wrapper' style='font-size: 9pt;'>#: messages2 #</p>
+                 </div>
+                 <div class="row">
+                     <div class='customer-name1' style='font-size: 7pt; color:darkgray;'>#= kendo.toString(chatDate2, "D") #</div>&nbsp;
+                     <div class='customer-name1' style='font-size: 7pt; color:darkgray;'>#= kendo.toString(chatDate2, "HH:mm") #</div>
+                 </div>
+             </div>
+             <div class="col col-md-1">
+                  <div class='customer-photo1' style='background-image: url(../Upload/Users//#:userPicture2#);'></div>
+             </div>
+         </div>
+        </div>
+         # }#
+    </script>
+
+    @*SignaR Connection*@
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.js"></script>
+    <script type="text/javascript">
+        const connection = new signalR.HubConnectionBuilder()
+            .withUrl("/usersChatHub")
+            .configureLogging(signalR.LogLevel.Information)
+            .build();
+
+        async function start() {
+            try {
+                await connection.start();
+            } catch (err) {
+                console.log(err);
+                setTimeout(start, 5000);
+            }
+        };
+        connection.on("receiveMessage", message => {
+            $("#chatGrid1").data("kendoGrid").dataSource.read();
+            var row = document.getElementById("rowID").value;
+
+            setTimeout(function () {
+                var grid = $("#chatGrid1").data().kendoGrid;
+                grid.select("tr:eq(" + row + ")");
+            }, 100);
+
+        });
+        connection.onclose(async () => {
+            await start();
+        });
+
+        // Start the connection.
+        start();
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            var crudServiceBaseUrl = "/Home/",
+                dataSource = new kendo.data.DataSource({
+                    transport: {
+                        read: {
+                            url: crudServiceBaseUrl + "GridChatDataRead2/" + "@Model.UserID" + "/" + 3,
+                            dataType: "json"
+                        },
+
+                        parameterMap: function (options, operation) {
+                            if (operation !== "read" && options.models) {
+                                return { models: kendo.stringify(options.models) };
+                            }
+                        }
+                    },
+                    batch: true,
+                    schema: {
+                        model: {
+                            id: "chatID",
+                            fields: {
+                                chatID: { editable: false, nullable: true },
+                                schoolID: { editable: false, validation: { required: true } },
+                                userID: { editable: false, validation: { required: true } },
+                                chatUserID1: { editable: false, validation: { required: true } },
+                                chatUserID2: { editable: false, validation: { required: true } },
+                                messages1: { editable: false, type: "string" },
+                                messages2: { editable: false, type: "string" },
+                                chatDate: { editable: false, type: "date" },
+                                chatDate1: { editable: false, type: "date" },
+                                chatDate2: { editable: false, type: "date" },
+                                isRead: { type: "boolean" },
+                            }
+                        }
+                    }
+                });
+
+            var grid = $("#chatGrid2").kendoGrid({
+                toolbar: [
+                    { template: kendo.template($("#template1").html()) }
+                ],
+                search: {
+                    fields: ["messages1", "messages2"] // Or, specify multiple fields by adding them to the array, e.g ["name", "age"]
+                },
+                dataSource: dataSource,
+                selectable: 'row',
+                autoBind: false,
+                columns: [
+                    {
+                        template: kendo.template($("#rowTemplate2").html())
+                    },
+                ],
+            }).data("kendoGrid");
+            $(".k-grid .k-grid-header").hide();
+        });
+
+    </script>
+</body>
+</html>
+

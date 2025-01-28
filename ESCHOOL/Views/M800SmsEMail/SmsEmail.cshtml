@@ -1,0 +1,1147 @@
+﻿@model ESCHOOL.ViewModels.StudentViewModel
+@{
+    System.Globalization.CultureInfo.CurrentCulture = System.Globalization.CultureInfo.CreateSpecificCulture(@Model.SelectedCulture);
+    System.Globalization.CultureInfo.CurrentUICulture = System.Globalization.CultureInfo.CreateSpecificCulture(@Model.SelectedCulture);
+    var culture = System.Globalization.CultureInfo.CurrentCulture.ToString();
+}
+@addTagHelper *, Kendo.Mvc
+
+@{
+    var messages = new Dictionary<string, string>() { { "custom", "Please choose another Start Time." } };
+    var rules = new Dictionary<string, string>() { { "custom", "customFunction" } };
+}
+<!--#region head -->
+<html>
+<head>
+    <style>
+        html {
+            font-size: 13px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+    </style>
+    <title></title>
+    <link href="https://kendo.cdn.telerik.com/2021.2.616/styles/kendo.common.min.css" rel="stylesheet" />
+    <link rel="stylesheet" id="skin-css" href="@TempData["theme"]" />
+    <link rel="stylesheet" id="skin-css" href="@TempData["themeMobile"]" />
+    <script src="https://kendo.cdn.telerik.com/2021.2.616/js/jquery.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2021.2.616/js/kendo.all.min.js"></script>
+
+    <script src="@Url.Content("~/telerik/2021.2.616/js//cultures/kendo.culture." + culture + ".min.js")"></script>
+    <script src="@Url.Content("~/telerik/2021.2.616/js//messages/kendo.messages." + culture + ".min.js")"></script>
+
+    <script type="text/javascript">
+        kendo.culture("@culture");
+    </script>
+</head>
+<!--#endregion -->
+<body data-spy="scroll" data-target=".navbar">
+    @if (ViewBag.IsSuccess == true)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>@ESCHOOL.Resources.Resource.Warning</strong>@ESCHOOL.Resources.Resource.ValidationError<br />
+            <a asp-contoller="M800SmsEMail" asp-action="SmsEMail" asp-route-id="@Model.UserID&@Model.StudentID">@ESCHOOL.Resources.Resource.ClickToContinue</a>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
+    @*Notification*@
+    <span id="popupNotification"></span>
+    <div id="appendto" class="demo-section k-content"></div>
+    <script>
+        function showPopupNotification() {
+            var popupNotification = $("#popupNotification").kendoNotification().data("kendoNotification");
+            var d = new Date();
+            popupNotification.show(kendo.toString(d, 'HH:MM:ss.') + kendo.toString(d.getMilliseconds(), "000"), "error");
+        };
+    </script>
+    <!--#region toolbar -->
+
+    <script>
+        $(document).ready(function() {
+            $("#toolbarMenu").kendoToolBar({
+                items: [
+                    {
+                        template: "<img src='../Upload/Images/Logo.png' class='user-image' style='width:60px;'/>",
+                        overflow: "never",
+                    },
+                    { template: "<h4 style='padding-left:20px;'>@ESCHOOL.Resources.Resource.SmsEMailTransaction</h4>" },
+                    { type: "spacer" },
+
+
+                    { type: "button", id: "result", text: "@ESCHOOL.Resources.Resource.MessageResults", icon: "spell-checker" },
+                    { type: "separator" },
+
+                    { type: "button", id: "accountinfo", text: "@ESCHOOL.Resources.Resource.AccountInfo", icon: "information" },
+                    { type: "separator" },
+
+                    { type: "button", id: "help", text: "@ESCHOOL.Resources.Resource.Help", icon: "help" },
+                    { type: "separator" },
+
+                    { type: "button", id: "exit", text: "@ESCHOOL.Resources.Resource.Exit", icon: "logout" },
+                    { type: "separator" },
+                ],
+
+                click: function(e) {
+                    if (e.id == "exit" || e.id == "back") {
+                        if (e.id == "exit")
+                            window.location.replace("/Home/index?userID=@Model.UserID");
+                        else
+                            window.location.replace("/M210Student/AddOrEditStudent?studentID=" + @Model.StudentID + "&userID=@Model.UserID");
+                    }
+
+                    if (e.id == "help") {
+                        var myWindow = $("#panelbarHelp").show();
+                        var panelBar = $("#panelbarHelp").data("kendoPanelBar");
+                        panelBar.select(panelBar.element.children("li").eq(0));
+                        panelBar._selected[0].style.display = 'block';
+                        var item = panelBar.select();
+                        panelBar.expand(item);
+                    }
+                    if (e.id == "accountinfo") {
+                        div1Show();
+                        SmsAccountInfo();
+                    }
+                    if (e.id == "result") {
+                        div1SmsEMailShow();
+                    }
+                }
+            });
+        });
+    </script>
+
+    <!--#endregion -->
+
+    <form asp-controller="M800SmsEMail" asp-action="SmsEmail" asp-route-id="@Model.UserID&@Model.StudentID" enctype="multipart/form-data" method="post">
+        <div class="demo-section k-content fixed-top wide">
+            <div id="toolbarMenu"></div>
+        </div>
+        <br />
+
+        <script id="template" type="text/x-kendo-template">
+            <span class="k-textbox k-grid-search k-display-flex"  style="width:50%;">
+                <input autocomplete="off" placeholder=@ESCHOOL.Resources.Resource.Search class="k-input">
+                <span class="k-input-icon">
+                    <span class="k-icon k-i-search" style="float:right"></span>
+                </span>
+            </span>
+
+            <div class="toolbar" style="float:left"><label  for="classroomDropDown"></label> <input type="select" id="classroomDropDown" style="width: 150px" /></div >
+        </script>
+
+        @*<br /><br /><br /><br /><br /><br /><br />*@
+
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <!--#region hidden -->
+        @*Geri dönüşlerde null olmaması için*@
+        <input type="hidden" asp-for="@Model.StudentID" />
+        <input type="hidden" asp-for="@Model.UserID" />
+        <input type="hidden" asp-for="@TempData["studentID"]" id="studentID" />
+
+        <input type="hidden" id="topt1ID" value=1 />
+        <input type="hidden" id="topt2ID" value=3 />
+
+        <!--#endregion -->
+        <br /> <br />
+        <!--#region panelbarHelp -->
+        <ul id="panelbarHelp" style="display: none;">
+            <li>
+                <span class="k-link">@ESCHOOL.Resources.Resource.Help</span>
+                <div class="k-card-body" style="padding-left:15px;">
+                    <p><strong>@ESCHOOL.Resources.Resource.CollectionMsg</strong></p>
+                    <p>@ESCHOOL.Resources.Resource.SmsEmailMsg1</p>
+                    <p>@ESCHOOL.Resources.Resource.SmsEmailMsg2</p>
+                    <p><strong>@ESCHOOL.Resources.Resource.SmsEmailMsg3</strong></p>
+                    <p>@ESCHOOL.Resources.Resource.SmsEmailMsg4</p>
+                    <p>@ESCHOOL.Resources.Resource.SmsEmailMsg5</p>
+                    <p>@ESCHOOL.Resources.Resource.SmsEmailMsg6</p>
+                    <p>@ESCHOOL.Resources.Resource.SmsEmailMsg7</p>
+                    <br />
+                    <p><strong>@ESCHOOL.Resources.Resource.SmsEmailMsg8</strong></p>
+                    <p><strong>@ESCHOOL.Resources.Resource.SmsEmailMsg9</strong></p>
+                    <br />
+                </div>
+                <style>
+                    #panelbarHelp {
+                        width: 100%;
+                        /*     max-width: none;*/
+                        margin: 0 auto;
+                    }
+                </style>
+
+                <script>
+                    $(document).ready(function() {
+                        $("#panelbarHelp").kendoPanelBar({
+                            animation: {
+                                collapse: {
+                                    duration: 500,
+                                    effects: "fadeOut"
+                                },
+                                expand: {
+                                    duration: 500,
+                                    effects: "expandVertical fadeIn"
+                                }
+                            }
+                        });
+                    });
+                </script>
+            </li>
+        </ul>
+        <!--#endregion -->
+
+
+        <div id="div1" class="form-horizontal k-content  row" style="display: none; border: thin solid rgb(120,120,120); padding-left:20px; padding-top:10px; padding-bottom:10px;">
+            <div class="col col-md-5">
+                <div class="container-flued">
+                    <div class="card-body">
+                        <h5 class="ra-well-title card-header top-left">
+                            <kbd>@ESCHOOL.Resources.Resource.AccountInfo</kbd>
+                        </h5>
+                        <br />
+                        <div class="row">
+                            <div class="col col-md-4">
+                                <label class="control-label">@ESCHOOL.Resources.Resource.ServicesProvider</label>
+                            </div>
+                            <div class="col col-md-6">
+                                <input id="serviceProviderDropDown" asp-for="SchoolInfo.SmsServerNameID" style="width: 150px;" />
+                            </div>
+
+                            <div class="col col-md-2">
+                                <div class="row rightAlign" style="float: right; margin-right: 1px; ">
+                                    <p>
+                                        <button type="button" id="okButton1" style="width:80px;" onclick="div1Button()">@ESCHOOL.Resources.Resource.Submit</button>
+                                    </p>
+                                </div>
+                                <script>
+                                    $(document).ready(function() {
+                                        $("#okButton1").kendoButton({
+                                            icon: "save",
+                                        });
+                                    });
+                                </script>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col col-md-4">
+                                <label class="control-label">@ESCHOOL.Resources.Resource.SmsCredits</label>
+                            </div>
+                            <div class="col col-md-6">
+                                <input id="smsCredits" asp-for="SchoolInfo.SmsCredits" class="k-textbox" type="number" min="0" style="width: 150px;" />
+                            </div>
+                            <div class="col col-md-2">
+                                <div class="row rightAlign" style="float: right; margin-right: 1px; ">
+                                    <span class="k-card-action"><span class="k-button k-flat k-primary" id="closeid" style="height: 30px; width: 80px" onclick="div1Close()">@ESCHOOL.Resources.Resource.Close</span></span>
+                                </div>
+                                <script>
+                                    $(document).ready(function() {
+                                        $("#closeid").kendoButton({
+                                            icon: "close",
+                                        });
+                                    });
+                                </script>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col col-md-4">
+                                <label class="control-label">@ESCHOOL.Resources.Resource.UserName</label>
+                            </div>
+                            <div class="col col-md-6">
+                                <input id="smsUserName" asp-for="SchoolInfo.SmsUserName" class="k-textbox" style="width: 150px;" />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col col-md-4">
+                                <label class="control-label">@ESCHOOL.Resources.Resource.Password</label>
+                            </div>
+                            <div class="col col-md-6">
+                                <input id="smsUserPassword" asp-for="SchoolInfo.SmsUserPassword" class="k-textbox" style="width: 150px;" />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col col-md-4">
+                                <label class="control-label">@ESCHOOL.Resources.Resource.Title</label>
+                            </div>
+                            <div class="col col-md-6">
+                                <input id="smsTitle" asp-for="SchoolInfo.SmsTitle" class="k-textbox" style="width: 150px;" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="div11" class="col col-md-7">
+                <div class="container-flued">
+
+                    <div class="k-card-body">
+                        <p><strong>@ESCHOOL.Resources.Resource.Explanation</strong></p>
+                        <p>@ESCHOOL.Resources.Resource.Div1SmsMsg1</p>
+                        <p>@ESCHOOL.Resources.Resource.Div1SmsMsg2</p>
+                        <p>@ESCHOOL.Resources.Resource.Div1SmsMsg3</p>
+                        <p>@ESCHOOL.Resources.Resource.Div1SmsMsg4</p>
+                        <p>@ESCHOOL.Resources.Resource.Div1SmsMsg5</p>
+                        <p>@ESCHOOL.Resources.Resource.Div1SmsMsg6</p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div id="div1SmsEmailResult" class="row" style="display: none;">
+            <div>
+                <div class="row">
+                    <span class="k-card-action"><span class="k-button k-flat k-primary" id="resuldCloseid" style="height: 30px; width: 80px" onclick="div1SmsEMailClose()">@ESCHOOL.Resources.Resource.Close</span></span>
+                </div>
+                <script>
+                    $(document).ready(function() {
+                        $("#resuldCloseid").kendoButton({
+                            icon: "close",
+                        });
+                    });
+                </script>
+                <h5 class="ra-well-title card-header top-left" style="padding-top: 2px; padding-bottom:2px;"> <kbd>  @ESCHOOL.Resources.Resource.MessageResults</kbd></h5>
+                <div style="width:1140px; padding-left:15px; padding-right:15px;">
+                    <div id="gridResults" style="padding:5px;"></div>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <h5 class="ra-well-title card-header top-left" style="padding-top: 2px; padding-bottom:2px;"> <kbd>  @ESCHOOL.Resources.Resource.Students</kbd></h5>
+            <div>
+                <div id="gridStudents" style="padding:5px;"></div>
+            </div>
+        </div>
+        <hr />
+        <div class="form-horizontal k-content" style="border: thin solid rgb(120,120,120); padding-top:10px; padding-bottom:10px;">
+            <div class="row col-md-12">
+
+                <div class="col col-md-4">
+                    <div class="row form-group1">
+                        <div class="row">
+                            &nbsp; &nbsp;
+                            <div class="custom-control custom-radio label">
+                                <input type="radio" class="k-radio" name="inv1" id="Inv1" checked="checked" />
+                                <label class="k-radio-label" for="Inv1">@ESCHOOL.Resources.Resource.ToMobilePhone</label>
+                            </div>
+
+                            <div class="custom-control custom-radio label">
+                                <input type="radio" class="k-radio" name="inv1" id="Inv2" />
+                                <label class="k-radio-label" for="Inv2">@ESCHOOL.Resources.Resource.ToEmailAddress</label>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="k-form-field-wrap">
+                        <ul id="radiogroupMobileEMail"></ul>
+                        <div class="k-form-hint">@ESCHOOL.Resources.Resource.SmsEMailMsg</div>
+                    </div>
+                </div>
+
+                <div class="col col-md-3 verticalLine">
+                    <div class="row">
+                        &nbsp; &nbsp; &nbsp;
+                        <label class="label">@ESCHOOL.Resources.Resource.MessageOptions</label>
+                    </div>
+                    <div class="k-form-field-wrap">
+                        <ul id="radiogroupMsgOpt"></ul>
+                    </div>
+
+
+                    <div id="divDOB" class="row" style="display: none;">
+                        <div class="card-body">
+                            <div class="row col-md-12">
+                                <div class="col col-md-7">
+                                    <label class="control-label">@ESCHOOL.Resources.Resource.StartDate</label>
+                                </div>
+                                <div class="col col-md-5" style="padding-top:0;">
+                                    <input type="date" id="date1" class="form-control" style="width: 110px; height:24px;" />
+                                </div>
+                            </div>
+                            <div class="row col-md-12">
+                                <div class="col col-md-7">
+                                    <label class="control-label">@ESCHOOL.Resources.Resource.EndDate</label>
+                                </div>
+                                <div class="col col-md-5" style="padding-top:0;">
+                                    <input type="date" id="date2" class="form-control" style="width: 110px; height:24px;" />
+                                </div>
+                            </div>
+                            <hr />
+                            <div class="row">
+                                <div class="col col-md-6">
+                                    <div class="row rightAlign" style="float: right; margin-right: 1px; ">
+                                        <span class="k-card-action"><span class="k-button k-flat k-primary" id="closeid" style="height: 30px; width: 80px" onclick="divDOBHide()">@ESCHOOL.Resources.Resource.Close</span></span>
+                                    </div>
+                                    <script>
+                                        $(document).ready(function() {
+                                            $("#closeid").kendoButton({
+                                                icon: "close",
+                                            });
+                                        });
+                                    </script>
+                                </div>
+
+                                <div class="col col-md-6">
+                                    <div class="row rightAlign" style="float: right; margin-right: 1px; ">
+                                        <p>
+                                            <button type="button" id="okButton3" style="width:80px" onclick="divDOBButton()">@ESCHOOL.Resources.Resource.Filter</button>
+                                        </p>
+                                    </div>
+
+                                    <script>
+                                        $(document).ready(function() {
+                                            $("#okButton3").kendoButton({
+                                                icon: "zoom-in",
+                                            });
+                                        });
+                                    </script>
+                                </div>
+                            </div>
+                            <div id="div33" class="row card">
+                                <div class="k-card-body">
+                                    <p><strong>@ESCHOOL.Resources.Resource.Explanation</strong></p>
+                                    <h6 class="k-card-subtitle">@ESCHOOL.Resources.Resource.DobMsg</h6>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col col-md-5 verticalLine">
+                    <div style="padding-left:15px;">
+                        <div class="row">
+                            <label class="label">@ESCHOOL.Resources.Resource.Title1</label>
+                            <input id="titleId" class="k-textbox" style="width: 100%; " maxlength="50" disabled />
+                        </div>
+                        &nbsp;
+                        <div class="row">
+                            <label class="label">@ESCHOOL.Resources.Resource.Messages</label>
+                            <textarea id="messageId" class="k-textbox" style="width: 100%; height:100px;" text-wrap="normal" type="text" maxlength="250" disabled></textarea>
+                        </div>
+                        &nbsp;&nbsp;
+                        <div class="row">
+                            <button type="button" id="sendId" onclick="okClickSmsEmail()" style="width:80px" disabled>@ESCHOOL.Resources.Resource.Send</button>
+                        </div>
+                        <script>
+                            $(document).ready(function() {
+                                $("#sendId").kendoButton({
+                                    icon: "check"
+                                });
+                            });
+                        </script>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <style>
+        .verticalLine {
+            border-left: 1px solid green;
+        }
+    </style>
+
+    <script>
+        $(document).ready(function() {
+            var opt1 = getByCulture('@culture', 'sendtoParent');
+            var opt2 = getByCulture('@culture', 'sendtohisMother');
+            var opt3 = getByCulture('@culture', 'sendtohisFather');
+            var opt4 = getByCulture('@culture', 'sendtoanyonewithaNumber');
+            var opt5 = getByCulture('@culture', 'sendtoStudent');
+            $("#radiogroupMobileEMail").kendoRadioGroup({
+                items: [{
+                    value: 1,
+                    label: opt1
+                }, {
+                    value: 2,
+                    label: opt2
+                }, {
+                    value: 3,
+                    label: opt3
+                }, {
+                    value: 4,
+                    label: opt4
+                }, {
+                    value: 5,
+                    label: opt5
+                }],
+                layout: "vertical",
+                value: 1,
+                change: function(e) {
+                    document.getElementById("topt1ID").value = e.newValue;
+                    /*console.log(e.newValue);*/
+                },
+            });
+
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            var msgopt1 = getByCulture('@culture', 'sendtMessage');
+            var msgopt2 = getByCulture('@culture', 'studentBirthdayMessage');
+            var msgopt3 = getByCulture('@culture', 'unpaidDebtNotice');
+            var msgopt4 = getByCulture('@culture', 'totalDebtNotice');
+
+            var msg1 = getByCulture('@culture', 'message');
+            var msg2 = getByCulture('@culture', 'birthdaycelebration');
+            var msg3 = getByCulture('@culture', 'unpaidMessageNotice');
+            var msg4 = getByCulture('@culture', 'totalDebtNotice');
+            document.getElementById("titleId").value = msg3;
+            $("#radiogroupMsgOpt").kendoRadioGroup({
+                items: [msgopt1, msgopt2, msgopt3, msgopt4],
+                items: [{
+                    value: 1,
+                    label: msgopt1
+                }, {
+                    value: 2,
+                    label: msgopt2
+                }, {
+                    value: 3,
+                    label: msgopt3
+                }, {
+                    value: 4,
+                    label: msgopt4
+                }],
+                layout: "vertical",
+                value: 3,
+
+                change: function(e) {
+                    document.getElementById("topt2ID").value = e.newValue;
+                    if (e.newValue == 1) { document.getElementById("titleId").value = msg1; document.getElementById("titleId").disabled = false; document.getElementById("messageId").disabled = false; }
+                    if (e.newValue == 2) { document.getElementById("titleId").value = msg2; document.getElementById("titleId").disabled = false; document.getElementById("messageId").disabled = false; }
+                    if (e.newValue == 3) { document.getElementById("titleId").value = msg3; document.getElementById("titleId").disabled = true; document.getElementById("messageId").disabled = true; }
+                    if (e.newValue == 4) { document.getElementById("titleId").value = msg4; document.getElementById("titleId").disabled = true; document.getElementById("messageId").disabled = true; }
+                    if (e.newValue == 2) divDOBShow()
+                    else divDOBHide();
+
+                    if (e.oldValue == 2) divDOBButton();
+                },
+            });
+        });
+    </script>
+    <style>
+        .label {
+            font: normal 14px/16px Metric, Arial, Helvetica, sans-serif;
+            color: gray;
+            display: inline-block;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .k-form-hint {
+            margin-top: 10px;
+        }
+
+        .opt1 {
+            color: white;
+        }
+
+        form label {
+            font-weight: bold;
+            font-size: 12px;
+        }
+
+        .k-header {
+            font-weight: bold !important;
+            font-size: 12px;
+        }
+
+    </style>
+
+    <!--#region dictionary -->
+    <script>
+        var dictionary =
+        {
+            'tr-TR': {
+                select: 'Seç',
+                selectbankName: 'Banka Seçimini Yapınız.',
+                enterValidAmount: 'Geçerli Bir Tutar Giriniz.',
+                selectclassroom: 'Öğrencinin Sınıfını Giriniz.',
+                feetableempty: 'Ücret tablosu girilmemiş.',
+                studentfeeempty: 'Öğrenci ücretleri girilmemiş.',
+                aboutRefundMsg: 'Notlarınız Kaydedildi.',
+                deleted: "Tahsil Kaydı Silindi.",
+                delete: "Tahsil Kaydı Silinecek, Emin misiniz?",
+                startBatch: "Toplu Fatura Dökümü Yapılacak, Emin misiniz?",
+                maxTotal: "Dikkat; Bakiye Tutarından Büyük Bir Tutar Giremezsiniz.",
+                cut: "Kesildi",
+                unCut: "Kesilmedi",
+                planned: "Planlı",
+                unPlanned: "Plansız",
+                isExceed: "Girilen Tutar Çok Büyük.",
+
+                toMobilePhone: "Cep Telefonuna",
+                toEmailAddress: "E-Posta Adresine",
+                sendtoParent: "Velisine Gönder",
+                sendtohisMother: "Annesine Gönder",
+                sendtohisFather: "Babasına Gönder",
+                sendtoanyonewithaNumber: "Numarası olan herhangi birine gönder",
+                sendtoStudent: "Öğrenciye Gönder",
+
+                sendtMessage: "Mesaj Gönder",
+                studentBirthdayMessage: "Öğrenci Doğum Günü Mesajı",
+                unpaidDebtNotice: "Ödenmemiş Borç Bildirimi",
+                totalDebtNotice: "Toplam Borç Bildirimi",
+
+                message: "Mesaj",
+                birthdaycelebration: "Doğum Günü Kutlaması",
+                unpaidMessageNotice: "Ödenmemiş Borç Bildirimi",
+                totalDebtNotice: "Toplam Borç Bildirimi",
+            },
+
+            'en-US': {
+                select: 'Select',
+                selectbankName: 'Select the bank name.',
+                enterValidAmount: 'Enter Valid Amount.',
+                selectclassroom: "Enter Student's Class.",
+                feetableempty: 'The wage table has not been entered.',
+                studentfeeempty: 'Enter student fees.',
+                aboutRefundMsg: 'Your notes have been recorded.',
+                deleted: "Student collections record deleted.",
+                delete: "Are you sure, Collection record will be deleted?",
+                startBatch: "Batch Invoice Casting Will Be Made, Are You Sure?",
+                maxTotal: "Attention; You cannot enter an amount greater than the balance amount.",
+                cut: "Cut",
+                unCut: "Uncut",
+                planned: "Planned",
+                unPlanned: "Unplanned",
+                isExceed: "The amount entered is too large.",
+
+                sendtoParent: "Send to Parent",
+                sendtohisMother: "Send to his Mother",
+                sendtohisFather: "Send to his Father",
+                sendtoanyonewithaNumber: "Send to anyone with a Number",
+                sendtoStudent: "Send to Student",
+
+                sendtMessage: "Send Message",
+                studentBirthdayMessage: "Student Birthday Message",
+                unpaidDebtNotice: "Unpaid Message Notice",
+                totalDebtNotice: "Total Debt Notice",
+
+                message: "Message",
+                birthdaycelebration: "Birthday Celebration",
+                unpaidMessageNotice: "Unpaid Message Notice",
+                totalDebtNotice: "Total Debt Notice",
+            },
+        }
+        function getByCulture(culture, word) {
+            return dictionary[culture][word]
+        }
+    </script>
+    <!--#endregion -->
+
+    <script>
+        function divDOBButton() {
+            var classroomID = 0;
+            var isSmsOrEmail = document.getElementById('Inv1').value;
+            var option2 = document.getElementById("topt2ID").value;
+
+            var date = $("#date1").data("kendoDatePicker").value();
+            var strDate1 = kendo.toString(date, "dd-MM-yyyy");
+            var date = $("#date2").data("kendoDatePicker").value();
+            var strDate2 = kendo.toString(date, "dd-MM-yyyy");
+
+            var grid = $("#gridStudents").data("kendoGrid");
+            grid.dataSource.options.transport.read.url = "/M800SmsEMail/GridStudentDataRead/" + "@Model.UserID" + '/' + classroomID + "/" + isSmsOrEmail + "/" + option2 + "/" + strDate1 + "/" + strDate2,
+                grid.dataSource.read();
+            grid.refresh();
+        }
+    </script>
+
+    <script>
+        function okClickSmsEmail() {
+            var entityGrid = $("#gridStudents").data("kendoGrid");
+            var rows = entityGrid.select();
+
+            rows.each(function(index, row) {
+                var selectedItem = entityGrid.dataItem(row);
+                var dataItem = entityGrid.dataSource.get(selectedItem.studentID);
+                dataItem.dirty = true;
+            });
+            entityGrid.saveChanges();
+
+            $("#sendId").data("kendoButton").enable(false);
+        }
+    </script>
+
+    <!--#region students -->
+    <script>
+        function onChange(arg) {
+            $("#sendId").data("kendoButton").enable(true);
+            /*console.log("The selected product ids are: [" + this.selectedKeyNames().join(", ") + "]");*/
+        };
+        var strDate1 = "0";
+        var strDate2 = "0";
+        var option2 = 0;
+        var isSmsOrEmail = true;
+        var classroomID = 0;
+        var isSelect = false;
+        $(document).ready(function() {
+            var crudServiceBaseUrl = "/M800SmsEMail/",
+                dataSource = new kendo.data.DataSource({
+                    transport: {
+                        read: {
+                            url: crudServiceBaseUrl + "GridStudentDataRead/" + "@Model.UserID" + '/' + classroomID + "/" + isSmsOrEmail + "/" + option2 + "/" + strDate1 + "/" + strDate2,
+                            dataType: "json"
+                        },
+                        update: {
+                            url: function(options) {
+                                var isSmsOrEmail = document.getElementById('Inv1');
+                                var option1 = document.getElementById("topt1ID").value;
+                                var option2 = document.getElementById("topt2ID").value;
+                                var titleTxt = document.getElementById("titleId").value;
+                                var messageTxt = document.getElementById("messageId").value;
+
+                                if (messageTxt == "") messageTxt = null;
+                                var url = crudServiceBaseUrl + "GridStudentDataCreate/" + options.models[0].id + "/" + isSmsOrEmail.checked + "/" + option1 + "/" + option2 + "/" + @Model.UserID + "/" + titleTxt + "/" + messageTxt;
+                                return url;
+                            },
+                            type: "post",
+                            dataType: "json",
+                            complete: function(e) {
+                                showPopupNotification();
+                                $("#gridStudents").data("kendoGrid").dataSource.read();
+                            },
+                        },
+
+                        parameterMap: function(options, operation) {
+                            if (operation !== "read" && options.models) {
+                                return { models: kendo.stringify(options.models) };
+                            }
+                        }
+                    },
+                    batch: true,
+                    pageSize: 10,
+                    schema: {
+                        model: {
+                            id: "studentID",
+                            fields: {
+                                smsEmailID: { editable: false, type: "number" },
+                                studentID: { editable: false, type: "number" },
+                                studentNumber: { editable: false, type: "number" },
+                                name: { editable: true, type: "string" },
+                                studentClassroom: { editable: false, type: "string" },
+
+                                dateOfBird: { editable: false, type: "date", format: "{0:yyyy-MM-dd HH:mm:ss}" },
+                                studentMobilePhone: { editable: false, type: "string" },
+                                studentEMail: { editable: false, type: "string" },
+                                parentMobilePhone: { editable: false, type: "string" },
+                                parentEMail: { editable: false, type: "string" },
+                                fatherMobilePhone: { editable: false, type: "string" },
+                                fatherEMail: { editable: false, type: "string" },
+                                motherMobilePhone: { editable: false, type: "string" },
+                                motherEMail: { editable: false, type: "string" },
+                                unpaidDebtMessage: { editable: false, type: "string" },
+                                totalDebtMessage: { editable: false, type: "string" },
+                                isStatu: { editable: true, type: "boolean" },
+                            }
+                        }
+                    },
+                });
+
+            var first = 1;
+            var grid = $("#gridStudents").kendoGrid({
+                dataSource: dataSource,
+                pageable: true,
+                resizable: true,
+                selectable: "multiple row",
+                /*multiselect: true,*/
+                /*            selectable: 'row',*/
+                change: onChange,
+                height: 390,
+                toolbar: [
+                    { template: kendo.template($("#template").html()) }
+                ],
+                columns: [
+                    { selectable: true, width: "50px", width: "35px", },
+                    { field: "name", title: "@ESCHOOL.Resources.Resource.StudentName", width: "200px", },
+                    { field: "studentClassroom", title: "@ESCHOOL.Resources.Resource.Classrooms", width: "130px" },
+                    { field: "studentNumber", title: "@ESCHOOL.Resources.Resource.StudentNumber", width: "75px" },
+                    {
+                        title: "@ESCHOOL.Resources.Resource.Parent",
+                        columns: [
+                            { field: "parentMobilePhone", title: "@ESCHOOL.Resources.Resource.MobilePhone", width: "100px" },
+                            { field: "parentEMail", title: "@ESCHOOL.Resources.Resource.EMail", width: "100px" },
+                        ]
+                    },
+
+                    {
+                        title: "@ESCHOOL.Resources.Resource.Fathers",
+                        columns: [
+                            { field: "fatherMobilePhone", title: "@ESCHOOL.Resources.Resource.MobilePhone", width: "100px" },
+                            { field: "fatherEMail", title: "@ESCHOOL.Resources.Resource.EMail", width: "100px" },
+                        ]
+                    },
+
+                    {
+                        title: "@ESCHOOL.Resources.Resource.Mothers",
+                        columns: [
+                            { field: "motherMobilePhone", title: "@ESCHOOL.Resources.Resource.MobilePhone", width: "100px" },
+                            { field: "motherEMail", title: "@ESCHOOL.Resources.Resource.EMail", width: "100px" },
+                        ]
+                    },
+
+                    {
+                        title: "@ESCHOOL.Resources.Resource.Studentss",
+                        columns: [
+                            { field: "studentMobilePhone", title: "@ESCHOOL.Resources.Resource.MobilePhone", width: "100px" },
+                            { field: "studentEMail", title: "@ESCHOOL.Resources.Resource.EMail", width: "100px" },
+                            { field: "dateOfBird", title: "@ESCHOOL.Resources.Resource.DateOfBird", width: "100px", format: "{0:dd.MM.yyyy}", template: "#if(dateOfBird === null){#  #}else{# #=kendo.toString(kendo.parseDate(dateOfBird), 'dd/MM/yyyy')#  #}#" },
+                        ]
+                    },
+
+                    {
+                        title: "@ESCHOOL.Resources.Resource.Messages",
+                        columns: [
+                            { field: "unpaidDebtMessage", title: "@ESCHOOL.Resources.Resource.UnpaidDebtMessage", width: "240px", template: "<div style='height:40px;overflow-y:scroll'>#=unpaidDebtMessage #</div>" },
+                            { field: "totalDebtMessage", title: "@ESCHOOL.Resources.Resource.TotalDebtMessage", width: "240px", template: "<div style='height:40px;overflow-y:scroll'>#=totalDebtMessage #</div>" },
+                        ]
+                    },
+                ],
+                dataBound: function (e) {
+                    showLoadingOff();
+                },
+            });
+
+            var dropDown = grid.find("#classroomDropDown").kendoDropDownList({
+                optionLabel: { classroomName: getByCulture('@culture', 'select'), classroomID: "0" },
+                dataTextField: "classroomName",
+                dataValueField: "classroomID",
+                dataSource: {
+                    type: "json",
+                    severFiltering: true,
+                    transport: {
+                        read: {
+                            url: "/M800SmsEMail/ClassroomCombo/" + "@Model.UserID",
+                            dataType: "json"
+
+                        },
+                    }
+                },
+                change: function() {
+                    showLoadingOn();
+                    var value = this.value();
+                    var classroomID = 0;
+                    var isSmsOrEmail = document.getElementById('Inv1').value;
+                    var option2 = document.getElementById("topt2ID").value;
+
+                    var date = $("#date1").data("kendoDatePicker").value();
+                    var strDate1 = kendo.toString(date, "dd-MM-yyyy");
+                    var date = $("#date2").data("kendoDatePicker").value();
+                    var strDate2 = kendo.toString(date, "dd-MM-yyyy");
+
+                    if (value == 0 || value != first) {
+                        $.ajax({
+                            type: "POST",
+                            url: '/M800SmsEMail/GridStudentDataRead/' + "@Model.UserID" + '/' + value + "/" + isSmsOrEmail + "/" + option2 + "/" + strDate1 + "/" + strDate2,
+                            dataType: "json",
+
+                            success: function(result) {
+                                var grid = $("#gridStudents").data("kendoGrid");
+                                var dataSource = new kendo.data.DataSource({ data: result });
+                                grid.setDataSource(dataSource);
+                            },
+                            error: function(httpRequest, textStatus, errorThrown) {
+                                alert("Error: " + textStatus + " " + errorThrown + " " + httpRequest);
+                            }
+                        });
+                        first = 0;
+                    };
+                },
+            }).data("kendoDropDownList");
+        })
+
+    </script>
+    <script>
+        function showLoadingOn() {
+            var myGrid = $("#gridStudents").getKendoGrid();
+            kendo.ui.progress($("#gridStudents"), true);
+        }
+        function showLoadingOff() {
+            var myGrid = $("#gridStudents").getKendoGrid();
+            kendo.ui.progress($("#gridStudents"), false);
+        }
+    </script>
+    <script>
+        function div1Button() {
+            var servicePproviderID = document.getElementById('serviceProviderDropDown').value;
+            var smsCredits = document.getElementById('smsCredits').value;
+            var smsUserName = document.getElementById('smsUserName').value;
+            var smsUserPassword = document.getElementById('smsUserPassword').value;
+            var smsTitle = document.getElementById('smsTitle').value;
+
+            $.ajax({
+                url: '/M800SmsEMail/Div1Update/' + "@Model.UserID" + "/" + servicePproviderID + "/" + smsCredits + "/" + smsUserName + "/" + smsUserPassword + "/" + smsTitle,
+                type: "post",
+                dataType: "json",
+                success: function(result) {
+                    div1Close();
+                    showPopupNotification();
+                },
+            });
+        }
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            $("#serviceProviderDropDown").kendoDropDownList({
+                dataTextField: "categoryName",
+                dataValueField: "categoryID",
+                dataSource: {
+                transport: {
+                    read: {
+                        dataType: "json",
+                        url: "/M800SmsEMail/ServiceProviderCombo"
+                    }
+                }
+            }
+                                                                                                    });
+
+                                                                                                });
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('body').kendoTooltip({
+                filter: '[title]:not([title=""])',
+                autoHide: true,
+                position: "top",
+                animation: {
+                    open: {
+                        effects: "zoom",
+                        duration: 150
+                    }
+                }
+            });
+        });
+    </script>
+    <!--#endregion -->
+    <!--#region result -->
+    <script>
+        record = 0;
+        $(document).ready(function() {
+            var crudServiceBaseUrl = "/M800SmsEMail/",
+                dataSource = new kendo.data.DataSource({
+                    transport: {
+                        read: {
+                            url: crudServiceBaseUrl + "GridResultDataRead/" + "@Model.UserID",
+                            dataType: "json"
+                        },
+                        parameterMap: function(options, operation) {
+                            if (operation !== "read" && options.models) {
+                                return { models: kendo.stringify(options.models) };
+                            }
+                        }
+                    },
+                    batch: true,
+                    pageSize: 10,
+                    schema: {
+                        model: {
+                            id: "smsEmailID",
+                            fields: {
+                                smsEmailID: { editable: false, type: "number" },
+                                studentID: { editable: false, type: "number" },
+                                studentNumber: { editable: false, type: "number" },
+                                name: { editable: true, type: "string" },
+                                studentClassroom: { editable: false, type: "string" },
+
+                                dateOfBird: { editable: false, type: "date", format: "{0:yyyy-MM-dd HH:mm:ss}" },
+                                studentMobilePhone: { editable: false, type: "string" },
+                                studentEMail: { editable: false, type: "string" },
+                                parentMobilePhone: { editable: false, type: "string" },
+                                parentEMail: { editable: false, type: "string" },
+                                fatherMobilePhone: { editable: false, type: "string" },
+                                fatherEMail: { editable: false, type: "string" },
+                                motherMobilePhone: { editable: false, type: "string" },
+                                motherEMail: { editable: false, type: "string" },
+                                unpaidDebtMessage: { editable: false, type: "string" },
+                                totalDebtMessage: { editable: false, type: "string" },
+                                isStatu: { editable: true, type: "boolean" },
+                                mobilePhoneOrEMail: { editable: false, type: "string" },
+                                title: { editable: false, type: "string" },
+                                message: { editable: false, type: "string" },
+                                isStatu: { editable: true, type: "boolean" },
+                                transactionMessage: { editable: false, type: "string" },
+                            }
+                        }
+                    },
+                });
+            var grid = $("#gridResults").kendoGrid({
+                dataSource: dataSource,
+                autoBind: false,
+                pageable: true,
+                resizable: true,
+                selectable: 'row',
+                height: 200,
+                columns: [
+                    { title: "#", template: "#= ++record #", width: 40 },
+                    { field: "name", title: "@ESCHOOL.Resources.Resource.Name", width: "160px", },
+                    { field: "dateOfBird", title: "@ESCHOOL.Resources.Resource.DateOfBird", width: "60px", format: "{0:dd.MM.yyyy}", template: "#if(dateOfBird === null){#  #}else{# #=kendo.toString(kendo.parseDate(dateOfBird), 'dd/MM/yyyy')#  #}#" },
+                    { field: "title", title: "@ESCHOOL.Resources.Resource.Title", width: 120 },
+                    { field: "mobilePhoneOrEMail", title: "@ESCHOOL.Resources.Resource.MobileEMail", width: 100 },
+                    { field: "message", title: "@ESCHOOL.Resources.Resource.Message", width: 150, template: "<div style='height:40px;overflow-y:scroll'>#=message #</div>" },
+                    { field: "isStatu", title: "@ESCHOOL.Resources.Resource.Status", width: "40px", editor: customBoolEditor, template: "<input  #if (isStatu) { # checked='checked' # } # type='checkbox' disabled />", attributes: { style: "text-align:center" } },
+                    { field: "transactionMessage", title: "@ESCHOOL.Resources.Resource.TransactionResult", width: 120 },
+                ],
+                dataBinding: function() {
+                    record = (this.dataSource.page() - 1) * this.dataSource.pageSize();
+                },
+            });
+            function customBoolEditor(container, options) {
+                $('<input class="k-checkbox" type="checkbox" name="isStatu" data-type="boolean" data-bind="checked:isStatu">').appendTo(container);
+            };
+        })
+    </script>
+
+    <script>
+        function div1Button() {
+            var servicePproviderID = document.getElementById('serviceProviderDropDown').value;
+            var smsCredits = document.getElementById('smsCredits').value;
+            var smsUserName = document.getElementById('smsUserName').value;
+            var smsUserPassword = document.getElementById('smsUserPassword').value;
+            var smsTitle = document.getElementById('smsTitle').value;
+
+            $.ajax({
+                url: '/M800SmsEMail/Div1Update/' + "@Model.UserID" + "/" + servicePproviderID + "/" + smsCredits + "/" + smsUserName + "/" + smsUserPassword + "/" + smsTitle,
+                type: "post",
+                dataType: "json",
+                success: function(result) {
+                    div1Close();
+                    showPopupNotification();
+                },
+            });
+        }
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            $("#serviceProviderDropDown").kendoDropDownList({
+                dataTextField: "categoryName",
+                dataValueField: "categoryID",
+                dataSource: {
+                transport: {
+                    read: {
+                        dataType: "json",
+                        url: "/M800SmsEMail/ServiceProviderCombo"
+                    }
+                }
+            }
+                                                                                                    });
+
+                                                                                                });
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('body').kendoTooltip({
+                filter: '[title]:not([title=""])',
+                autoHide: true,
+                position: "top",
+                animation: {
+                    open: {
+                        effects: "zoom",
+                        duration: 150
+                    }
+                }
+            });
+        });
+    </script>
+    <!--#endregion -->
+</body>
+</html>
+
+<!--#region style -->
+<style type="text/css">
+    .toolbar {
+        float: right;
+    }
+
+    #center {
+        margin-left: 22px;
+    }
+    /*    #gridStudents {
+                                                        overflow: auto;
+                                                    }*/
+    /*    .k-grid td {
+                                                        padding: 0;
+                                                        scroll-behavior;
+                                                    }
+                                                */
+    .k-grid-header .k-grid-header-wrap th.k-header {
+        text-align: center;
+        vertical-align: middle;
+        line-height: 0.7em
+    }
+</style>
+<!--#endregion -->
+
+
+<span id="popupNotification"></span>
+<script>
+    function showPopupNotification() {
+        var popupNotification = $("#popupNotification").kendoNotification().data("kendoNotification");
+        var d = new Date();
+        popupNotification.show(kendo.toString(d, 'HH:MM:ss.') + kendo.toString(d.getMilliseconds(), "000"), "error");
+    };
+</script>
+<script>
+    $("#date1").kendoDatePicker({
+        format: "dd/MM/yyyy"
+    });
+    var datepicker = $("#date1").data("kendoDatePicker");
+    datepicker.value(new Date());
+
+    $("#date2").kendoDatePicker({
+        format: "dd/MM/yyyy"
+    });
+    var datepicker = $("#date2").data("kendoDatePicker");
+    datepicker.value(new Date());
+
+    function divDOBShow() {
+        $("#divDOB").show(500);
+    };
+    function divDOBHide() {
+        $("#divDOB").hide(500);
+    };
+</script>
+
+
+<script>
+    function div1Show() {
+        $("#div1").show(500);
+    };
+    function div1Close() {
+        $("#div1").hide(500);
+    };
+    function div1SmsEMailClose() {
+        $("#div1SmsEmailResult").hide(500);
+    };
+
+    function div1SmsEMailShow() {
+        $("#div1SmsEmailResult").show(500);
+
+        var grid = $("#gridResults").data("kendoGrid");
+        grid.dataSource.options.transport.read.url = "/M800SmsEMail/GridResultDataRead/" + "@Model.UserID";
+        grid.dataSource.read();
+        grid.refresh();
+    };
+</script>
+
+<script>
+    function SmsAccountInfo() {
+        $.ajax({
+            url: '/M800SmsEMail/SmsAccountInfo/' + "@Model.UserID",
+            type: "post",
+            dataType: "json",
+
+            success: function(result) {
+                document.getElementById('smsCredits').value = result.credit;
+            }
+        });
+    }
+</script>
+<script>
+    window.history.replaceState('', '', window.location.pathname);
+</script>

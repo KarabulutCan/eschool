@@ -1,0 +1,1060 @@
+﻿@model ESCHOOL.ViewModels.UserViewModel
+@{
+    System.Globalization.CultureInfo.CurrentCulture = System.Globalization.CultureInfo.CreateSpecificCulture(@Model.SelectedCulture);
+    System.Globalization.CultureInfo.CurrentUICulture = System.Globalization.CultureInfo.CreateSpecificCulture(@Model.SelectedCulture);
+    var culture = System.Globalization.CultureInfo.CurrentCulture.ToString();
+}
+@addTagHelper *, Kendo.Mvc
+
+@{
+    var messages = new Dictionary<string, string>() { { "custom", "Please choose another Start Time." } };
+    var rules = new Dictionary<string, string>() { { "custom", "customFunction" } };
+}
+<!--#region head -->
+<head>
+    <style>
+        html {
+            font-size: 13px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+    </style>
+    <title></title>
+    <link href="https://kendo.cdn.telerik.com/2021.2.616/styles/kendo.common.min.css" rel="stylesheet" />
+    <link rel="stylesheet" id="skin-css" href="@TempData["theme"]" />
+    <link rel="stylesheet" id="skin-css" href="@TempData["themeMobile"]" />
+    <script src="https://kendo.cdn.telerik.com/2021.2.616/js/jquery.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2021.2.616/js/kendo.all.min.js"></script>
+
+    <script src="@Url.Content("~/telerik/2021.2.616/js//cultures/kendo.culture." + culture + ".min.js")"></script>
+    <script src="@Url.Content("~/telerik/2021.2.616/js//messages/kendo.messages." + culture + ".min.js")"></script>
+
+    <script type="text/javascript">
+        kendo.culture("@culture");
+    </script>
+</head>
+<!--#endregion -->
+<body data-spy="scroll" data-target=".navbar" onload="userSettings()">
+    <!--#region alert -->
+    @if (ViewBag.IsSuccess == true)
+    {
+        <br />
+        <br />
+        <br />
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>@ESCHOOL.Resources.Resource.Warning</strong>@ESCHOOL.Resources.Resource.ValidationError<br />
+            <a asp-contoller="M900Users" asp-action="AddOrEditUsers" asp-route-id="@Model.Users.UserID&@Model.Users.SchoolID">@ESCHOOL.Resources.Resource.ClickToContinue</a>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
+
+    <!--#endregion -->
+    <form id="M900Users" asp-controller="M900Users" asp-action="AddOrEditUsers" enctype="multipart/form-data" method="post">
+        <div class="demo-section k-content fixed-top">
+            <div id="toolbarMenu"></div>
+        </div>
+        <br />
+
+        <script id="template" type="text/x-kendo-template">
+            <span class="k-textbox k-grid-search k-display-flex">
+                <input autocomplete="off" placeholder=@ESCHOOL.Resources.Resource.Search class="k-input">
+                <span class="k-input-icon">
+                    <span class="k-icon k-i-search"></span>
+                </span>
+            </span>
+        </script>
+
+        @*<br /><br /><br /><br /><br /><br /><br />*@
+
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        @*Geri dönüşlerde null olmaması için*@
+        <input type="hidden" asp-for="@Model.UserID" id="userID" />
+        <input type="hidden" asp-for="@Model.ViewModelID" />
+        <input type="hidden" asp-for="@Model.Users.UserID" />
+        <input type="hidden" asp-for="@Model.Users.UserPeriod" />
+        <input type="hidden" asp-for="@Model.Users.UserDate" />
+        <input type="hidden" asp-for="@Model.Users.LoginDate" />
+        <input type="hidden" asp-for="@Model.Users.SchoolID" />
+        <input type="hidden" asp-for="@Model.Users.IsActive" />
+        <input type="hidden" asp-for="@Model.Users.IsLogin" />
+        <input type="hidden" asp-for="@Model.Users.IsSupervisor" />
+        <input type="hidden" asp-for="@Model.Users.SelectedTheme" />
+        <input type="hidden" asp-for="@Model.Users.SelectedSchoolCode" />
+        <br /> <br />
+        <!--#region panelbarHelp -->
+        <ul id="panelbarHelp" style="display: none;">
+            <li>
+                <span class="k-link">@ESCHOOL.Resources.Resource.Help</span>
+                <div class="k-card-body" style="padding-left:15px;">
+                    <p><strong>@ESCHOOL.Resources.Resource.Application</strong></p>
+                    <p>@ESCHOOL.Resources.Resource.UsersEntry01</p>
+                    <p>@ESCHOOL.Resources.Resource.UsersEntry02</p>
+                    <p>@ESCHOOL.Resources.Resource.UsersEntry03</p>
+                    <p>@ESCHOOL.Resources.Resource.UsersEntry04</p>
+                    <p>@ESCHOOL.Resources.Resource.UsersEntry05</p>
+                    <p>@ESCHOOL.Resources.Resource.UsersEntry06</p>
+                    <p>@ESCHOOL.Resources.Resource.UsersEntry07</p>
+                    <p>@ESCHOOL.Resources.Resource.UsersEntry08</p>
+                    <br />
+                </div>
+                <style>
+                    #panelbarHelp {
+                        width: 100%;
+                        /*     max-width: none;*/
+                        margin: 0 auto;
+                    }
+                </style>
+
+                <script>
+                    $(document).ready(function () {
+                        $("#panelbarHelp").kendoPanelBar({
+                            animation: {
+                                collapse: {
+                                    duration: 500,
+                                    effects: "fadeOut"
+                                },
+                                expand: {
+                                    duration: 500,
+                                    effects: "expandVertical fadeIn"
+                                }
+                            }
+                        });
+                    });
+                </script>
+            </li>
+        </ul>
+        <!--#endregion -->
+
+        <div class="form-horizontal k-content  row" style="border: thin solid rgb(120,120,120); padding-left:10px; padding-right:10px; padding-top:0px; padding-bottom:20px;">
+            <div class="col order-1 col-md-2 ra-well-title card-header top-left">
+                <div>
+                    <div id="wrap" style="height:6rem; width: 9rem;">
+                        <img id="imgpreviewUser" name="imgUser" src="@("~/Upload/Users/"+Model.Users.UserPicture)" asp-append-version="true" class="img-fluid img-thumbnail" />
+                        <div class="demo-section k-content">
+                            <input type="file" name="imgfileUser" id="imgfileUser" onchange="previewingUser(event)">
+                            <input asp-for="Users.UserPicture" class="k-textbox" style="width: 100%;" hidden />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col order-2 col-md-3 ra-well-title card-header top-left">
+                <h5 class="ra-well-title card-header top-left"> <kbd>@ESCHOOL.Resources.Resource.User</kbd></h5>
+                <div class="row">
+                    <div class="col">
+                        <label class="card-title">@ESCHOOL.Resources.Resource.FirstName</label>
+                        <input asp-for="Users.FirstName" class="k-textbox" style="font-weight: bold; width: 100%;" maxlength="30" required validationMessage=@ESCHOOL.Resources.Resource.RequiredField />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <label class="card-title">@ESCHOOL.Resources.Resource.LastName</label>
+                        <input asp-for="Users.LastName" class="k-textbox" style="font-weight: bold; width: 100%;" maxlength="30" required validationMessage=@ESCHOOL.Resources.Resource.RequiredField />
+                    </div>
+                </div>
+            </div>
+
+            <section class="col order-3 col-md-3">
+                <div class="col  ra-well-title card-header top-left" style="max-height: 200px; overflow: auto">
+                    <h5 class="ra-well-title card-header top-left"> <kbd>@ESCHOOL.Resources.Resource.Schools&nbsp;</kbd></h5>
+
+                    <div class="row">
+                        <div class="col">
+                            <label asp-for="Users.UserDateOfJoining" class="control-label"></label>
+                            <input asp-for="Users.UserDateOfJoining" class="form-control" id="userDateOfJoiningId" style="width: 100%;" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <label asp-for="Users.Profession" class="required"></label>
+                            <input asp-for="Users.Profession" class="k-textbox" style="width: 100%;" maxlength="30" />
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="col order-4 col-md-4 ra-well-title card-header">
+                <div>
+                    <div class="card" style="height: 8rem; width: 24rem;">
+                        <img id="imgpreviewUserTopView" name="imgUserTopView" src="@("~/Upload/Users/"+Model.Users.UserViewPicture)" asp-append-version="true" class="img-fluid img-thumbnail" style="height:130px;" />
+                        <div style="padding-left:14px; padding-right:16px;">
+                            <div class="row demo-section k-content" style="text-align: center; background-color: rgba(245, 245, 245, 0.4);">
+                                <div class="col col-md-6" style="padding-right:25px;">
+                                    <input type="file" name="imgfileUserTopView" id="imgfileUserTopView" onchange="previewingUserTopView(event)">
+                                </div>
+                                <div class="col col-md-6">
+                                    <Label style="font-size:8px;" class="k-card-subtitle">@ESCHOOL.Resources.Resource.ImageQuality</Label>
+                                </div>
+                                <input asp-for="Users.UserViewPicture" class="k-textbox" style="width: 100%;" hidden />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+      @*  <div style="padding-top:5px;"></div>*@
+        <row class="form-horizontal k-content  row" style="border: thin solid rgb(120,120,120);padding-bottom:10px;">
+            <div class="col order-5 col-md-7">
+                <!--#region general panel -->
+                <h5 class="ra-well-title card-header top-left"> <kbd>@ESCHOOL.Resources.Resource.General </kbd></h5>
+                <div class="row">
+                    <div class="col">
+                        <button type="button" id="btn1" onmouseover="IdChange(this)" onmouseout="IdChangeOld(this)" onclick="myFunction(this)">@ESCHOOL.Resources.Resource.IdNumber</button>
+                        <input asp-for="Users.IdNumber" id="id1" class="k-textbox" style="width: 100%;" onfocus="IdReset(this)" title="@ESCHOOL.Resources.Resource.TooltipId" />
+                    </div>
+                    <div class="col">
+                        <label asp-for="Users.DateOfBird" class="control-label"></label>
+                        <input asp-for="Users.DateOfBird" class="form-control" id="dateOfBirdId" style="width: 100%;" />
+                    </div>
+                    <div class="col">
+                        <label asp-for="Users.GenderTypeCategoryID" class="control-label"></label>
+                        <input asp-for="Users.GenderTypeCategoryID" id="genderTypeDropDown" class="text-section k-content" style="width: 100%;" />
+                    </div>
+                    <div class="col">
+                        <label asp-for="Users.BloodGroupCategoryID" class="control-label"></label>
+                        <input asp-for="Users.BloodGroupCategoryID" id="bloodGroupDropDown" class="text-section k-content" style="width: 100%;" />
+                    </div>
+                </div>
+                &nbsp;
+                <div class="row">
+                    <div class="col">
+                        <label asp-for="Users.NationalityID" class="control-label"></label>
+                        <input asp-for="Users.NationalityID" id="nationalityTypeDropDown" class="text-section k-content" style="width: 100%;" />
+                    </div>
+                    <div class="col">
+                        <label asp-for="Users.ReligiousID" class="control-label"></label>
+                        <input asp-for="Users.ReligiousID" id="religiousTypeDropDown" class="text-section k-content" style="width: 100%;" />
+                    </div>
+                    <div class="col">
+                        <label asp-for="Users.HomePhone" class="required"></label>
+                        <input asp-for="Users.HomePhone" class="k-textbox" style="width: 100%;" maxlength="15" />
+                    </div>
+                    <div class="col">
+                        <label asp-for="Users.MobilePhone" class="required"></label>
+                        <input asp-for="Users.MobilePhone" class="k-textbox" style="width: 100%;" maxlength="15" />
+                    </div>
+                </div>
+                &nbsp;
+                <div class="row">
+                    <div class="col col-md-6">
+                        <label asp-for="Users.EMail" class="required"></label>
+                        <input asp-for="Users.EMail" class="k-textbox" style="width: 100%;" type="email" maxlength="50" validationMessage=@ESCHOOL.Resources.Resource.ValidEmail />
+                    </div>
+                    <div class="col col-md-3">
+                        <label asp-for="Users.UserShiftFrom" class="control-label"></label>
+                        <input asp-for="Users.UserShiftFrom" class="form-control" id="userShiftFromId" style="width: 100%;" />
+                    </div>
+                    <div class="col col-md-3">
+                        <label asp-for="Users.UserShiftTo" class="control-label"></label>
+                        <input asp-for="Users.UserShiftTo" class="form-control" id="userShiftToId" style="width: 100%;" />
+                    </div>
+                </div>
+                <hr />
+                <div class="row" role="application">
+                    <div class="col col-md-4">
+                        <div class="row">
+                            <div class="col">
+                                <label asp-for="Users.UserName" class="required"></label>
+                                <input asp-for="Users.UserName" class="k-textbox" style="width: 100%;" maxlength="30" data-user-msg=@ESCHOOL.Resources.Resource.UserName />
+                            </div>
+                        </div>
+                        &nbsp;
+                        <div class="first-example">
+                            <label asp-for="Users.UserPassword" class="required"></label>
+                            <input asp-for="Users.UserPassword" type="password" class="k-textbox" id="userPasswordId" style="width: 80%;" maxlength="20" />
+                            <i id="pass-status" class="fa fa-eye" aria-hidden="true" onClick="viewPassword()"></i>
+                        </div>
+                        &nbsp;
+                        <div class="first-example" style="display: none;">
+                            <input asp-for="UserPasswordTmp" id="userPasswordTmpId" class="k-textbox" style="width: 80%;" maxlength="20" />
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <label asp-for="Users.SelectedLanguage" class="control-label"></label>
+                                <input asp-for="Users.SelectedLanguage" id="languageDropDown" class="text-section k-content" style="width: 100%;" />
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="col  demo-section">
+                        <div id="gridUserPermissions" title="@ESCHOOL.Resources.Resource.ToolltiipWorkArea"></div>
+                        <div id="gridUserSchoolPermissions" title="@ESCHOOL.Resources.Resource.ToolltiipWorkArea2"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col order-6 col-md-5">
+                <h5 class="ra-well-title card-header top-left"> <kbd>@ESCHOOL.Resources.Resource.Address </kbd></h5>
+                <div id="Address">
+                    <div class="row">
+                        <div class="col target" id="studentAddress1Target">
+                            <label asp-for="Users.HomeAddress" class="control-label"></label>
+                            <textarea asp-for="Users.HomeAddress" id="address" class="k-textbox" style="width: 100%; height:50px;" text-wrap="normal" type="text" maxlength="100"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col" id="city">
+                            <label asp-for="Users.HomeCityParameterID" class="control-label"></label>
+                            <input asp-for="Users.HomeCityParameterID" id="cityDropDown" class="text-section k-content" style="width: 100%;" />
+                        </div>
+
+                        <div class="col" id="town">
+                            <label asp-for="Users.HomeTownParameterID" class="control-label"></label>
+                            <input asp-for="Users.HomeTownParameterID" id="townDropDown" class="text-section k-content" disabled="disabled" style="width: 100%;" />
+                        </div>
+
+                        <div class="col" id="zip">
+                            <label asp-for="Users.HomeZipCode" class="control-label"></label>
+                            <input asp-for="Users.HomeZipCode" id="zipCode" class="k-textbox" style="width: 100%;" maxlength="10" />
+                        </div>
+                    </div>
+
+
+                    &nbsp;
+                    <h5 id="userCommentsId1" class="ra-well-title card-header top-left"> <kbd>@ESCHOOL.Resources.Resource.NoteSV </kbd></h5>
+                    <div class="row" style="padding-left:2px">
+                        <div class="col" id="userCommentsId2">
+                            <textarea asp-for="Users.UserComments" class="k-textbox" style="width: 100%; height:100px;" text-wrap="normal" type="text" maxlength="300"></textarea>
+                        </div>
+                    </div>
+
+                    <hr />
+                    <div class="row">
+                        &nbsp;&nbsp;&nbsp;
+                        @ESCHOOL.Resources.Resource.UserStatus
+                    </div>
+                    <div class="row">
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <div class="custom-control custom-radio">
+                            <input type="radio" asp-for="Users.IsActive" class="k-radio" id="IsActive1" value="true" />
+                            <label class="k-radio-label" for="IsActive1">@ESCHOOL.Resources.Resource.Active</label>
+                        </div>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <div class="custom-control custom-radio">
+                            <input type="radio" asp-for="Users.IsActive" class="k-radio" id="IsActive2" value="false" />
+                            <label class="k-radio-label" for="IsActive2">@ESCHOOL.Resources.Resource.Inactive</label>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row" style="padding-left:2px">
+                        <div class="col">
+                            <label asp-for="Users.SortOrder" class="control-label"></label>&nbsp;
+                            <input asp-for="Users.SortOrder" id="sortOrder" class="k-textbox" style="width: 50px;" maxlength="3" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </row>
+
+        <script>
+            function viewPassword() {
+                var userPasswordTmp = document.getElementById('userPasswordTmpId').value;
+                document.getElementById('userPasswordId').value = userPasswordTmp;
+
+                var userPassword = document.getElementById('userPasswordId');
+                var passStatus = document.getElementById('pass-status');
+
+                if (userPassword.type == 'password') {
+                    userPassword.type = 'text';
+                    passStatus.className = 'fa fa-eye-slash';
+                }
+                else {
+                    userPassword.type = 'password';
+                    passStatus.className = 'fa fa-eye';
+                }
+            }
+        </script>
+        <!--#region  style -->
+        <style>
+            #middle-pane {
+                color: #000;
+                background-color: #ccc;
+            }
+
+            #bottom-pane {
+                color: #000;
+                background-color: #aaa;
+            }
+
+            #left-pane {
+                color: #000;
+                background-color: #eee;
+                padding: 0 0;
+            }
+
+            #right-pane {
+                color: #000;
+                background-color: #eee;
+                padding: 0 0;
+            }
+
+            .pane-content {
+                padding: 1px 1px;
+            }
+
+            .discontinued {
+                font-weight: bold;
+                color: #f00;
+            }
+
+            .critical {
+                background-color: #fdd;
+            }
+
+            .warning {
+                background-color: #fda;
+            }
+
+            .ok {
+                background-color: #ced;
+            }
+
+            .k-upload-status {
+                display: none;
+                width: 50px;
+            }
+
+            .ui-datepicker.ui-datepicker-inline {
+                width: 100% !important;
+            }
+
+            form label {
+                font-weight: bold;
+                font-size: 12px;
+            }
+
+            .k-header {
+                font-weight: bold !important;
+                font-size: 12px;
+            }
+        </style>
+        <!--#endregion -->
+    </form>
+
+    <!--#region dictionary -->
+    <script>
+        var dictionary =
+        {
+            'tr-TR': {
+                select: 'Seç',
+            },
+
+            'en-US': {
+                select: 'Select',
+            },
+        }
+        function getByCulture(culture, word) {
+            return dictionary[culture][word]
+        }
+    </script>
+    <!--#endregion -->
+    <!--#region scrit btn, body -->
+    <script>
+        var ID, btn, odd = 0, even = 0, result, i, j, z, tcTotal = 0;
+        function myFunction(e) {
+            btn = e.id;
+            if (btn == "btn1") { IDT = "#id1", ID1 = "id1" }
+
+            ID = document.querySelector(IDT);
+
+            odd = 0, even = 0, tcTotal = 0
+            for (i = 0; i < 9; i += 2) {
+                odd += Number(ID.value[i]);
+            }
+            odd *= 7;
+            for (j = 1; j < 8; j += 2) {
+                even += Number(ID.value[j]);
+            }
+            result = Math.abs(odd - even);
+            for (z = 0; z < 10; z++) {
+                tcTotal += Number(ID.value[z]);
+            }
+            if (ID.value.length !== 11) {
+                idFalse()
+            }
+            else
+                if (result % 10 != Number(ID.value[9])) {
+                    idFalse()
+                } else if (tcTotal % 10 != Number(ID.value[10])) {
+                    idFalse()
+                } else {
+                    idTrue()
+                }
+        };
+
+        function idFalse() {
+            document.getElementById(ID1).style.color = "white";
+            document.getElementById(ID1).style.backgroundColor = "red";
+        };
+        function idTrue() {
+            document.getElementById(ID1).style.color = "white";
+            document.getElementById(ID1).style.backgroundColor = "green";
+        };
+
+        function IdChange(e) {
+            document.getElementById(e.id).innerHTML = '<i class = "fa fa-spinner fa-spin"></i>@ESCHOOL.Resources.Resource.IdControl';
+        };
+        function IdChangeOld(e) {
+            document.getElementById(e.id).innerHTML = '<i class = "fa fa-bell"></i>@ESCHOOL.Resources.Resource.IdNumber';
+        };
+
+        function IdReset(e) {
+            btn = e.id;
+            if (btn == "btn1") ID1 = "id1"
+
+            document.getElementById(ID1).style.color = "black";
+            document.getElementById(ID1).style.backgroundColor = "white";
+        };
+    </script>
+    <script>
+        $(document).ready(function () {
+            $("#btn1").kendoButton({
+                icon: "notification"
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('body').kendoTooltip({
+                filter: '[title]:not([title=""])',
+                autoHide: true,
+                position: "top",
+                animation: {
+                    open: {
+                        effects: "zoom",
+                        duration: 150
+                    }
+                }
+            });
+        });
+    </script>
+    <!--#endregion -->
+    <!--#region toolbar -->
+    <style>
+        #logoId img {
+            width: 60px;
+        }
+    </style>
+    <script>
+        $(document).ready(function () {
+            $("#toolbarMenu").kendoToolBar({
+                items: [
+                    {
+                        template: "<img src='../Upload/Images/Logo.png' class='user-image' style='width:60px;'/>",
+                        overflow: "never",
+                    },
+                    { template: "<h4 style='padding-left:20px;'>@ESCHOOL.Resources.Resource.UserInformationEntry</h4>" },
+                    { type: "spacer" },
+
+
+                    { type: "button", id: "submit", text: "@ESCHOOL.Resources.Resource.Submit", icon: "save" },
+                    { type: "separator" },
+
+                    { type: "button", id: "help", text: "@ESCHOOL.Resources.Resource.Help", icon: "help" },
+                    { type: "separator" },
+
+                    { type: "separator" },
+                    { type: "button", id: "back", text: "@ESCHOOL.Resources.Resource.Back", attributes: { style: "float: right" }, icon: "rewind" },
+
+                    { type: "separator" },
+                    { type: "button", id: "exit", text: "@ESCHOOL.Resources.Resource.Exit", attributes: { style: "float: right" }, icon: "logout" },
+
+                ],
+                click: function (e) {
+                    if (e.id == "submit") {
+                        var grid = $("#gridUserPermissions").data("kendoGrid");
+                        $.each(grid.dataSource.data(), function (index, row) {
+                            row.set('isDirtySelect', 'True');
+                            setTimeout(function () {
+                                var TD = grid.table.find("[data-uid=" + row.uid + "]");
+                                var cell = TD.find("td").eq(1);
+                                cell.addClass("k-dirty-cell").prepend("<span class='k-dirty' />");
+                            });
+                        });
+                        grid.saveChanges();
+
+                        var gridSchool = $("#gridUserSchoolPermissions").data("kendoGrid");
+                        $.each(gridSchool.dataSource.data(), function (index, row) {
+                            row.set('isDirtySelect', 'True');
+                            setTimeout(function () {
+                                var TD = gridSchool.table.find("[data-uid=" + row.uid + "]");
+                                var cell = TD.find("td").eq(1);
+                                cell.addClass("k-dirty-cell").prepend("<span class='k-dirty' />");
+                            });
+                        });
+                        gridSchool.saveChanges();
+
+                        $("form").submit();
+
+                        showPopupNotification();
+                    }
+
+                    if (e.id == "exit" || e.id == "back") {
+                        if (e.id == "exit") {
+                            formDeleteclick();
+                            window.location.replace("/Home/index?userID=" + "@Model.ViewModelID");
+                        }
+                        else {
+                            formDeleteclick();
+                            window.location.replace("/M900Users/index?prgUserID=" + "@Model.ViewModelID");
+                        }
+                    }
+
+                    if (e.id == "help") {
+                        var myWindow = $("#panelbarHelp").show();
+                        var panelBar = $("#panelbarHelp").data("kendoPanelBar");
+                        panelBar.select(panelBar.element.children("li").eq(0));
+                        panelBar._selected[0].style.display = 'block';
+                        var item = panelBar.select();
+                        panelBar.expand(item);
+                    }
+
+                },
+            });
+        });
+    </script>
+    <!--#endregion -->
+</body>
+
+<!--#region fee and discount selecting, tex, datepicker -->
+<script>
+    $(function () {
+        $("#switch").kendoSwitch({
+            messages: {
+                checked: '<i class="fas fa-plus"></i><i class="fas fa-percent"></i></i>',
+                unchecked: '<i class="fas fa-toggle-off"></i>'
+            },
+            change: function (e) {
+                document.getElementById('resultOnOff').value = e.checked;
+            }
+        });
+    })
+</script>
+<script>
+    $(document).ready(function () {
+        $("#textbox").kendoTextBox({
+            placeholder: "Name..."
+        });
+    });
+</script>
+
+<script>
+    function formDeleteclick(e) {
+        var newNo = ('@TempData["userID"]');
+        if (newNo > 0)
+            /*alert("silinecek");*/
+            $.ajax({
+                url: '/M900Users/GridDataDeleteNew/' + newNo,
+                type: "post",
+                dataType: "json"
+            });
+    }
+</script>
+
+
+<script>
+    $("#dateOfBirdId").kendoDatePicker({
+        format: "dd/MM/yyyy"
+    });
+    $("#userDateOfJoiningId").kendoDatePicker({
+        format: "dd/MM/yyyy"
+    });
+    $("#userShiftFromId").kendoTimePicker({
+        /* dateInput: true*/
+        //value: new Date(),
+        //format: "hh:mm tt",
+        //parseFormats: ["HH:mm:ss"]
+    });
+    $("#userShiftToId").kendoTimePicker({
+        /*dateInput: true*/
+        //value: new Date(),
+        //format: "hh:mm tt",
+        //parseFormats: ["HH:mm:ss"],
+    });
+</script>
+<!--#endregion -->
+<!--#region combo classroom, #status, gender, registration, payment  -->
+<script>
+    $(document).ready(function () {
+        $("#bloodGroupDropDown").kendoDropDownList({
+            optionLabel: { "@Model.CategoryName": getByCulture('@culture', 'select'), categoryID: "0" },
+            dataTextField: "@Model.CategoryName",
+            dataValueField: "categoryID",
+            dataSource: {
+                transport: {
+                    read: {
+                        dataType: "json",
+                        url: "/M210Student/BloodGroupTypeCombo"
+                    }
+                }
+            }
+        });
+    });
+
+    $(document).ready(function () {
+        $("#nationalityTypeDropDown").kendoDropDownList({
+            optionLabel: { "@Model.CategoryName": getByCulture('@culture', 'select'), categoryID: "0" },
+            dataTextField: "@Model.CategoryName",
+            dataValueField: "categoryID",
+            dataSource: {
+                transport: {
+                    read: {
+                        dataType: "json",
+                        url: "/M900Users/NationalityTypeCombo"
+                    }
+                }
+            }
+        });
+    });
+
+    $(document).ready(function () {
+        $("#religiousTypeDropDown").kendoDropDownList({
+            optionLabel: { "@Model.CategoryName": getByCulture('@culture', 'select'), categoryID: "0" },
+            dataTextField: "@Model.CategoryName",
+            dataValueField: "categoryID",
+            dataSource: {
+                transport: {
+                    read: {
+                        dataType: "json",
+                        url: "/M900Users/ReligiousTypeCombo"
+                    }
+                }
+            }
+        });
+    });
+
+    $(document).ready(function () {
+        $("#genderTypeDropDown").kendoDropDownList({
+            index: 0,
+            dataTextField: "@Model.CategoryName",
+            dataValueField: "categoryID",
+            dataSource: {
+                transport: {
+                    read: {
+                        dataType: "json",
+                        url: "/M900Users/GenderTypeCombo"
+                    }
+                }
+            },
+            change: function () {
+                var value = this.value();
+                var txt = this.text();
+                if (txt == "Erkek" || txt == "Male")
+                    $('#imgpreviewUser').attr('src', '@Url.Content("~/Upload/Users/male.JPG")');
+                else
+                    $('#imgpreviewUser').attr('src', '@Url.Content("~/Upload/Users/female.JPG")');
+            }
+        });
+    });
+
+    $(document).ready(function () {
+        $("#languageDropDown").kendoDropDownList({
+            dataTextField: "@Model.CategoryName",
+            dataValueField: "categoryID",
+            //filter: "contains",
+            //index: 0,
+            //value:"Türkçe",
+            dataSource: {
+                transport: {
+                    read: {
+                        dataType: "json",
+                        url: "/M900Users/LanguageTypeCombo?id=" + @Model.SchoolID,
+                    }
+                }
+            },
+        });
+    });
+</script>
+
+<script>
+    $(document).ready(function () {
+        var cityDropDown = $("#cityDropDown").kendoDropDownList({
+            optionLabel: { "@Model.CategoryName": getByCulture('@culture', 'select'), categoryID: "0" },
+            dataTextField: "@Model.CategoryName",
+            dataValueField: "categoryID",
+            filter: "contains",
+            dataSource: {
+                transport: {
+                    read: {
+                        dataType: "json",
+                        url: "/M900Users/CityCombo"
+                    }
+                }
+            }
+        }).data("kendoDropDownList");
+
+        $("#townDropDown").kendoDropDownList({
+            autoBind: false,
+            cascadeFrom: "cityDropDown",
+            optionLabel: { "@Model.CategoryName": getByCulture('@culture', 'select'), categoryID: "0" },
+            dataTextField: "@Model.CategoryName",
+            dataValueField: "categoryID",
+            //filter: "contains",
+            dataSource: {
+                serverFiltering: true,
+                transport: {
+                    read: {
+                        dataType: "json",
+                        url: "/M900Users/TownCombo/",
+                        data: function (e) {
+                            return { id: cityDropDown.value() }
+                        }
+                    }
+                }
+            }
+        }).data("kendoDropDownList");
+    });
+</script>
+
+
+<!--#endregion -->
+<!--#region script upload -->
+<script>
+    var previewingUser = function (event) {
+        var result = document.getElementById("imgpreviewUser")
+        result.src = URL.createObjectURL(event.target.files[0]);
+    };
+
+    $(document).ready(function () {
+        $("#imgfileUser").kendoUpload({
+            async: {
+                removeUrl: "remove",
+                autoUpload: true
+            },
+            localization: {
+                select: '<i class="fa fa-upload"></i>'
+            },
+            showFileList: false
+        });
+    });
+
+    var previewingUserTopView = function (event) {
+        var result = document.getElementById("imgpreviewUserTopView")
+        result.src = URL.createObjectURL(event.target.files[0]);
+    };
+
+    $(document).ready(function () {
+        $("#imgfileUserTopView").kendoUpload({
+            async: {
+                removeUrl: "remove",
+                autoUpload: true
+            },
+            localization: {
+                select: '<i class="fa fa-upload"></i>'
+            },
+            showFileList: false
+        });
+    });
+
+</script>
+
+
+<script>
+    $(document).ready(function () {
+        $('#M900Users').submit(function () {
+            $('#M900Users').find(" [required=\"required\"]").attr("required", false);
+            $(".needValidation").attr("required", true);
+        });
+        var validator = $("#M900Users").kendoValidator().data("kendoValidator"),
+            status = $(".status");
+    });
+</script>
+<!--#endregion -->
+<!--#UserPermissions  -->
+<script>
+    var userID = document.getElementById('userID').value;
+    var record = 0;
+    $(document).ready(function () {
+        var crudServiceBaseUrl = "/M900Users/",
+            dataSource = new kendo.data.DataSource({
+                transport: {
+                    read: {
+                        url: crudServiceBaseUrl + "UserPermissionsDataRead/" + userID + "/" + '@TempData["isSupervisor"]',
+                        dataType: "json",
+                    },
+
+                    update: {
+                        url: function (options) {
+                            var url = crudServiceBaseUrl + "UserPermissionsUpdate/" + options.models[0].id + "/" + userID;
+                            return url;
+                        },
+                        type: "post",
+                        dataType: "json"
+                    },
+
+                    parameterMap: function (options, operation) {
+                        if (operation !== "read" && options.models) {
+                            return { models: kendo.stringify(options.models) };
+                        }
+                    }
+                },
+                pageSize: 20,
+                batch: true,
+                schema: {
+                    model: {
+                        id: "viewModelID",
+                        fields: {
+                            id: { editable: false, nullable: false, type: "number" },
+                            usersWorkAreas: {
+                                defaultValue: {
+                                    usersWorkAreaID: 1,
+                                    userID: 0,
+                                    categoryID: 0,
+                                    isSelect: true,
+                                    isDirtySelect: false,
+                                }
+                            },
+                            parameter: {
+                                categoryID: 0,
+                                categorySubID: 0,
+                                categoryName: '',
+                                categoryLevel: '',
+                                sortOrder: 0,
+                                isActive: true,
+                            }
+                        }
+                    }
+                },
+            });
+
+        var grid = $("#gridUserPermissions").kendoGrid({
+            dataSource: dataSource,
+            selectable: 'row',
+            resizable: true,
+            height: 140,
+            width: 350,
+            columns: [
+                { title: "#", template: "#= ++record #", width: 40, locked: true, attributes: { style: "text-align:center" } },
+                { field: "isSelect", width: "60px", title: "@ESCHOOL.Resources.Resource.Status", editor: customBoolEditor, template: "<input  #if (isSelect) { # checked='checked' # } # type='checkbox' disabled />", attributes: { style: "text-align:center" } },
+                { field: "categoryID", title: "@ESCHOOL.Resources.Resource.WorkAreas", width: "220px", template: "#=parameter.@Model.CategoryName#", editable: true, },
+                { field: "usersWorkAreaID" },
+                { field: "isDirtySelect" },
+            ],
+            dataBinding: function () {
+                record = (this.dataSource.page() - 1) * this.dataSource.pageSize();
+            },
+            editable: true,
+        });
+    });
+    function customBoolEditor(container, options) {
+        $('<input class="k-checkbox" type="checkbox" name="isSelect" data-type="boolean" data-bind="checked:isSelect">').appendTo(container);
+    }
+</script>
+<script>
+    var userID = document.getElementById('userID').value;
+    var record = 0;
+    $(document).ready(function () {
+        var crudServiceBaseUrl = "/M900Users/",
+            dataSource = new kendo.data.DataSource({
+                transport: {
+                    read: {
+                        url: crudServiceBaseUrl + "UserShoolPermissionsDataRead/" + userID + "/" + '@TempData["isSupervisor"]',
+                        dataType: "json",
+                    },
+
+                    update: {
+                        url: function (options) {
+                            var url = crudServiceBaseUrl + "UserSchoolPermissionsUpdate/" + options.models[0].id + "/" + userID;
+                            return url;
+                        },
+                        type: "post",
+                        dataType: "json"
+                    },
+
+                    parameterMap: function (options, operation) {
+                        if (operation !== "read" && options.models) {
+                            return { models: kendo.stringify(options.models) };
+                        }
+                    }
+                },
+                pageSize: 20,
+                batch: true,
+                schema: {
+                    model: {
+                        id: "viewModelID",
+                        fields: {
+                            id: { editable: false, nullable: false, type: "number" },
+                            usersWorkAreas: {
+                                defaultValue: {
+                                    usersWorkAreaID: 1,
+                                    userID: 0,
+                                    categoryID: 0,
+                                    categoryName: '',
+                                    isSelect: true,
+                                    isDirtySelect: false,
+                                }
+                            },
+                        }
+                    }
+                },
+            });
+
+        var grid = $("#gridUserSchoolPermissions").kendoGrid({
+            dataSource: dataSource,
+            selectable: 'row',
+            resizable: true,
+            height: 90,
+            width: 350,
+            columns: [
+                { title: "#", template: "#= ++record #", width: 40, locked: true, attributes: { style: "text-align:center" } },
+                { field: "isSelect", width: "60px", title: "@ESCHOOL.Resources.Resource.Status", editor: customBoolEditor, template: "<input  #if (isSelect) { # checked='checked' # } # type='checkbox' disabled />", attributes: { style: "text-align:center" } },
+                { field: "categoryName", title: "@ESCHOOL.Resources.Resource.WorkAreas2", width: "220px", template: "#=categoryName#", editable: true, },
+                { field: "usersWorkAreaID" },
+                { field: "isDirtySelect" },
+            ],
+            dataBinding: function () {
+                record = (this.dataSource.page() - 1) * this.dataSource.pageSize();
+            },
+            editable: true,
+        });
+    });
+    function customBoolEditor(container, options) {
+        $('<input class="k-checkbox" type="checkbox" name="isSelect" data-type="boolean" data-bind="checked:isSelect">').appendTo(container);
+    }
+</script>
+
+
+<!--#endregion -->
+<span id="popupNotification"></span>
+<script>
+    function showPopupNotification() {
+        var popupNotification = $("#popupNotification").kendoNotification().data("kendoNotification");
+        var d = new Date();
+        popupNotification.show(kendo.toString(d, 'HH:MM:ss.') + kendo.toString(d.getMilliseconds(), "000"), "error");
+    };
+</script>
+<script>
+    function userSettings() {
+        if ('@TempData["isSupervisor"]' == "False") {
+            var grid = $("#gridUserPermissions").data("kendoGrid");
+            grid.hideColumn(1);
+            var grid = $("#gridUserSchoolPermissions").data("kendoGrid");
+            grid.hideColumn(1);
+
+            var datepicker = $("#userShiftFromId").data("kendoTimePicker");
+            datepicker.readonly();
+            var datepicker = $("#userShiftToId").data("kendoTimePicker");
+            datepicker.readonly();
+            $("#userCommentsId1").hide();
+            $("#userCommentsId2").hide();
+            document.getElementById("IsActive1").disabled = true;
+            document.getElementById("IsActive2").disabled = true;
+        }
+    };
+</script>
+<script>
+    $("#wrap img").hover(function () {
+        kendo.fx(this).zoom("in").startValue(1).endValue(1.3).play();
+    }, function () {
+        kendo.fx(this).zoom("out").endValue(1).startValue(1.3).play();
+    });
+
+    $("#divheader").show(1000);
+</script>
+<script>
+    window.history.replaceState('', '', window.location.pathname);
+</script>

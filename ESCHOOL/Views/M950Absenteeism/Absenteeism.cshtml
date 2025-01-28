@@ -1,0 +1,1384 @@
+﻿@model ESCHOOL.ViewModels.AbsenteeismViewModel
+@{
+    System.Globalization.CultureInfo.CurrentCulture = System.Globalization.CultureInfo.CreateSpecificCulture(@Model.SelectedCulture);
+    System.Globalization.CultureInfo.CurrentUICulture = System.Globalization.CultureInfo.CreateSpecificCulture(@Model.SelectedCulture);
+    var culture = System.Globalization.CultureInfo.CurrentCulture.ToString();
+}
+<!--#region head -->
+<head>
+    <meta charset="utf-8" />
+    <style>
+        html {
+            font-size: 13px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+    </style>
+    <title></title>
+    <link href="https://kendo.cdn.telerik.com/2021.2.616/styles/kendo.common.min.css" rel="stylesheet" />
+    <link rel="stylesheet" id="skin-css" href="@TempData["theme"]" />
+    <link rel="stylesheet" id="skin-css" href="@TempData["themeMobile"]" />
+    <script src="https://kendo.cdn.telerik.com/2021.2.616/js/jquery.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2021.2.616/js/kendo.all.min.js"></script>
+    <script src="~/telerik/2021.2.616/js/jszip.min.js"></script>
+    <script src="@Url.Content("~/telerik/2021.2.616/js//cultures/kendo.culture." + culture + ".min.js")"></script>
+    <script src="@Url.Content("~/telerik/2021.2.616/js//messages/kendo.messages." + culture + ".min.js")"></script>
+
+    <script type="text/javascript">
+        kendo.culture("@culture");
+    </script>
+</head>
+<!--#endregion -->
+
+<body>
+    <div class="demo-section k-content fixed-top wide">
+        <div id="toolbarMenu"></div>
+    </div>
+    <br />
+    <br />
+    <br />
+    <br />
+    <form id="index" asp-controller="M950Absenteeism" asp-action="AbsenteeismSettings" asp-route-id="@Model.UserID" enctype="multipart/form-data" method="post">
+
+        <div id="example">
+            <input type="hidden" asp-for="@Model.SchoolID" />
+            <input type="hidden" asp-for="@Model.ClassroomID" id="classroomID" />
+            <input type="hidden" asp-for="@Model.Period" />
+
+            <div style="padding-left:16px;padding-right:16px;">
+                <div id="div1" class="k-form-field-wrap form-horizontal k-content  row" style="display: none; border: thin solid rgb(120,120,120)">
+                    <div class="row" style=" padding-left:50px; padding-top:30PX; padding-bottom:30PX;">
+                        <section class="col order-1 col-md-auto" style="width: 480px;">
+                            <div class="row col-md-12">
+                                <div class="col  col-md-1">
+                                    <label>#</label><br />
+                                    <label>1</label>
+                                </div>
+                                <div class="col col-md-1">
+                                    <label asp-for="IsChar01" for="IsChar01" class="required">@ESCHOOL.Resources.Resource.Select</label>
+                                    <input asp-for="IsChar01" id="IsChar01" class="ax-unselectable k-checkbox" type="checkbox">
+                                </div>
+                                <div class="col  col-md-1">
+                                    <label asp-for="Char01" for="Char01" class="required">@ESCHOOL.Resources.Resource.Code</label>
+                                    <input asp-for="Char01" class="k-textbox" style="width: 30px;" maxlength="1">
+                                </div>
+                                &nbsp;
+                                <div class="col col-md-6">
+                                    <label asp-for="Char01Explanation" class=" required">@ESCHOOL.Resources.Resource.Name</label>
+                                    <input asp-for="Char01Explanation" class="k-textbox" style="width: 185px;" maxlength="30">
+                                </div>
+                                &nbsp;
+                                <div class="col  col-md-1">
+                                    <label asp-for="Char01Max" for="Char01Max" class="required">@ESCHOOL.Resources.Resource.CodeMax</label>
+                                    <input asp-for="Char01Max" class="k-textbox" style="width: 40px;" maxlength="3">
+                                </div>
+                            </div>
+
+                            <div class="row col-md-12" style="padding-top:5PX;">
+                                <div class="col  col-md-1">
+                                    <label>2</label>
+                                </div>
+                                <div class="col col-md-1">
+                                    <input asp-for="IsChar02" id="IsChar02" class="ax-unselectable k-checkbox" type="checkbox">
+                                </div>
+                                <div class="col col-md-1">
+                                    <input asp-for="Char02" class="k-textbox" style="width: 30px;" maxlength="1">
+                                </div>
+                                &nbsp;
+                                <div class="col col-md-6">
+                                    <input asp-for="Char02Explanation" class="k-textbox" style="width: 185px;" maxlength="30">
+                                </div>
+                                &nbsp;
+                                <div class="col  col-md-1">
+                                    <input asp-for="Char02Max" class="k-textbox" style="width: 40px;" maxlength="3">
+                                </div>
+                            </div>
+
+                            <div class="row col-md-12" style="padding-top:2PX;">
+                                <div class="col  col-md-1">
+                                    <label>3</label>
+                                </div>
+                                <div class="col col-md-1">
+                                    <input asp-for="IsChar03" id="IsChar03" class="ax-unselectable k-checkbox" type="checkbox">
+                                </div>
+                                <div class="col  col-md-1">
+                                    <input asp-for="Char03" class="k-textbox" style="width: 30px;" maxlength="1">
+                                </div>
+                                &nbsp;
+                                <div class="col col-md-6">
+                                    <input asp-for="Char03Explanation" class="k-textbox" style="width: 185px;" maxlength="30">
+                                </div>
+                                &nbsp;
+                                <div class="col  col-md-1">
+                                    <input asp-for="Char03Max" class="k-textbox" style="width: 40px;" maxlength="3">
+                                </div>
+                            </div>
+
+                            <div class="row col-md-12" style="padding-top:2PX;">
+
+                                <div class="col  col-md-1">
+                                    <label>4</label>
+                                </div>
+                                <div class="col col-md-1">
+                                    <input asp-for="IsChar04" id="IsChar04" class="ax-unselectable k-checkbox" type="checkbox">
+                                </div>
+                                <div class="col  col-md-1">
+                                    <input asp-for="Char04" class="k-textbox" style="width: 30px;" maxlength="1">
+                                </div>
+                                &nbsp;
+                                <div class="col col-md-6">
+                                    <input asp-for="Char04Explanation" class="k-textbox" style="width: 185px;" maxlength="30">
+                                </div>
+                                &nbsp;
+                                <div class="col  col-md-1">
+                                    <input asp-for="Char04Max" class="k-textbox" style="width: 40px;" maxlength="3">
+                                </div>
+                            </div>
+
+                            <div class="row col-md-12" style="padding-top:2PX;">
+                                <div class="col  col-md-1">
+                                    <label>5</label>
+                                </div>
+                                <div class="col col-md-1">
+                                    <input asp-for="IsChar05" id="IsChar05" class="ax-unselectable k-checkbox" type="checkbox">
+                                </div>
+                                <div class="col  col-md-1">
+                                    <input asp-for="Char05" class="k-textbox" style="width: 30px;" maxlength="1">
+                                </div>
+                                &nbsp;
+                                <div class="col col-md-6">
+                                    <input asp-for="Char05Explanation" class="k-textbox" style="width: 185px;" maxlength="30">
+                                </div>
+                                &nbsp;
+                                <div class="col  col-md-1">
+                                    <input asp-for="Char05Max" class="k-textbox" style="width: 40px;" maxlength="3">
+                                </div>
+                            </div>
+
+                            <div class="row col-md-12" style="padding-top:2PX;">
+                                <div class="col  col-md-1">
+                                    <label>6</label>
+                                </div>
+                                <div class="col col-md-1">
+                                    <input asp-for="IsChar06" id="IsChar06" class="ax-unselectable k-checkbox" type="checkbox">
+                                </div>
+                                <div class="col  col-md-1">
+                                    <input asp-for="Char06" class="k-textbox" style="width: 30px;" maxlength="1">
+                                </div>
+                                &nbsp;
+                                <div class="col col-md-6">
+                                    <input asp-for="Char06Explanation" class="k-textbox" style="width: 185px;" maxlength="30">
+                                </div>
+                                &nbsp;
+                                <div class="col  col-md-1">
+                                    <input asp-for="Char06Max" class="k-textbox" style="width: 40px;" maxlength="3">
+                                </div>
+                            </div>
+                        </section>
+
+                        <section class="col order-2 col-md-auto" style="width: 200px;">
+                            <div class="row col-md-1">
+                                <div class="col col-md-1">
+                                    <div></div>
+                                    <button type="button" id="okButton1" style="width:80px;" onclick="saveButton()">@ESCHOOL.Resources.Resource.Submit</button>
+                                </div>
+                                <script>
+                                    $(document).ready(function () {
+                                        $("#okButton1").kendoButton({
+                                            icon: "save",
+                                        });
+                                    });
+                                </script>
+                            </div>
+
+                            <div class="row col-md-1">
+                                <div class="col col-md-1">
+                                    <div>
+                                        <span class="k-card-action"><span class="k-button k-flat k-primary" id="closeid" style="height: 10px; width: 80px" onclick="div1ButtonClose()">@ESCHOOL.Resources.Resource.Close</span></span>
+                                    </div>
+                                </div>
+                                <script>
+                                    $(document).ready(function () {
+                                        $("#closeid").kendoButton({
+                                            icon: "close",
+                                        });
+                                    });
+                                </script>
+                            </div>
+                        </section>
+
+                        <section class="col order-3 col-md-auto" style="width: 400px;">
+                            <div>
+                                <p><strong>@ESCHOOL.Resources.Resource.Explanation</strong></p>
+                                <p>@ESCHOOL.Resources.Resource.Absenteeism10</p>
+                                <p>@ESCHOOL.Resources.Resource.Absenteeism11</p>
+                                <p>@ESCHOOL.Resources.Resource.Absenteeism12</p>
+                                <p>@ESCHOOL.Resources.Resource.Absenteeism13</p>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+
+            <div id="gridStudents" style="padding:5px;"></div>
+            <ul id="panelbar">
+                <li>
+                    <span class="k-link">@ESCHOOL.Resources.Resource.TotalAbsenteeism</span>
+                    <div class="container-fluid">
+                        <div id="gridTotalStudents"></div>
+                        <script>
+                            var panelBar = $("#panelbar").kendoPanelBar().data("kendoPanelBar");
+                            panelBar.bind("select", function () {
+                                $('#gridTotalStudents').data('kendoGrid').dataSource.read()
+                            });
+                        </script>
+                    </div>
+                </li>
+            </ul>
+            <style>
+                #gridTotalStudents .k-grid-content {
+                    max-height: 250px;
+                    /* overflow-y: visible;*/
+                }
+
+                #panelbar {
+                    width: 100%;
+                    /*     max-width: none;*/
+                    margin: 0 auto;
+                }
+            </style>
+            <script>
+                $(document).ready(function () {
+                    $("#panelbar").kendoPanelBar({
+                        animation: {
+                            collapse: {
+                                duration: 1000,
+                                effects: "fadeOut"
+                            },
+                            expand: {
+                                duration: 1000,
+                                effects: "expandVertical fadeIn"
+                            }
+                        }
+                    });
+                });
+            </script>
+
+            <style>
+                #gridStudents .k-grid-header .k-header .verticalText {
+                    display: inline-block;
+                    white-space: nowrap;
+                    transform: translate(0,100%) rotate(-90deg);
+                    transform-origin: 0 0;
+                    position: absolute;
+                    bottom: 5px;
+                }
+
+                #gridStudents .k-grid-header .k-header {
+                    height: 20px !important;
+                }
+
+                #gridTotalStudents .k-grid-header .k-header .verticalText2 {
+                    display: inline-block;
+                    white-space: nowrap;
+                    transform: translate(0,100%) rotate(-90deg);
+                    transform-origin: 0 0;
+                    position: absolute;
+                    bottom: 5px;
+                }
+
+                #gridTotalStudents .k-grid-header .k-header {
+                    height: 20px !important;
+                }
+
+
+                .k-grid {
+                    margin-top: auto;
+                    overflow: auto;
+                }
+
+                    .k-grid table td {
+                        white-space: nowrap;
+                    }
+
+                #grid .k-grid-toolbar {
+                    padding: .6em 1.3em .6em .4em;
+                }
+
+                .k-grid-content {
+                    max-height: 600px;
+                }
+
+                .category-label {
+                    vertical-align: middle;
+                    padding-right: .5em;
+                }
+
+                #category {
+                    vertical-align: middle;
+                }
+
+                .refreshBtnContainer {
+                    display: inline-block;
+                }
+
+                .toolbar {
+                    float: left;
+                }
+            </style>
+            <!--#endregion -->
+        </div>
+        <!--#region toolbar -->
+        <style>
+            #logoId img {
+                width: 60px;
+            }
+        </style>
+        <script>
+            $(document).ready(function () {
+                $("#toolbarMenu").kendoToolBar({
+                    items: [
+                        {
+                            template: "<img src='/Upload/Images/Logo.png' class='user-image' style='width:60px;'/>",
+                            overflow: "never",
+                        },
+                        { template: "<h4 style='padding-left:20px;'>@ESCHOOL.Resources.Resource.StudentAbsenceEntry - @Model.ClassroomName, @Model.MonthText</h4>" },
+                        { type: "spacer" },
+
+                        { type: "button", id: "settings", text: "@ESCHOOL.Resources.Resource.Settings", icon: "gear" },
+                        { type: "separator" },
+
+                        { type: "button", id: "exit", text: "@ESCHOOL.Resources.Resource.Exit", attributes: { style: "float: right; margin-top: .4em;" }, icon: "logout" },
+                        { type: "separator" },
+                    ],
+
+                    click: function (e) {
+                        if (e.id == "exit")
+                            window.location.replace("/M950Absenteeism/index?userID=@Model.UserID");
+                        if (e.id == "settings") div1Button();
+                    }
+                });
+            });
+        </script>
+        <!--#endregion -->
+    </form>
+</body>
+<div id="alert"></div>
+<script>
+    function permissionsControl() {
+        msg = getByCulture('@culture', 'msgOk');
+        showAlert(msg);
+    };
+
+    function showAlert(message) {
+        msg = getByCulture('@culture', 'titleMsg');
+        $("#alert").kendoAlert({
+            title: msg,
+            content: "<strong>@ESCHOOL.Resources.Resource.PermissionMsg</strong>",
+            messages: {
+                okText: message
+            },
+            actions: [{
+                text: "#: messages.okText #",
+                action: function (e) {
+                    window.location.replace("/Home/index?userID=@Model.UserID");
+                }
+            }]
+        }).data("kendoAlert").open();
+    };
+</script>
+<!--#region grid discount -->
+<script>
+    record = 0;
+    var classroomID = document.getElementById("classroomID").value;
+
+    $(document).ready(function () {
+        var crudServiceBaseUrl = "/M950Absenteeism/",
+            dataSource = new kendo.data.DataSource({
+                transport: {
+                    read: {
+                        url: crudServiceBaseUrl + "AbsenteeismDataRead/" + "@Model.UserID" + "/" + classroomID + "/" + "@Model.Date",
+                        dataType: "json"
+                    },
+                    create: {
+                        url: function (options) {
+                            var url = "/M950Absenteeism/AbsenteeismDataCreate/" + options.models[0].id;
+                            return url;
+                        },
+                        type: "post",
+                        dataType: "json"
+                    },
+                    update: {
+                        url: function (options) {
+                            var url = "/M950Absenteeism/AbsenteeismDataUpdate/" + options.models[0].id;
+                            return url;
+                        },
+                        type: "post",
+                        dataType: "json"
+                    },
+                    parameterMap: function (options, operation) {
+                        if (operation !== "read" && options.models) {
+                            return { models: kendo.stringify(options.models) };
+                        }
+                    }
+                },
+                batch: true,
+                schema: {
+                    model: {
+                        id: "absenteeismID",
+                        fields: {
+                            absenteeismID: { editable: false, type: "number" },
+                            schoolID: { editable: false, type: "number" },
+                            studentID: { editable: false, type: "number" },
+                            //date: { editable: false, type: "date", format: "{0:dd-MM-yyyy}" },
+                            studentName: { editable: false, type: "string" },
+
+                            hday01: { editable: true, type: "string" },
+                            hday02: { editable: true, type: "string" },
+                            hday03: { editable: true, type: "string" },
+                            hday04: { editable: true, type: "string" },
+                            hday05: { editable: true, type: "string" },
+                            hday06: { editable: true, type: "string" },
+                            hday07: { editable: true, type: "string" },
+                            hday08: { editable: true, type: "string" },
+                            hday09: { editable: true, type: "string" },
+                            hday10: { editable: true, type: "string" },
+
+                            hday11: { editable: true, type: "string" },
+                            hday12: { editable: true, type: "string" },
+                            hday13: { editable: true, type: "string" },
+                            hday14: { editable: true, type: "string" },
+                            hday15: { editable: true, type: "string" },
+                            hday16: { editable: true, type: "string" },
+                            hday17: { editable: true, type: "string" },
+                            hday18: { editable: true, type: "string" },
+                            hday19: { editable: true, type: "string" },
+                            hday20: { editable: true, type: "string" },
+
+                            hday21: { editable: true, type: "string" },
+                            hday22: { editable: true, type: "string" },
+                            hday23: { editable: true, type: "string" },
+                            hday24: { editable: true, type: "string" },
+                            hday25: { editable: true, type: "string" },
+                            hday26: { editable: true, type: "string" },
+                            hday27: { editable: true, type: "string" },
+                            hday28: { editable: true, type: "string" },
+                            hday29: { editable: true, type: "string" },
+                            hday30: { editable: true, type: "string" },
+                            hday31: { editable: true, type: "string" },
+
+                            day01: { editable: true, type: "string" },
+                            day02: { editable: true, type: "string" },
+                            day03: { editable: true, type: "string" },
+                            day04: { editable: true, type: "string" },
+                            day05: { editable: true, type: "string" },
+                            day06: { editable: true, type: "string" },
+                            day07: { editable: true, type: "string" },
+                            day08: { editable: true, type: "string" },
+                            day09: { editable: true, type: "string" },
+                            day10: { editable: true, type: "string" },
+
+                            day11: { editable: true, type: "string" },
+                            day12: { editable: true, type: "string" },
+                            day13: { editable: true, type: "string" },
+                            day14: { editable: true, type: "string" },
+                            day15: { editable: true, type: "string" },
+                            day16: { editable: true, type: "string" },
+                            day17: { editable: true, type: "string" },
+                            day18: { editable: true, type: "string" },
+                            day19: { editable: true, type: "string" },
+                            day20: { editable: true, type: "string" },
+
+                            day21: { editable: true, type: "string" },
+                            day22: { editable: true, type: "string" },
+                            day23: { editable: true, type: "string" },
+                            day24: { editable: true, type: "string" },
+                            day25: { editable: true, type: "string" },
+                            day26: { editable: true, type: "string" },
+                            day27: { editable: true, type: "string" },
+                            day28: { editable: true, type: "string" },
+                            day29: { editable: true, type: "string" },
+                            day30: { editable: true, type: "string" },
+                            day31: { editable: true, type: "string" },
+
+
+                            char01: { editable: false, type: "string" },
+                            char02: { editable: false, type: "string" },
+                            char03: { editable: false, type: "string" },
+                            char04: { editable: false, type: "string" },
+                            char05: { editable: false, type: "string" },
+                            char06: { editable: false, type: "string" },
+
+                            isChar01: { editable: false, type: "string" },
+                            isChar02: { editable: false, type: "string" },
+                            isChar03: { editable: false, type: "string" },
+                            isChar04: { editable: false, type: "string" },
+                            isChar05: { editable: false, type: "string" },
+                            isChar06: { editable: false, type: "string" },
+
+                            total1: { editable: true, type: "number" },
+                            total2: { editable: true, type: "number" },
+                        }
+                    },
+                }
+            });
+        var first = 1;
+        var grid = $("#gridStudents").kendoGrid({
+            dataSource: dataSource,
+            navigatable: true,
+            ajax: true,
+            //groupable: true,
+            resizable: true,
+            selectable: "multiple row",
+            toolbar: ["search", "excel", "save"],
+
+            excelExport: function (e) {
+                e.workbook.fileName = "@Model.ClassroomName" + "-" + kendo.toString(new Date, "yyyy/MM/dd HH:mm") + ".xlsx";
+            },
+            columns: [
+                { title: "#", template: "#= ++record #", width: 30 },
+                { field: "studentName", title: getByCulture('@culture', 'studentName'), headerTemplate: "@ESCHOOL.Resources.Resource.StudentName", width: "100px", template: "#=studentName#" },
+                {
+                    columns: [{ field: "day01", title: "@Model.HDay01", headerTemplate: "<span class='verticalText'>@Model.HDay01</span>", template: "#=day01#" },]
+                },
+                {
+                    columns: [{ field: "day02", title: "@Model.HDay02", headerTemplate: "<span class='verticalText'>@Model.HDay02</span>", template: "#=day02#" },]
+                },
+                {
+                    columns: [{ field: "day03", title: "@Model.HDay03", headerTemplate: "<span class='verticalText'>@Model.HDay03</span>", template: "#=day03#" },]
+                },
+                {
+                    columns: [{ field: "day04", title: "@Model.HDay04", headerTemplate: "<span class='verticalText'>@Model.HDay04</span>", template: "#=day04#" },]
+                },
+                {
+                    columns: [{ field: "day05", title: "@Model.HDay05", headerTemplate: "<span class='verticalText'>@Model.HDay05</span>", template: "#=day05#" },]
+                },
+                {
+                    columns: [{ field: "day06", title: "@Model.HDay06", headerTemplate: "<span class='verticalText'>@Model.HDay06</span>", template: "#=day06#" },]
+                },
+                {
+                    columns: [{ field: "day07", title: "@Model.HDay07", headerTemplate: "<span class='verticalText'>@Model.HDay07</span>", template: "#=day07#" },]
+                },
+                {
+                    columns: [{ field: "day08", title: "@Model.HDay08", headerTemplate: "<span class='verticalText'>@Model.HDay08</span>", template: "#=day08#" },]
+                },
+                {
+                    columns: [{ field: "day09", title: "@Model.HDay09", headerTemplate: "<span class='verticalText'>@Model.HDay09</span>", template: "#=day09#" },]
+                },
+                {
+                    columns: [{ field: "day10", title: "@Model.HDay10", headerTemplate: "<span class='verticalText'>@Model.HDay10</span>", template: "#=day10#" },]
+                },
+                {
+                    columns: [{ field: "day11", title: "@Model.HDay11", headerTemplate: "<span class='verticalText'>@Model.HDay11</span>", template: "#=day11#" },]
+                },
+                {
+                    columns: [{ field: "day12", title: "@Model.HDay12", headerTemplate: "<span class='verticalText'>@Model.HDay12</span>", template: "#=day12#" },]
+                },
+                {
+                    columns: [{ field: "day13", title: "@Model.HDay13", headerTemplate: "<span class='verticalText'>@Model.HDay13</span>", template: "#=day13#" },]
+                },
+                {
+                    columns: [{ field: "day14", title: "@Model.HDay14", headerTemplate: "<span class='verticalText'>@Model.HDay14</span>", template: "#=day14#" },]
+                },
+                {
+                    columns: [{ field: "day15", title: "@Model.HDay15", headerTemplate: "<span class='verticalText'>@Model.HDay15</span>", template: "#=day15#" },]
+                },
+                {
+                    columns: [{ field: "day16", title: "@Model.HDay16", headerTemplate: "<span class='verticalText'>@Model.HDay16</span>", template: "#=day16#" },]
+                },
+                {
+                    columns: [{ field: "day17", title: "@Model.HDay17", headerTemplate: "<span class='verticalText'>@Model.HDay17</span>", template: "#=day17#" },]
+                },
+                {
+                    columns: [{ field: "day18", title: "@Model.HDay18", headerTemplate: "<span class='verticalText'>@Model.HDay18</span>", template: "#=day18#" },]
+                },
+                {
+                    columns: [{ field: "day19", title: "@Model.HDay19", headerTemplate: "<span class='verticalText'>@Model.HDay19</span>", template: "#=day19#" },]
+                },
+                {
+                    columns: [{ field: "day20", title: "@Model.HDay20", headerTemplate: "<span class='verticalText'>@Model.HDay20</span>", template: "#=day20#" },]
+                },
+                {
+                    columns: [{ field: "day21", title: "@Model.HDay21", headerTemplate: "<span class='verticalText'>@Model.HDay21</span>", template: "#=day21#" },]
+                },
+                {
+                    columns: [{ field: "day22", title: "@Model.HDay22", headerTemplate: "<span class='verticalText'>@Model.HDay22</span>", template: "#=day22#" },]
+                },
+                {
+                    columns: [{ field: "day23", title: "@Model.HDay23", headerTemplate: "<span class='verticalText'>@Model.HDay23</span>", template: "#=day23#" },]
+                },
+                {
+                    columns: [{ field: "day24", title: "@Model.HDay24", headerTemplate: "<span class='verticalText'>@Model.HDay24</span>", template: "#=day24#" },]
+                },
+                {
+                    columns: [{ field: "day25", title: "@Model.HDay25", headerTemplate: "<span class='verticalText'>@Model.HDay25</span>", template: "#=day25#" },]
+                },
+                {
+                    columns: [{ field: "day26", title: "@Model.HDay26", headerTemplate: "<span class='verticalText'>@Model.HDay26</span>", template: "#=day26#" },]
+                },
+                {
+                    columns: [{ field: "day27", title: "@Model.HDay27", headerTemplate: "<span class='verticalText'>@Model.HDay27</span>", template: "#=day27#" },]
+                },
+                {
+                    columns: [{ field: "day28", title: "@Model.HDay28", headerTemplate: "<span class='verticalText'>@Model.HDay28</span>", template: "#=day28#" },]
+                },
+                {
+                    columns: [{ field: "day29", title: "@Model.HDay29", headerTemplate: "<span class='verticalText'>@Model.HDay29</span>", template: "#=day29#" },]
+                },
+                {
+                    columns: [{ field: "day30", title: "@Model.HDay30", headerTemplate: "<span class='verticalText'>@Model.HDay30</span>", template: "#=day30#" },]
+                },
+                {
+                    columns: [{ field: "day31", title: "@Model.HDay31", headerTemplate: "<span class='verticalText'>@Model.HDay31</span>", template: "#=day31#" },]
+                },
+
+                {
+                    columns: [{ field: "total1", title: "@Model.HTotal1", width: "40px", headerTemplate: "<span class='verticalText'>@Model.HTotal1</span>", template: "#=total1#" },]
+                },
+                {
+                    columns: [{ field: "total2", title: "@Model.HTotal2", width: "40px", headerTemplate: "<span class='verticalText'>@Model.HTotal2</span>", template: "#=total2#" },]
+                },
+
+                {
+                    columns: [{ field: "char01", },]
+                },
+                {
+                    columns: [{ field: "char02", },]
+                },
+                {
+                    columns: [{ field: "char03", },]
+                },
+                {
+                    columns: [{ field: "char04", },]
+                },
+                {
+                    columns: [{ field: "char05", },]
+                },
+                {
+                    columns: [{ field: "char06", },]
+                },
+
+                {
+                    columns: [{ field: "isChar01", },]
+                },
+                {
+                    columns: [{ field: "isChar02", },]
+                },
+                {
+                    columns: [{ field: "isChar03", },]
+                },
+                {
+                    columns: [{ field: "isChar04", },]
+                },
+                {
+                    columns: [{ field: "isChar05", },]
+                },
+                {
+                    columns: [{ field: "isChar06", },]
+                },
+
+            ],
+
+            //editable:true,
+            editable: "incell",
+            dataBinding: function () {
+                record = 0;
+            },
+            dataBound: function (e) {
+                var rows = e.sender.tbody.children();
+                var half = 1 / 2;
+
+                for (var j = 0; j < rows.length; j++) {
+                    var total1 = 0;
+                    var total2 = 0;
+                    var row = $(rows[j]);
+                    var dataItem = e.sender.dataItem(row);
+                    var day01 = dataItem.get("day01");
+                    var day02 = dataItem.get("day02");
+                    var day03 = dataItem.get("day03");
+                    var day04 = dataItem.get("day04");
+                    var day05 = dataItem.get("day05");
+                    var day06 = dataItem.get("day06");
+                    var day07 = dataItem.get("day07");
+                    var day08 = dataItem.get("day08");
+                    var day09 = dataItem.get("day09");
+                    var day10 = dataItem.get("day10");
+                    var day11 = dataItem.get("day11");
+                    var day12 = dataItem.get("day12");
+                    var day13 = dataItem.get("day13");
+                    var day14 = dataItem.get("day14");
+                    var day15 = dataItem.get("day15");
+                    var day16 = dataItem.get("day16");
+                    var day17 = dataItem.get("day17");
+                    var day18 = dataItem.get("day18");
+                    var day19 = dataItem.get("day19");
+                    var day20 = dataItem.get("day20");
+                    var day21 = dataItem.get("day21");
+                    var day22 = dataItem.get("day22");
+                    var day23 = dataItem.get("day23");
+                    var day24 = dataItem.get("day24");
+                    var day25 = dataItem.get("day25");
+                    var day26 = dataItem.get("day26");
+                    var day27 = dataItem.get("day27");
+                    var day28 = dataItem.get("day28");
+                    var day29 = dataItem.get("day29");
+                    var day30 = dataItem.get("day30");
+                    var day31 = dataItem.get("day31");
+
+                    var char01 = dataItem.get("char01");
+                    var char02 = dataItem.get("char02");
+                    var char03 = dataItem.get("char03");
+                    var char04 = dataItem.get("char04");
+                    var char05 = dataItem.get("char05");
+                    var char06 = dataItem.get("char06");
+                    var char07 = dataItem.get("char07");
+                    var char08 = dataItem.get("char08");
+                    var char09 = dataItem.get("char09");
+                    var char10 = dataItem.get("char10");
+                    var char11 = dataItem.get("char11");
+                    var char12 = dataItem.get("char12");
+                    var char13 = dataItem.get("char13");
+                    var char14 = dataItem.get("char14");
+                    var char15 = dataItem.get("char15");
+                    var char16 = dataItem.get("char16");
+                    var char17 = dataItem.get("char17");
+                    var char18 = dataItem.get("char18");
+                    var char19 = dataItem.get("char19");
+                    var char20 = dataItem.get("char20");
+                    var char21 = dataItem.get("char21");
+                    var char22 = dataItem.get("char22");
+                    var char23 = dataItem.get("char23");
+                    var char24 = dataItem.get("char24");
+                    var char25 = dataItem.get("char25");
+                    var char26 = dataItem.get("char26");
+                    var char27 = dataItem.get("char27");
+                    var char28 = dataItem.get("char28");
+                    var char29 = dataItem.get("char29");
+                    var char30 = dataItem.get("char30");
+                    var char31 = dataItem.get("char31");
+
+                    var isChar01 = dataItem.get("isChar01");
+                    var isChar02 = dataItem.get("isChar02");
+                    var isChar03 = dataItem.get("isChar03");
+                    var isChar04 = dataItem.get("isChar04");
+                    var isChar05 = dataItem.get("isChar05");
+                    var isChar06 = dataItem.get("isChar06");
+                    var isChar07 = dataItem.get("isChar07");
+                    var isChar08 = dataItem.get("isChar08");
+                    var isChar09 = dataItem.get("isChar09");
+                    var isChar10 = dataItem.get("isChar10");
+                    var isChar11 = dataItem.get("isChar11");
+                    var isChar12 = dataItem.get("isChar12");
+                    var isChar13 = dataItem.get("isChar13");
+                    var isChar14 = dataItem.get("isChar14");
+                    var isChar15 = dataItem.get("isChar15");
+                    var isChar16 = dataItem.get("isChar16");
+                    var isChar17 = dataItem.get("isChar17");
+                    var isChar18 = dataItem.get("isChar18");
+                    var isChar19 = dataItem.get("isChar19");
+                    var isChar20 = dataItem.get("isChar20");
+                    var isChar21 = dataItem.get("isChar21");
+                    var isChar22 = dataItem.get("isChar22");
+                    var isChar23 = dataItem.get("isChar23");
+                    var isChar24 = dataItem.get("isChar24");
+                    var isChar25 = dataItem.get("isChar25");
+                    var isChar26 = dataItem.get("isChar26");
+                    var isChar27 = dataItem.get("isChar27");
+                    var isChar28 = dataItem.get("isChar28");
+                    var isChar29 = dataItem.get("isChar29");
+                    var isChar30 = dataItem.get("isChar30");
+                    var isChar31 = dataItem.get("isChar31");
+
+                    if (char01 != null) {
+                        if (day01 == char01) if (isChar01 == 'true') total2++; else total1++; if (day01 == char01.toLowerCase()) if (isChar01 == 'true') total2 += half; else total1 += half;
+                        if (day02 == char01) if (isChar01 == 'true') total2++; else total1++; if (day02 == char01.toLowerCase()) if (isChar01 == 'true') total2 += half; else total1 += half;
+                        if (day03 == char01) if (isChar01 == 'true') total2++; else total1++; if (day03 == char01.toLowerCase()) if (isChar01 == 'true') total2 += half; else total1 += half;
+                        if (day04 == char01) if (isChar01 == 'true') total2++; else total1++; if (day04 == char01.toLowerCase()) if (isChar01 == 'true') total2 += half; else total1 += half;
+                        if (day05 == char01) if (isChar01 == 'true') total2++; else total1++; if (day05 == char01.toLowerCase()) if (isChar01 == 'true') total2 += half; else total1 += half;
+                        if (day06 == char01) if (isChar01 == 'true') total2++; else total1++; if (day06 == char01.toLowerCase()) if (isChar01 == 'true') total2 += half; else total1 += half;
+                        if (day07 == char01) if (isChar01 == 'true') total2++; else total1++; if (day07 == char01.toLowerCase()) if (isChar01 == 'true') total2 += half; else total1 += half;
+                        if (day08 == char01) if (isChar01 == 'true') total2++; else total1++; if (day08 == char01.toLowerCase()) if (isChar01 == 'true') total2 += half; else total1 += half;
+                        if (day09 == char01) if (isChar01 == 'true') total2++; else total1++; if (day09 == char01.toLowerCase()) if (isChar01 == 'true') total2 += half; else total1 += half;
+                        if (day10 == char01) if (isChar01 == 'true') total2++; else total1++; if (day10 == char01.toLowerCase()) if (isChar01 == 'true') total2 += half; else total1 += half;
+                        if (day11 == char01) if (isChar01 == 'true') total2++; else total1++; if (day11 == char01.toLowerCase()) if (isChar01 == 'true') total2 += half; else total1 += half;
+                        if (day12 == char01) if (isChar01 == 'true') total2++; else total1++; if (day12 == char01.toLowerCase()) if (isChar01 == 'true') total2 += half; else total1 += half;
+                        if (day13 == char01) if (isChar01 == 'true') total2++; else total1++; if (day13 == char01.toLowerCase()) if (isChar01 == 'true') total2 += half; else total1 += half;
+                        if (day14 == char01) if (isChar01 == 'true') total2++; else total1++; if (day14 == char01.toLowerCase()) if (isChar01 == 'true') total2 += half; else total1 += half;
+                        if (day15 == char01) if (isChar01 == 'true') total2++; else total1++; if (day15 == char01.toLowerCase()) if (isChar01 == 'true') total2 += half; else total1 += half;
+                        if (day16 == char01) if (isChar01 == 'true') total2++; else total1++; if (day16 == char01.toLowerCase()) if (isChar01 == 'true') total2 += half; else total1 += half;
+                        if (day17 == char01) if (isChar01 == 'true') total2++; else total1++; if (day17 == char01.toLowerCase()) if (isChar01 == 'true') total2 += half; else total1 += half;
+                        if (day18 == char01) if (isChar01 == 'true') total2++; else total1++; if (day18 == char01.toLowerCase()) if (isChar01 == 'true') total2 += half; else total1 += half;
+                        if (day19 == char01) if (isChar01 == 'true') total2++; else total1++; if (day19 == char01.toLowerCase()) if (isChar01 == 'true') total2 += half; else total1 += half;
+                        if (day20 == char01) if (isChar01 == 'true') total2++; else total1++; if (day20 == char01.toLowerCase()) if (isChar01 == 'true') total2 += half; else total1 += half;
+                        if (day21 == char01) if (isChar01 == 'true') total2++; else total1++; if (day21 == char01.toLowerCase()) if (isChar01 == 'true') total2 += half; else total1 += half;
+                        if (day22 == char01) if (isChar01 == 'true') total2++; else total1++; if (day22 == char01.toLowerCase()) if (isChar01 == 'true') total2 += half; else total1 += half;
+                        if (day23 == char01) if (isChar01 == 'true') total2++; else total1++; if (day23 == char01.toLowerCase()) if (isChar01 == 'true') total2 += half; else total1 += half;
+                        if (day24 == char01) if (isChar01 == 'true') total2++; else total1++; if (day24 == char01.toLowerCase()) if (isChar01 == 'true') total2 += half; else total1 += half;
+                        if (day25 == char01) if (isChar01 == 'true') total2++; else total1++; if (day25 == char01.toLowerCase()) if (isChar01 == 'true') total2 += half; else total1 += half;
+                        if (day26 == char01) if (isChar01 == 'true') total2++; else total1++; if (day26 == char01.toLowerCase()) if (isChar01 == 'true') total2 += half; else total1 += half;
+                        if (day27 == char01) if (isChar01 == 'true') total2++; else total1++; if (day27 == char01.toLowerCase()) if (isChar01 == 'true') total2 += half; else total1 += half;
+                        if (day28 == char01) if (isChar01 == 'true') total2++; else total1++; if (day28 == char01.toLowerCase()) if (isChar01 == 'true') total2 += half; else total1 += half;
+                        if (day29 == char01) if (isChar01 == 'true') total2++; else total1++; if (day29 == char01.toLowerCase()) if (isChar01 == 'true') total2 += half; else total1 += half;
+                        if (day30 == char01) if (isChar01 == 'true') total2++; else total1++; if (day30 == char01.toLowerCase()) if (isChar01 == 'true') total2 += half; else total1 += half;
+                        if (day31 == char01) if (isChar01 == 'true') total2++; else total1++; if (day31 == char01.toLowerCase()) if (isChar01 == 'true') total2 += half; else total1 += half;
+                    }
+
+                    if (char02 != null) {
+                        if (day01 == char02) if (isChar02 == 'true') total2++; else total1++; if (day01 == char02.toLowerCase()) if (isChar02 == 'true') total2 += half; else total1 += half;
+                        if (day02 == char02) if (isChar02 == 'true') total2++; else total1++; if (day02 == char02.toLowerCase()) if (isChar02 == 'true') total2 += half; else total1 += half;
+                        if (day03 == char02) if (isChar02 == 'true') total2++; else total1++; if (day03 == char02.toLowerCase()) if (isChar02 == 'true') total2 += half; else total1 += half;
+                        if (day04 == char02) if (isChar02 == 'true') total2++; else total1++; if (day04 == char02.toLowerCase()) if (isChar02 == 'true') total2 += half; else total1 += half;
+                        if (day05 == char02) if (isChar02 == 'true') total2++; else total1++; if (day05 == char02.toLowerCase()) if (isChar02 == 'true') total2 += half; else total1 += half;
+                        if (day06 == char02) if (isChar02 == 'true') total2++; else total1++; if (day06 == char02.toLowerCase()) if (isChar02 == 'true') total2 += half; else total1 += half;
+                        if (day07 == char02) if (isChar02 == 'true') total2++; else total1++; if (day07 == char02.toLowerCase()) if (isChar02 == 'true') total2 += half; else total1 += half;
+                        if (day08 == char02) if (isChar02 == 'true') total2++; else total1++; if (day08 == char02.toLowerCase()) if (isChar02 == 'true') total2 += half; else total1 += half;
+                        if (day09 == char02) if (isChar02 == 'true') total2++; else total1++; if (day09 == char02.toLowerCase()) if (isChar02 == 'true') total2 += half; else total1 += half;
+                        if (day10 == char02) if (isChar02 == 'true') total2++; else total1++; if (day10 == char02.toLowerCase()) if (isChar02 == 'true') total2 += half; else total1 += half;
+                        if (day11 == char02) if (isChar02 == 'true') total2++; else total1++; if (day11 == char02.toLowerCase()) if (isChar02 == 'true') total2 += half; else total1 += half;
+                        if (day12 == char02) if (isChar02 == 'true') total2++; else total1++; if (day12 == char02.toLowerCase()) if (isChar02 == 'true') total2 += half; else total1 += half;
+                        if (day13 == char02) if (isChar02 == 'true') total2++; else total1++; if (day13 == char02.toLowerCase()) if (isChar02 == 'true') total2 += half; else total1 += half;
+                        if (day14 == char02) if (isChar02 == 'true') total2++; else total1++; if (day14 == char02.toLowerCase()) if (isChar02 == 'true') total2 += half; else total1 += half;
+                        if (day15 == char02) if (isChar02 == 'true') total2++; else total1++; if (day15 == char02.toLowerCase()) if (isChar02 == 'true') total2 += half; else total1 += half;
+                        if (day16 == char02) if (isChar02 == 'true') total2++; else total1++; if (day16 == char02.toLowerCase()) if (isChar02 == 'true') total2 += half; else total1 += half;
+                        if (day17 == char02) if (isChar02 == 'true') total2++; else total1++; if (day17 == char02.toLowerCase()) if (isChar02 == 'true') total2 += half; else total1 += half;
+                        if (day18 == char02) if (isChar02 == 'true') total2++; else total1++; if (day18 == char02.toLowerCase()) if (isChar02 == 'true') total2 += half; else total1 += half;
+                        if (day19 == char02) if (isChar02 == 'true') total2++; else total1++; if (day19 == char02.toLowerCase()) if (isChar02 == 'true') total2 += half; else total1 += half;
+                        if (day20 == char02) if (isChar02 == 'true') total2++; else total1++; if (day20 == char02.toLowerCase()) if (isChar02 == 'true') total2 += half; else total1 += half;
+                        if (day21 == char02) if (isChar02 == 'true') total2++; else total1++; if (day21 == char02.toLowerCase()) if (isChar02 == 'true') total2 += half; else total1 += half;
+                        if (day22 == char02) if (isChar02 == 'true') total2++; else total1++; if (day22 == char02.toLowerCase()) if (isChar02 == 'true') total2 += half; else total1 += half;
+                        if (day23 == char02) if (isChar02 == 'true') total2++; else total1++; if (day23 == char02.toLowerCase()) if (isChar02 == 'true') total2 += half; else total1 += half;
+                        if (day24 == char02) if (isChar02 == 'true') total2++; else total1++; if (day24 == char02.toLowerCase()) if (isChar02 == 'true') total2 += half; else total1 += half;
+                        if (day25 == char02) if (isChar02 == 'true') total2++; else total1++; if (day25 == char02.toLowerCase()) if (isChar02 == 'true') total2 += half; else total1 += half;
+                        if (day26 == char02) if (isChar02 == 'true') total2++; else total1++; if (day26 == char02.toLowerCase()) if (isChar02 == 'true') total2 += half; else total1 += half;
+                        if (day27 == char02) if (isChar02 == 'true') total2++; else total1++; if (day27 == char02.toLowerCase()) if (isChar02 == 'true') total2 += half; else total1 += half;
+                        if (day28 == char02) if (isChar02 == 'true') total2++; else total1++; if (day28 == char02.toLowerCase()) if (isChar02 == 'true') total2 += half; else total1 += half;
+                        if (day29 == char02) if (isChar02 == 'true') total2++; else total1++; if (day29 == char02.toLowerCase()) if (isChar02 == 'true') total2 += half; else total1 += half;
+                        if (day30 == char02) if (isChar02 == 'true') total2++; else total1++; if (day30 == char02.toLowerCase()) if (isChar02 == 'true') total2 += half; else total1 += half;
+                        if (day31 == char02) if (isChar02 == 'true') total2++; else total1++; if (day31 == char02.toLowerCase()) if (isChar02 == 'true') total2 += half; else total1 += half;
+                    }
+
+                    if (char03 != null) {
+                        if (day01 == char03) if (isChar03 == 'true') total2++; else total1++; if (day01 == char03.toLowerCase()) if (isChar03 == 'true') total2 += half; else total1 += half;
+                        if (day02 == char03) if (isChar03 == 'true') total2++; else total1++; if (day02 == char03.toLowerCase()) if (isChar03 == 'true') total2 += half; else total1 += half;
+                        if (day03 == char03) if (isChar03 == 'true') total2++; else total1++; if (day03 == char03.toLowerCase()) if (isChar03 == 'true') total2 += half; else total1 += half;
+                        if (day04 == char03) if (isChar03 == 'true') total2++; else total1++; if (day04 == char03.toLowerCase()) if (isChar03 == 'true') total2 += half; else total1 += half;
+                        if (day05 == char03) if (isChar03 == 'true') total2++; else total1++; if (day05 == char03.toLowerCase()) if (isChar03 == 'true') total2 += half; else total1 += half;
+                        if (day06 == char03) if (isChar03 == 'true') total2++; else total1++; if (day06 == char03.toLowerCase()) if (isChar03 == 'true') total2 += half; else total1 += half;
+                        if (day07 == char03) if (isChar03 == 'true') total2++; else total1++; if (day07 == char03.toLowerCase()) if (isChar03 == 'true') total2 += half; else total1 += half;
+                        if (day08 == char03) if (isChar03 == 'true') total2++; else total1++; if (day08 == char03.toLowerCase()) if (isChar03 == 'true') total2 += half; else total1 += half;
+                        if (day09 == char03) if (isChar03 == 'true') total2++; else total1++; if (day09 == char03.toLowerCase()) if (isChar03 == 'true') total2 += half; else total1 += half;
+                        if (day10 == char03) if (isChar03 == 'true') total2++; else total1++; if (day10 == char03.toLowerCase()) if (isChar03 == 'true') total2 += half; else total1 += half;
+                        if (day11 == char03) if (isChar03 == 'true') total2++; else total1++; if (day11 == char03.toLowerCase()) if (isChar03 == 'true') total2 += half; else total1 += half;
+                        if (day12 == char03) if (isChar03 == 'true') total2++; else total1++; if (day12 == char03.toLowerCase()) if (isChar03 == 'true') total2 += half; else total1 += half;
+                        if (day13 == char03) if (isChar03 == 'true') total2++; else total1++; if (day13 == char03.toLowerCase()) if (isChar03 == 'true') total2 += half; else total1 += half;
+                        if (day14 == char03) if (isChar03 == 'true') total2++; else total1++; if (day14 == char03.toLowerCase()) if (isChar03 == 'true') total2 += half; else total1 += half;
+                        if (day15 == char03) if (isChar03 == 'true') total2++; else total1++; if (day15 == char03.toLowerCase()) if (isChar03 == 'true') total2 += half; else total1 += half;
+                        if (day16 == char03) if (isChar03 == 'true') total2++; else total1++; if (day16 == char03.toLowerCase()) if (isChar03 == 'true') total2 += half; else total1 += half;
+                        if (day17 == char03) if (isChar03 == 'true') total2++; else total1++; if (day17 == char03.toLowerCase()) if (isChar03 == 'true') total2 += half; else total1 += half;
+                        if (day18 == char03) if (isChar03 == 'true') total2++; else total1++; if (day18 == char03.toLowerCase()) if (isChar03 == 'true') total2 += half; else total1 += half;
+                        if (day19 == char03) if (isChar03 == 'true') total2++; else total1++; if (day19 == char03.toLowerCase()) if (isChar03 == 'true') total2 += half; else total1 += half;
+                        if (day20 == char03) if (isChar03 == 'true') total2++; else total1++; if (day20 == char03.toLowerCase()) if (isChar03 == 'true') total2 += half; else total1 += half;
+                        if (day21 == char03) if (isChar03 == 'true') total2++; else total1++; if (day21 == char03.toLowerCase()) if (isChar03 == 'true') total2 += half; else total1 += half;
+                        if (day22 == char03) if (isChar03 == 'true') total2++; else total1++; if (day22 == char03.toLowerCase()) if (isChar03 == 'true') total2 += half; else total1 += half;
+                        if (day23 == char03) if (isChar03 == 'true') total2++; else total1++; if (day23 == char03.toLowerCase()) if (isChar03 == 'true') total2 += half; else total1 += half;
+                        if (day24 == char03) if (isChar03 == 'true') total2++; else total1++; if (day24 == char03.toLowerCase()) if (isChar03 == 'true') total2 += half; else total1 += half;
+                        if (day25 == char03) if (isChar03 == 'true') total2++; else total1++; if (day25 == char03.toLowerCase()) if (isChar03 == 'true') total2 += half; else total1 += half;
+                        if (day26 == char03) if (isChar03 == 'true') total2++; else total1++; if (day26 == char03.toLowerCase()) if (isChar03 == 'true') total2 += half; else total1 += half;
+                        if (day27 == char03) if (isChar03 == 'true') total2++; else total1++; if (day27 == char03.toLowerCase()) if (isChar03 == 'true') total2 += half; else total1 += half;
+                        if (day28 == char03) if (isChar03 == 'true') total2++; else total1++; if (day28 == char03.toLowerCase()) if (isChar03 == 'true') total2 += half; else total1 += half;
+                        if (day29 == char03) if (isChar03 == 'true') total2++; else total1++; if (day29 == char03.toLowerCase()) if (isChar03 == 'true') total2 += half; else total1 += half;
+                        if (day30 == char03) if (isChar03 == 'true') total2++; else total1++; if (day30 == char03.toLowerCase()) if (isChar03 == 'true') total2 += half; else total1 += half;
+                        if (day31 == char03) if (isChar03 == 'true') total2++; else total1++; if (day31 == char03.toLowerCase()) if (isChar03 == 'true') total2 += half; else total1 += half;
+                    }
+
+                    if (char04 != null) {
+                        if (day01 == char04) if (isChar04 == 'true') total2++; else total1++; if (day01 == char04.toLowerCase()) if (isChar04 == 'true') total2 += half; else total1 += half;
+                        if (day02 == char04) if (isChar04 == 'true') total2++; else total1++; if (day02 == char04.toLowerCase()) if (isChar04 == 'true') total2 += half; else total1 += half;
+                        if (day03 == char04) if (isChar04 == 'true') total2++; else total1++; if (day03 == char04.toLowerCase()) if (isChar04 == 'true') total2 += half; else total1 += half;
+                        if (day04 == char04) if (isChar04 == 'true') total2++; else total1++; if (day04 == char04.toLowerCase()) if (isChar04 == 'true') total2 += half; else total1 += half;
+                        if (day05 == char04) if (isChar04 == 'true') total2++; else total1++; if (day05 == char04.toLowerCase()) if (isChar04 == 'true') total2 += half; else total1 += half;
+                        if (day06 == char04) if (isChar04 == 'true') total2++; else total1++; if (day06 == char04.toLowerCase()) if (isChar04 == 'true') total2 += half; else total1 += half;
+                        if (day07 == char04) if (isChar04 == 'true') total2++; else total1++; if (day07 == char04.toLowerCase()) if (isChar04 == 'true') total2 += half; else total1 += half;
+                        if (day08 == char04) if (isChar04 == 'true') total2++; else total1++; if (day08 == char04.toLowerCase()) if (isChar04 == 'true') total2 += half; else total1 += half;
+                        if (day09 == char04) if (isChar04 == 'true') total2++; else total1++; if (day09 == char04.toLowerCase()) if (isChar04 == 'true') total2 += half; else total1 += half;
+                        if (day10 == char04) if (isChar04 == 'true') total2++; else total1++; if (day10 == char04.toLowerCase()) if (isChar04 == 'true') total2 += half; else total1 += half;
+                        if (day11 == char04) if (isChar04 == 'true') total2++; else total1++; if (day11 == char04.toLowerCase()) if (isChar04 == 'true') total2 += half; else total1 += half;
+                        if (day12 == char04) if (isChar04 == 'true') total2++; else total1++; if (day12 == char04.toLowerCase()) if (isChar04 == 'true') total2 += half; else total1 += half;
+                        if (day13 == char04) if (isChar04 == 'true') total2++; else total1++; if (day13 == char04.toLowerCase()) if (isChar04 == 'true') total2 += half; else total1 += half;
+                        if (day14 == char04) if (isChar04 == 'true') total2++; else total1++; if (day14 == char04.toLowerCase()) if (isChar04 == 'true') total2 += half; else total1 += half;
+                        if (day15 == char04) if (isChar04 == 'true') total2++; else total1++; if (day15 == char04.toLowerCase()) if (isChar04 == 'true') total2 += half; else total1 += half;
+                        if (day16 == char04) if (isChar04 == 'true') total2++; else total1++; if (day16 == char04.toLowerCase()) if (isChar04 == 'true') total2 += half; else total1 += half;
+                        if (day17 == char04) if (isChar04 == 'true') total2++; else total1++; if (day17 == char04.toLowerCase()) if (isChar04 == 'true') total2 += half; else total1 += half;
+                        if (day18 == char04) if (isChar04 == 'true') total2++; else total1++; if (day18 == char04.toLowerCase()) if (isChar04 == 'true') total2 += half; else total1 += half;
+                        if (day19 == char04) if (isChar04 == 'true') total2++; else total1++; if (day19 == char04.toLowerCase()) if (isChar04 == 'true') total2 += half; else total1 += half;
+                        if (day20 == char04) if (isChar04 == 'true') total2++; else total1++; if (day20 == char04.toLowerCase()) if (isChar04 == 'true') total2 += half; else total1 += half;
+                        if (day21 == char04) if (isChar04 == 'true') total2++; else total1++; if (day21 == char04.toLowerCase()) if (isChar04 == 'true') total2 += half; else total1 += half;
+                        if (day22 == char04) if (isChar04 == 'true') total2++; else total1++; if (day22 == char04.toLowerCase()) if (isChar04 == 'true') total2 += half; else total1 += half;
+                        if (day23 == char04) if (isChar04 == 'true') total2++; else total1++; if (day23 == char04.toLowerCase()) if (isChar04 == 'true') total2 += half; else total1 += half;
+                        if (day24 == char04) if (isChar04 == 'true') total2++; else total1++; if (day24 == char04.toLowerCase()) if (isChar04 == 'true') total2 += half; else total1 += half;
+                        if (day25 == char04) if (isChar04 == 'true') total2++; else total1++; if (day25 == char04.toLowerCase()) if (isChar04 == 'true') total2 += half; else total1 += half;
+                        if (day26 == char04) if (isChar04 == 'true') total2++; else total1++; if (day26 == char04.toLowerCase()) if (isChar04 == 'true') total2 += half; else total1 += half;
+                        if (day27 == char04) if (isChar04 == 'true') total2++; else total1++; if (day27 == char04.toLowerCase()) if (isChar04 == 'true') total2 += half; else total1 += half;
+                        if (day28 == char04) if (isChar04 == 'true') total2++; else total1++; if (day28 == char04.toLowerCase()) if (isChar04 == 'true') total2 += half; else total1 += half;
+                        if (day29 == char04) if (isChar04 == 'true') total2++; else total1++; if (day29 == char04.toLowerCase()) if (isChar04 == 'true') total2 += half; else total1 += half;
+                        if (day30 == char04) if (isChar04 == 'true') total2++; else total1++; if (day30 == char04.toLowerCase()) if (isChar04 == 'true') total2 += half; else total1 += half;
+                        if (day31 == char04) if (isChar04 == 'true') total2++; else total1++; if (day31 == char04.toLowerCase()) if (isChar04 == 'true') total2 += half; else total1 += half;
+                    }
+
+                    if (char05 != null) {
+                        if (day01 == char05) if (isChar05 == 'true') total2++; else total1++; if (day01 == char05.toLowerCase()) if (isChar05 == 'true') total2 += half; else total1 += half;
+                        if (day02 == char05) if (isChar05 == 'true') total2++; else total1++; if (day02 == char05.toLowerCase()) if (isChar05 == 'true') total2 += half; else total1 += half;
+                        if (day03 == char05) if (isChar05 == 'true') total2++; else total1++; if (day03 == char05.toLowerCase()) if (isChar05 == 'true') total2 += half; else total1 += half;
+                        if (day04 == char05) if (isChar05 == 'true') total2++; else total1++; if (day04 == char05.toLowerCase()) if (isChar05 == 'true') total2 += half; else total1 += half;
+                        if (day05 == char05) if (isChar05 == 'true') total2++; else total1++; if (day05 == char05.toLowerCase()) if (isChar05 == 'true') total2 += half; else total1 += half;
+                        if (day06 == char05) if (isChar05 == 'true') total2++; else total1++; if (day06 == char05.toLowerCase()) if (isChar05 == 'true') total2 += half; else total1 += half;
+                        if (day07 == char05) if (isChar05 == 'true') total2++; else total1++; if (day07 == char05.toLowerCase()) if (isChar05 == 'true') total2 += half; else total1 += half;
+                        if (day08 == char05) if (isChar05 == 'true') total2++; else total1++; if (day08 == char05.toLowerCase()) if (isChar05 == 'true') total2 += half; else total1 += half;
+                        if (day09 == char05) if (isChar05 == 'true') total2++; else total1++; if (day09 == char05.toLowerCase()) if (isChar05 == 'true') total2 += half; else total1 += half;
+                        if (day10 == char05) if (isChar05 == 'true') total2++; else total1++; if (day10 == char05.toLowerCase()) if (isChar05 == 'true') total2 += half; else total1 += half;
+                        if (day11 == char05) if (isChar05 == 'true') total2++; else total1++; if (day11 == char05.toLowerCase()) if (isChar05 == 'true') total2 += half; else total1 += half;
+                        if (day12 == char05) if (isChar05 == 'true') total2++; else total1++; if (day12 == char05.toLowerCase()) if (isChar05 == 'true') total2 += half; else total1 += half;
+                        if (day13 == char05) if (isChar05 == 'true') total2++; else total1++; if (day13 == char05.toLowerCase()) if (isChar05 == 'true') total2 += half; else total1 += half;
+                        if (day14 == char05) if (isChar05 == 'true') total2++; else total1++; if (day14 == char05.toLowerCase()) if (isChar05 == 'true') total2 += half; else total1 += half;
+                        if (day15 == char05) if (isChar05 == 'true') total2++; else total1++; if (day15 == char05.toLowerCase()) if (isChar05 == 'true') total2 += half; else total1 += half;
+                        if (day16 == char05) if (isChar05 == 'true') total2++; else total1++; if (day16 == char05.toLowerCase()) if (isChar05 == 'true') total2 += half; else total1 += half;
+                        if (day17 == char05) if (isChar05 == 'true') total2++; else total1++; if (day17 == char05.toLowerCase()) if (isChar05 == 'true') total2 += half; else total1 += half;
+                        if (day18 == char05) if (isChar05 == 'true') total2++; else total1++; if (day18 == char05.toLowerCase()) if (isChar05 == 'true') total2 += half; else total1 += half;
+                        if (day19 == char05) if (isChar05 == 'true') total2++; else total1++; if (day19 == char05.toLowerCase()) if (isChar05 == 'true') total2 += half; else total1 += half;
+                        if (day20 == char05) if (isChar05 == 'true') total2++; else total1++; if (day20 == char05.toLowerCase()) if (isChar05 == 'true') total2 += half; else total1 += half;
+                        if (day21 == char05) if (isChar05 == 'true') total2++; else total1++; if (day21 == char05.toLowerCase()) if (isChar05 == 'true') total2 += half; else total1 += half;
+                        if (day22 == char05) if (isChar05 == 'true') total2++; else total1++; if (day22 == char05.toLowerCase()) if (isChar05 == 'true') total2 += half; else total1 += half;
+                        if (day23 == char05) if (isChar05 == 'true') total2++; else total1++; if (day23 == char05.toLowerCase()) if (isChar05 == 'true') total2 += half; else total1 += half;
+                        if (day24 == char05) if (isChar05 == 'true') total2++; else total1++; if (day24 == char05.toLowerCase()) if (isChar05 == 'true') total2 += half; else total1 += half;
+                        if (day25 == char05) if (isChar05 == 'true') total2++; else total1++; if (day25 == char05.toLowerCase()) if (isChar05 == 'true') total2 += half; else total1 += half;
+                        if (day26 == char05) if (isChar05 == 'true') total2++; else total1++; if (day26 == char05.toLowerCase()) if (isChar05 == 'true') total2 += half; else total1 += half;
+                        if (day27 == char05) if (isChar05 == 'true') total2++; else total1++; if (day27 == char05.toLowerCase()) if (isChar05 == 'true') total2 += half; else total1 += half;
+                        if (day28 == char05) if (isChar05 == 'true') total2++; else total1++; if (day28 == char05.toLowerCase()) if (isChar05 == 'true') total2 += half; else total1 += half;
+                        if (day29 == char05) if (isChar05 == 'true') total2++; else total1++; if (day29 == char05.toLowerCase()) if (isChar05 == 'true') total2 += half; else total1 += half;
+                        if (day30 == char05) if (isChar05 == 'true') total2++; else total1++; if (day30 == char05.toLowerCase()) if (isChar05 == 'true') total2 += half; else total1 += half;
+                        if (day31 == char05) if (isChar05 == 'true') total2++; else total1++; if (day31 == char05.toLowerCase()) if (isChar05 == 'true') total2 += half; else total1 += half;
+                    }
+
+                    if (char06 != null) {
+                        if (day01 == char06) if (isChar06 == 'true') total2++; else total1++; if (day01 == char06.toLowerCase()) if (isChar06 == 'true') total2 += half; else total1 += half;
+                        if (day02 == char06) if (isChar06 == 'true') total2++; else total1++; if (day02 == char06.toLowerCase()) if (isChar06 == 'true') total2 += half; else total1 += half;
+                        if (day03 == char06) if (isChar06 == 'true') total2++; else total1++; if (day03 == char06.toLowerCase()) if (isChar06 == 'true') total2 += half; else total1 += half;
+                        if (day04 == char06) if (isChar06 == 'true') total2++; else total1++; if (day04 == char06.toLowerCase()) if (isChar06 == 'true') total2 += half; else total1 += half;
+                        if (day05 == char06) if (isChar06 == 'true') total2++; else total1++; if (day05 == char06.toLowerCase()) if (isChar06 == 'true') total2 += half; else total1 += half;
+                        if (day06 == char06) if (isChar06 == 'true') total2++; else total1++; if (day06 == char06.toLowerCase()) if (isChar06 == 'true') total2 += half; else total1 += half;
+                        if (day07 == char06) if (isChar06 == 'true') total2++; else total1++; if (day07 == char06.toLowerCase()) if (isChar06 == 'true') total2 += half; else total1 += half;
+                        if (day08 == char06) if (isChar06 == 'true') total2++; else total1++; if (day08 == char06.toLowerCase()) if (isChar06 == 'true') total2 += half; else total1 += half;
+                        if (day09 == char06) if (isChar06 == 'true') total2++; else total1++; if (day09 == char06.toLowerCase()) if (isChar06 == 'true') total2 += half; else total1 += half;
+                        if (day10 == char06) if (isChar06 == 'true') total2++; else total1++; if (day10 == char06.toLowerCase()) if (isChar06 == 'true') total2 += half; else total1 += half;
+                        if (day11 == char06) if (isChar06 == 'true') total2++; else total1++; if (day11 == char06.toLowerCase()) if (isChar06 == 'true') total2 += half; else total1 += half;
+                        if (day12 == char06) if (isChar06 == 'true') total2++; else total1++; if (day12 == char06.toLowerCase()) if (isChar06 == 'true') total2 += half; else total1 += half;
+                        if (day13 == char06) if (isChar06 == 'true') total2++; else total1++; if (day13 == char06.toLowerCase()) if (isChar06 == 'true') total2 += half; else total1 += half;
+                        if (day14 == char06) if (isChar06 == 'true') total2++; else total1++; if (day14 == char06.toLowerCase()) if (isChar06 == 'true') total2 += half; else total1 += half;
+                        if (day15 == char06) if (isChar06 == 'true') total2++; else total1++; if (day15 == char06.toLowerCase()) if (isChar06 == 'true') total2 += half; else total1 += half;
+                        if (day16 == char06) if (isChar06 == 'true') total2++; else total1++; if (day16 == char06.toLowerCase()) if (isChar06 == 'true') total2 += half; else total1 += half;
+                        if (day17 == char06) if (isChar06 == 'true') total2++; else total1++; if (day17 == char06.toLowerCase()) if (isChar06 == 'true') total2 += half; else total1 += half;
+                        if (day18 == char06) if (isChar06 == 'true') total2++; else total1++; if (day18 == char06.toLowerCase()) if (isChar06 == 'true') total2 += half; else total1 += half;
+                        if (day19 == char06) if (isChar06 == 'true') total2++; else total1++; if (day19 == char06.toLowerCase()) if (isChar06 == 'true') total2 += half; else total1 += half;
+                        if (day20 == char06) if (isChar06 == 'true') total2++; else total1++; if (day20 == char06.toLowerCase()) if (isChar06 == 'true') total2 += half; else total1 += half;
+                        if (day21 == char06) if (isChar06 == 'true') total2++; else total1++; if (day21 == char06.toLowerCase()) if (isChar06 == 'true') total2 += half; else total1 += half;
+                        if (day22 == char06) if (isChar06 == 'true') total2++; else total1++; if (day22 == char06.toLowerCase()) if (isChar06 == 'true') total2 += half; else total1 += half;
+                        if (day23 == char06) if (isChar06 == 'true') total2++; else total1++; if (day23 == char06.toLowerCase()) if (isChar06 == 'true') total2 += half; else total1 += half;
+                        if (day24 == char06) if (isChar06 == 'true') total2++; else total1++; if (day24 == char06.toLowerCase()) if (isChar06 == 'true') total2 += half; else total1 += half;
+                        if (day25 == char06) if (isChar06 == 'true') total2++; else total1++; if (day25 == char06.toLowerCase()) if (isChar06 == 'true') total2 += half; else total1 += half;
+                        if (day26 == char06) if (isChar06 == 'true') total2++; else total1++; if (day26 == char06.toLowerCase()) if (isChar06 == 'true') total2 += half; else total1 += half;
+                        if (day27 == char06) if (isChar06 == 'true') total2++; else total1++; if (day27 == char06.toLowerCase()) if (isChar06 == 'true') total2 += half; else total1 += half;
+                        if (day28 == char06) if (isChar06 == 'true') total2++; else total1++; if (day28 == char06.toLowerCase()) if (isChar06 == 'true') total2 += half; else total1 += half;
+                        if (day29 == char06) if (isChar06 == 'true') total2++; else total1++; if (day29 == char06.toLowerCase()) if (isChar06 == 'true') total2 += half; else total1 += half;
+                        if (day30 == char06) if (isChar06 == 'true') total2++; else total1++; if (day30 == char06.toLowerCase()) if (isChar06 == 'true') total2 += half; else total1 += half;
+                        if (day31 == char06) if (isChar06 == 'true') total2++; else total1++; if (day31 == char06.toLowerCase()) if (isChar06 == 'true') total2 += half; else total1 += half;
+                    }
+                    dataItem.set("total1", total1);
+                    dataItem.set("total2", total2);
+                }
+            },
+            edit: function (e) {
+                var input = e.container.find("input");
+                input.select();
+
+                e.container.find("input[name=day01]").attr("maxlength", 1);
+                e.container.find("input[name=day02]").attr("maxlength", 1);
+                e.container.find("input[name=day03]").attr("maxlength", 1);
+                e.container.find("input[name=day04]").attr("maxlength", 1);
+                e.container.find("input[name=day05]").attr("maxlength", 1);
+                e.container.find("input[name=day06]").attr("maxlength", 1);
+                e.container.find("input[name=day07]").attr("maxlength", 1);
+                e.container.find("input[name=day08]").attr("maxlength", 1);
+                e.container.find("input[name=day09]").attr("maxlength", 1);
+                e.container.find("input[name=day10]").attr("maxlength", 1);
+                e.container.find("input[name=day11]").attr("maxlength", 1);
+                e.container.find("input[name=day12]").attr("maxlength", 1);
+                e.container.find("input[name=day13]").attr("maxlength", 1);
+                e.container.find("input[name=day14]").attr("maxlength", 1);
+                e.container.find("input[name=day15]").attr("maxlength", 1);
+                e.container.find("input[name=day16]").attr("maxlength", 1);
+                e.container.find("input[name=day17]").attr("maxlength", 1);
+                e.container.find("input[name=day18]").attr("maxlength", 1);
+                e.container.find("input[name=day19]").attr("maxlength", 1);
+                e.container.find("input[name=day20]").attr("maxlength", 1);
+                e.container.find("input[name=day21]").attr("maxlength", 1);
+                e.container.find("input[name=day22]").attr("maxlength", 1);
+                e.container.find("input[name=day23]").attr("maxlength", 1);
+                e.container.find("input[name=day24]").attr("maxlength", 1);
+                e.container.find("input[name=day25]").attr("maxlength", 1);
+                e.container.find("input[name=day26]").attr("maxlength", 1);
+                e.container.find("input[name=day27]").attr("maxlength", 1);
+                e.container.find("input[name=day28]").attr("maxlength", 1);
+                e.container.find("input[name=day29]").attr("maxlength", 1);
+                e.container.find("input[name=day30]").attr("maxlength", 1);
+                e.container.find("input[name=day31]").attr("maxlength", 1);
+
+                $(document.body).keydown(function (e) {
+                    let text = '@Model.Char01';
+                    let code01 = text.charCodeAt(0);
+                    text = '@Model.Char02';
+                    let code02 = text.charCodeAt(0);
+                    text = '@Model.Char03';
+                    let code03 = text.charCodeAt(0);
+                    text = '@Model.Char04';
+                    let code04 = text.charCodeAt(0);
+                    text = '@Model.Char05';
+                    let code05 = text.charCodeAt(0);
+                    text = '@Model.Char06';
+                    let code06 = text.charCodeAt(0);
+
+                    text = '@Model.Char01';
+                    let textL = text.toLowerCase();
+                    let code011 = textL.charCodeAt(0);
+
+                    text = '@Model.Char02';
+                    textL = text.toLowerCase();
+                    let code022 = textL.charCodeAt(0);
+
+                    text = '@Model.Char03';
+                    textL = text.toLowerCase();
+                    let code033 = textL.charCodeAt(0);
+
+                    text = '@Model.Char04';
+                    textL = text.toLowerCase();
+                    let code044 = textL.charCodeAt(0);
+
+                    text = '@Model.Char05';
+                    textL = text.toLowerCase();
+                    let code055 = textL.charCodeAt(0);
+
+                    text = '@Model.Char06';
+                    textL = text.toLowerCase();
+                    let code066 = textL.charCodeAt(0);
+
+                    if (e.keyCode != code01 && e.keyCode != code02 && e.keyCode != code03 && e.keyCode != code04 && e.keyCode != code05 && e.keyCode != code06 &&
+                        e.keyCode != code011 && e.keyCode != code022 && e.keyCode != code033 && e.keyCode != code044 && e.keyCode != code055 && e.keyCode != code066 &&
+                        e.keyCode != 8) {
+                        return false;
+                    }
+
+                    //if (e.keyCode != 68 && e.keyCode != 82 && e.keyCode != 70 && e.keyCode != 84) {
+                    //    return false;
+                    //}
+
+                    //let text = e.key;
+                    //let code = text.charCodeAt(0);
+                    //console.log(code);
+                });
+            },
+        });
+
+        var grid = $("#gridStudents").data("kendoGrid");
+        if ('@TempData["hday29IsTrue"]' == 'False') grid.hideColumn(30);
+        if ('@TempData["hday30IsTrue"]' == 'False') grid.hideColumn(31);
+        if ('@TempData["hday31IsTrue"]' == 'False') grid.hideColumn(32);
+
+        grid.hideColumn(35);
+        grid.hideColumn(36);
+        grid.hideColumn(37);
+        grid.hideColumn(38);
+        grid.hideColumn(39);
+        grid.hideColumn(40);
+        grid.hideColumn(41);
+        grid.hideColumn(42);
+        grid.hideColumn(43);
+        grid.hideColumn(44);
+        grid.hideColumn(45);
+        grid.hideColumn(46);
+    });
+</script>
+<script>
+    record = 0;
+    var classroomID = document.getElementById("classroomID").value;
+
+    $(document).ready(function () {
+        var crudServiceBaseUrl = "/M950Absenteeism/",
+            dataSource = new kendo.data.DataSource({
+                transport: {
+                    read: {
+                        url: crudServiceBaseUrl + "TotalAbsenteeismDataRead/" + "@Model.UserID" + "/" + classroomID,
+                        dataType: "json"
+                    },
+                    parameterMap: function (options, operation) {
+                        if (operation !== "read" && options.models) {
+                            return { models: kendo.stringify(options.models) };
+                        }
+                    }
+                },
+                batch: true,
+                schema: {
+                    model: {
+                        id: "absenteeismID",
+                        fields: {
+                            absenteeismID: { editable: false, type: "number" },
+                            schoolID: { editable: false, type: "number" },
+                            studentID: { editable: false, type: "number" },
+                            //date: { editable: false, type: "date", format: "{0:dd-MM-yyyy}" },
+                            studentName: { editable: false, type: "string" },
+
+                            total101: { editable: true, type: "number" },
+                            total201: { editable: true, type: "number" },
+                            total102: { editable: true, type: "number" },
+                            tota1202: { editable: true, type: "number" },
+                            total103: { editable: true, type: "number" },
+                            total203: { editable: true, type: "number" },
+                            total104: { editable: true, type: "number" },
+                            tota1204: { editable: true, type: "number" },
+                            total105: { editable: true, type: "number" },
+                            total205: { editable: true, type: "number" },
+                            tota1106: { editable: true, type: "number" },
+                            total206: { editable: true, type: "number" },
+                            total107: { editable: true, type: "number" },
+                            total207: { editable: true, type: "number" },
+                            tota1108: { editable: true, type: "number" },
+                            tota1208: { editable: true, type: "number" },
+                            tota1109: { editable: true, type: "number" },
+                            tota1209: { editable: true, type: "number" },
+                            total110: { editable: true, type: "number" },
+                            total210: { editable: true, type: "number" },
+                            total111: { editable: true, type: "number" },
+                            total211: { editable: true, type: "number" },
+                            total112: { editable: true, type: "number" },
+                            total212: { editable: true, type: "number" },
+                        }
+                    },
+                }
+            });
+        var first = 1;
+        var grid = $("#gridTotalStudents").kendoGrid({
+            dataSource: dataSource,
+            navigatable: true,
+            ajax: true,
+            autoBind: false,
+            //groupable: true,
+            resizable: true,
+            selectable: "multiple row",
+            toolbar: ["search", "excel"],
+
+            excelExport: function (e) {
+                e.workbook.fileName = "@Model.ClassroomName" + "-" + "@ESCHOOL.Resources.Resource.Total" + "-" + kendo.toString(new Date, "yyyy/MM/dd HH:mm") + ".xlsx";
+            },
+            columns: [
+                { title: "#", template: "#= ++record #", width: 30 },
+                { field: "studentName", title: getByCulture('@culture', 'studentName'), headerTemplate: "@ESCHOOL.Resources.Resource.StudentName", width: "120px", template: "#=studentName#" },
+                //{ field: "warningSW"},
+
+                {
+                    title: "@Model.HMonth01",
+                    columns: [
+                        { field: "total101", title: "@ESCHOOL.Resources.Resource.Total1", width: "42px", template: "#if(total101 === 0){#  #}else{# #=kendo.toString(total101, 'n1')# #}#", attributes: { style: "text-align:right" } },
+                        { field: "total201", title: "@ESCHOOL.Resources.Resource.Total2", width: "42px", template: "#if(total201 === 0){#  #}else{# #=kendo.toString(total201, 'n1')# #}#", attributes: { style: "text-align:right" } },
+                    ]
+                },
+
+                {
+                    title: "@Model.HMonth02",
+                    columns: [
+                        { field: "total102", title: "@ESCHOOL.Resources.Resource.Total1", width: "42px", template: "#if(total102 === 0){#  #}else{# #=kendo.toString(total102, 'n1')# #}#", attributes: { style: "text-align:right" } },
+                        { field: "total202", title: "@ESCHOOL.Resources.Resource.Total2", width: "42px", template: "#if(total202 === 0){#  #}else{# #=kendo.toString(total202, 'n1')# #}#", attributes: { style: "text-align:right" } },
+                    ]
+                },
+                {
+                    title: "@Model.HMonth03",
+                    columns: [
+                        { field: "total103", title: "@ESCHOOL.Resources.Resource.Total1", width: "42px", template: "#if(total103 === 0){#  #}else{# #=kendo.toString(total103, 'n1')# #}#", attributes: { style: "text-align:right" } },
+                        { field: "total203", title: "@ESCHOOL.Resources.Resource.Total2", width: "42px", template: "#if(total203 === 0){#  #}else{# #=kendo.toString(total203, 'n1')# #}#", attributes: { style: "text-align:right" } },
+                    ]
+                },
+                {
+                    title: "@Model.HMonth04",
+                    columns: [
+                        { field: "total104", title: "@ESCHOOL.Resources.Resource.Total1", width: "42px", template: "#if(total104 === 0){#  #}else{# #=kendo.toString(total104, 'n1')# #}#", attributes: { style: "text-align:right" } },
+                        { field: "total204", title: "@ESCHOOL.Resources.Resource.Total2", width: "42px", template: "#if(total204 === 0){#  #}else{# #=kendo.toString(total204, 'n1')# #}#", attributes: { style: "text-align:right" } },
+                    ]
+                },
+                {
+                    title: "@Model.HMonth05",
+                    columns: [
+                        { field: "total105", title: "@ESCHOOL.Resources.Resource.Total1", width: "42px", template: "#if(total105 === 0){#  #}else{# #=kendo.toString(total105, 'n1')# #}#", attributes: { style: "text-align:right" } },
+                        { field: "total205", title: "@ESCHOOL.Resources.Resource.Total2", width: "42px", template: "#if(total205 === 0){#  #}else{# #=kendo.toString(total205, 'n1')# #}#", attributes: { style: "text-align:right" } },
+                    ]
+                },
+                {
+                    title: "@Model.HMonth06",
+                    columns: [
+                        { field: "total106", title: "@ESCHOOL.Resources.Resource.Total1", width: "42px", template: "#if(total106 === 0){#  #}else{# #=kendo.toString(total106, 'n1')# #}#", attributes: { style: "text-align:right" } },
+                        { field: "total206", title: "@ESCHOOL.Resources.Resource.Total2", width: "42px", template: "#if(total206 === 0){#  #}else{# #=kendo.toString(total206, 'n1')# #}#", attributes: { style: "text-align:right" } },
+                    ]
+                },
+                {
+                    title: "@Model.HMonth07",
+                    columns: [
+                        { field: "total107", title: "@ESCHOOL.Resources.Resource.Total1", width: "42px", template: "#if(total107 === 0){#  #}else{# #=kendo.toString(total107, 'n1')# #}#", attributes: { style: "text-align:right" } },
+                        { field: "total207", title: "@ESCHOOL.Resources.Resource.Total2", width: "42px", template: "#if(total207 === 0){#  #}else{# #=kendo.toString(total207, 'n1')# #}#", attributes: { style: "text-align:right" } },
+                    ]
+                },
+                {
+                    title: "@Model.HMonth08",
+                    columns: [
+                        { field: "total108", title: "@ESCHOOL.Resources.Resource.Total1", width: "42px", template: "#if(total108 === 0){#  #}else{# #=kendo.toString(total108, 'n1')# #}#", attributes: { style: "text-align:right" } },
+                        { field: "total208", title: "@ESCHOOL.Resources.Resource.Total2", width: "42px", template: "#if(total208 === 0){#  #}else{# #=kendo.toString(total208, 'n1')# #}#", attributes: { style: "text-align:right" } },
+                    ]
+                },
+                {
+                    title: "@Model.HMonth09",
+                    columns: [
+                        { field: "total109", title: "@ESCHOOL.Resources.Resource.Total1", width: "42px", template: "#if(total109 === 0){#  #}else{# #=kendo.toString(total109, 'n1')# #}#", attributes: { style: "text-align:right" } },
+                        { field: "total209", title: "@ESCHOOL.Resources.Resource.Total2", width: "42px", template: "#if(total209 === 0){#  #}else{# #=kendo.toString(total209, 'n1')# #}#", attributes: { style: "text-align:right" } },
+                    ]
+                },
+                {
+                    title: "@Model.HMonth10",
+                    columns: [
+                        { field: "total110", title: "@ESCHOOL.Resources.Resource.Total1", width: "42px", template: "#if(total110 === 0){#  #}else{# #=kendo.toString(total110, 'n1')# #}#", attributes: { style: "text-align:right" } },
+                        { field: "total210", title: "@ESCHOOL.Resources.Resource.Total2", width: "42px", template: "#if(total210 === 0){#  #}else{# #=kendo.toString(total210, 'n1')# #}#", attributes: { style: "text-align:right" } },
+                    ]
+                },
+                {
+                    title: "@Model.HMonth11",
+                    columns: [
+                        { field: "total111", title: "@ESCHOOL.Resources.Resource.Total1", width: "42px", template: "#if(total111 === 0){#  #}else{# #=kendo.toString(total111, 'n1')# #}#", attributes: { style: "text-align:right" } },
+                        { field: "total211", title: "@ESCHOOL.Resources.Resource.Total2", width: "42px", template: "#if(total211 === 0){#  #}else{# #=kendo.toString(total211, 'n1')# #}#", attributes: { style: "text-align:right" } },
+                    ]
+                },
+                {
+                    title: "@Model.HMonth12",
+                    columns: [
+                        { field: "total112", title: "@ESCHOOL.Resources.Resource.Total1", width: "42px", template: "#if(total112 === 0){#  #}else{# #=kendo.toString(total112, 'n1')# #}#", attributes: { style: "text-align:right" } },
+                        { field: "total212", title: "@ESCHOOL.Resources.Resource.Total2", width: "42px", template: "#if(total212 === 0){#  #}else{# #=kendo.toString(total212, 'n1')# #}#", attributes: { style: "text-align:right" } },
+                    ]
+                },
+
+                {
+                    columns: [{ field: "grandTotal1", title: "@Model.HTotal1", width: "42px", headerTemplate: "<span class='verticalText2'>@Model.HTotal1</span>", template: "#if(grandTotal1 === 0){#  #}else{# #=kendo.toString(grandTotal1, 'n1')# #}#" }]
+                },
+                {
+                    columns: [{ field: "grandTotal2", title: "@Model.HTotal2", width: "42px", headerTemplate: "<span class='verticalText2'>@Model.HTotal2</span>", template: "#if(grandTotal2 === 0){#  #}else{# #=kendo.toString(grandTotal2, 'n1')# #}#" }]
+                }
+
+            ],
+            dataBinding: function () {
+                record = 0;
+            },
+            dataBound: function (e) {
+                var rows = e.sender.tbody.children();
+                for (var j = 0; j < rows.length; j++) {
+                    var row = $(rows[j]);
+                    var dataItem = e.sender.dataItem(row);
+                    var sw = dataItem.get("warningSW");
+                    var cell = row.children();
+                    if (sw == 1) cell.addClass(getColorClass());
+                }
+            },
+        });
+
+        var grid = $("#gridTotalStudents").data("kendoGrid");
+        if ('@TempData["hmonth10IsTrue"]' == 'False') grid.hideColumn(11);
+        if ('@TempData["hmonth11IsTrue"]' == 'False') grid.hideColumn(12);
+        if ('@TempData["hmonth12IsTrue"]' == 'False') grid.hideColumn(13);
+    });
+
+    function getColorClass() {
+            return "critical";
+    }
+</script>
+<!--#endregion -->
+<span id="popupNotification"></span>
+<script>
+    function showPopupNotification() {
+        var popupNotification = $("#popupNotification").kendoNotification().data("kendoNotification");
+        var d = new Date();
+        popupNotification.show(kendo.toString(d, 'HH:MM:ss.') + kendo.toString(d.getMilliseconds(), "000"), "error");
+    };
+</script>
+<script>
+    function div1Button() {
+        $("#div1").show(500);
+    };
+    function div1ButtonClose() {
+        $("#div1").hide(500);
+    };
+
+    function saveButton() {
+        $("form").submit();
+        div1ButtonClose();
+    };
+
+
+</script>
+<script>
+    var dictionary =
+    {
+        'tr-TR': {
+            select: 'Seç',
+            msgOk: 'Tamam',
+            user: 'Kullanıcı',
+            operation: 'İşlem',
+            date: 'Tarih',
+            explanation: 'Açıklama',
+            studentName: 'Öğrenci Adı',
+        },
+
+        'en-US': {
+            select: 'Select',
+            msgOk: 'OK',
+            user: 'User',
+            operation: 'Operation',
+            date: 'Date',
+            explanation: 'Explanation',
+            studentName: 'Student Name',
+        },
+    }
+    function getByCulture(culture, word) {
+        return dictionary[culture][word]
+    }
+
+</script>
+
+<style>
+    hr {
+        border: 1px solid darkgrey;
+        margin-bottom: 40px;
+    }
+
+    .k-grid-header .k-grid-header-wrap th.k-header {
+        text-align: center;
+        vertical-align: middle;
+        line-height: 0.7em
+    }
+
+    .critical {
+        color: #fda;
+    }
+
+    form label {
+        font-weight: bold;
+        font-size: 12px;
+    }
+
+    .k-header {
+        font-weight: bold !important;
+        font-size: 12px;
+    }
+</style>
+<script>
+    window.history.replaceState('', '', window.location.pathname);
+</script>

@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Telerik Web Report Designer</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="demo-section k-content fixed-top wide">
+        <div id="toolbarMenu" style="float: right;"></div>
+    </div>
+    <div id="webReportDesigner" style="padding-top:50px; float: right;">
+        loading...
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2022.1.301/js/kendo.all.min.js"></script>
+    <script src="/api/reportdesigner/resources/js/telerikReportViewer/"></script>
+    <script src="/api/reportdesigner/designerresources/js/webReportDesigner/"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            var path = "@string.Format("{0}.trdx",Model)";
+            var rpt = $("#webReportDesigner").telerik_WebReportDesigner({
+                toolboxArea: {
+                    layout: "list" //Change to "grid" to display the contents of the Components area in a flow grid layout.
+                },
+                serviceUrl: "/api/reportdesigner",
+                report: path,
+            }).data("telerik_WebDesigner");
+            rpt.EnableViewState = "true";
+            rpt.refreshReport();
+        });
+        
+        setTimeout(function() {
+            var newOption = $("li[data-action='documentNew']");
+            newOption.attr("style", "display:none");
+        }, 500);
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            $("#toolbarMenu").kendoToolBar({
+                items: [
+                    { type: "button", id: "exit", overflow: "never", text: "@ESCHOOL.Resources.Resource.Exit", attributes: { style: "float: right;" }, icon: "logout" },
+                ],
+            
+                click: function(e) {
+                    if (e.id == "exit" || e.id == "back") {
+                        if (e.id == "exit")
+                            window.localStorage.setItem("RestoreReports", "false");
+                            window.location.replace("/Home/index?userID=@Html.Raw(ViewBag.UserID)");
+                    }
+                }
+            });
+        });
+    </script>
+    <script>
+        window.history.replaceState('', '', window.location.pathname);
+    </script>
+</body>
+</html>

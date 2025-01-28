@@ -1,0 +1,974 @@
+﻿@model ESCHOOL.ViewModels.TaskViewModel
+@{
+    System.Globalization.CultureInfo.CurrentCulture = System.Globalization.CultureInfo.CreateSpecificCulture(@Model.SelectedCulture);
+    System.Globalization.CultureInfo.CurrentUICulture = System.Globalization.CultureInfo.CreateSpecificCulture(@Model.SelectedCulture);
+    var culture = System.Globalization.CultureInfo.CurrentCulture.ToString();
+}
+@addTagHelper *, Kendo.Mvc
+
+@{
+    var messages = new Dictionary<string, string>() { { "custom", "Please choose another Start Time." } };
+    var rules = new Dictionary<string, string>() { { "custom", "customFunction" } };
+}
+<!--#region head -->
+<html>
+<head>
+    <style>
+        html {
+            font-size: 13px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+    </style>
+    <title></title>
+    <link href="https://kendo.cdn.telerik.com/2021.2.616/styles/kendo.common.min.css" rel="stylesheet" />
+    <link rel="stylesheet" id="skin-css" href="@TempData["theme"]" />
+    <link rel="stylesheet" id="skin-css" href="@TempData["themeMobile"]" />
+    <script src="https://kendo.cdn.telerik.com/2021.2.616/js/jquery.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2021.2.616/js/kendo.all.min.js"></script>
+
+    <script src="@Url.Content("~/telerik/2021.2.616/js//cultures/kendo.culture." + culture + ".min.js")"></script>
+    <script src="@Url.Content("~/telerik/2021.2.616/js//messages/kendo.messages." + culture + ".min.js")"></script>
+
+    <script type="text/javascript">
+        kendo.culture("@culture");
+    </script>
+</head>
+<!--#endregion -->
+<body data-spy="scroll" data-target=".navbar">
+    <!--#region toolbar -->
+    <style>
+        #logoId img {
+            width: 60px;
+        }
+    </style>
+    <script>
+        $(document).ready(function () {
+            $("#toolbarMenu").kendoToolBar({
+                items: [
+                    {
+                        template: "<img src='../Upload/Images/Logo.png' class='user-image' style='width:60px;'/>",
+                        overflow: "never",
+                    },
+                    { template: "<h4><label style='padding-left:20px;'>@ESCHOOL.Resources.Resource.Guidance</label></h4>" },
+                    { type: "spacer" },
+
+
+                    { type: "button", id: "help", text: "@ESCHOOL.Resources.Resource.Help", icon: "help" },
+                    { type: "separator" },
+
+
+                    { type: "button", id: "exit", text: "@ESCHOOL.Resources.Resource.Exit", icon: "logout" },
+                    { type: "separator" },
+                ],
+
+                click: function (e) {
+                    if (e.id == "exit" || e.id == "back") {
+                        window.location.replace("/Home/index?userID=@Model.UserID");
+                    }
+                    if (e.id == "help") {
+                        var myWindow = $("#panelbarHelp").show();
+                        var panelBar = $("#panelbarHelp").data("kendoPanelBar");
+                        panelBar.select(panelBar.element.children("li").eq(0));
+                        panelBar._selected[0].style.display = 'block';
+                        var item = panelBar.select();
+                        panelBar.expand(item);
+                    }
+                }
+            });
+            if (@Model.StudentID == 0) $("#back").hide();
+        });
+    </script>
+
+
+    <form id="M210Student" asp-controller="M210Student" asp-action="Guidance" enctype="multipart/form-data" method="post">
+        <div class="demo-section k-content fixed-top wide">
+            <div id="toolbarMenu"></div>
+        </div>
+        <br />
+
+        <script id="template" type="text/x-kendo-template">
+            <span class="k-textbox k-grid-search k-display-flex"  style="width:50%;">
+                <input autocomplete="off" placeholder=@ESCHOOL.Resources.Resource.Search class="k-input">
+                <span class="k-input-icon">
+                    <span class="k-icon k-i-search" style="float:right"></span>
+                </span>
+            </span>
+
+            <div class="toolbar" style="float:left"><label  for="classroomDropDown"></label> <input type="select" id="classroomDropDown" style="width: 150px" /></div >
+        </script>
+        <script id="template2" type="text/x-kendo-template">
+            <span class="k-textbox k-grid-search k-display-flex"  style="width:50%;">
+                <input autocomplete="off" placeholder=@ESCHOOL.Resources.Resource.Search class="k-input">
+                <span class="k-input-icon">
+                    <span class="k-icon k-i-search" style="float:right"></span>
+                </span>
+            </span>
+
+            <div class="toolbar" style="float:left"><label  for="classroomDropDown"></label> <input type="select" id="classroomDropDown" style="width: 150px" /></div >
+        </script>
+
+        @*<br /><br /><br /><br /><br /><br /><br />*@
+
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <!--#region hidden -->
+        @*Geri dönüşlerde null olmaması için*@
+        <input type="hidden" asp-for="@Model.StudentID" />
+        <input type="hidden" asp-for="@Model.UserID" />
+        <input type="hidden" asp-for="@Model.SchoolID" />
+
+        <!--#endregion -->
+        <br /> <br />
+        <!--#region panelbarHelp -->
+        <ul id="panelbarHelp" style="display: none;">
+            <li>
+                <span class="k-link">@ESCHOOL.Resources.Resource.Help</span>
+                <div class="k-card-body" style="padding-left:15px;">
+                    <p><strong>@ESCHOOL.Resources.Resource.CollectionMsg</strong></p>
+                    <p>@ESCHOOL.Resources.Resource.EventMsg100</p>
+                    <p>@ESCHOOL.Resources.Resource.EventMsg101</p>
+                    <p>@ESCHOOL.Resources.Resource.EventMsg102</p>
+                    <p>@ESCHOOL.Resources.Resource.EventMsg103</p>
+                    <p>@ESCHOOL.Resources.Resource.EventMsg104</p>
+                    <br />
+                </div>
+                <style>
+                    #panelbarHelp {
+                        width: 100%;
+                        /*     max-width: none;*/
+                        margin: 0 auto;
+                    }
+                </style>
+
+                <script>
+                    $(document).ready(function () {
+                        $("#panelbarHelp").kendoPanelBar({
+                            animation: {
+                                collapse: {
+                                    duration: 500,
+                                    effects: "fadeOut"
+                                },
+                                expand: {
+                                    duration: 500,
+                                    effects: "expandVertical fadeIn"
+                                }
+                            }
+                        });
+                    });
+                </script>
+            </li>
+        </ul>
+        <!--#endregion -->
+
+        <div class="row" style="border: thin solid rgb(120,120,120); padding-top:2px; padding-bottom:15px;">
+            <section class="col order-1 col-md-4">
+                <h5 class="ra-well-title card-header top-left" style="padding-top: 2px; padding-bottom:2px;"> <kbd>  @ESCHOOL.Resources.Resource.Students</kbd></h5>
+                <div>
+                    <div id="gridStudents"></div>
+                </div>
+            </section>
+
+            <div id="agenda" class="col order-2 col-md-8 ra-well-title card-header k-content" style="height:745px; max-width:1100px;padding-left:5px; padding-right:5px;padding-top: 5px;padding-bottom: 5px; border: thin solid rgb(120,120,120);">
+                <div id="people" style="height:30px;">
+                    <ul class="row fieldlist" style="overflow: auto;height:30px;">
+                        <li class="color01" style="padding-right:5px;padding-top:5px; height:30px;">
+                            <span class="label">@Model.Color01Name</span>
+                            <input type="checkbox" id="color01" aria-label="color01" value=@Model.Color01Value />
+                        </li>
+                        <li class="color02" style="padding-right:5px;padding-top:5px; height:30px;">
+                            <span class="label">@Model.Color02Name</span>
+                            <input type="checkbox" id="color02" aria-label="color02" value=@Model.Color02Value />
+                        </li>
+                        <li class="color03" style="padding-right:5px;padding-top:5px; height:30px;">
+                            <span class="label">@Model.Color03Name</span>
+                            <input type="checkbox" id="color03" aria-label="color03" value=@Model.Color03Value />
+                        </li>
+                        <li class="color04" style="padding-right:5px;padding-top:5px; height:30px;">
+                            <span class="label">@Model.Color04Name</span>
+                            <input type="checkbox" id="color04" aria-label="color04" value=@Model.Color04Value />
+                        </li>
+                        <li class="color05" style="padding-right:5px;padding-top:5px; height:30px;">
+                            <span class="label">@Model.Color05Name</span>
+                            <input type="checkbox" id="color05" aria-label="color05" value=@Model.Color05Value />
+                        </li>
+                        <li class="color06" style="padding-right:5px;padding-top:5px; height:30px;">
+                            <span class="label">@Model.Color06Name</span>
+                            <input type="checkbox" id="color06" aria-label="color06" value=@Model.Color06Value />
+                        </li>
+                        <li class="color07" style="padding-right:5px;padding-top:5px; height:30px;">
+                            <span class="label">@Model.Color07Name</span>
+                            <input type="checkbox" id="color07" aria-label="color07" value=@Model.Color07Value />
+                        </li>
+                        <li class="color08" style="padding-right:5px;padding-top:5px; height:30px;">
+                            <span class="label">@Model.Color08Name</span>
+                            <input type="checkbox" id="color08" aria-label="color08" value=@Model.Color08Value />
+                        </li>
+                        <li class="color09" style="padding-right:5px;padding-top:5px; height:30px;">
+                            <span class="label">@Model.Color09Name</span>
+                            <input type="checkbox" id="color09" aria-label="color09" value=@Model.Color09Value />
+                        </li>
+                        <li class="color10" style="padding-right:5px;padding-top:5px; height:30px;">
+                            <span class="label">@Model.Color10Name</span>
+                            <input type="checkbox" id="color10" aria-label="color10" value=@Model.Color10Value />
+                        </li>
+
+                        <li class="color11" style="padding-right:5px;padding-top:5px; height:30px;">
+                            <span class="label">@Model.Color11Name</span>
+                            <input type=@Model.Type11 id="color11" aria-label="color11" value=@Model.Color11Value />
+                        </li>
+                        <li class="color12" style="padding-right:5px;padding-top:5px; height:30px;">
+                            <span class="label">@Model.Color12Name</span>
+                            <input type=@Model.Type12 id="color12" aria-label="color12" value=@Model.Color12Value />
+                        </li>
+                        <li class="color13" style="padding-right:5px;padding-top:5px; height:30px;">
+                            <span class="label">@Model.Color13Name</span>
+                            <input type=@Model.Type13 id="color13" aria-label="color13" value=@Model.Color13Value />
+                        </li>
+                        <li class="color14" style="padding-right:5px;padding-top:5px; height:30px;">
+                            <span class="label">@Model.Color14Name</span>
+                            <input type=@Model.Type14 id="color14" aria-label="color14" value=@Model.Color14Value />
+                        </li>
+                        <li class="color15" style="padding-right:5px;padding-top:5px; height:30px;">
+                            <span class="label">@Model.Color15Name</span>
+                            <input type=@Model.Type15 id="color15" aria-label="color15" value=@Model.Color15Value />
+                        </li>
+                        <li class="color16" style="padding-right:5px;padding-top:5px; height:30px;">
+                            <span class="label">@Model.Color16Name</span>
+                            <input type=@Model.Type16 id="color16" aria-label="color16" value=@Model.Color16Value />
+                        </li>
+                        <li class="color17" style="padding-right:5px;padding-top:5px; height:30px;">
+                            <span class="label">@Model.Color17Name</span>
+                            <input type=@Model.Type17 id="color17" aria-label="color17" value=@Model.Color17Value />
+                        </li>
+                        <li class="color18" style="padding-right:5px;padding-top:5px; height:30px;">
+                            <span class="label">@Model.Color18Name</span>
+                            <input type=@Model.Type18 id="color18" aria-label="color18" value=@Model.Color18Value />
+                        </li>
+                        <li class="color19" style="padding-right:5px;padding-top:5px; height:30px;">
+                            <span class="label">@Model.Color19Name</span>
+                            <input type=@Model.Type19 id="color19" aria-label="color19" value=@Model.Color19Value />
+                        </li>
+                        <li class="color20" style="padding-right:5px;padding-top:5px; height:30px;">
+                            <span class="label">@Model.Color20Name</span>
+                            <input type=@Model.Type20 id="color20" aria-label="color20" value=@Model.Color20Value />
+                        </li>
+                    </ul>
+                </div>
+                <div id="scheduler" style="padding-top:5px; width:100%;"></div>
+
+                <input id="schoolID" type="hidden" asp-for="@Model.SchoolID" />
+                <input id="studentID" type="hidden" asp-for="@Model.StudentID" />
+                <br /><br /><br />
+                <input id="name" type="hidden" asp-for="@Model.Name" />
+                <input type="hidden" asp-for="@Model.TaskTypeID" />
+
+                <script>
+                    $(function () {
+                        var schoolID = document.getElementById("schoolID").value;
+                        var studentID = document.getElementById("studentID").value;
+
+                        var d = new Date();
+                        var startString = kendo.toString(d, 'yyyy/MM/dd') + ' 07:00 AM';
+                        var endString = kendo.toString(d, 'yyyy/MM/dd') + ' 23:00';
+
+                        $("#scheduler").kendoScheduler({
+                            toolbar: ["pdf", "search"],
+                            pdf:
+                            {
+                                fileName: "@ESCHOOL.Resources.Resource.Guidance" + kendo.toString(new Date, "yyyy/MM/dd HH:mm") + ".pdf",
+                            },
+
+                            date: new Date(),
+                            startTime: new Date(startString),
+                            endTime: new Date(endString),
+                            height: 670,
+                            views: [
+                                "day",
+                                { type: "workWeek", selected: true },
+                                "week",
+                                "month",
+                                "year",
+                                "agenda",
+                                { type: "timeline", eventHeight: 50 }
+                            ],
+                            timezone: "Etc/UTC",
+
+                            dataSource: {
+                                batch: true,
+
+                                transport: {
+                                    read: {
+                                        url: "/M210Student/TaskDataRead/" + "@Model.SchoolID" + "/" + "@Model.UserID" + "/" + studentID + "/" + 2,
+                                        dataType: "json",
+                                    },
+
+                                    create: {
+                                        url: function (options) {
+                                            var schoolID = document.getElementById("schoolID").value;
+                                            var studentID = document.getElementById("studentID").value;
+                                            var url = "/M210Student/TaskDataCreate/" + options.models[0].id + "/" + schoolID + "/" + studentID + "/" + 2;
+                                            return url;
+                                        },
+                                        type: "post",
+                                        dataType: "json"
+                                    },
+                                    update: {
+                                        url: function (options) {
+                                            var url = "/M210Student/TaskDataUpdate/" + options.models[0].id;
+                                            return url;
+                                        },
+                                        complete: function (e) {
+                                            $("#scheduler").data("kendoScheduler").dataSource.read();
+                                        },
+                                        type: "post",
+                                        dataType: "json",
+                                    },
+
+                                    destroy: {
+                                        url: function (options) {
+                                            var url = "/M210Student/TaskDataDelete/" + options.models[0].id;
+                                            return url;
+                                        },
+                                        type: "post",
+                                        dataType: "json",
+                                    },
+
+                                    parameterMap: function (options, operation) {
+                                        if (operation !== "read" && options.models) {
+                                            return { models: kendo.stringify(options.models) };
+                                        }
+                                    }
+                                },
+                                schema: {
+                                    model: {
+                                        id: "taskID",
+                                        fields: {
+                                            schoolID: { editable: false, type: "number" },
+                                            studentID: { editable: false, type: "number" },
+
+                                            taskID: { from: "taskID", type: "number" },
+                                            title: { from: "title", validation: { required: true } },
+                                            start: { type: "date", from: "start" },
+                                            end: { type: "date", from: "end" },
+                                            description: { from: "description" },
+                                            recurrenceId: { from: "recurrenceID", defaultValue: 0 },
+                                            recurrenceRule: { from: "recurrenceRule" },
+                                            recurrenceException: { from: "recurrenceException" },
+                                            ownerId: { from: "ownerID", defaultValue: "@Model.ResourceDefaultValue" },
+                                            isAllDay: { type: "boolean", from: "isAllDay" },
+                                        }
+                                    }
+                                }
+                            },
+                            editable: true,
+
+                            resources: [{
+                                dataSource: {
+                                    transport: {
+                                        read: {
+                                            url: "/M210Student/ResourceTypeCombo",
+                                            dataType: "json",
+                                            contentType: "application/json; charset=utf-8"
+                                        }
+                                    }
+                                },
+                                title: getByCulture('@culture', 'marker'),
+                                field: "ownerId",
+                                dataTextField: "categoryName",
+                                dataValueField: "categoryID",
+                                dataColorField: "color",
+                            }],
+                        });
+
+                        $("#people :checkbox").change(function (e) {
+                            var checked = $.map($("#people :checked"), function (checkbox) {
+                                return parseInt($(checkbox).val());
+                            });
+                            var filter;
+                            if (checked.length == 0) {
+                                var filter = {
+                                    logic: "or",
+                                    filters: $.map(checked, function (value) {
+                                        return {
+                                            operator: "neq",
+                                            field: "ownerId",
+                                            value: 0
+                                        };
+                                    })
+                                };
+                                var scheduler = $("#scheduler").data("kendoScheduler");
+                                scheduler.dataSource.filter(filter);
+                            }
+                            else {
+                                var scheduler = $("#scheduler").data("kendoScheduler");
+
+                                scheduler.dataSource.filter({
+                                    operator: function (task) {
+                                        return $.inArray(task.ownerId, checked) >= 0;
+                                    }
+                                });
+                            }
+                        });
+                    });
+                </script>
+
+                <script>
+                    function createPdf() {
+                        var doc = new jsPDF("landscape", "in", "letter");
+                        return doc.output("blob");
+                    }
+                </script>
+
+                <style>
+                    .fieldlist {
+                        margin: 0 0 -1em;
+                        padding: 0;
+                    }
+
+                        .fieldlist li {
+                            list-style: none;
+                            padding-bottom: 1em;
+                        }
+
+                    .label {
+                        color: white;
+                        padding: 8px;
+                    }
+
+                    .color01 {
+                        background-color: @Model.Color01;
+                    }
+
+                    .color02 {
+                        background-color: @Model.Color02;
+                    }
+
+                    .color03 {
+                        background-color: @Model.Color03;
+                    }
+
+                    .color04 {
+                        background-color: @Model.Color04;
+                    }
+
+                    .color05 {
+                        background-color: @Model.Color05;
+                    }
+
+                    .color06 {
+                        background-color: @Model.Color06;
+                    }
+
+                    .color07 {
+                        background-color: @Model.Color07;
+                    }
+
+                    .color08 {
+                        background-color: @Model.Color08;
+                    }
+
+                    .color09 {
+                        background-color: @Model.Color09;
+                    }
+
+                    .color10 {
+                        background-color: @Model.Color10;
+                    }
+
+                    .color11 {
+                        background-color: @Model.Color11;
+                    }
+
+                    .color12 {
+                        background-color: @Model.Color12;
+                    }
+
+                    .color13 {
+                        background-color: @Model.Color13;
+                    }
+
+                    .color14 {
+                        background-color: @Model.Color14;
+                    }
+
+                    .color15 {
+                        background-color: @Model.Color15;
+                    }
+
+                    .color16 {
+                        background-color: @Model.Color16;
+                    }
+
+                    .color17 {
+                        background-color: @Model.Color13;
+                    }
+
+                    .color18 {
+                        background-color: @Model.Color14;
+                    }
+
+                    .color19 {
+                        background-color: @Model.Color15;
+                    }
+
+                    .color20 {
+                        background-color: @Model.Color16;
+                    }
+
+                    .color17 {
+                        background-color: @Model.Color17;
+                    }
+
+                    .color18 {
+                        background-color: @Model.Color18;
+                    }
+
+                    .color19 {
+                        background-color: @Model.Color19;
+                    }
+
+                    .color20 {
+                        background-color: @Model.Color20;
+                    }
+
+
+                    /*empty checkbox*/
+                    .k-checkbox {
+                        background: white;
+                    }
+
+                        /*checked checkbox*/
+                        .k-checkbox:checked {
+                            background: red;
+                            color: white;
+                        }
+                </style>
+                <style>
+                    hr {
+                        border: 1px solid darkgrey;
+                        /*   margin-bottom: 40px;*/
+                    }
+                </style>
+
+                <script>
+                    var dictionary =
+                    {
+                        'tr-TR': {
+                            marker: 'İşaretleyici',
+                        },
+                        'en-US': {
+                            marker: 'Marker',
+                        },
+                    }
+                    function getByCulture(culture, word) {
+                        return dictionary[culture][word]
+                    }
+                </script>
+
+            </div>
+            @*</div>*@
+
+        </div>
+
+        <!--#region style -->
+        <style>
+            #middle-pane {
+                color: #000;
+                background-color: #ccc;
+            }
+
+            #bottom-pane {
+                color: #000;
+                background-color: #aaa;
+            }
+
+            #left-pane {
+                color: #000;
+                background-color: #eee;
+                padding: 0 0;
+            }
+
+            #right-pane {
+                color: #000;
+                background-color: #eee;
+                padding: 0 0;
+            }
+
+            .pane-content {
+                padding: 1px 1px;
+            }
+
+            .k-grid td {
+                white-space: nowrap;
+                text-overflow: ellipsis;
+            }
+
+            #grid .k-grid-toolbar {
+                padding: .6em 1.3em .6em .4em;
+            }
+
+            #gridFees .k-grid-content {
+                height: 120px;
+                max-height: 120px;
+            }
+
+            #gridInstallments .k-grid-content {
+                height: 120px;
+                max-height: 120px;
+            }
+
+            #gridStudents .k-grid-content {
+                height: 620px;
+                max-height: 620px;
+            }
+
+
+            /*GRID header WRAP*/
+            .gridIP .k-grid-header .k-header .k-link {
+                height: auto;
+            }
+
+            .gridIP .k-grid-header .k-header {
+                white-space: normal;
+            }
+
+            .discontinued {
+                font-weight: bold;
+                color: #f00;
+            }
+
+            .critical {
+                background-color: #fdd;
+            }
+
+            .warning {
+                background-color: #fda;
+            }
+
+            .ok {
+                background-color: #ced;
+            }
+
+            .critical2 {
+                color: #fdd;
+            }
+
+            .warning2 {
+                color: #fda;
+            }
+
+            .ok2 {
+                color: #ced;
+            }
+
+            .k-upload-status {
+                display: none;
+            }
+
+            .ui-datepicker.ui-datepicker-inline {
+                width: 100% !important;
+            }
+
+            div.border {
+                border-style: solid;
+                border-color: coral;
+            }
+
+
+            #fieldlist {
+                margin: 0 0 -2em;
+                padding: 0;
+            }
+
+                #fieldlist li {
+                    list-style: none;
+                    padding-bottom: 0.5em;
+                }
+
+            hr.space-1 {
+                background: transparent;
+                color: transparent;
+                margin: 0;
+                border-style: none;
+                height: 0.5vw;
+            }
+        </style>
+        <!--#endregion -->
+
+    </form>
+
+    <!--#region dictionary -->
+    <script>
+        var dictionary =
+        {
+            'tr-TR': {
+                select: 'Seç',
+                selectbankName: 'Banka Seçimini Yapınız.',
+                enterValidAmount: 'Geçerli Bir Tutar Giriniz.',
+                selectclassroom: 'Öğrencinin Sınıfını Giriniz.',
+                feetableempty: 'Ücret tablosu girilmemiş.',
+                studentfeeempty: 'Öğrenci ücretleri girilmemiş.',
+                aboutRefundMsg: 'Notlarınız Kaydedildi.',
+                deleted: "Tahsil Kaydı Silindi.",
+                delete: "Tahsil Kaydı Silinecek, Emin misiniz?",
+                startBatch: "Toplu Fatura Basımı Yapılacak, Emin misiniz?",
+                maxTotal: "Dikkat; Bakiye Tutarından Büyük Bir Tutar Giremezsiniz.",
+                cut: "Kesildi",
+                unCut: "Kesilmedi",
+                planned: "Planlı",
+                unPlanned: "Plansız",
+                isExceed: "Girilen Tutar Çok Büyük.",
+                titleMsg: 'Kullanıcı Mesajı:',
+                msgOk: 'Tamam'
+            },
+
+            'en-US': {
+                select: 'Select',
+                selectbankName: 'Select the bank name.',
+                enterValidAmount: 'Enter Valid Amount.',
+                selectclassroom: "Enter Student's Class.",
+                feetableempty: 'The wage table has not been entered.',
+                studentfeeempty: 'Enter student fees.',
+                aboutRefundMsg: 'Your notes have been recorded.',
+                deleted: "Student collections record deleted.",
+                delete: "Are you sure, Collection record will be deleted?",
+                startBatch: "Batch Invoice Printing Will Be Made, Are You Sure?",
+                maxTotal: "Attention; You cannot enter an amount greater than the balance amount.",
+                cut: "Cut",
+                unCut: "Uncut",
+                planned: "Planned",
+                unPlanned: "Unplanned",
+                isExceed: "The amount entered is too large.",
+                titleMsg: 'User message:',
+                msgOk: 'OK'
+            },
+        }
+        function getByCulture(culture, word) {
+            return dictionary[culture][word]
+        }
+    </script>
+    <!--#endregion -->
+    <!--#region students -->
+    <script>
+        function onChange(arg) {
+            var grid = $("#gridStudents").data("kendoGrid");
+            var selectedItem = grid.dataItem(grid.select());
+
+            var studentID = selectedItem.studentID
+            if (studentID == 0) var studentID = $("#studentID").val();
+            document.getElementById("studentID").value = studentID;
+            document.getElementById("name").value = selectedItem.name;
+
+            if (studentID != 0) {
+                var scheduler = $("#scheduler").data("kendoScheduler");
+                scheduler.setOptions({ editable: true });
+
+                scheduler.dataSource.options.transport.read.url = "/M210Student/TaskDataRead/" + "@Model.SchoolID" + "/" + "@Model.UserID" + "/" + studentID + "/" + 2;
+                scheduler.dataSource.read();
+
+                //scheduler.setOptions({ editable: true });
+                //  $("#scheduler").data("kendoScheduler").setOptions({ editable: true });
+
+            }
+            //scheduler.refresh();
+
+        };
+
+        var isSelect = false;
+        $(document).ready(function () {
+            var crudServiceBaseUrl = "/M210Student/",
+                dataSource = new kendo.data.DataSource({
+                    transport: {
+                        read: {
+                            url: "/M210Student/StudentTaskGridDataRead/" + "@Model.UserID" + "/" + 0,
+                            dataType: "json"
+                        },
+                        parameterMap: function (options, operation) {
+                            if (operation !== "read" && options.models) {
+                                return { models: kendo.stringify(options.models) };
+                            }
+                        }
+                    },
+                    batch: true,
+                    schema: {
+                        model: {
+                            id: "viewModelId",
+                            fields: {
+                                viewModelId: { editable: false, type: "number" },
+                                studentID: { editable: false, type: "number" },
+                                name: { editable: false, type: "string" },
+                                studentClassroom: { editable: false, type: "string" },
+                                studentPicture: { editable: false, type: "string" },
+                                studentNumber: { editable: false, type: "string" },
+                            }
+                        }
+                    },
+                });
+
+            var first = 1;
+            var grid = $("#gridStudents").kendoGrid({
+                dataSource: dataSource,
+                sortable: {
+                    mode: "single",
+                    allowUnsort: false
+                },
+                resizable: true,
+                selectable: 'row',
+                change: onChange,
+                toolbar: [
+                    { template: kendo.template($("#template").html()) }
+                ],
+                columns: [
+                    {
+                        template:
+                            "<div class='customer-photo'" +
+                            "style='background-image: url(../Upload/Students//#:studentPicture#); width: 28px'></div>",
+                    },
+                    { field: "name", title: "@ESCHOOL.Resources.Resource.StudentName", footerTemplate: "#= sumStudent(1) #", width: "180px", },
+                    { field: "studentClassroom", title: "@ESCHOOL.Resources.Resource.Classrooms", width: "90px" },
+                    { field: "studentID" },
+                    { field: "studentPicture" },
+                ],
+                dataBound: function (e) {
+                    grid.select("tr:eq(0)");
+                },
+                dataBinding: function () {
+                    record = (this.dataSource.page() - 1) * this.dataSource.pageSize();
+                },
+            });
+
+            var dropDown = grid.find("#classroomDropDown").kendoDropDownList({
+                optionLabel: { classroomName: getByCulture('@culture', 'select'), classroomID: "0" },
+                dataTextField: "classroomName",
+                dataValueField: "classroomID",
+                dataSource: {
+                    type: "json",
+                    severFiltering: true,
+                    transport: {
+                        read: {
+                            url: "/M400Invoice/ClassroomCombo/" + "@Model.UserID",
+                            dataType: "json"
+
+                        },
+                    }
+                },
+                change: function () {
+                    var value = this.value();
+                    if (value == 0 || value != first) {
+                        $.ajax({
+                            type: "POST",
+                            url: "/M210Student/StudentTaskGridDataRead/" + "@Model.UserID" + "/" + value,
+                            dataType: "json",
+
+                            success: function (result) {
+                                var grid = $("#gridStudents").data("kendoGrid");
+                                var dataSource = new kendo.data.DataSource({ data: result });
+                                grid.setDataSource(dataSource);
+                                grid.select("tr:eq(0)");
+
+                                //var scheduler = $("#scheduler").data("kendoScheduler");
+                                //scheduler.dataSource.options.transport.read.url = "/M210Student/TaskDataRead/" + "@Model.SchoolID" + "/" + "@Model.UserID" + "/" + studentID + "/" + 2;
+                                //scheduler.dataSource.read();
+                            },
+                            error: function (httpRequest, textStatus, errorThrown) {
+                                alert("Error: " + textStatus + " " + errorThrown + " " + httpRequest);
+                            }
+                        });
+                        first = 0;
+                    };
+                },
+            }).data("kendoDropDownList");
+            var grid = $("#gridStudents").data("kendoGrid");
+            grid.hideColumn(3);
+            grid.hideColumn(4);
+
+        })
+        function sumStudent(e) {
+            var total = 0;
+            var $grid = $('#gridStudents');
+            var kendo = $grid.data().kendoGrid;
+            var data = kendo.dataSource.data();
+            var amount = 0;
+            for (var i = 0; i < data.length; i++) {
+                if (e == 1) amount += 1;
+                if (amount == NaN) {
+                    amount = 0;
+                }
+            }
+            total = amount;
+            return total;
+        }
+
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            $('body').kendoTooltip({
+                filter: '[title]:not([title=""])',
+                autoHide: true,
+                position: "top",
+                animation: {
+                    open: {
+                        effects: "zoom",
+                        duration: 150
+                    }
+                }
+            });
+        });
+    </script>
+    <!--#endregion -->
+
+</body>
+</html>
+
+<!--#region upload -->
+<script>
+    var previewingStudent = function (event) {
+        var result = document.getElementById("imgpreviewStudent")
+        result.src = URL.createObjectURL(event.tDiscountrget.files[0]);
+    };
+
+</script>
+
+<script>
+    $(document).ready(function () {
+        $('#M210Student').submit(function () {
+            $('#M210Student').find("[required=\"required\"]").attr("required", false);
+            $(".needValidation").attr("required", true);
+        });
+
+        var validator = $("#M210Student").kendoValidator().data("kendoValidator"),
+            status = $(".status");
+    });
+</script>
+<!--#endregion -->
+<!--#region style -->
+<style type="text/css">
+    .customer-photo {
+        display: inline-block;
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        background-size: 28px 31px;
+        background-position: center center;
+        vertical-align: middle;
+        line-height: 28px;
+        box-shadow: inset 0 0 1px #999, inset 0 0 10px rgba(0,0,0,.2);
+        margin-left: 0px;
+    }
+
+    .toolbar {
+        float: right;
+    }
+
+    #center {
+        /*        display: block;*/
+        margin-left: 22px;
+        /*        margin-right: auto;*/
+        /*        border: 8px ridge blue;*/
+    }
+</style>
+<script>
+    window.history.replaceState('', '', window.location.pathname);
+</script>
+<!--#endregion -->
+<!--#region Add/Update -->

@@ -1,0 +1,17 @@
+﻿using ESCHOOL.Models;
+using System.Collections.Generic;
+
+namespace ESCHOOL.Services
+{
+    public interface IUsersChatRepository
+    {
+        IEnumerable<UsersChat> GetUsersChatAll();
+        IEnumerable<UsersChat> GetUsersMessages(int userID, int chatUserID);
+        UsersChat GetUsersChat(int chatID);
+        bool CreateUsersChat(UsersChat usersChat);
+        bool DeleteUsersChat(UsersChat usersChat);
+        bool ExistUsersChat(int chatID);
+
+        bool Save();
+    }
+}

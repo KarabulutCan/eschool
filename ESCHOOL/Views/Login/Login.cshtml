@@ -1,0 +1,1321 @@
+﻿<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<!DOCTYPE html>
+@model ESCHOOL.ViewModels.SchoolViewModel
+@{
+    System.Globalization.CultureInfo.CurrentCulture = System.Globalization.CultureInfo.CreateSpecificCulture(@Model.SelectedCulture);
+    System.Globalization.CultureInfo.CurrentUICulture = System.Globalization.CultureInfo.CreateSpecificCulture(@Model.SelectedCulture);
+    var culture = System.Globalization.CultureInfo.CurrentCulture.ToString();
+}
+<head>
+    <style>
+        html {
+            font-size: 13px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+    </style>
+    <title></title>
+    <link href="~/telerik/2021.2.616/styles/kendo.common.min.css" rel="stylesheet" />
+    <link href="~/telerik/2021.2.616/styles/kendo.metro.min.css" rel="stylesheet" />
+    <link href="~/telerik/2021.2.616/styles/kendo.metro.mobile.min.css" rel="stylesheet" />
+
+    <script src="~/telerik/2021.2.616/js/jquery.min.js"></script>
+    <script src="~/telerik/2021.2.616/js/kendo.all.min.js"></script>
+
+    <script src="@Url.Content("~/telerik/2021.2.616/js//cultures/kendo.culture." + culture + ".min.js")"></script>
+    <script src="@Url.Content("~/telerik/2021.2.616/js//messages/kendo.messages." + culture + ".min.js")"></script>
+
+    <script type="text/javascript">
+        kendo.culture(culture);
+    </script>
+    @{
+        Layout = "_LoginLayout";
+    }
+</head>
+
+<body>
+    <div class="container">
+        <div class="row main">
+            <div class="panel-heading">
+                <div class="panel-title text-center">
+                    <center>
+                        <img src="~/Upload/Images/Logo.png" />
+                        <h3 class="title">Ncs.Net Computer</h3>
+                        <h4 style="padding-left:15px;"><a class="navbar-brand" href="https://www.ncs.com.tr" target="_blank" style="color:blue;"> www.ncs.com.tr </a></h4>
+                        <h4 style="padding-left:15px;"><a class="navbar-brand" href="mailto:info@ncs.com.tr" target="_blank" style="color:blue;"> info@ncs.com.tr </a></h4>
+                        <h4 style="padding-left:15px;"><a class="navbar-brand" href="/M210Student/login" target="_blank" style="color:darkblue;">@ESCHOOL.Resources.Resource.PreRegistrationApplicationForm </a></h4>
+                    </center>
+                </div>
+            </div>
+            <div class="main-center box form">
+                <form class="form-horizontal" method="post" action="#">
+                    <div>
+                        <center>
+                            <span>  <img src="~/Upload/Menu/Student.png" style="height: 50px; width: 50px;" alt="logo" /> </span><br />
+                            <h2 class="title" style="padding-left: 10px; margin-top: 10px; margin-bottom: 10px;">E-School</h2>
+                        </center>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="schoolCodeId" class="cols-sm-2 control-label">@ESCHOOL.Resources.Resource.SchoolCode</label>
+                        <div class="cols-sm-10">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-home"></i></span>
+                                <input type="text" class="form-control" name="schoolCode" id="schoolCodeId" placeholder="@ESCHOOL.Resources.Resource.SchoolCode" required validationMessage=@ESCHOOL.Resources.Resource.ValidNumber />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="schoolEmailId" class="cols-sm-2 control-label">@ESCHOOL.Resources.Resource.EMail</label>
+                        <div class="cols-sm-10">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                                <input type="email" class="form-control" name="schoolEmail" id="schoolEmailId" maxlength="50" placeholder="@ESCHOOL.Resources.Resource.EMail" required validationMessage=@ESCHOOL.Resources.Resource.ValidNumber />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group ">
+                        <button type="submit" id="loginId" class="btn btn-primary btn-lg btn-block login-button" onclick="loginControl()">@ESCHOOL.Resources.Resource.Signin</button>
+                    </div>
+                    <div class="row" style="height:0px;">
+                        <p style="padding-left:0px;"><a class="navbar-brand" onclick="popup1();" href="#" style="color:blue; font-size:smaller">@ESCHOOL.Resources.Resource.TermOfUse</a></p>
+                        <p style="padding-left:5px;"><a class="navbar-brand" onclick="popup2();" href="#" style="color:blue; font-size:smaller">@ESCHOOL.Resources.Resource.PrivacyPolicy</a></p>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="assets/js/bootstrap.js"></script>
+
+    <script>
+        function loginControl(e) {
+            var schoolCode = document.getElementById("schoolCodeId").value;
+            var schoolEmail = document.getElementById("schoolEmailId").value;
+            $.ajax({
+                async: false,
+                type: "POST",
+                url: "/Login/LoginControlDataRead/" + schoolCode + "/" + schoolEmail,
+                dataType: "json",
+
+                success: function (result) {
+                    if (result.isExist1 == true && result.isExist2 == true && result.isExpireDate == false && result.isExpireDateMsg == false) {
+                        window.history.pushState("", "", "/Login/Users?schoolCode=" + schoolCode);
+                    }
+                    else
+
+                        if (!result.isExist1) {
+                            msg = getByCulture('@culture', 'incorrectSchool');
+                            alert(msg);
+                        }
+                        else
+                            if (!result.isExist2) {
+                                msg = getByCulture('@culture', 'incorrectEmail');
+                                alert(msg);
+                            }
+                            else
+                                if (result.isExpireDate) {
+                                    msg1 = getByCulture('@culture', 'expireDate1');
+                                    msg2 = getByCulture('@culture', 'expireDate2');
+                                    msg3 = getByCulture('@culture', 'date');
+                                    str = msg1 + "\n" + msg2 + "\n" + msg3 + result.expireDate;
+                                    alert(str);
+                                }
+                                else
+                                    if (result.isExpireDateMsg) {
+                                        msg1 = getByCulture('@culture', 'expireDateMsg1');
+                                        msg2 = getByCulture('@culture', 'expireDateMsg2');
+                                        msg3 = getByCulture('@culture', 'date');
+                                        str = msg1 + "\n" + msg2 + "\n" + msg3 + result.expireDate;
+                                        alert(str);
+                                        window.history.pushState("", "", "/Login/Users?schoolCode=" + schoolCode);
+                                    }
+                }
+            });
+        }
+    </script>
+</body>
+
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        /*background-image: url(https:../Upload/Login/Login.jpg);*/
+        background-image: url(https:../Upload/Login/Login.jpg);
+        background-size: cover;
+        font-family: 'Oxygen', sans-serif;
+    }
+
+    .box {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 25rem;
+        padding: 2.5rem;
+        box-sizing: border-box;
+        background: rgba(255,255,255, 0.5);
+        border-radius: 0.625rem;
+    }
+
+    .main {
+        margin-top: 70px;
+    }
+
+    h1.title {
+        font-size: 50px;
+        font-family: 'Passion One', cursive;
+        font-weight: 400;
+    }
+
+    hr {
+        width: 10%;
+        color: #fff;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    label {
+        margin-bottom: 15px;
+    }
+
+    input,
+    input::-webkit-input-placeholder {
+        font-size: 11px;
+        padding-top: 3px;
+    }
+
+    .main-center {
+        margin-top: 30px;
+        margin: 0 auto;
+        max-width: 330px;
+        padding: 40px 40px;
+    }
+
+    .login-button {
+        margin-top: 5px;
+    }
+
+    .login-register {
+        font-size: 11px;
+        text-align: center;
+    }
+
+    .form {
+        /*                width: 350px;
+                                            height: 450px;*/
+        /*                background-color: rgba(41, 39, 39, 0.3);*/
+        box-shadow: 0 5px 30px black;
+    }
+
+    .formGroup {
+        display: flex;
+        justify-content: center;
+    }
+</style>
+
+<script>
+    var dictionary =
+    {
+        'tr-TR': {
+            incorrectSchool: 'Okul veya Kurum kodu tanmlı değil.',
+            incorrectEmail: 'E-Mail adresi tanmlı değil.',
+            expireDate1: 'Bu Kurumun Kullanım Sözleşmesi Sona Ermiştir, ',
+            expireDate2: 'Lütfen Şirketimizi Arayarak Program Sözleşmesini Yenileyiniz.',
+            expireDateMsg1: 'Bu Kurumun Kullanım Sözleşmesi Sona Ermek Üzeredir, ',
+            expireDateMsg2: 'Lütfen Şirketimizi Arayarak Program Sözleşmesini Yenileyiniz.',
+            date: 'Sözleşme Tarihi : ',
+            termOfUse: 'Kullanım Koşulları',
+            concerningYourPrivacy: 'Gizlilik Politikası'
+        },
+
+        'en-US': {
+            incorrectSchool: 'School or Institution code not defined.',
+            incorrectEmail: 'E-Mail address not defined.',
+            expireDate1: "This Institution/School's Use Agreement Has Expired, ",
+            expireDate2: "Please Renew the Program Agreement by Calling Our Company.",
+            expireDateMsg1: "This Institution/School's Usage Agreement is about to Expire, ",
+            expireDateMsg2: "Please Renew the Program Agreement by Calling Our Company.",
+            date: 'Date of contract : ',
+            termOfUse: 'Term Of Use',
+            concerningYourPrivacy: 'Concerning Your Privacy'
+        },
+    }
+    function getByCulture(culture, word) {
+        return dictionary[culture][word]
+    }
+</script>
+
+<div id="windowpopup1TR" style="display: none;">
+    <p>
+        <strong>KULLANIM KOŞULLARI</strong>
+    </p>
+    <p style="text-align: justify">
+        Ncs.Net Computer Bilgi işlem hizmetleri, kısaca NCS, Okul sektörü için
+        hizmet ve çözüm sağlayan bir bilişim teknolojisidir. E-SCHOOL, NCS ‘in bir
+        yazılımıdır. E-SCHOOL yazılımına abone olduktan sonra E-SCHOOL Online
+        Hizmet kullanımını yöneten aşağıdaki kullanım sözleşme şartlarını kabul etmiş olursunuz.
+        Eğer bu anlaşmaya bir şirket adına giriyorsanız, şirket adına satın alma kararı
+        yetkisine sahip olduğunuza, size yapılan tüm tebligatların şirketinize yapılmış
+        olduğuna vekil oluyorsunuz.<br />
+        E-SCHOOL küçük, büyük tüm Okul, Kurum vb. işletmeler için tasarlanmış
+        Web tabanlı bir Okul Yönetim sistemidir. Bu kullanım koşulları, bir servis sağlayıcı
+        olarak bizim yükümlülüklerimizi ve müşteri olarak sizin yükümlülüklerinizi açıklamak
+        üzere tasarlanmıştır. Lütfen onları dikkatlice okuyunuz.<br />
+        Bu şartlar yazılımın kullanılması ile geçerlilik kazanır.
+    </p>
+    <p style="text-align: justify">
+        Biz E-SCHOOL uygulamasının kullanıcı yorumlarına dayanarak zamanla gelişeceğine
+        inanmaktayız; bu nedenle zaman içinde yazılımda güncellemeler yapılabilir.<br />
+        Bu şartlar, her soruya cevap vermeyi veya E-SCHOOL Uygulamasının kullanımıyla
+        ortaya çıkarılan her sorunu gidermeyi hedeflemez. E-SCHOOL, her zaman bu
+        şartları değiştirme yetkisine sahiptir, hükümlerdeki değişiklik üzerine bunun ilanını
+        yapmak da bu yetkiye dahildir ve E-SCHOOL bu değişimlerden, E-mail üzerinden
+        veya sitede bildiri yayınlayarak sizi haberdar etmek için her türlü çabayı gösterecektir.
+        Bu kullanım koşullarının zaman içinde değişmesi muhtemeldir. Web sitesinde bulunan
+        en son şartları okumak, anlamak ve kabul etmek sizin yükümlülüğünüzdür.
+    </p>
+    <p style="text-align: justify">
+        <strong><u>1.Tanımlamalar</u></strong>
+    </p>
+    <p style="text-align: justify">
+        <strong>‘‘Bağlantı Ücreti</strong><br />
+        Sizin tarafınızdan, web sitemizde gösterilen ödeme çizelgesine uygun olarak aylık/yıllık
+        yapılan ödeme anlamına gelir.<br />
+        <strong>‘‘ Gizlilik Bilgisi</strong><br />
+        Taraflar arasında alışveriş şeklinde yapılan bu anlaşmanın, ister yazılı, ister
+        elektronik veya sözlü; uygulamayı içeren ama bilginin ne olduğunu içermeyen, karşı
+        tarafın izinsiz ifşası dışındaki kamuya açık bilgilerin tamamını içerir.<br />
+        <strong>‘‘ Veri</strong><br />
+        Sizin tarafınızdan Uygulamaya girilmiş olan her türlü bilgidir.<br />
+        <strong>‘‘Fikri Mülkiyet Hakkı</strong><br />
+        Kayıtlı olsun veya olmasın herhangi bir patent, ticari marka, hizmet markası, telif
+        hakkı, etik hak, tasarım hakkı, yöntem bilgisi ve diğer herhangi fikri veya sinai
+        mülkiyet hakları anlamına gelir.<br />
+        <strong>‘‘Yazılım</strong><br />
+        İnternet üzerinden kullanılabilir uygulama (E-SCHOOL tarafından zaman zaman
+        güncellenebilir veya değiştirilebilir )<br />
+        <strong>‘‘Web sitesi</strong><br />
+        Alan adı <a href="http://www.ncs.com.tr">www.ncs.com.tr</a>
+        NCS tarafından işletilen bir internet sitesidir.<strong></strong><br />
+        <strong>‘‘E-SCHOOL</strong><br />
+        NCS.’nin Okul Yönetim Sistemi uygulamasının adıdır.<br />
+        Program; sizi, çalışanlarınızı, danışmanlarınızı, temsilcilerinizi, acentalarınızı
+        içerir.
+    </p>
+    <p>
+        &nbsp;
+    </p>
+    <p style="text-align: justify">
+        <strong><u>2.Yazılım Kullanımı</u></strong>
+    </p>
+    <p style="text-align: justify">
+        E-SCHOOL; size web sitesi üzerinden abonelik türünüze göre kullanıcılarınıza
+        uygulamaya erişimi ve onu kullanma hakkı verir. Bu haklar, sınırlıdır, alıntı yapılamaz,
+        devredilemez, izinsiz kullanılamaz.
+    </p>
+    <p style="text-align: justify">
+        <strong><u>3.Yükümlülükleriniz</u></strong>
+    </p>
+    <p style="text-align: justify">
+        <strong>Ödeme</strong><br />
+        Erişim ücreti için fatura, sizin ilk E-SCHOOL bağlantısı yaptığınız tarihten
+        bir ay sonra, her ay/yıl  fatura iletişimcisine ulaştırılır.
+        Tüm faturalar önceki kullanım süresinin erişim ücretini içerecektir. E-SCHOOL,
+        bu anlaşma iptal edilene kadar sizi aylık/yıllık olarak faturalandırmaya devam edecektir.
+        Tüm E-SCHOOL faturaları elektronik posta yoluyla veya posta ile iletilecektir
+        ve faturaların, kesim tarihinden sonraki 7 gün içerisinde ödenmesi gerekmektedir.
+        Erişim ücretine ek olarak, yasalarda geçerli olacak olan tüm vergi ve harçların
+        ödenmesinden siz sorumlusunuz.
+    </p>
+    <p style="text-align: justify">
+        <strong>Genel yükümlülükler</strong><br />
+        Bu uygulamayı ve Web sitesini sadece kendi yasal iş amaçlarınız için, E-SCHOOL
+        tarafından Web sitesine gönderilen herhangi bir bildirim veya yayınlanan herhangi
+        bir duruma uygun olacak şekilde kullanmalısınız.
+    </p>
+    <p style="text-align: justify">
+        <strong>Erişim Koşulları</strong><br />
+        Uygulamaya ulaşmak için gerekli olan tüm kullanıcı adlarını ve parolaları güvenli
+        ve gizli tutmalısınız. Sizden habersiz olarak parolanızın kullanıldığı veya başka
+        bir güvenlik ihlalinin olması durumunda yönetici panelinden parola değişikliği yapabilir
+        veya NCS’yi hemen bilgilendirerek parola sıfırlamanızı yaptırabilirsiniz.<br />
+        Bu şartların bir koşulu olarak, uygulamaya erişimde ve onu kullanırken yapmanız
+        gerekenler;
+    </p>
+    <ul>
+        <li>
+            Güvenliği zayıflatma veya E-SCHOOL’ın bilgisayar sisteminin bütünlüğünü
+            bozma girişiminde bulunmayın;
+        </li>
+        <li>
+            Yazılımın veya web sitesinin işlevselliğini bozan ya da başka bir kullanıcının uygulama
+            ya da web sitesini kullanma yetkisini kısıtlayacak herhangi bir kullanım veya yanlış
+            kullanımda bulunmayın;
+        </li>
+        <li>
+            Yazılımı barındıran bilgisayar sistemi veya size izni verilenin dışındaki herhangi
+            bir materyale yetkisiz erişimde bulunmaya çalışmayın;
+        </li>
+        <li>
+            Başka bir kişinin cihazına veya yazılımına zarar verebilecek dosyaları, saldırı
+            olabilecek içerikleri yayınlamayın veya herhangi bir hukuk ihlalinde bulunmayın
+            (telif hakkı ile korunan ya da kullanmaya hakkınız olmayan ticari sırları da içeren
+            veri ve materyalleri de içerir.)
+        </li>
+        <li>
+            E-SCHOOL web sitesini değiştirmeyin, kopyalamayın, çoğaltmayın veya kaynak
+            koda çevirmeyin.
+        </li>
+    </ul>
+    <p>
+        &nbsp;
+    </p>
+    <p style="text-align: justify">
+        <strong>İletişim Koşulları</strong><br />
+        Bu şartların bir koşulu olarak, eğer web sitesi aracılığıyla erişilen herhangi bir
+        iletişim aracı kullanıyorsanız (örneğin herhangi bir forum, sohbet odası ya da mesaj
+        merkezi gibi) , bu tür iletişim araçlarını sadece yasal ve meşru araçlar için kullanmayı
+        kabul edersiniz.<br />
+        Hizmet teklifleri ya da satılık hizmetler, başka bir kişinin cihazları veya yazılımına
+        zarar verebilecek dosyalar, başka bir kullanıcı için saldırgan olabilecek içerik,
+        herhangi bir yasayı ihlal eden materyal de dahil olmak üzere (telif hakkıyla korunan
+        veya kullanma hakkına sahip olunmayan ticari sırlar dahil) kullanmayınız. Web sitesinde
+        bir iletişim kurduğunuzda, iletişimin içeriğinden sorumlusunuzdur. Başka bir web
+        tabanlı forumda da olabileceği gibi, web sitesi mevcut iletişim araçlarını kullanırken
+        dikkatli olmanız gerekir; ancak E-SCHOOL istediği görüşmeyi kendi takdiriyle
+        kaldırma hakkına sahiptir.
+    </p>
+    <p style="text-align: justify">
+        <strong>Tazminat</strong><br />
+        Sizin kuralları ihlal etmenizden kaynaklanan hasarlara ve kayıplara ya da E-SCHOOL’a
+        olan herhangi bir yükümlülüğünüze karşı tarafınızdan ödenmemiş herhangi bir erişim
+        ücreti dahil olmak üzere gerekli tazminatı ödersiniz.
+    </p>
+    <p style="text-align: justify">
+        <strong><u>4.Gizlilik ve Dokunulmazlık</u></strong>
+    </p>
+    <p style="text-align: justify">
+        <strong>Gizlilik</strong><br />
+        İlgili taraf diğer tarafın önceden yazılı rızasını almadıkça veya kanunen gerekli
+        olmadıkça:
+    </p>
+    <ul>
+        <li>
+            Her iki taraf bu şartları ile bağlantılı olarak elde edilen diğer bütün gizli bilgilerin
+            gizliliğini koruyacak. Taraflardan hiçbiri, diğerinin yazılı izni olmadan, gizli
+            bilgileri herhangi bir kişiye ifşa etmeyecek, kullanılabilir hale getirmeyecek veya
+            bu şartlar tarafından öngörülen dışında, aynı şekilde kendi çıkarları için de kullanmayacaktır.
+        </li>
+        <li>
+            Bu madde kapsamında her bir tarafın yükümlülükleri bu şartlar altında geçerliliğini
+            koruyacaktır.
+        </li>
+    </ul>
+    <p style="text-align: justify">
+        <strong>Dokunulmazlık</strong><br />
+        E-SCHOOL veriler bakımından tarafların yükümlülüklerini belirleyen bir gizlilik
+        politikası sürdürmektedir. Bu koşulları kabul etmiş sayılacağınızdan, <a href="http://www.ncs.com.tr">
+            www.ncs.com.tr
+        </a> sayfasında bu politikaları okumalısınız.
+    </p>
+    <p style="text-align: justify">
+        <strong><u>5.Fikri Mülkiyet</u></strong>
+    </p>
+    <p style="text-align: justify">
+        <strong>Genel</strong><br />
+        Başlık olarak, yazılım içindeki tüm fikri mülkiyet, web sitesi ve yazılım ile ilgili
+        herhangi bir doküman E-SCHOOL’ın mülkiyetindedir ( ya da lisanslarındadır).<br />
+        <strong>Veri</strong><br />
+        Verilere ulaşımınız E-SCHOOL erişim ücretini tam ödemenize bağlıdır. E-SCHOOL
+        günlük veri yedekleme sistemi ile veri kaybını önlemek için en iyi uygulama prosedürlerini
+        kullanır. Bu anlaşmanın fesih edilmesi durumunda fesih durumu sırasında talep ettiğiniz
+        takdirde, E-SCHOOL size fesihten sonraki 30 gün içerisinde verilerinizin
+        bir dosyasını temin edecektir. Aboneliğinizin fesih edilmesi ödeme yapmamanız ile
+        ilgiliyse, E-SCHOOL bildirim vermeksizin verilerinizi gizleme hakkını saklı
+        tutar. Bir sebep üzerine fesih gerçekleştiğinde, verilere ulaşma ve onları kullanma
+        hakkınız derhal sona erer ve E-SCHOOL’ın size verileri sunmak veya onları
+        korumak gibi bir yükümlülüğü yoktur.
+    </p>
+    <p style="text-align: justify">
+        <strong><u>6.Garanti ve Onaylar</u></strong>
+    </p>
+    <p style="text-align: justify">
+        <strong>Onaylama</strong><br />
+        Siz şunları onaylıyorsunuz:
+    </p>
+    <ul>
+        <li>
+            Eğer bir kuruluş adına yazılımı kullanıyorsanız ve web sitesine erişiyorsanız E-SCHOOL,
+            sizin bunu yapma hakkınız olduğunu kabul edecek ve sizi hareket ve ihmallerinizden
+            sorumlu tutabilecektir.
+        </li>
+        <li>Yazılımın hükmü, erişim ve kullanımı kendi sorumluluğunuzdadır.</li>
+        <li>
+            E-SCHOOL yazılımın kullanımının kesintisiz veya hatasız olacağını garanti
+            etmez. Aynı zamanda, kamu telefon hizmetleri, bilgisayar ağları ve internet de dahil
+            olmak üzere, yazılıma erişmek için kullanılan sistemler, operasyon ve yer durumu
+            değişken olabilir ve zaman zaman yazılım erişimini engelleyebilir.
+        </li>
+        <li>
+            E-SCHOOL, yazılımına erişimde çıkan engellemelerden hiçbir şekilde sorumlu
+            değildir.
+        </li>
+        <li>Bu yazılımın sizin ihtiyaçlarınıza uygun olduğunu belirlemek sizin kendi sorumluluğunuzdadır.</li>
+    </ul>
+    <p style="text-align: justify">
+        <strong>Garanti </strong>
+        <br />
+        E-SCHOOL yazılımının sizin ihtiyaçlarınıza veya amaçlarınıza yüzde yüz uygun
+        olmasına dair hiçbir garanti vermez.
+    </p>
+    <p style="text-align: justify">
+        <strong><u>7.Sorumluluk Sınırlaması</u></strong>
+    </p>
+    <p style="text-align: justify">
+        E-SCHOOL’ın ihmali veya koşullara uymaması sonucu bir olay veya bağlantılı
+        birden fazla olay dolayısıyla kayıp veya hasardan şikayetçi olursanız, bu önceki
+        ay ödediğiniz bağlantı ücretiyle sınırlı olacaktır. Yazılımdan memnun değilseniz,
+        yapmanız gereken anlaşmayı fesih etmektir.
+    </p>
+    <p style="text-align: justify">
+        <strong><u>8.Fesih etme</u></strong>
+    </p>
+    <p style="text-align: justify">
+        <strong>15 günlük deneme politikası:</strong> Hizmet için kayıt olduktan sonra devam
+        etme yükümlülüğü olmaksızın, uygulamayı değerlendirmek için 15 gününüz vardır. Eğer
+        E-SCHOOL’ı kullanmaya devam etmek isterseniz, 15 günlük deneme süresinden
+        sonra yazılımı kullanmaya başladığınız günden itibaren faturalandırılacaksınız.
+        Servise devam etmek istemezseniz, E-SCHOOL’ın size verilerinizin yedeğini
+        sağlamak gibi bir yükümlülüğü yoktur ve hesabınızı E-SCHOOL sisteminden
+        silme hakkını saklı tutar.
+    </p>
+    <p style="text-align: justify">
+        <strong>Peşin ödenen abonelikler: A</strong>bonelik öncesi 15 günlük deneme süresi
+        verildiği için,<br />
+        Abonelik işlemi yapıldıktan sonra anlaşma iptal edilirse, ücret iadesi yapılmayacaktır.
+    </p>
+    <p style="text-align: justify">
+        <strong>Kullanım iptali : </strong>Bu şartlar erişim ücretinin kapsadığı dönem için
+        devam edecektir,<strong> </strong>iki taraftan biri anlaşmayı, ilgili ödeme döneminden
+        en az 15 gün önce bildirim yoluyla fesih etmediği sürece aynı dönem için otomatik
+        olarak devam edecektir.
+    </p>
+    <p style="text-align: justify">
+        E-SCHOOL kendi takdirine göre, aşağıdaki eylemlerden herhangi birini veya
+        tümünü yapabilir
+    </p>
+    <ul>
+        <li>Bu koşullarla beraber, yazılım ve web sitesi kullanımınızı fesih edebilir.</li>
+        <li>
+            Belli veya belirsiz herhangi bir zaman dilimi içinde yazılım ve web sitesini kullanımınızı
+            askıya alabilir.
+        </li>
+    </ul>
+    <p style="text-align: justify">
+        <strong>&nbsp;</strong>
+    </p>
+    <p style="text-align: justify">
+        <strong>Tahakkuk Hakları</strong><br />
+        Bu koşulların fesih edilmesi tarafların, fesih tarihi dahil olmak üzere, hak ve
+        yükümlülüklerine zarar vermeden gerçekleşir. Bu anlaşmanın fesih edilmesinde yapacaklarınız:
+    </p>
+    <ul>
+        <li>
+            fesih sonrasında da ödemeniz gereken herhangi tahakkuk ücretinden sorumlu kalmaya
+            devam edersiniz
+        </li>
+        <li>derhal yazılımı ve web sitesini kullanmaya son vermelisiniz</li>
+    </ul>
+    <p style="text-align: justify">
+        <strong><u>9. Yardım Masası</u></strong>
+    </p>
+    <p style="text-align: justify">
+        <strong>Teknik sorunlar: </strong>Teknik problemler sırasında NCS ile iletişime
+        geçmeden önce sorununuz için yapabileceğiniz tüm araştırmaları yapmalısınız. Hala
+        teknik yardıma ihtiyacınız varsa, lütfen NCS tarafından çevrimiçi desteği kontrol
+        ediniz, yeterli olmadığı takdirde <a href="mailto:info@ncs.com.tr">info@ncs.com.tr</a>
+        ‘dan bize mail atabilirsiniz.
+    </p>
+    <p style="text-align: justify">
+        <strong>Hizmet durumu: </strong>E-SCHOOL, yazılımın 7/24 kullanılabilir
+        olmasını hedeflerken, teknik bir durum nedeni ile erişim sağlayamamanız olasıdır.
+        Eğer bir sebepten, E-SCHOOL yazılımı beklenenden daha uzun bir süre için
+        engellerse, web sitesinde bu faaliyeti önceden detaylı olarak yayınlama için gerekli
+        çabayı gösterecektir.
+    </p>
+    <p style="text-align: justify">
+        <strong><u>10.Genel</u></strong>
+    </p>
+    <p style="text-align: justify">
+        <strong>Tüm anlaşma: </strong>Bu koşullar E-SCHOOL Gizlilik Politikası ile
+        ve bu bildirimler ve talimatların verildiği diğer koşullarla beraber önceden yapılan
+        tüm anlaşmaların, temsillerin ( yazılı ve sözlü) önüne geçer ve sizinle E-SCHOOL
+        arasındaki sözleşmenin bu koşulları içerecek şekilde tamamını oluşturur.
+        <br />
+        <strong>Feragat: </strong>Eğer taraflardan biri bu koşulların feragatının ihlaline
+        sebep olursa, bu başka bir koşulun da feragatı anlamına gelmez. Yazılı olmadığı
+        sürece hiçbir feragat etkili olmayacaktır.<br />
+        <strong>Atama izni yok: </strong>E-SCHOOL’ı, yazılı izni olmadan başka bir
+        kişiye devredemez veya atayamazsınız<strong>.</strong><br />
+        <strong>Yasa ve Yargı yönetimi: </strong>Türkiye Cumhuriyetinin yasaları bu anlaşma
+        için geçerli olacaktır. Bu anlaşmanın dışında ortaya çıkabilecek anlaşmazlıklarda
+        Ankara, Türkiye veya yakınında bulunan mahkemelerin yargı yetkisine tabi olacaktır.<br />
+        <strong>Uyarılar:</strong> Bu koşullar altında verilen her bildirim eposta yoluyla
+        yazılı olarak yapılacaktır.<br />
+        E-SCHOOL’a gönderilecek uyarılar <a href="mailto:info@ncs.com.tr">
+            info@ncs.com.tr
+        </a> adresine ya da E-SCHOOL tarafından size
+        bildirilen başka bir e mail adresine yollanmalıdır. Size yollanan bildirimler yazılımı
+        kurarken belirttiğiniz adrese gönderilecektir.<br />
+        <strong>Üçüncü şahıs hakları: </strong>Bu şartlar altında bulunmayan taraflar bu
+        şartlardan yararlanamaz veya bu koşulları zorlayamazlar.
+    </p>
+    <p style="text-align: justify">
+        <strong>&nbsp;</strong>
+    </p>
+</div>
+<div id="windowpopup1US" style="display: none;">
+    <p style="text-align: center;">
+        <strong>TERMS OF USE</strong>
+    </p>
+    <p style="text-align: justify;">
+        NCS. Net Computer Systems hereafter referred to as NCS is an enabled company providing
+        services&amp; solution fort he School&amp; Industry. E-SCHOOL
+        is the name of the software owned by NCS. By Subscribing to the service, you agree
+        to the following terms and condition. If you are entering into this agreement on
+        behalf of a company, then you represent that you have the authority to make purchase
+        decisions for the company and all references to you shall refer to your company.
+        E-SCHOOL is a Web based School Management system designed especially for
+        small to mid size school/ businesses. These terms of use are intended to explain
+        our obligations as a service provider and your obligations as a customer. Please
+        read them carefully. These Terms are binding on any use of the Software and apply
+        to you from the time that E-SCHOOL provides you with Access to the Software.
+        We believe that E-SCHOOL application will evolve over time based on user
+        feedback, therefore we may improve and upgrade the application to make it more beneficial
+        to the user. hese Terms are not intended to answer every question or address every
+        issue raised by the use of the E-SCHOOL Software. E-SCHOOL reserves
+        the right to change these terms at any time, effective upon the posting of modified
+        terms and E-SCHOOL will make every effort to communicate these changes to
+        you via email or notification via the website. It is likely the terms of use will
+        change over time. It is your obligation to ensure that you have read, understood
+        and agree to the most recent terms available on the Website.
+    </p>
+    <p style="text-align: justify;">
+    </p>
+    <p style="text-align: justify;">
+        <strong>1.Definitions</strong>
+    </p>
+    <p style="text-align: justify;">
+        <strong>Access Fee</strong>
+    </p>
+    <p style="text-align: justify;">
+        Means the monthly fee (excluding any taxes and duties) payable by you in accordance
+        with the fee schedule set out on the Website
+    </p>
+    <p style="text-align: justify;">
+        <strong>Confidential Information</strong>
+    </p>
+    <p style="text-align: justify;">
+        Includes all information exchanged between the parties to this Agreement, whether
+        in writing, electronically or orally, including the Software but does not include
+        information which is, or becomes, publicly available other than through unauthorized
+        disclosure by the other party.
+    </p>
+    <p style="text-align: justify;">
+        <strong>Data</strong>
+    </p>
+    <p style="text-align: justify;">
+        Means any data inputted by you into the Software.
+    </p>
+    <p style="text-align: justify;">
+        <strong>Intellectual Property Right</strong>
+    </p>
+    <p style="text-align: justify;">
+        Means any patent, trade mark, service mark, copyright, moral right, right in a design,
+        know-how and any other intellectual or industrial property rights, anywhere in the
+        world whether or not registered.
+    </p>
+    <p style="text-align: justify;">
+    </p>
+    <p style="text-align: justify;">
+        <strong>Software</strong>
+    </p>
+    <p style="text-align: justify;">
+        Means the software available via the Website.
+    </p>
+    <p style="text-align: justify;">
+        <strong>Website</strong>
+    </p>
+    <p style="text-align: justify;">
+        Means the Internet site at the domain www.E-SCHOOL.com other site operated
+        by NCS.
+    </p>
+    <p style="text-align: justify;">
+        E-SCHOOL Is the name of the software owned by NCS You Includes your employees,consultants,
+        representatives and agents.
+    </p>
+    <p style="text-align: justify;">
+        <strong>2.Use of Software </strong>
+    </p>
+    <p style="text-align: justify;">
+        E-SCHOOL grants you the right to access and use the Software via the Website
+        with the user roles according to your subscription type. This right is non-exclusive
+        and non-transferable and limited by these Terms.
+    </p>
+    <p style="text-align: justify;">
+        <strong>3.Your obligations</strong>
+    </p>
+    <p style="text-align: justify;">
+        <strong>Payment obligations: </strong>
+    </p>
+    <p style="text-align: justify;">
+        An invoice for the Access Fee will be issued to the Billing Contact each month starting
+        1 month from the date you added your first School within E-SCHOOL.
+        Invoices will include the Access Fee for the preceding period of use. E-SCHOOL
+        will continue invoicing you monthly until this Agreement is terminated. All E-SCHOOL
+        invoices will be generated electronically and reach by email. Payable within 7 days
+        of the invoice date.You are responsible for payment of all taxes and duties in additiob
+        to the Access fee.
+    </p>
+    <p style="text-align: justify;">
+        <strong>General obligations:</strong>
+    </p>
+    <p style="text-align: justify;">
+        You must only use the Software and Website for your own lawful internal business
+        purposes, in accordance with these Terms and any notice sent by E-SCHOOL
+        or condition posted to the website.
+    </p>
+    <p style="text-align: justify;">
+        <strong>Access Conditions</strong>
+    </p>
+    <p style="text-align: justify;">
+        You will ensure that all usernames and passwords required to access the Software
+        are kept secure and confidential. You will immediately notify E-SCHOOL of
+        any unauthorized use of your passwords or any other breach of security and NCS will
+        reset your password or you can also do the same from the Administration Control
+        Panel.
+    </p>
+    <p style="text-align: justify;">
+        As a condition of these Terms, when accessing and using the Software, you must:
+    </p>
+    <p style="text-align: justify;">
+        •not attempt to undermine the security or integrity of E-SCHOOL’s computing
+        systems or networks or, where the Software is hosted by a third party, that third
+        party's computing systems and Networks.
+    </p>
+    <p style="text-align: justify;">
+        •not use, or misuse, the Software in any way which may impair the functionality
+        of the Software or Website, or impair the ability of any other user to use the Software
+        or Website;
+    </p>
+    <p style="text-align: justify;">
+        •not attempt to gain unauthorized access to any materials other than those to which
+        you have been given express permission to access or to the computer system on which
+        the Software is hosted;
+    </p>
+    <p style="text-align: justify;">
+        •not transmit, or input into the Software, any: files that may damage any other
+        person's computing devices or software, content that may be offensive, or material
+        or Data in violation of any law (including Data or other material protected by copyright
+        or trade secrets which you do not have the right to use);
+    </p>
+    <p style="text-align: justify;">
+        •not modify, copy, adapt, reproduce, disassemble, decompile or reverse engineer
+        the Software or the Website except as is strictly necessary to use either of them
+        for normal operation.
+    </p>
+    <p style="text-align: justify;">
+    </p>
+    <p style="text-align: justify;">
+        <strong>COMMUNICATION</strong>
+    </p>
+    <p style="text-align: justify;">
+        As a condition of these Terms, if you use any communication tools available through
+        the Website (such as any forum, chat room or message centre), you agree only to
+        use such communication tools for lawful and legitimate purposes. You must not use
+        any such communication tool for posting or disseminating any material unrelated
+        to the use of the Software including: offers of goods or services for sale, files
+        that may damage any other person's computing devices or software, content that may
+        be offensive to any of our other users, or material in violation of any law (including
+        material that is protected by copyright or trade secrets which you do not have the
+        right to use). When you make any communication on the Website, you represent that
+        you own the content of the communication. As with any other web-based forum, you
+        must exercise caution when using the communication tools available on the Website.
+        However,E-SCHOOL does reserve the right to remove any communication at any
+        time in its sole discretion.
+    </p>
+    <p style="text-align: justify;">
+        <strong>INDEMNITY</strong>
+    </p>
+    <p style="text-align: justify;">
+        You indemnify E-SCHOOL against all claims, costs, damage and loss arising
+        from your breach of any of these terms or any obligation you may have to NCS, including
+        any costs relating to the recovery of any Access Fees that have not been paid by
+        you.
+    </p>
+    <p style="text-align: justify;">
+        <strong>4. Confidentiality and Privacy</strong>
+    </p>
+    <p style="text-align: justify;">
+        <strong>Confidentiality</strong>
+    </p>
+    <p style="text-align: justify;">
+        Unless the relevant party has the prior written consent of the other or unless required
+        to do so by law:
+    </p>
+    <p style="text-align: justify;">
+        •Each party will preserve the confidentiality of all Confidential Information of
+        the other obtained in connection with these Terms. Neither party will, without the
+        prior written consent of the other, disclose or make any Confidential Information
+        available to any person, or use the same for its own benefit, other than as contemplated
+        by these Terms.
+    </p>
+    <p style="text-align: justify;">
+        •Each party's obligations under this clause will survive termination of these Terms.
+    </p>
+    <p style="text-align: justify;">
+        <strong>Privacy:</strong>
+    </p>
+    <p style="text-align: justify;">
+        E-SCHOOL maintains a privacy policy that sets out the parties’ obligations
+        in respect of data. You should read that policy at www.E-SCHOOL.com since
+        you will be taken to have accepted it when you accept these Terms.
+    </p>
+    <p style="text-align: justify;">
+        <strong>5. Intellectual Property</strong>
+    </p>
+    <p style="text-align: justify;">
+        <strong>General:</strong>
+    </p>
+    <p style="text-align: justify;">
+        Title to, and all Intellectual Property Rights in the Software, the Website and
+        any documentation relating to the Software remain the property of E-SCHOOL
+        (or its licensors).
+    </p>
+    <p style="text-align: justify;">
+        <strong>Data:</strong>
+    </p>
+    <p style="text-align: justify;">
+        Your access to the Data is contingent on full payment of the E-SCHOOL Access
+        Fee. You must maintain copies of all Data inputted into the Software. E-SCHOOL
+        adheres to its best practice policies and procedures to prevent data loss. In the
+        event this Agreement is terminated, E-SCHOOL will make available to you
+        a file of your Data within 30 days of termination. E-SCHOOL reserves the
+        right to withhold your Data without notice if termination of subscription is due
+        to your non-payment. Upon termination for cause, your right to access or use the
+        Data immediately ceases, and E-SCHOOL shall have no obligation to maintain
+        or forward any Data to you.
+    </p>
+    <p style="text-align: justify;">
+        <strong>6. Warranties and Acknowledgements</strong>
+    </p>
+    <p style="text-align: justify;">
+        <strong>Acknowledgement:</strong>
+    </p>
+    <p style="text-align: justify;">
+        <strong>You acknowledge that:</strong>
+    </p>
+    <p style="text-align: justify;">
+        •If you are using the Software and accessing the Website on behalf of or for the
+        benefit of an organization (whether a body corporate or not) then NCS will assume
+        that you have the right to do so and that organization will be liable for your actions
+        or omissions (including any breach of these Terms).
+    </p>
+    <p style="text-align: justify;">
+        •The provision of, access to, and use of, the Software is on an "as is, where is"
+        basis and at your own risk.
+    </p>
+    <p style="text-align: justify;">
+        •E-SCHOOL does not warrant that the use of the Software will be uninterrupted
+        or error free. Among other things, the operation and availability of the systems
+        used for accessing the Software, including public telephone services, computer networks
+        and the Internet, can be unpredictable and may from time to time interfere with
+        or prevent access to the Software. E-SCHOOL is not in any way responsible
+        for any such interference or prevention of your access or use of the Software.
+    </p>
+    <p style="text-align: justify;">
+        •It is your sole responsibility to determine that the Software meets the needs of
+        your business.
+    </p>
+    <p style="text-align: justify;">
+        <strong>Warranties:</strong>
+    </p>
+    <p style="text-align: justify;">
+        E-SCHOOL does not warrant that the Software will meet your requirements
+        or that it will be suitable for your purposes.
+    </p>
+    <p style="text-align: justify;">
+        <strong>7. Limitation of Liability</strong>
+    </p>
+    <p style="text-align: justify;">
+        If you suffer loss or damage as a result of E-SCHOOL 's negligence or failure
+        to comply with these Terms, and claim by You against E-SCHOOL arising from
+        E-SCHOOL 's negligence or failure will be limited in respect of any one
+        incident, or series of connected incidents to the access fees paid by you in the
+        previous one month. If you are not satisfied with the Software, your sole and exclusive
+        remedy is to terminate these Terms.
+    </p>
+    <p style="text-align: justify;">
+        <strong>8. Termination</strong>
+    </p>
+    <p style="text-align: justify;">
+        Fifteen days trial policy: When you sign up for the Service you have 15 days in
+        which you can evaluate E-SCHOOL with no obligation to continue. If you choose
+        to continue using E-SCHOOL, you will be billed from the day you added your
+        organization. If you choose not to continue with the service, E-SCHOOL has
+        no obligation of providing you with the backup of your data and reserves the right
+        to delete your account from the E-SCHOOL system
+    </p>
+    <p style="text-align: justify;">
+        <strong>Prepaid Subscriptions:</strong> There will be no refund for any remaining
+        prepaid period for a prepaid Access Fee subscription, unless that subscription is
+        cancelled within the 15 day trial period.
+    </p>
+    <p style="text-align: justify;">
+        <strong>No-fault termination:</strong> These Terms will continue for the period
+        covered by the Access Fee. These Terms will automatically continue for the same
+        period unless either party terminates these Terms by giving notice to the other
+        party at least 15 days before the end of the relevant payment period.
+    </p>
+    <p style="text-align: justify;">
+        E-SCHOOL may take any or all of the following actions, at its entire discretion:
+    </p>
+    <p style="text-align: justify;">
+    </p>
+    <p style="text-align: justify;">
+        •Terminate these Terms and your use of the Software and the Website;
+    </p>
+    <p style="text-align: justify;">
+        •Suspend for any definite or indefinite period of time, your use of the Software
+        and the Website
+    </p>
+    <p style="text-align: justify;">
+        Accrued Rights:
+    </p>
+    <p style="text-align: justify;">
+        Termination of these Terms is without prejudice to the rights and obligations of
+        the parties accrued up to and including the date of termination. On termination
+        of this
+    </p>
+    <p style="text-align: justify;">
+        <strong>Agreement you will: </strong>
+    </p>
+    <p style="text-align: justify;">
+        •remain liable for any accrued charges and amounts which become due for payment
+        before or after termination; and immediately cease to use the Software and the Website.
+    </p>
+    <p style="text-align: justify;">
+        <strong>9. Help Desk</strong>
+    </p>
+    <p style="text-align: justify;">
+        <strong>Technical Problems: </strong>
+    </p>
+    <p style="text-align: justify;">
+        In the case of technical problems you must make all reasonable efforts to investigate
+        and diagnose problems before contacting NCS. If you still need technical help, please
+        check the support provided online by E-SCHOOL or failing that email us at
+    </p>
+</div>
+<script>
+    function popup1() {
+        lang = "@Model.SelectedCulture";
+        //lang = "en-US";
+        win = "#windowpopup1TR";
+        if (lang == "en-US") win = "#windowpopup1US";
+
+        var myWindow = $(win),
+            undo = $("#undo");
+
+        undo.click(function () {
+            myWindow.data("kendoWindow").open();
+            undo.fadeOut();
+        });
+
+        function onClose() {
+            undo.fadeIn();
+        }
+
+        myWindow.kendoWindow({
+            width: "800px",
+            height: "800px",
+            title: getByCulture('@culture', 'termOfUse'),
+            visible: false,
+            actions: [
+                "Close"
+            ],
+            close: onClose
+        }).data("kendoWindow").center().open();
+    }
+</script>
+
+<div id="windowpopup2TR" style="display: none;">
+    <p style="text-align: justify">
+        <strong>GİZLİLİK HAKKINDA</strong>
+    </p>
+    <p style="text-align: justify">
+        <strong><u>Verilerinizin sahibi sizsiniz</u></strong><br />
+        NCS.Net Computer Bilgi İşlem Hiz. Tic. San. Ltd Şti, kısaca NCS, Okul
+        sektörü için hizmet ve çözüm sağlayan bir bilişim teknolojisidir. E-SCHOOL,
+        NCS‘nin bir yazılımıdır. E-SCHOOL küçük, büyük / büyük tüm Okul, Kurum
+        vb. işletmeler için tasarlanmış Web tabanlı bir Okul Yönetim sistemidir. E-SCHOOL;
+        Öğrenci Ön Muhasebe İşlemlerinizi Takip eder, Servis olarak sunulan yazılım
+        (SaaS / Software as a Service) ile internet üzerinden bağlı
+        bir yazılım çözümüdür. E-SCHOOL, sadece kayıtlı kullanıcılar tarafından
+        girilen verileri saklamaktadır. E-SCHOOL bu verileri kullanıcı izni olmadan
+        kullanmaz veya kullanıma uygun hale getirmez.
+    </p>
+    <p style="text-align: justify">
+        <strong><u>Verilerinizin kontrolü sizde</u></strong><br />
+        Kayıtlı kullanıcılar tarafından girilen veri güvenlikli bir veri tabanında bulunur
+        ve bu veriler sadece yönetici tarafından onaylanmış kullanıcılar için erişilebilirdir.
+        Yönetici; kullanıcı olarak davet edilen herkes üzerinde tam kontrole sahiptir. E-SCHOOL
+        ‘da bilgilere ulaşabilmek için kullanıcı adı ve parola gereklidir.<br />
+        Parolalarını güvenli tutmak kullanıcıların sorumluluğudur.Okulun hesabını kullanmak
+        üzere davet edilen herhangi bir kullanıcının, E-SCHOOL hesabında depolanan
+        Okul bilgilerini görebilmesi yöneticinin sorumluluğundadır.<br />
+        NCS, E-SCHOOL personelleri ve NCS ortaklarının kullanıcı parolalarına ulaşımı
+        yoktur ve bu yüzden Okul hesabına veya verilerine yöneticiden davet almadan ulaşmaları
+        mümkün değildir.
+    </p>
+    <p style="text-align: justify">
+        <strong><u>E-SCHOOL kullanıcı izleme sistemi</u></strong><br />
+        E-SCHOOL,’ın faturayı izleme ve yazılım performansını denetleme amacıyla,
+        ilişkili kullanıcı sayısı, işlem sayısı gibi toplam bilgileri denetlemesi ve onlara
+        ulaşması mümkündür. E-SCHOOL, kendi sistemine girilen ve orada depolanan
+        hiçbir finansal işlemin detaylarına ulaşmayacaktır. E-SCHOOL, kullanıcı
+        tarafından bir sistem sorunu veya hata çözümü için verilen geçici izinler dışında,
+        belirli olarak tanımlanabilen hiçbir kullanıcının sistem kullanım geçmişine ulaşmayacaktır.
+        Tüm toplu kullanım bilgileri güvenli bir E-SCHOOL veri depolama sisteminde saklanır.
+    </p>
+    <p style="text-align: justify">
+        <u>Kişisel verileriniz internet üzerinden güvenli bir şekilde organize edilir</u><br />
+        E-SCHOOL ‘ın sunucularına transfer edilen tüm veriler şifrelidir. Ancak
+        internet kendisi güvenli bir çevre olmadığından kullanıcının tarayıcısı, E-SCHOOL
+        sunucularıyla olan bağlantıda şifreleme güvenliğini onaylamak zorundadır.
+    </p>
+    <p style="text-align: justify">
+        E-SCHOOL ’ta kredi kartı ile ödemeyi seçtiyseniz, kredi kartı detaylarınız
+        sistem tarafından korunur ve E-SCHOOL personelleri tarafından ulaşılabilir
+        değildir.<br />
+        Kredi kartı detaylarınız otomatik olarak şifrelenir.
+    </p>
+    <p style="text-align: justify">
+        <u>E-SCHOOL verilerinize istediğiniz zaman ulaşabilmenizi sağlar.</u>
+    </p>
+    <p style="text-align: justify">
+        <u>E-SCHOOL</u>, organizasyon verilerini yöneticiye kendisi tarafından belirlenen
+        ortak bir dosya formatında tam çıkış olarak sunabilir.
+        <br />
+        İşyerinin verileri, ödeme yapmayı durdurduktan 60 gün sonra kalıcı olarak silinmiş
+        olacaktır.
+    </p>
+    <p style="text-align: justify">
+        <u>E-SCHOOL</u>, kullanıcı giriş yaptıktan sonra oturumu açık tutmak için
+        geçici çerezler (cookies) kullanır. Bu çerezler kullanıcı ya da Okul ile ilgili
+        hiçbir bilgi içermez ve oturum bittikten 30 dakika sonra otomatik olarak kaybolur.
+    </p>
+    <p style="text-align: justify">
+        <u>E-SCHOOL</u>; fatura bilgisi, ürün bilgisi, servis güncellemeleri ve
+        düzenli müşteri haber bültenlerini kayıtlı kullanıcılara E-mail üzerinden gönderir.
+    </p>
+    <p style="text-align: justify">
+        <u>
+            Bağlantı verdiğimiz herhangi bir web sitesindeki gizlilik politikasını kontrol etmek
+            sizin sorumluluğunuzdadır.
+        </u><br />
+        <u>E-SCHOOL</u> web sitesi, üçüncü şahısların web sitelerine bağlantı verebilir.
+        <u>E-SCHOOL</u> bu web sitelerinin gizlilik uygulamalarından ve içeriğinden
+        sorumlu tutulamaz.
+    </p>
+    <p style="text-align: justify">
+        <u>Bu politika zaman zaman güncellenebilir</u>
+    </p>
+    <p style="text-align: justify">
+        <u>E-SCHOOL</u> bu politikayı değiştirme hakkını her zaman saklı tutar ve
+        politikada herhangi bir değişiklik olduğunda web sitesinde ilan edilecektir.
+    </p>
+    <p style="text-align: justify">
+        <u>Lütfen Kullanım Koşullarımızı okuyunuz</u><br />
+        Bu web sitesinde bulunan tüm yazılım kullanımı, <u>E-SCHOOL</u> kullanım
+        şartlarına tabidir. Bu gizlilik politikası ve kullanım şartları arasında bir çatışma
+        ya da anlaşmazlık durumunda, kullanım şartları geçerli olacaktır.
+    </p>
+</div>
+<div id="windowpopup2US" style="display: none;">
+    <p style="text-align: center;">
+        <strong><span style="font-family: 'Arial','sans-serif';">CONCERNING YOUR PRIVACY</span></strong>
+    </p>
+    <p style="text-align: center;">
+        <strong>
+            <span style="font-family: 'Arial','sans-serif';">
+                <br />
+            </span>
+        </strong>
+    </p>
+    <p style="text-align: justify;">
+        <strong>
+            <span style="text-decoration: underline;">
+                <span style="font-family: 'Arial','sans-serif';">
+                    You Own Your Data
+                </span>
+            </span>
+        </strong>
+    </p>
+    <p style="text-align: justify;">
+        <strong>
+            <span style="text-decoration: underline;">
+                <span style="font-family: 'Arial','sans-serif';">
+                    <br />
+                </span>
+            </span>
+        </strong>
+    </p>
+    <p style="text-align: justify;">
+        <span style="font-family: 'Arial','sans-serif';">
+            NCS. Net Computer Systems hereafter
+            referred to as NCS is an enabled company providing services&amp; solution fort he
+            For the private school sector. E-SCHOOL is the name of the software owned
+            by NCS. E-SCHOOL is a Web based School Management system designed especially
+            for small to mid size resorts/ businesses. E-SCHOOL is a solution proposed
+            to be a SAAS / custom service covering all the operational tasks including reservation,
+            front desk, housekeeping transactions, accounts, back-office, MIS and other POS
+            and further integrate all associated functions including marketing, bookings and
+            business critical communication &amp; coordination from multiple geographical locations
+            seamlessly connected through the Net. E-SCHOOL will only store information
+            that is entered by the Users of an Organization. E-SCHOOL will not use nor
+            make available for use any of this information without permission of the Organization.
+        </span>
+    </p>
+    <p style="text-align: justify;">
+        <span style="font-family: 'Arial','sans-serif';">
+            <br />
+        </span>
+    </p>
+    <p style="text-align: justify;">
+        <strong>
+            <span style="font-family: Arial, sans-serif;">
+                You control who has access to
+                your data
+            </span>
+        </strong>
+    </p>
+    <p style="text-align: justify;">
+        <strong>
+            <span style="font-family: Arial, sans-serif;">
+                <br />
+            </span>
+        </strong>
+    </p>
+    <p style="text-align: justify;">
+        <span style="font-family: 'Arial','sans-serif';">
+            The data entered by the users of an
+            Organization is stored securely in a database and is only accessible to the approved
+            users of the Organization. The administrator of the organization will have full
+            control over who is invited to be a User. A user name and password is required in
+            order to access an Organization's information in E-SCHOOL. It is the User’s
+            responsibility to keep their passwords safe. It is the Administrator’s responsibility
+            to ensure that any users that are invited to use the Organization’s account have
+            permission to view the Organization’s information stored in the E-SCHOOL
+            account. NCS, E-SCHOOL staff and NCS’ partners do not have Access to the
+            user’s passwords and are therefore unable to Access the organization’s account or
+            data without receiving an invitation from the administrator.
+        </span>
+    </p>
+    <p style="text-align: justify;">
+        <span style="font-family: 'Arial','sans-serif';">
+            <br />
+        </span>
+    </p>
+    <p style="text-align: justify;">
+        <strong>
+            <span style="text-decoration: underline;">
+                <span style="font-family: 'Arial','sans-serif';">
+                    E-SCHOOL monitors system usage
+                </span>
+            </span>
+        </strong>
+    </p>
+    <p style="text-align: justify;">
+        <strong>
+            <span style="text-decoration: underline;">
+                <span style="font-family: 'Arial','sans-serif';">
+                    <br />
+                </span>
+            </span>
+        </strong>
+    </p>
+    <p style="text-align: justify;">
+        <span style="font-family: 'Arial','sans-serif';">
+            E-SCHOOL has access to and
+            may use aggregate information such as number of associated Users, number of transactions
+            and billing information for the purpose of billing and monitoring server and software
+            performance.
+        </span>
+    </p>
+    <p style="text-align: justify;">
+        <span style="font-family: 'Arial','sans-serif';">
+            E-SCHOOL will never access
+            the details of any financial transaction entered and stored in the system. E-SCHOOL
+            will never access system usage history for a specific identifiable user, except
+            where granted permission by the User to assist with resolution of a system issue
+            or error. All aggregated usage information is stored in a secure E-SCHOOL
+            data warehouse facility.
+        </span>
+    </p>
+    <p style="text-align: justify;">
+        <span style="font-family: 'Arial','sans-serif';">
+            <br />
+        </span>
+    </p>
+    <p style="text-align: justify;">
+        <strong>
+            <span style="text-decoration: underline;">
+                <span style="font-family: 'Arial','sans-serif';">
+                    Your data is sent securely across the internet
+                </span>
+            </span>
+        </strong>
+    </p>
+    <p style="text-align: justify;">
+        <strong>
+            <span style="text-decoration: underline;">
+                <span style="font-family: 'Arial','sans-serif';">
+                    <br />
+                </span>
+            </span>
+        </strong>
+    </p>
+    <p style="text-align: justify;">
+        <span style="font-family: 'Arial','sans-serif';">
+            All data transferred between the Users
+            of an Organization and the E-SCHOOL Servers is encrypted.. However, the
+            internet is not in itself a secure environment. Users should only enter, or instruct
+            the importation of, data to the database within a secure environment. This means
+            that the User’s browser must support the encryption security used in connection
+            with the E-SCHOOL Servers. If you choose to pay for E-SCHOOL by
+            Credit Card, your credit card details are not stored by E-SCHOOL and cannot
+            be accessed by E-SCHOOL staff. Your credit card details are automatically
+            encrypted.
+        </span>
+    </p>
+    <p style="text-align: justify;">
+        <span style="font-family: 'Arial','sans-serif';">
+            <br />
+        </span>
+    </p>
+    <p style="text-align: justify;">
+        <strong>
+            <span style="text-decoration: underline;">
+                <span style="font-family: 'Arial','sans-serif';">
+                    E-SCHOOL will give you access to your data at any time
+                </span>
+            </span>
+        </strong>
+    </p>
+    <p style="text-align: justify;">
+        <strong>
+            <span style="text-decoration: underline;">
+                <span style="font-family: 'Arial','sans-serif';">
+                    <br />
+                </span>
+            </span>
+        </strong>
+    </p>
+    <p style="text-align: justify;">
+        <span style="font-family: 'Arial','sans-serif';">
+            On request, E-SCHOOL will provide
+            the Administrator with a full export of the Organization’s data in a common file
+            format. The Organization’s data may be permanently deleted by E-SCHOOL 60
+            days after the Organization stops paying to use HMS, or at the Administrator’s request.
+        </span>
+    </p>
+    <p style="text-align: justify;">
+        <span style="font-family: 'Arial','sans-serif';">
+            E-SCHOOL uses temporary cookies
+            to keep a session open after a User logs in. These cookies do not contain any information
+            about the User or the Organization and will automatically expire 30 minutes after
+            the session is finished.
+        </span>
+    </p>
+    <p style="text-align: justify;">
+        <span style="font-family: 'Arial','sans-serif';">
+            E-SCHOOL sends billing information,
+            product information, service updates and regular customer newsletters to registered
+            Users via email.
+        </span>
+    </p>
+    <p style="text-align: justify;">
+        <span style="font-family: 'Arial','sans-serif';">
+            The E-SCHOOL website may contain
+            links to third-party websites. It is your responsibility to be aware of the privacy
+            practices or content of these websites. E-SCHOOL reserves the right to change
+            this policy at any time and any amended policy will be posted on this website.
+        </span>
+    </p>
+    <p style="text-align: justify;">
+        <span style="font-family: 'Arial','sans-serif';">
+            <br />
+        </span>
+    </p>
+    <p style="text-align: justify;">
+        <strong><span style="font-family: 'Arial','sans-serif';">Please read our Terms of Use</span></strong>
+    </p>
+    <p style="text-align: justify;">
+        <strong>
+            <span style="font-family: 'Arial','sans-serif';">
+                <br />
+            </span>
+        </strong>
+    </p>
+    <p style="text-align: justify;">
+        <span style="font-family: 'Arial','sans-serif';">
+            All use of software available on this
+            website is subject to E-SCHOOL’s terms of use. In the event of a conflict
+            or disagreement between this Privacy Policy and the Terms of Use, the Terms of Use
+            will prevail.
+        </span>
+    </p>
+    <p style="text-align: justify;">
+    </p>
+</div>
+<script>
+    function popup2() {
+        lang = "@Model.SelectedCulture";
+        //lang = "en-US";
+        win = "#windowpopup2TR";
+        if (lang == "en-US") win = "#windowpopup2US";
+
+        var myWindow = $(win),
+            undo = $("#undo");
+
+        undo.click(function () {
+            myWindow.data("kendoWindow").open();
+            undo.fadeOut();
+        });
+
+        function onClose() {
+            undo.fadeIn();
+        }
+
+        myWindow.kendoWindow({
+            width: "800px",
+            height: "800px",
+            title: getByCulture('@culture', 'concerningYourPrivacy'),
+            visible: false,
+            actions: [
+                "Close"
+            ],
+            close: onClose
+        }).data("kendoWindow").center().open();
+    }
+</script>
+<script>
+    window.history.replaceState('', '', window.location.pathname);
+</script>

@@ -1,0 +1,17 @@
+15:09:21.295 NCSEFatura Startup ctor.
+15:09:21.296 ========= Efatura Execute =========
+15:09:21.296 Service Provider:Veriban Data path:D:\1-CALISMA\ESCHOOL\20250108\ESCHOOL\INVOICES\83106
+15:09:21.296 ServiceProvider : VERIBAN, start
+15:09:21.329 Login username:KIRAC@KIRACaa
+15:09:21.329 LoginTest basladi
+15:09:22.047 FaultException err:LOGIN FAIL => 401:Authorization Failed: Username or password is invalid.
+15:09:22.048 LoginTest bitti, sessionCode: 
+15:09:22.048 
+15:09:22.048 fileFullPath :D:\1-CALISMA\ESCHOOL\20250108\ESCHOOL\INVOICES\83106\FATKRK2025000000003.XML
+15:09:22.048 mukellef sorgu basladi
+15:09:22.134 mukellef sorgu bitti
+15:09:22.135 TEMELFATURA
+15:09:22.155 XmlHelper.Update tamamlandi
+15:09:22.976 FaultCode:5002
+15:09:22.978 FaultDescription:LOGIN FAIL => 401:Authorization Failed: Username or password is invalid.
+15:09:22.978 Exception :Object reference not set to an instance of an object.

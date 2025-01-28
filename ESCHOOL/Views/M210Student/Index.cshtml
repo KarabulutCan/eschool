@@ -1,0 +1,994 @@
+﻿@model ESCHOOL.ViewModels.StudentIndexViewModel
+@{
+    ViewData["Title"] = "index";
+}
+
+@{
+    System.Globalization.CultureInfo.CurrentCulture = System.Globalization.CultureInfo.CreateSpecificCulture(@Model.SelectedCulture);
+    System.Globalization.CultureInfo.CurrentUICulture = System.Globalization.CultureInfo.CreateSpecificCulture(@Model.SelectedCulture);
+    var culture = System.Globalization.CultureInfo.CurrentCulture.ToString();
+}
+<!--#region head -->
+<head>
+    <style>
+        html {
+            font-size: 13px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+    </style>
+    <title></title>
+    <link href="https://kendo.cdn.telerik.com/2021.2.616/styles/kendo.common.min.css" rel="stylesheet" />
+    <link rel="stylesheet" id="skin-css" href="@TempData["theme"]" />
+    <link rel="stylesheet" id="skin-css" href="@TempData["themeMobile"]" />
+    <script src="https://kendo.cdn.telerik.com/2021.2.616/js/jquery.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2021.2.616/js/kendo.all.min.js"></script>
+    <script src="~/telerik/2021.2.616/js/jszip.min.js"></script>
+    <script src="@Url.Content("~/telerik/2021.2.616/js//cultures/kendo.culture." + culture + ".min.js")"></script>
+    <script src="@Url.Content("~/telerik/2021.2.616/js//messages/kendo.messages." + culture + ".min.js")"></script>
+
+    <script type="text/javascript">
+        kendo.culture("@culture");
+    </script>
+</head>
+<!--#endregion -->
+
+<body>
+    @if (ViewBag.ClassroomEmpty == false)
+    {
+        <br />
+        <br />
+        <br />
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>@ESCHOOL.Resources.Resource.Warning</strong>@ESCHOOL.Resources.Resource.ClassroomEmpty<br />
+        </div>
+    }
+    @if (ViewBag.FeeEmpty == false)
+    {
+        <br />
+        <br />
+        <br />
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>@ESCHOOL.Resources.Resource.Warning</strong>@ESCHOOL.Resources.Resource.FeeEmpty<br />
+        </div>
+    }
+
+    <div class="demo-section k-content fixed-top wide">
+        <div id="toolbarMenu"></div>
+    </div>
+    <br />
+    <br />
+    <br />
+
+    <div id="gridStudent" style="padding:5px;"></div>
+    <h5 class="ra-well-title card-header top-left" style="padding-top:0; padding-bottom:0; text-align:center"> <kbd>  @ESCHOOL.Resources.Resource.StatisticsSnapshot</kbd></h5>
+    <ul id="panelbar">
+        <li>
+            <span class="k-link">@ESCHOOL.Resources.Resource.StudentFeesbyClassType</span>
+            <div class="container-fluid">
+                <div id="gridSummary2"></div>
+                <script>
+                    var panelBar = $("#panelbar").kendoPanelBar().data("kendoPanelBar");
+                    panelBar.bind("select", function () {
+                        $('#gridSummary2').data('kendoGrid').dataSource.read()
+                    });
+
+                </script>
+            </div>
+        </li>
+    </ul>
+    <style>
+        #panelbar {
+            width: 100%;
+            /*     max-width: none;*/
+            margin: 0 auto;
+        }
+    </style>
+    <script>
+        $(document).ready(function () {
+            $("#panelbar").kendoPanelBar({
+                animation: {
+                    collapse: {
+                        duration: 1000,
+                        effects: "fadeOut"
+                    },
+                    expand: {
+                        duration: 1000,
+                        effects: "expandVertical fadeIn"
+                    }
+                }
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            $("#panelbar").kendoPanelBar({
+                expandMode: "multiple"
+            });
+        });
+    </script>
+    <div class="demo-section k-content wide" style="padding-bottom:0px;">
+        <div id="chartStudentStatus" class="small-chart"></div>
+        <div id="chartRegistrationType" class="small-chart"></div>
+        <div id="gridSummary1" class="small-grid" style="padding-right:5px;"></div>
+    </div>
+
+    <style>
+        .k-chart.small-chart {
+            display: inline-block;
+            width: 320px;
+            height: 320px;
+        }
+
+        .k-grid.small-grid {
+            /*   display: inline-block;*/
+            width: 400px;
+            height: 300px;
+            padding-top: 0;
+            float: right;
+        }
+
+        .k-header {
+            font-weight: bold !important;
+            font-size: 12px;
+        }
+
+        form label {
+            font-weight: bold;
+            font-size: 12px;
+        }
+        #gridSummary1 td {
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            padding: 0px;
+            padding-left: 5px;
+        }
+
+        #gridStudent td {
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            padding: 1px;
+        }
+    </style>
+
+
+    <!--#region head -->
+    <script id="template" type="text/x-kendo-template">
+        <a class="k-button" href="\#" onclick="return toolbar_click()"> <i class="k-icon k-i-plus"></i>&nbsp;&nbsp;@ESCHOOL.Resources.Resource.CreateNew</a>
+
+        <span class="k-textbox k-grid-search k-display-flex"  style="width:240px;">
+            <input autocomplete="off" placeholder=@ESCHOOL.Resources.Resource.Search class="k-input">
+            <span class="k-input-icon">
+                <span class="k-icon k-i-search"></span>
+            </span>
+        </span>
+
+        <div class="toolbar" ><label  class="switch-label control-label" for="switch1">&emsp;&emsp;&emsp;&emsp;@ESCHOOL.Resources.Resource.NewPeriod2&emsp;</a></label><input  type="checkbox" class="kendo-switch" id="switch1" aria-label="switch1" data-change="onChange"/> &emsp;&emsp;</div>
+        <div class="toolbar" ><label  class="switch-label"  for="switch2">&emsp;&emsp;&emsp;&emsp;@ESCHOOL.Resources.Resource.Siblings&emsp;</label><input  type="checkbox" class="kendo-switch" id="switch2" aria-label="switch2" data-change="onChange"/> &emsp;&emsp;</div>
+        &emsp;&emsp;&emsp;&emsp;
+    </script>
+
+    <!--#endregion -->
+    <!--#region style -->
+    <style type="text/css">
+        .customer-photo {
+            display: inline-block;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background-size: 32px 35px;
+            background-position: center center;
+            vertical-align: middle;
+            line-height: 32px;
+            box-shadow: inset 0 0 1px #999, inset 0 0 10px rgba(0,0,0,.2);
+            margin-left: 5px;
+        }
+
+        .customer-name {
+            display: inline-block;
+            vertical-align: middle;
+            line-height: 32px;
+            padding-left: 3px;
+        }
+    </style>
+
+    <style>
+        .k-grid-content {
+            max-height: 400px;
+            /* overflow-y: visible;*/
+        }
+
+        #gridSummary2 .k-grid-content {
+            max-height: 250px;
+            /* overflow-y: visible;*/
+        }
+
+        .k-grid .k-button-icontext .k-icon {
+            margin: 0;
+            vertical-align: middle;
+        }
+
+        td {
+            white-space: nowrap;
+        }
+
+        .toolbar {
+            float: right;
+        }
+
+        .k-grid-header .k-grid-header-wrap th.k-header {
+            text-align: center;
+            vertical-align: middle;
+            line-height: 0.7em
+        }
+
+        .critical {
+            background-color: #fdd;
+        }
+
+        .warning {
+            background-color: #fda;
+        }
+
+        .ok {
+            background-color: #ced;
+        }
+
+        .critical2 {
+            color: #fdd;
+        }
+
+        .warning2 {
+            color: #fda;
+        }
+
+        .ok2 {
+            color: #ced;
+        }
+    </style>
+    <!--#endregion -->
+    <!--#region toolbar -->
+    <style>
+        #logoId img {
+            width: 60px;
+        }
+    </style>
+    <script>
+        $(document).ready(function () {
+            $("#tabstrip").kendoTabStrip({
+                animation: {
+                    open: {
+                        effects: "fadeIn"
+                    }
+                }
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            $("#toolbarMenu").kendoToolBar({
+                items: [
+                    {
+                        template: "<img src='../Upload/Images/Logo.png' class='user-image' style='width:60px;'/>",
+                        overflow: "never",
+                    },
+                    { template: "<h4 style='padding-left:20px;'>@Model.Period  @ESCHOOL.Resources.Resource.InPeriod @ESCHOOL.Resources.Resource.StudentRegistrationForm</h4>" },
+                    { type: "spacer" },
+
+                    { type: "button", id: "exit", text: "@ESCHOOL.Resources.Resource.Exit", attributes: { style: "float: right; margin-top: .4em;" }, icon: "logout" },
+                    { type: "separator" },
+                ],
+
+                click: function (e) {
+                    if (e.id == "exit") {
+                        window.location.replace("/Home/index?userID=@Model.UserID");
+                    }
+                }
+            });
+        });
+    </script>
+    <!--#endregion -->
+    <!--#region grid student -->
+    <script>
+        record = 0;
+        var check = false;
+        $(document).ready(function (e) {
+            var crudServiceBaseUrl = "/M210Student/",
+                dataSource = new kendo.data.DataSource({
+                    transport: {
+                        read: {
+                            url: crudServiceBaseUrl + "GridStudentDataRead/" + "@Model.UserID" + "/" + check + "/" + "false",
+                            dataType: "json"
+                        },
+
+                        destroy: {
+                            url: function (options) {
+                                var url = crudServiceBaseUrl + "GridStudentDataDelete/" + options.models[0].id + "/" + "@Model.UserID";
+                                return url;
+                            },
+                            type: "post",
+                            dataType: "json"
+                        },
+
+                        create: {
+                            url: crudServiceBaseUrl + "/AddOrEditStudent/index/" + "@Model.UserID",
+                            dataType: "json"
+                        },
+                        parameterMap: function (options, operation) {
+                            if (operation !== "read" && options.models) {
+                                return { models: kendo.stringify(options.models) };
+                            }
+                        }
+                    },
+
+                    batch: true,
+                    schema: {
+                        model: {
+                            id: "studentID",
+                            fields: {
+                                id: { editable: false, nullable: true },
+                                name: { editable: false, validation: { required: true } },
+                                studentClassroom: { editable: false, validation: { required: true } },
+                                studentNumber: { editable: false, validation: { required: true } },
+                                dateOfRegistration: { editable: false, validation: { required: true } },
+                                idNumber: { editable: false, validation: { required: true } },
+                                siblingID: { editable: false },
+                                parentName: { editable: false, validation: { required: true } },
+                                studentMobilePhone: { editable: false },
+                                parentMobilePhone: { editable: false },
+                                statuCategory: { editable: false, validation: { required: true } },
+                                registrationTypeCategory: { editable: false, validation: { required: true } },
+                                isActive: { editable: false, type: "boolean" },
+                                isWebRegistration: { editable: false, type: "boolean" }
+
+                            }
+                        }
+                    }
+                });
+
+            $("#gridStudent").kendoGrid({
+                toolbar: [
+                    { template: kendo.template($("#template").html()) }, "excel"
+                ],
+                excelExport: function (e) {
+                    e.workbook.fileName = "ExcelStudents-" + kendo.toString(new Date, "yyyy/MM/dd HH:mm") + ".xlsx";
+                },
+
+                dataSource: dataSource,
+                groupable: true,
+                pageable: false,
+                resizable: true,
+                sortable: true,
+                height: 410,
+                ajax: true,
+                selectable: 'row',
+                /*  groupable: true,*/
+                persistSelection: false,
+                /* change: onChange,*/
+                columns: [
+                    { title: "#", template: "#= ++record #", width: 35 },
+                    {
+                        template: "<div class='customer-photo'" +
+                            "style='background-image: url(../Upload/Students//#:studentPicture#);'></div>" +
+                            "<div class='customer-name' style='width: 170px;'>#: name #</div>",
+                        field: "name", title: getByCulture('@culture', 'studentName'), width: "170px",
+                        attributes: { 'class': "#=setColor(isWebRegistration)#" }
+                    },
+
+                    {
+                        field: "studentClassroom", title: getByCulture('@culture', 'classrooms'), width: "80px",
+                        attributes: { 'class': "#=setColor(isWebRegistration)#" }
+                    },
+                    {
+                        field: "studentNumber", title: getByCulture('@culture', 'studentNumber'), width: "40px",
+                        attributes: { 'class': "#=setColor(isWebRegistration)#" }
+                    },
+                    {
+                        field: "idNumber", title: getByCulture('@culture', 'idNumber'), width: "30px",
+                        attributes: { 'class': "#=setColor(isWebRegistration)#" }
+                    },
+                    {
+                        field: "statuCategory", title: getByCulture('@culture', 'status'), width: "50px",
+                        attributes: { 'class': "#=setColor(isWebRegistration)#" }
+                    },
+                    {
+                        field: "registrationTypeCategory", title: getByCulture('@culture', 'registrationType'), width: "60px",
+                        attributes: { 'class': "#=setColor(isWebRegistration)#" }
+                    },
+                    {
+                        field: "dateOfRegistration", title: getByCulture('@culture', 'dateOfRegistration'), width: "55px", template: "#= (dateOfRegistration == null) ? ' ' : kendo.toString(kendo.parseDate(dateOfRegistration), 'dd/MM/yyyy') #",
+                        attributes: { 'class': "#=setColor(isWebRegistration)#" }
+                    },
+                    {
+                        field: "parentName", title: getByCulture('@culture', 'parentName'), width: "60px",
+                        attributes: { 'class': "#=setColor(isWebRegistration)#" }
+                    },
+                    {
+                        field: "parentMobilePhone", title: getByCulture('@culture', 'parentMobilePhone'), width: "35px",
+                        attributes: { 'class': "#=setColor(isWebRegistration)#" }
+                    },
+                    {
+                        field: "studentMobilePhone", title: getByCulture('@culture', 'studentMobilePhone'), width: "35px",
+                        attributes: { 'class': "#=setColor(isWebRegistration)#" }
+                    },
+                    {
+                        field: "isActive", title: getByCulture('@culture', 'isActive'), width: "30px", template: "<input  #if (isActive) { # checked='checked' # } # type='checkbox' disabled />", attributes: {
+                            style: "text-align:center",
+                            attributes: { 'class': "#=setColor(isWebRegistration)#" }
+                        }
+                    },
+                    {
+                        field: "siblingID", width: "1px"
+                    },
+
+                    {
+                        // command: [{ text: " ", name: "edit", click: showDetails }, { text: " ", name: "destroy" }], title: "&nbsp;", width: "105px",
+                        command: [{ text: " ", name: "edit", click: showDetails }, { className: "k-state-disabled excludeCategorization", name: "destroy", visible: function (dataItem) { return "@Model.IsPermissionCancel" == 'True' } }], title: "&nbsp;", width: "105px",
+                        attributes: { 'class': "#=setColor(isWebRegistration)#" }
+                    }],
+                editable: {
+                    mode: "inline",
+                    update: false,
+                    destroy: true
+                },
+                dataBound: function (e) {
+                    var grid = $("#gridStudent").data("kendoGrid");
+                    var items = e.sender.items();
+                    items.each(function (index) {
+                        var dataItem = grid.dataItem(this);
+                        var sw = dataItem.get("siblingID");
+
+                        $("tr[data-uid='" + dataItem.uid + "']").find(".excludeCategorization").each(function (index) {
+                            if (sw == 0) {
+                                $(this).removeClass('k-state-disabled')
+                            }
+                        });
+
+                    })
+
+                },
+
+                dataBinding: function () {
+                    record = 0;
+                },
+            });
+            $("#gridStudent").on("change", "tbody td", function (e) {
+            });
+            
+        });
+
+        function showDetails(e) {
+            e.preventDefault();
+            var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+            window.location.replace("/M210Student/AddOrEditStudent?studentID=" + dataItem.id + "&userID=@Model.UserID");
+        };
+        function showDestroy2(e) {
+            e.preventDefault();
+            var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+            window.location.replace("/M210Student/AddOrEditStudent?studentID=" + dataItem.id + "&userID=@Model.UserID");
+        };
+        function setColor(e) {
+            if ('@TempData["color"]' != "#222") {
+                if (e == true) {
+                    return "critical";
+                }
+            }
+            else {
+                if ((e == true)) {
+                    return "critical2";
+                }
+            }
+        }
+    </script>
+
+    <script>
+        $(function () {
+            $("#switch1").kendoSwitch({
+                messages: {
+                    checked: '<i class="k-icon k-i-filter-clear"></i></i>',
+                    unchecked: '<i class="k-icon k-i-filter"></i>'
+                },
+                change: function (e) {
+                    displayLoading("#gridStudent");
+                    var grid = $("#gridStudent").data("kendoGrid");
+                    grid.dataSource.options.transport.read.url = "/M210Student/GridStudentDataRead/" + "@Model.UserID" + "/" + e.checked + "/" + "false";
+                    grid.dataSource.read();
+                    grid.refresh();
+
+                }
+            });
+        })
+    </script>
+
+    <script>
+        $(function () {
+            $("#switch2").kendoSwitch({
+                messages: {
+                    checked: '<i class="fas fa-user-friends"></i></i>',
+                    unchecked: '<i class="fas fa-toggle-off"></i>'
+                },
+                change: function (e) {
+                    displayLoading("#gridStudent");
+
+                    var grid = $("#gridStudent").data("kendoGrid");
+                    if (e.checked == true) {
+                        grid.dataSource.options.transport.read.url = "/M210Student/GridStudentDataRead/" + "@Model.UserID" + "/" + e.checked + "/" + "true";
+                    }
+                    else {
+                        grid.dataSource.options.transport.read.url = "/M210Student/GridStudentDataRead/" + "@Model.UserID" + "/" + e.checked + "/" + "false";
+                    }
+                    grid.dataSource.read();
+                    grid.refresh();
+                }
+            });
+        })
+    </script>
+    <!--#endregion -->
+</body>
+
+
+<script>
+    function toolbar_click() {
+        window.location.replace("/M210Student/AddOrEditStudent?studentID=" + 0 + "&userID=@Model.UserID");
+        return false;
+    }
+</script>
+
+<!--#region chart -->
+
+<script>
+    function createChart() {
+        $("#chartStudentStatus").kendoChart({
+            chartArea: { background: "transparent" },
+            title: {
+                text: getByCulture('@culture', 'studentStatus')
+            },
+            legend: {
+                position: "custom",
+                offsetX: 40,
+                offsetX: 205,
+                labels: {
+                    color: "#868686",
+                }
+            },
+            dataSource: {
+                transport: {
+                    read: {
+                        url: "/M210Student/ChartStudent1/" + "@Model.UserID",
+                        type: "POST",
+                        dataType: "json"
+                    }
+                },
+            },
+
+            series: [{
+                type: "pie",
+                field: "percentage",
+                amountField: "amount",
+                categoryField: "source",
+                explodeField: "explode"
+            }],
+            seriesColors: ["#9de219", "#7eb332", "#068c35", "#91a674", "#004d38", "#033939", "#606359"],
+            tooltip: {
+                visible: true,
+                template: "<div><b>${category}</b> - ${value}%<br>(#= dataItem.amount #) #= getByCulture('@culture', 'student') #</div>",
+            }
+        });
+    }
+
+    $(document).ready(createChart);
+    $(document).bind("kendo:skinChange", createChart);
+</script>
+
+<script>
+    function createChart() {
+        $("#chartRegistrationType").kendoChart({
+            chartArea: { background: "transparent" },
+            title: {
+                text: getByCulture('@culture', 'registrationType')
+            },
+            legend: {
+                position: "custom",
+                offsetX: 40,
+                offsetX: 205,
+                labels: {
+                    color: "#868686",
+                }
+            },
+            dataSource: {
+                transport: {
+                    read: {
+                        url: "/M210Student/ChartStudent2/" + "@Model.UserID",
+                        type: "POST",
+                        dataType: "json"
+                    }
+                },
+            },
+
+            series: [{
+                type: "pie",
+                field: "percentage",
+                categoryField: "source",
+                amountField: "amount",
+                explodeField: "explode"
+            }],
+            seriesColors: ["#03a9f4", "#ff9800", "#4caf50", "#fad84a"],
+
+            tooltip: {
+                visible: true,
+                template: "<div><b>${category}</b> - ${value}%<br>(#= dataItem.amount #) #= getByCulture('@culture', 'student') #</div>",
+            }
+        });
+    }
+
+    $(document).ready(createChart);
+    $(document).bind("kendo:skinChange", createChart);
+</script>
+<!--#endregion -->
+<!--#region gridSummary -->
+<script>
+    $(document).ready(function () {
+        var crudServiceBaseUrl = "/M210Student/",
+            dataSource = new kendo.data.DataSource({
+                transport: {
+                    read: {
+                        url: crudServiceBaseUrl + "SummaryDataRead1/" + "@Model.UserID",
+                        dataType: "json"
+                    },
+                    parameterMap: function (options, operation) {
+                        if (operation !== "read" && options.models) {
+                            return { models: kendo.stringify(options.models) };
+                        }
+                    }
+                },
+                batch: true,
+                schema: {
+                    model: {
+                        id: "viewModelId",
+                        fields: {
+                            viewModelId: { editable: false, type: "number" },
+                            name: { editable: false, type: "string" },
+                            amount: { editable: false, type: "number" },
+                            quantity: { editable: false, type: "number" }
+                        }
+                    }
+                }
+            });
+
+        $("#gridSummary1").kendoGrid({
+            dataSource: dataSource,
+            pageable: false,
+            resizable: true,
+            ajax: true,
+            selectable: 'row',
+            toolbar: ["excel", {
+                template: '<div> <a class="k-button" onclick="return detailRefresh1()" ><i class="k-icon k-i-reload"></i></a> </div>',
+                attributes: { style: 'float: right' },
+            },],
+
+            excelExport: function (e) { e.workbook.fileName = "ExcelSummary-" + kendo.toString(new Date, "yyyy/MM/dd HH:mm") + ".xlsx"; },
+            columns: [
+                { field: "name", title: getByCulture('@culture', 'fees'), width: "150px", height: "10px", template: '<span style="font-weight: 600;">#= name #</span>' },
+                { field: "amount", title: getByCulture('@culture', 'amount'), width: "120px", height: "10px", format: "{0:n}", template: "#if(amount === 0){#  #}else{# #=kendo.toString(amount, 'n')# #}#", attributes: { style: "text-align:right" } },
+                { field: "quantity", title: getByCulture('@culture', 'quantity'), width: "80px", height: "10px", template: "#if(quantity === 0){#  #}else{# #=kendo.toString(quantity, 'n0')# #}#", attributes: { style: "text-align:center" } },
+            ],
+            editable: "inline",
+        });
+        $("#gridSummary1").find(".k-grid-toolbar").insertAfter($("#gridSummary1 .k-grid-content"));
+    })
+</script>
+
+<script>
+    function detailRefresh1() {
+        displayLoading("#gridSummary1");
+        $.ajax({
+            type: "POST",
+            url: '/M210Student/SummaryDataRead1/' + "@Model.UserID",
+            dataType: "json",
+            success: function (result) {
+                var grid = $("#gridSummary1").data("kendoGrid");
+                var dataSource = new kendo.data.DataSource({ data: result });
+                grid.setDataSource(dataSource);
+            },
+        });
+    }
+</script>
+
+<script>
+    $(document).ready(function () {
+        var crudServiceBaseUrl = "/M210Student/",
+            dataSource = new kendo.data.DataSource({
+                transport: {
+                    read: {
+                        url: crudServiceBaseUrl + "SummaryDataRead2/" + "@Model.UserID",
+                        dataType: "json"
+                    },
+                    parameterMap: function (options, operation) {
+                        if (operation !== "read" && options.models) {
+                            return { models: kendo.stringify(options.models) };
+                        }
+                    }
+                },
+                aggregate:
+                    [{ field: "name", aggregate: "count" },
+                    { field: "amount01", aggregate: "sum" },
+                    { field: "avarageAmount01", aggregate: "sum" },
+                    { field: "quantity01", aggregate: "sum" },
+                    { field: "amount02", aggregate: "sum" },
+                    { field: "avarageAmount02", aggregate: "sum" },
+                    { field: "quantity02", aggregate: "sum" },
+                    { field: "amount03", aggregate: "sum" },
+                    { field: "avarageAmount03", aggregate: "sum" },
+                    { field: "quantity03", aggregate: "sum" },
+                    { field: "amount04", aggregate: "sum" },
+                    { field: "avarageAmount04", aggregate: "sum" },
+                    { field: "quantity04", aggregate: "sum" },
+                    { field: "amount05", aggregate: "sum" },
+                    { field: "avarageAmount05", aggregate: "sum" },
+                    { field: "quantity05", aggregate: "sum" },
+                    { field: "amount06", aggregate: "sum" },
+                    { field: "avarageAmount06", aggregate: "sum" },
+                    { field: "quantity06", aggregate: "sum" },
+                    { field: "amount07", aggregate: "sum" },
+                    { field: "avarageAmount07", aggregate: "sum" },
+                    { field: "quantity07", aggregate: "sum" },
+                    { field: "amount08", aggregate: "sum" },
+                    { field: "avarageAmount08", aggregate: "sum" },
+                    { field: "quantity08", aggregate: "sum" },
+                    { field: "amount09", aggregate: "sum" },
+                    { field: "avarageAmount09", aggregate: "sum" },
+                    { field: "quantity09", aggregate: "sum" },
+                    { field: "amount10", aggregate: "sum" },
+                    { field: "avarageAmount10", aggregate: "sum" },
+                    { field: "quantity10", aggregate: "sum" },
+                    ],
+                batch: true,
+                schema: {
+                    model: {
+                        id: "viewModelId",
+                        fields: {
+                            viewModelId: { editable: false, type: "number" },
+                            name: { editable: false, type: "string" },
+                            amount: { editable: false, type: "number" },
+                            quantity: { editable: false, type: "number" },
+
+                            amount01: { editable: false, type: "number" },
+                            avarageAmount01: { editable: false, type: "number" },
+                            quantity01: { editable: false, type: "number" },
+                            amount02: { editable: false, type: "number" },
+                            avarageAmount02: { editable: false, type: "number" },
+                            quantity02: { editable: false, type: "number" },
+
+                        }
+                    }
+
+                }
+
+            });
+
+        $("#gridSummary2").kendoGrid({
+            dataSource: dataSource,
+            autoBind: false,
+            pageable: false,
+            resizable: true,
+            height: 400,
+            ajax: true,
+            selectable: 'row',
+            toolbar: ["excel", {
+                template: '<div> <a class="k-button" onclick="return detailRefresh()" ><i class="k-icon k-i-reload"></i></a> </div>',
+                attributes: { style: 'float: right' },
+            },],
+
+            //excelExport: function (e) { e.workbook.fileName = "ExcelSummary-" + kendo.toString(new Date, "yyyy/MM/dd HH:mm") + ".xlsx"; },
+            excelExport: function (e) {
+                e.workbook.fileName = "ExcelPersonnelServices-" + kendo.toString(new Date, "yyyy/MM/dd HH:mm") + ".xlsx";
+                var rows = e.workbook.sheets[0].rows;
+
+                for (var ri = 0; ri < rows.length; ri++) {
+                    var row = rows[ri];
+
+                    if (row.type == "group-footer" || row.type == "footer") {
+                        for (var ci = 0; ci < row.cells.length; ci++) {
+                            var cell = row.cells[ci];
+                            if (cell.value) {
+                                // Use jQuery.fn.text to remove the HTML and get only the text
+                                cell.value = $(cell.value).text();
+                                // Set the alignment
+                                cell.hAlign = "right";
+                            }
+                        }
+                    }
+                }
+            },
+
+            columns: [
+                { field: "name", title: getByCulture('@culture', 'classroomType'), width: "130px", height: "10px", template: '<span style="font-weight: 600;">#= name #</span>', aggregates: ["count"], footerTemplate: "#=count#", },
+
+                {
+                    title: getByCulture('@culture', 'title01'),
+                    columns: [
+                        { field: "amount01", title: getByCulture('@culture', 'amount'), width: "100px", format: "{0:n}", template: "#if(amount01 === 0){#  #}else{# #=kendo.toString(amount01, 'n')# #}#", attributes: { style: "text-align:right" }, footerTemplate: "<div style='text-align: right'>#= kendo.toString(data.amount01.sum,'n') # </div>" },
+                        { field: "avarageAmount01", title: getByCulture('@culture', 'avarageAmount'), width: "100px", format: "{0:n}", template: "#if(avarageAmount01 === 0){#  #}else{# #=kendo.toString(avarageAmount01, 'n')# #}#", attributes: { style: "text-align:right" }, footerTemplate: "<div style='text-align: right'>#= kendo.toString(data.avarageAmount01.sum,'n') # </div>" },
+                        { field: "quantity01", title: getByCulture('@culture', 'quantity'), width: "55px", template: "#if(quantity01 === 0){#  #}else{# #=kendo.toString(quantity01, 'n0')# #}#", attributes: { style: "text-align:center" }, footerTemplate: "<div style='text-align: right'>#= kendo.toString(data.quantity01.sum,'n0') # </div>" },
+                    ]
+                },
+                {
+                    title: getByCulture('@culture', 'title02'),
+                    columns: [
+                        { field: "amount02", title: getByCulture('@culture', 'amount'), width: "100px", format: "{0:n}", template: "#if(amount02 === 0){#  #}else{# #=kendo.toString(amount02, 'n')# #}#", attributes: { style: "text-align:right" }, footerTemplate: "<div style='text-align: right'>#= kendo.toString(data.amount02.sum,'n') # </div>" },
+                        { field: "avarageAmount02", title: getByCulture('@culture', 'avarageAmount'), width: "100px", format: "{0:n}", template: "#if(avarageAmount02 === 0){#  #}else{# #=kendo.toString(avarageAmount02, 'n')# #}#", attributes: { style: "text-align:right" }, footerTemplate: "<div style='text-align: right'>#= kendo.toString(data.avarageAmount02.sum,'n') # </div>" },
+                        { field: "quantity02", title: getByCulture('@culture', 'quantity'), width: "55px", template: "#if(quantity02 === 0){#  #}else{# #=kendo.toString(quantity02, 'n0')# #}#", attributes: { style: "text-align:center" }, footerTemplate: "<div style='text-align: right'>#= kendo.toString(data.quantity02.sum,'n0') # </div>" },
+                    ]
+                },
+                {
+                    title: getByCulture('@culture', 'title03'),
+                    columns: [
+                        { field: "amount03", title: getByCulture('@culture', 'amount'), width: "100px", format: "{0:n}", template: "#if(amount03 === 0){#  #}else{# #=kendo.toString(amount03, 'n')# #}#", attributes: { style: "text-align:right" }, footerTemplate: "<div style='text-align: right'>#= kendo.toString(data.amount03.sum,'n') # </div>" },
+                        { field: "avarageAmount03", title: getByCulture('@culture', 'avarageAmount'), width: "100px", format: "{0:n}", template: "#if(avarageAmount03 === 0){#  #}else{# #=kendo.toString(avarageAmount03, 'n')# #}#", attributes: { style: "text-align:right" }, footerTemplate: "<div style='text-align: right'>#= kendo.toString(data.avarageAmount03.sum,'n') # </div>" },
+                        { field: "quantity03", title: getByCulture('@culture', 'quantity'), width: "55px", template: "#if(quantity03 === 0){#  #}else{# #=kendo.toString(quantity03, 'n0')# #}#", attributes: { style: "text-align:center" }, footerTemplate: "<div style='text-align: right'>#= kendo.toString(data.quantity03.sum,'n0') # </div>" },
+                    ]
+                },
+                {
+                    title: getByCulture('@culture', 'title04'),
+                    columns: [
+                        { field: "amount04", title: getByCulture('@culture', 'amount'), width: "100px", format: "{0:n}", template: "#if(amount04 === 0){#  #}else{# #=kendo.toString(amount04, 'n')# #}#", attributes: { style: "text-align:right" }, footerTemplate: "<div style='text-align: right'>#= kendo.toString(data.amount04.sum,'n') # </div>" },
+                        { field: "avarageAmount04", title: getByCulture('@culture', 'avarageAmount'), width: "100px", format: "{0:n}", template: "#if(avarageAmount04 === 0){#  #}else{# #=kendo.toString(avarageAmount04, 'n')# #}#", attributes: { style: "text-align:right" }, footerTemplate: "<div style='text-align: right'>#= kendo.toString(data.avarageAmount04.sum,'n') # </div>" },
+                        { field: "quantity04", title: getByCulture('@culture', 'quantity'), width: "55px", template: "#if(quantity04 === 0){#  #}else{# #=kendo.toString(quantity04, 'n0')# #}#", attributes: { style: "text-align:center" }, footerTemplate: "<div style='text-align: right'>#= kendo.toString(data.quantity04.sum,'n0') # </div>" },
+                    ]
+                },
+                {
+                    title: getByCulture('@culture', 'title05'),
+                    columns: [
+                        { field: "amount05", title: getByCulture('@culture', 'amount'), width: "100px", format: "{0:n}", template: "#if(amount05 === 0){#  #}else{# #=kendo.toString(amount05, 'n')# #}#", attributes: { style: "text-align:right" }, footerTemplate: "<div style='text-align: right'>#= kendo.toString(data.amount05.sum,'n') # </div>" },
+                        { field: "avarageAmount05", title: getByCulture('@culture', 'avarageAmount'), width: "100px", format: "{0:n}", template: "#if(avarageAmount05 === 0){#  #}else{# #=kendo.toString(avarageAmount05, 'n')# #}#", attributes: { style: "text-align:right" }, footerTemplate: "<div style='text-align: right'>#= kendo.toString(data.avarageAmount05.sum,'n') # </div>" },
+                        { field: "quantity05", title: getByCulture('@culture', 'quantity'), width: "55px", template: "#if(quantity05 === 0){#  #}else{# #=kendo.toString(quantity05, 'n0')# #}#", attributes: { style: "text-align:center" }, footerTemplate: "<div style='text-align: right'>#= kendo.toString(data.quantity05.sum,'n0') # </div>" },
+                    ]
+                },
+                {
+                    title: getByCulture('@culture', 'title06'),
+                    columns: [
+                        { field: "amount06", title: getByCulture('@culture', 'amount'), width: "100px", format: "{0:n}", template: "#if(amount06 === 0){#  #}else{# #=kendo.toString(amount06, 'n')# #}#", attributes: { style: "text-align:right" }, footerTemplate: "<div style='text-align: right'>#= kendo.toString(data.amount06.sum,'n') # </div>" },
+                        { field: "avarageAmount06", title: getByCulture('@culture', 'avarageAmount'), width: "100px", format: "{0:n}", template: "#if(avarageAmount06 === 0){#  #}else{# #=kendo.toString(avarageAmount06, 'n')# #}#", attributes: { style: "text-align:right" }, footerTemplate: "<div style='text-align: right'>#= kendo.toString(data.avarageAmount06.sum,'n') # </div>" },
+                        { field: "quantity06", title: getByCulture('@culture', 'quantity'), width: "55px", template: "#if(quantity06 === 0){#  #}else{# #=kendo.toString(quantity06, 'n0')# #}#", attributes: { style: "text-align:center" }, footerTemplate: "<div style='text-align: right'>#= kendo.toString(data.quantity06.sum,'n0') # </div>" },
+                    ]
+                },
+                {
+                    title: getByCulture('@culture', 'title07'),
+                    columns: [
+                        { field: "amount07", title: getByCulture('@culture', 'amount'), width: "100px", format: "{0:n}", template: "#if(amount07 === 0){#  #}else{# #=kendo.toString(amount07, 'n')# #}#", attributes: { style: "text-align:right" }, footerTemplate: "<div style='text-align: right'>#= kendo.toString(data.amount07.sum,'n') # </div>" },
+                        { field: "avarageAmount07", title: getByCulture('@culture', 'avarageAmount'), width: "100px", format: "{0:n}", template: "#if(avarageAmount07 === 0){#  #}else{# #=kendo.toString(avarageAmount07, 'n')# #}#", attributes: { style: "text-align:right" }, footerTemplate: "<div style='text-align: right'>#= kendo.toString(data.avarageAmount07.sum,'n') # </div>" },
+                        { field: "quantity07", title: getByCulture('@culture', 'quantity'), width: "55px", template: "#if(quantity07 === 0){#  #}else{# #=kendo.toString(quantity07, 'n0')# #}#", attributes: { style: "text-align:center" }, footerTemplate: "<div style='text-align: right'>#= kendo.toString(data.quantity07.sum,'n0') # </div>" },
+                    ]
+                },
+                {
+                    title: getByCulture('@culture', 'title08'),
+                    columns: [
+                        { field: "amount08", title: getByCulture('@culture', 'amount'), width: "100px", format: "{0:n}", template: "#if(amount08 === 0){#  #}else{# #=kendo.toString(amount08, 'n')# #}#", attributes: { style: "text-align:right" }, footerTemplate: "<div style='text-align: right'>#= kendo.toString(data.amount08.sum,'n') # </div>" },
+                        { field: "avarageAmount08", title: getByCulture('@culture', 'avarageAmount'), width: "100px", format: "{0:n}", template: "#if(avarageAmount08 === 0){#  #}else{# #=kendo.toString(avarageAmount08, 'n')# #}#", attributes: { style: "text-align:right" }, footerTemplate: "<div style='text-align: right'>#= kendo.toString(data.avarageAmount08.sum,'n') # </div>" },
+                        { field: "quantity08", title: getByCulture('@culture', 'quantity'), width: "55px", template: "#if(quantity08 === 0){#  #}else{# #=kendo.toString(quantity08, 'n0')# #}#", attributes: { style: "text-align:center" }, footerTemplate: "<div style='text-align: right'>#= kendo.toString(data.quantity08.sum,'n0') # </div>" },
+                    ]
+                },
+                {
+                    title: getByCulture('@culture', 'title09'),
+                    columns: [
+                        { field: "amount09", title: getByCulture('@culture', 'amount'), width: "100px", format: "{0:n}", template: "#if(amount09 === 0){#  #}else{# #=kendo.toString(amount09, 'n')# #}#", attributes: { style: "text-align:right" }, footerTemplate: "<div style='text-align: right'>#= kendo.toString(data.amount09.sum,'n') # </div>" },
+                        { field: "avarageAmount09", title: getByCulture('@culture', 'avarageAmount'), width: "100px", format: "{0:n}", template: "#if(avarageAmount09 === 0){#  #}else{# #=kendo.toString(avarageAmount09, 'n')# #}#", attributes: { style: "text-align:right" }, footerTemplate: "<div style='text-align: right'>#= kendo.toString(data.avarageAmount09.sum,'n') # </div>" },
+                        { field: "quantity09", title: getByCulture('@culture', 'quantity'), width: "55px", template: "#if(quantity09 === 0){#  #}else{# #=kendo.toString(quantity09, 'n0')# #}#", attributes: { style: "text-align:center" }, footerTemplate: "<div style='text-align: right'>#= kendo.toString(data.quantity09.sum,'n0') # </div>" },
+                    ]
+                },
+                {
+                    title: getByCulture('@culture', 'title10'),
+                    columns: [
+                        { field: "amount10", title: getByCulture('@culture', 'amount'), width: "100px", format: "{0:n}", template: "#if(amount10 === 0){#  #}else{# #=kendo.toString(amount10, 'n')# #}#", attributes: { style: "text-align:right" }, footerTemplate: "<div style='text-align: right'>#= kendo.toString(data.amount10.sum,'n') # </div>" },
+                        { field: "avarageAmount10", title: "@ESCHOOL.Resources.Resource.AvarageAmount", width: "100px", format: "{0:n}", template: "#if(avarageAmount10 === 0){#  #}else{# #=kendo.toString(avarageAmount10, 'n')# #}#", attributes: { style: "text-align:right" }, footerTemplate: "<div style='text-align: right'>#= kendo.toString(data.avarageAmount10.sum,'n') # </div>" },
+                        { field: "quantity10", title: getByCulture('@culture', 'quantity'), width: "40px", template: "#if(quantity10 === 0){#  #}else{# #=kendo.toString(quantity10, 'n0')# #}#", attributes: { style: "text-align:center" }, footerTemplate: "<div style='text-align: right'>#= kendo.toString(data.quantity10.sum,'n0') # </div>" },
+                    ]
+                },
+            ],
+            editable: "inline",
+        });
+    })
+    $("#gridSummary2").find(".k-grid-toolbar").insertAfter($("#gridSummary2 .k-grid-content"));
+</script>
+
+<script>
+    function detailRefresh() {
+        displayLoading("#gridSummary2");
+        $.ajax({
+            type: "POST",
+            url: '/M210Student/SummaryDataRead2/' + "@Model.UserID",
+            dataType: "json",
+            success: function (result) {
+                var grid = $("#gridSummary2").data("kendoGrid");
+                var dataSource = new kendo.data.DataSource({ data: result });
+                grid.setDataSource(dataSource);
+            },
+        });
+    }
+</script>
+<!--#endregion -->
+
+<script>
+    function displayLoading(target) {
+        var element = $(target);
+        kendo.ui.progress(element, true);
+        setTimeout(function () {
+            kendo.ui.progress(element, false);
+        }, 1000);
+    }
+</script>
+
+<script>
+    var dictionary =
+    {
+        'tr-TR': {
+            studentStatus: 'Kayıt Durumu',
+            student: 'Öğrenci',
+            name: 'Adı',
+            amount: 'Tutarı',
+            avarageAmount: 'Ortalama Tut.',
+            quantity: 'Miktar',
+            studentName: 'Öğrenci Adı',
+            classrooms: 'Sınıflar',
+            studentNumber: 'Öğr.No',
+            idNumber: 'TC.Kimlik No',
+            status: 'Durumu',
+            registrationType: 'Kayıt Tipi',
+            dateOfRegistration: 'Kayıt Tarihi',
+            parentName: 'Veli Adı',
+            parentMobilePhone: 'Cep',
+            studentMobilePhone: 'Ö.Cep',
+            isActive: 'Durumu',
+            fees: 'Ücretler',
+            classroomType: 'Sınıf Tipi',
+            title01: '@ViewBag.Title01',
+            title02: '@ViewBag.Title02',
+            title03: '@ViewBag.Title03',
+            title04: '@ViewBag.Title04',
+            title05: '@ViewBag.Title05',
+            title06: '@ViewBag.Title06',
+            title07: '@ViewBag.Title07',
+            title08: '@ViewBag.Title08',
+            title09: '@ViewBag.Title09',
+            title10: '@ViewBag.Title10',
+        },
+
+        'en-US': {
+            studentStatus: 'Registration Status.',
+            student: 'Student',
+            name: 'Name',
+            amount: 'Amount',
+            avarageAmount: 'Avarage Amount',
+            quantity: 'Quantity',
+            studentName: 'Student Name',
+            classrooms: 'Classrooms',
+            studentNumber: 'Std.No',
+            idNumber: 'Id Number',
+            status: 'Status',
+            registrationType: 'Registration Type',
+            dateOfRegistration: 'Date Of Registration',
+            parentName: 'Parent Name',
+            parentMobilePhone: 'ParentTel',
+            studentMobilePhone: 'Stud.Tel',
+            isActive: 'Status',
+            fees: 'Fees',
+            classroomType: 'Classroom Type',
+            title01: '@ViewBag.Title01',
+            title02: '@ViewBag.Title02',
+            title03: '@ViewBag.Title03',
+            title04: '@ViewBag.Title04',
+            title05: '@ViewBag.Title05',
+            title06: '@ViewBag.Title06',
+            title07: '@ViewBag.Title07',
+            title08: '@ViewBag.Title08',
+            title09: '@ViewBag.Title09',
+            title10: '@ViewBag.Title10',
+        },
+    }
+    function getByCulture(culture, word) {
+        return dictionary[culture][word]
+    }
+</script>
+<script>
+    window.history.replaceState('', '', window.location.pathname);
+</script>

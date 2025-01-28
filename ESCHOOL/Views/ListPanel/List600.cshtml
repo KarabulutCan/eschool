@@ -1,0 +1,274 @@
+﻿@model ESCHOOL.ViewModels.ListPanelModel
+@{
+    System.Globalization.CultureInfo.CurrentCulture = System.Globalization.CultureInfo.CreateSpecificCulture(@Model.SelectedCulture);
+    System.Globalization.CultureInfo.CurrentUICulture = System.Globalization.CultureInfo.CreateSpecificCulture(@Model.SelectedCulture);
+    var culture = System.Globalization.CultureInfo.CurrentCulture.ToString();
+}
+<html>
+<head>
+    <style>
+        html {
+            font-size: 13px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+    </style>
+    <title></title>
+    <link href="https://kendo.cdn.telerik.com/2021.2.616/styles/kendo.common.min.css" rel="stylesheet" />
+    <link rel="stylesheet" id="skin-css" href="@TempData["theme"]" />
+    <link rel="stylesheet" id="skin-css" href="@TempData["themeMobile"]" />
+    <script src="https://kendo.cdn.telerik.com/2021.2.616/js/jquery.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2021.2.616/js/kendo.all.min.js"></script>
+
+    <script src="@Url.Content("~/telerik/2021.2.616/js//cultures/kendo.culture." + culture + ".min.js")"></script>
+    <script src="@Url.Content("~/telerik/2021.2.616/js//messages/kendo.messages." + culture + ".min.js")"></script>
+
+    <script type="text/javascript">
+        kendo.culture("@culture");
+    </script>
+</head>
+<body onload="switchBodyColor()">
+    @if (ViewBag.IsSuccess == true)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>@ESCHOOL.Resources.Resource.Warning</strong>@ESCHOOL.Resources.Resource.BackupResult<br />
+            <a href="/ListPanel/List600?userID=@Model.UserID&isSuccess=false&file=@ViewBag.BackupFile" style="color:darkgreen">@ESCHOOL.Resources.Resource.ClickToContinue</a>
+            <hr>
+            <div id="div1">
+                <a href="https://eschool.ncs.com.tr/BACKUP/@ViewBag.BackupFile">@ESCHOOL.Resources.Resource.DownloadMsg ( @ViewBag.BackupFile ) </a>
+            </div>
+
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
+    <div id="example">
+        <div class="demo-section k-content center" id="shadow">
+            <div class="center2">
+                <h3>@ESCHOOL.Resources.Resource.DatabaseBackup</h3>
+            </div>
+
+            <hr />
+            <form id="List600" asp-controller="ListPanel" asp-action="ListPanelInfo600" asp-route-id="@Model.UserID">
+                <input type="hidden" asp-for="UserID" />
+                <div class="row" style="padding-left:25px;">
+                    <div class="col">
+                        <label asp-for="StartListDate" class="control-label">@ESCHOOL.Resources.Resource.Date</label>
+                        <div class="text-section k-content">
+                            <input asp-for="StartListDate" id="startDateID" class="form-control listDate" style="width: 50%;" />
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <div class="row" style="padding-left:25px;">
+                    <div class="col">
+                        <label asp-for="Title" class="control-label">@ESCHOOL.Resources.Resource.FileName</label>
+                        <div class="text-section k-content">
+                            <input asp-for="Title" id="titleID" class="k-textbox" style="width: 80%;" maxlength="30" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row k-form-hint">
+                    @ESCHOOL.Resources.Resource.BackupMsg1<br />
+                    @ESCHOOL.Resources.Resource.BackupMsg2<br />
+                    @ESCHOOL.Resources.Resource.BackupMsg3
+                </div>
+                <br />
+                <div class="row" style="padding-left:25px;" align="center">
+                    <div class="col col-md-4">
+                        <button type="button" id="okButton" onclick="okClick()" style="width:80px">@ESCHOOL.Resources.Resource.Okey</button>
+                    </div>
+                    <div class="col col-md-4">
+                        <button type="button" id="exitButton" onclick="okExit()" style="width:80px">@ESCHOOL.Resources.Resource.Exit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </div>
+    <script>
+        function okExit() {
+            var zipDeleteFile = document.getElementById('titleID').value;
+            $.ajax({
+                type: "POST",
+                url: '/ListPanel/ListPanelInfo600SqlDelete?zipDeleteFile=' + zipDeleteFile,
+                dataType: "json",
+            });
+
+            window.location.replace("/Home/index?userID=@Model.UserID");
+        }
+
+        function okClick(e) {
+            waitProgress();
+            $("form").submit();
+        }
+    </script>
+
+    <script>
+        function waitProgress() {
+            $('#loader-pulsing').kendoLoader({ type: 'pulsing' });
+            $('#loader-infinite-spinner').kendoLoader({ type: 'infinite-spinner' });
+            $('#loader-converging-spinner').kendoLoader({ type: 'converging-spinner' });
+        }
+    </script>
+    <div class="vertical-center">
+        <span id="loader-pulsing"></span>
+        <span id="loader-infinite-spinner"></span>
+        <span id="loader-converging-spinner"></span>
+    </div>
+    <style>
+        .vertical-center {
+            margin: 0;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+        }
+    </style>
+
+
+    <script>
+        $(".listDate").kendoDatePicker({
+            format: "dd/MM/yyyy",
+            change: function() {
+                var date = document.getElementById("startDateID").value;
+            }
+        });
+
+        $("#okButton").kendoButton({
+            icon: "check",
+        });
+        $("#exitButton").kendoButton({
+            icon: "logout",
+        });
+    </script>
+
+    <script>
+        $('#list01Options0').click(function(e) {
+            if ($(this).is(':checked')) {
+                $('#startDateID').data('kendoDatePicker').enable(true);
+                $('#endDateID').data('kendoDatePicker').enable(true);
+            }
+            else {
+                $('#startDateID').data('kendoDatePicker').enable(false);
+                $('#endDateID').data('kendoDatePicker').enable(false);
+            }
+        })
+    </script>
+    <style>
+        .center {
+            position: absolute;
+            left: 50%;
+            top: 40%;
+            transform: translate(-50%, -50%);
+            border: 1px solid #0a0a0a;
+            padding: 40px;
+            min-width: 400px;
+            max-width: 400px;
+        }
+
+        div.center2 {
+            text-align: center;
+        }
+
+        .k-list-horizontal {
+            margin-top: 5px;
+        }
+
+        form label {
+            font-weight: bold;
+            font-size: 12px;
+        }
+        .label {
+            font: normal 14px/16px Metric, Arial, Helvetica, sans-serif;
+            color: #828282;
+            display: inline-block;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .k-form-hint {
+            margin-top: 10px;
+        }
+
+        #shadow {
+            border: 1px solid;
+            box-shadow: 5px 10px 18px #888888;
+        }
+    </style>
+
+    <script>
+        var dictionary =
+        {
+            'tr-TR': {
+                select: 'Seç',
+                msgOk: 'Tamam',
+                titleMsg: 'Kullanıcı Mesajı:',
+            },
+
+            'en-US': {
+                select: 'Select',
+                msgOk: 'OK',
+                titleMsg: 'User message:',
+            },
+        }
+        function getByCulture(culture, word) {
+            return dictionary[culture][word]
+        }
+    </script>
+
+    <style>
+        .backgroundBlack {
+            background: rgba(0, 0, 0, 0.7) url('../Upload/Login/paper.jpg');
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-blend-mode: darken;
+        }
+
+        .backgroundWhite {
+            background: url('../Upload/Login/paper.jpg');
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+    </style>
+    <script>
+        function switchBodyColor() {
+            if ("@Model.IsPermission" == 'False') permissionsControl();
+
+            if ('@TempData["color"]' == "#222") { document.body.className = 'backgroundBlack'; }
+            else { document.body.className = 'backgroundWhite'; }
+        }
+
+    </script>
+    <script>
+        function permissionsControl() {
+            msg = getByCulture('@culture', 'msgOk');
+            showAlert(msg);
+        };
+
+        function showAlert(message) {
+            msg = getByCulture('@culture', 'titleMsg');
+            $("#alert").kendoAlert({
+                title: msg,
+                content: "<strong>@ESCHOOL.Resources.Resource.PermissionMsg</strong>",
+                messages: {
+                    okText: message
+                },
+                actions: [{
+                    text: "#: messages.okText #",
+                    action: function(e) {
+                        window.location.replace("/Home/index?userID=@Model.UserID");
+                    }
+                }]
+            }).data("kendoAlert").open();
+        };
+    </script>
+    <script>
+        window.history.replaceState('', '', window.location.pathname);
+    </script>
+</body>
+<div id="alert"></div>
+</html>

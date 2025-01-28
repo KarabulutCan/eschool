@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Report DataSourceName="sqlDataSource1" Width="20.126cm" Name="KVKK" SnapGridSize="0.1cm" xmlns="http://schemas.telerik.com/reporting/2021/2.0">
+  <DataSources>
+    <SqlDataSource QueryDesignerState="null" ParameterValues="{&quot;@studentID&quot;:&quot;1&quot;,&quot;@schoolID&quot;:&quot;1&quot;}" ConnectionString="Data Source=.;Initial Catalog=10001;Integrated Security=True" ProviderName="System.Data.SqlClient" SelectCommand="SELECT S.LogoName, S.CompanyName, S.CompanyNameForBond, S.CompanyAddress, S.Phone1, S.Phone2, S.MobilePhone, S.Fax, S.TaxOffice, S.TaxNo, S.CompanyEmail, S.WebSite,&#xD;&#xA;       ST.IdNumber, ST.FirstName, ST.LastName, F.FatherName, F.MotherName, ST.ParentName, SP.KinshipCategoryID, P.CategoryName AS ParentKinship&#xD;&#xA;FROM   SchoolInfo S&#xD;&#xA;&#x9;LEFT JOIN Student ST on ST.StudentID = @studentID&#xD;&#xA;&#x9;LEFT JOIN StudentFamilyAddress F on F.StudentID = @studentID&#xD;&#xA;&#x9;LEFT JOIN StudentParentAddress SP on SP.StudentID = @studentID&#xD;&#xA;&#x9;LEFT JOIN Parameter AS P ON SP.KinshipCategoryID = P.CategoryID&#xD;&#xA;WHERE S.SchoolID = @schoolID&#xD;&#xA;&#xD;&#xA;" Name="sqlDataSource1">
+      <Parameters>
+        <SqlDataSourceParameter DbType="Int32" Name="@studentID">
+          <Value>
+            <String>= Parameters.studentID.Value</String>
+          </Value>
+        </SqlDataSourceParameter>
+        <SqlDataSourceParameter DbType="Int32" Name="@schoolID">
+          <Value>
+            <String>= Parameters.schoolID.Value</String>
+          </Value>
+        </SqlDataSourceParameter>
+      </Parameters>
+    </SqlDataSource>
+  </DataSources>
+  <Items>
+    <PageHeaderSection Height="1.9cm" Name="pageHeaderSection1">
+      <Items>
+        <PictureBox Value="= Format(Parameters.wwwRootPath.Value + &quot;\Upload\Images\{0}&quot;, Fields.LogoName)" Width="1.6cm" Height="1.6cm" Left="0.1cm" Top="0.2cm" Sizing="ScaleProportional" MimeType="" Name="pictureBox3" />
+        <TextBox Width="3.439cm" Height="0.5cm" Left="16.6cm" Top="0.9cm" Value="KVKK AYDINLATMA METNİ" Name="textBox8">
+          <Style TextAlign="Right">
+            <Font Name="Segoe UI Light" Size="8pt" Bold="True" Italic="True" Underline="False" />
+          </Style>
+        </TextBox>
+        <TextBox Width="14.787cm" Height="0.5cm" Left="1.8cm" Top="0.3cm" Value="= Fields.CompanyName" Name="textBox3">
+          <Style>
+            <Font Size="10pt" Bold="True" Italic="True" />
+          </Style>
+        </TextBox>
+        <TextBox Width="14.787cm" Height="0.5cm" Left="1.8cm" Top="0.9cm" Value="= Fields.CompanyAddress" Name="textBox1">
+          <Style>
+            <Font Size="8pt" Bold="True" Italic="True" />
+          </Style>
+        </TextBox>
+      </Items>
+    </PageHeaderSection>
+    <DetailSection Height="0.2cm" Name="detailSection1">
+      <Style Visible="False" />
+    </DetailSection>
+    <PageFooterSection Height="0.8cm" Name="pageFooterSection1">
+      <Items>
+        <TextBox Width="3.239cm" Height="0.5cm" Left="16.359cm" Top="0.3cm" Value="= 'Sayfa : ' + PageNumber" Name="textBox138">
+          <Style TextAlign="Right">
+            <Font Name="Segoe UI Light" Bold="True" />
+          </Style>
+        </TextBox>
+      </Items>
+    </PageFooterSection>
+  </Items>
+  <PageSettings PaperKind="A4" Landscape="False">
+    <Margins>
+      <MarginsU Left="0.2in" Right="0.2in" Top="0.2in" Bottom="0.2in" />
+    </Margins>
+  </PageSettings>
+  <StyleSheet>
+    <StyleRule>
+      <Style>
+        <Padding Left="2pt" Right="2pt" />
+      </Style>
+      <Selectors>
+        <TypeSelector Type="TextItemBase" />
+        <TypeSelector Type="HtmlTextBox" />
+      </Selectors>
+    </StyleRule>
+  </StyleSheet>
+  <Groups>
+    <Group Name="group">
+      <GroupHeader>
+        <GroupHeaderSection Height="26.9cm" Name="groupHeaderSection">
+          <Items>
+            <TextBox Width="19.609cm" Height="0.7cm" Left="0.2cm" Top="0cm" Value="KİŞİSEL VERİLERİN KORUNMASI, İŞLENMESİ VE AKTARILMASINA İLİŞKİN AYDINLATMA METNİ" Name="textBox76">
+              <Style BackgroundColor="233, 244, 249" TextAlign="Center" VerticalAlign="Middle">
+                <Font Name="Segoe UI Light" Size="12pt" Bold="True" Underline="True" />
+              </Style>
+            </TextBox>
+            <HtmlTextBox Width="19.596cm" Height="2.8cm" Left="0.2cm" Top="0.8cm" Value="&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; Bu bilgilendirme metni, &lt;strong&gt;{Fields.CompanyName}.(Bundan sonra metin içerisinde&lt;/strong&gt; &lt;strong&gt;{Fields.CompanyNameForBond} olarak adlandırılacaktır.)&lt;/strong&gt; olarak, 6698 sayılı Kişisel Verilerin Korunması Kanunu (KVKK) uyarınca, Veri Sorumlusu sıfatıyla, KVKK’da yer alan “Veri Sorumlusunun Aydınlatma Yükümlülüğü” başlıklı 10. ve “İlgili Kişinin Hakları” başlıklı 11. maddesi çerçevesinde; hangi amaçla kişisel verilerinizin işleneceği, işlenen kişisel verilerinizin kimlere ve hangi amaçla aktarılabileceği, kişisel verilerinizin toplanmasının yöntemi, hukuki sebebi ve KVKK’nın 11. maddesinde sayılan diğer haklarınızla ilgili olarak size bilgi vermek amacıyla sunulmaktadır." CanGrow="False" Name="htmlTextBox2">
+              <Style TextAlign="Justify" />
+            </HtmlTextBox>
+            <HtmlTextBox Width="19.596cm" Height="2.1cm" Left="0.2cm" Top="3.6cm" Value="&lt;p&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;7 Nisan 2016 tarihinde yürürlüğe giren 6698 sayılı Kişisel Verilerin Korunması Kanunu (KVKK) gereğince çalışanlarımız, öğrenci ve velilerimizin hizmetlerimizden faydalanmak amacıyla kişisel verilerini, tarafımızla paylaşması halinde OKULUMUZ, veri sorumlusu olarak, Kanun’un belirlediği çerçevede kişisel verilerinizi kaydedebilecek, muhafaza edebilecek, güncelleyebilecek-yeniden güncelleyebilecek, mevcut durumlar izin verdiği ölçüde ve sınırlı olarak 3. Kişilere açıklayabilecek, devredebilecek ve işleyebilecektir. &lt;/p&gt;&lt;p&gt;&lt;/p&gt;" Name="htmlTextBox10">
+              <Style TextAlign="Justify" />
+            </HtmlTextBox>
+            <HtmlTextBox Width="19.596cm" Height="1.6cm" Left="0.213cm" Top="5.9cm" Value="&lt;strong&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;{Fields.CompanyNameForBond}&lt;/strong&gt;, kişisel verilerinizin işlenmesi ve aktarımı süreçlerinde verilerinizin hukuka aykırı olarak kullanılmasını önlemek ve muhafazasını sağlamak için mevzuat uyarınca uygun güvenlik düzeyini sağlayıcı gerekli tedbirleri almaktadır." Name="htmlTextBox1">
+              <Style TextAlign="Justify" />
+            </HtmlTextBox>
+            <HtmlTextBox Width="19.596cm" Height="4.8cm" Left="0.213cm" Top="7.5cm" Value="&lt;strong&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; {Fields.CompanyNameForBond}&lt;/strong&gt; olarak, Veri Sorumlusu sıfatıyla, başta 6102 sayılı Türk Ticaret Kanunu, 6698 sayılı Kişisel Verilerin Korunması Kanunu (KVKK), 5237 sayılı Türk Ceza Kanunu, 5651 sayılı İnternet Ortamında Yapılan Yayınların Düzenlenmesi ve Bu Yayınlar Yoluyla İşlenen Suçlarla Mücadele Edilmesi Hakkında Kanun ve ilgili ikincil mevzuat, 6563 Sayılı Elektronik Ticaretin Düzenlenmesi Hakkında Kanun, ilgili ikincil mevzuat ve bunlarla sınırlı olmaksızın ilgili tüm mevzuattan kaynaklanan yasal yükümlülüklerimiz çerçevesinde çalışanlarımız, öğrenci ve velilerimizin hizmetlerimizden faydalanabilmesi amacıyla, kişisel verileriniz, &lt;strong&gt;{Fields.CompanyNameForBond}&lt;/strong&gt; tarafından verilen hizmet ya da eğitim/öğretim faaliyetlerine bağlı olarak değişkenlik gösterebilmekte; otomatik ya da otomatik olmayan yöntemlerle, ofisler, şubeler, çağrı merkezi, internet sitesi, sosyal medya mecraları ve benzeri vasıtalarla sözlü, yazılı ya da elektronik olarak toplanabilecektir. &lt;strong&gt;{Fields.CompanyNameForBond}&lt;/strong&gt;’nin hizmetlerinden yararlandığınız müddetçe oluşturularak ve güncellenerek kişisel verileriniz işlenebilecektir." CanGrow="False" CanShrink="False" Name="htmlTextBox4">
+              <Style TextAlign="Justify" />
+            </HtmlTextBox>
+            <HtmlTextBox Width="19.596cm" Height="9.5cm" Left="0.132cm" Top="12.4cm" Value="&lt;p style=&quot;text-align: justify&quot;&gt;Ayrıca okulumuz hizmetlerini kullanmak amacıyla,&lt;/p&gt;&lt;p style=&quot;text-align: justify&quot;&gt;● &amp;nbsp;Okulumuz; çalışanlarımız, öğrencilerimiz ve velilerimizin doğrudan bizimle paylaşmış olduğunuz iletişim kanalları üzerinden sizinle bağlantıya geçmek,&lt;br /&gt;●&amp;nbsp; Veri tabanı oluşturarak, listeleme, raporlama, doğrulama, analiz ve değerlendirmeler yapmak, istatistiki bilgiler üretmek ve gerektiğinde bunları işin uzmanları ile paylaşmak,&lt;br /&gt;●&amp;nbsp; Okulumuzdan ve çatısı altında bulunan diğer okullarımızdan hizmet almak için sözleşmeler akdettiğinizde, sözleşmeyle ilişkili ödeme planları-ödeme seçenekleri, ödeme şekillerine bağlı olarak bankalar ile ilgili yapılan tüm işlemlerde, sözleşmeye bağlı olarak adınıza fatura düzenlemek, &lt;br /&gt;●&amp;nbsp; Çalışanlarımızın ilgili iş kanunu kapsamında SGK işe giriş ve çıkış bildirgeleri, özlük dosyası işlemleri, iş sözleşmeleri, iş sağlığı ve güvenliği dosyaları, ve diğer tüm personel işlemlerinde gerekli belgeleri talep etmek, dosyalamak, saklamak ve diğer veri işleme işlemlerinde kullanmak,&amp;nbsp; &lt;br /&gt;●&amp;nbsp; Spor faaliyetleri, kültür ve sanat etkinlikleri ve planlanan zamanlarda gerçekleşecek akademik destek çalışmaları için kayıt talebi almak, &lt;br /&gt;●&amp;nbsp; Ödemelerde yaşanabilecek aksamalar ve hukuki sorunlar nedeniyle meydana çıkabilecek hukuki iş ve işlemlerde bulunmak,&lt;br /&gt;●&amp;nbsp; Öğrencilerimizin eğitim, öğretim ve sosyal faaliyetleri, okul içi iş ve işlemleri ve çalışanlarımızın Milli Eğitim Bakanlığı işlemleri ile ilgili yapılan resmi paylaşımlarda bulunmak,&lt;br /&gt;●&amp;nbsp; Okul içi kamera, görüntü kaydı ve çalışanlarımızın parmak algoritması gibi okul içi yönetim işlemlerinde kullanmak,&lt;br /&gt;●&amp;nbsp; Okulumuzun eğitim, öğretim ve sosyal faaliyetlerine ilişkin sms, mail, sosyal medya, internet sitesi, telefon vb. gibi tüm iletişim faaliyetlerinde yararlanmak,&lt;br /&gt;●&amp;nbsp; Okulumuzu veya internet sitemizi ziyaret ettiğinizde oluşan verileri(çerezler) kayıt altına almak,&lt;br /&gt;bu ve benzeri faaliyetlerde kişisel verileriniz işlenebilecektir.&lt;/p&gt;" Name="htmlTextBox11">
+              <Style TextAlign="Justify" VerticalAlign="Bottom" />
+            </HtmlTextBox>
+            <HtmlTextBox Width="19.596cm" Height="3.1cm" Left="0.2cm" Top="22.1cm" Value="&lt;p&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; Bu kişisel veriler &lt;strong&gt;{Fields.CompanyNameForBond}&lt;/strong&gt; olarak sunduğumuz hizmetlerden yararlanabilmeniz adına, &lt;strong&gt;açık rızanıza istinaden&lt;/strong&gt; veya tabi olduğumuz yasal mevzuat başta olmak üzere KVKK md. 5/f.2’de öngörülen diğer hallerde, işbu Kişisel Verilerin Korunması Hakkında Bilgilendirme ile belirlenen amaçlar ve kapsam dışında kullanılmamak kaydı ile gerekli tüm bilgi güvenliği tedbirleri de alınarak işlenecek ve yasal saklama süresince veya işleme amacının gerekli kıldığı süre boyunca saklanacak ve işleme amacının gerekli kıldığı sürenin sonunda veya veri işlenmesi için rızanızın gerektiği hallerde rızanızın geri alınması halinde anonimleştirilerek okulumuz tarafından kullanılmaya devam edilecektir..&lt;/p&gt;&lt;p&gt;&lt;/p&gt;" CanGrow="False" Name="htmlTextBox5">
+              <Style TextAlign="Justify" />
+            </HtmlTextBox>
+            <TextBox Width="6.07cm" Height="0.5cm" Left="12.9cm" Top="25.2cm" Value="= Fields.ParentName" Name="textBox37">
+              <Style>
+                <Font Size="10pt" Bold="True" Italic="True" />
+              </Style>
+            </TextBox>
+          </Items>
+        </GroupHeaderSection>
+      </GroupHeader>
+      <GroupFooter>
+        <GroupFooterSection Height="26.9cm" Name="groupFooterSection">
+          <Items>
+            <TextBox Width="19.528cm" Height="1.2cm" Left="0.2cm" Top="0.2cm" Value="T.C. MİLLİ EĞİTİM BAKANLIĞI&#xD;&#xA;Aydınlatma Metni&#xD;&#xA;" Name="textBox2">
+              <Style BackgroundColor="233, 244, 249" TextAlign="Center" VerticalAlign="Middle">
+                <Font Size="12pt" Bold="True" />
+              </Style>
+            </TextBox>
+            <TextBox Width="19.528cm" Height="6.4cm" Left="0.2cm" Top="1.7cm" Value="           Bu aydınlatma metni, 6698 sayılı Kişisel Verilerin Korunması Kanununun 10 uncu maddesi ile Aydınlatma Yükümlülüğünün Yerine Getirilmesinde Uyulacak Usul ve Esaslar Hakkında Tebliğ kapsamında veri sorumlusu sıfatıyla Milli Eğitim Bakanlığı tarafından hazırlanmıştır.&#xD;&#xA;&#xD;&#xA;           Kurumumuzca, siz ve öğrencinize ait görsel ve işitsel kişisel veriler eğitim ve öğretim süreçleri kapsamında düzenlenen faaliyetlerin kamuoyu ile paylaşımı ve tanıtımı amacıyla 6698 sayılı Kanunun 5 inci maddesinin birinci fıkrası gereği ilgili kişinin “açık rızasının alınması” işleme şartına dayalı olarak otomatik veya otomatik olmayan yolla işlenecektir.&#xD;&#xA;&#xD;&#xA;           Kurumumuzla paylaşılan kişisel veriler, sadece hukuki uyuşmazlıkların giderilmesi veya ilgili mevzuat gereği talep edilmesi halinde adli makamlar/ilgili kurum ve kuruluşlara aktarılabilecektir.&#xD;&#xA;&#xD;&#xA;          Söz konusu Kanunun “İlgili kişinin hakları” nı düzenleyen 11 inci maddesi kapsamındaki taleplerinizi “Veri Sorumlusuna Başvuru Usul ve Esasları Hakkında Tebliğe” göre Milli Eğitim Bakanlığının Atatürk Bulvarı No:98 Bakanlıklar-Çankaya/ANKARA adresine yazılı olarak iletebilirsiniz.&#xD;&#xA;" Name="textBox4" />
+            <TextBox Width="19.528cm" Height="0.7cm" Left="0.1cm" Top="8.8cm" Value="AÇIK RIZA ONAYI" Name="textBox5">
+              <Style BackgroundColor="233, 244, 249" TextAlign="Center" VerticalAlign="Middle">
+                <Font Size="12pt" Bold="True" />
+              </Style>
+            </TextBox>
+            <TextBox Width="6.07cm" Height="0.5cm" Left="2cm" Top="15.6cm" Value="Onay veriyorum" Name="textBox7">
+              <Style TextAlign="Center">
+                <Font Size="10pt" Bold="True" Italic="True" />
+              </Style>
+            </TextBox>
+            <TextBox Width="6.07cm" Height="0.5cm" Left="11.2cm" Top="15.6cm" Value="Onay vermiyorum" Name="textBox9">
+              <Style TextAlign="Center">
+                <Font Size="10pt" Bold="True" Italic="True" />
+              </Style>
+            </TextBox>
+            <TextBox Width="1cm" Height="0.8cm" Left="4.6cm" Top="16.6cm" Value="" Name="textBox27">
+              <Style TextAlign="Center">
+                <Font Size="10pt" Bold="False" Italic="True" />
+                <BorderStyle Default="Solid" />
+              </Style>
+            </TextBox>
+            <TextBox Width="1cm" Height="0.8cm" Left="13.7cm" Top="16.6cm" Value="" Name="textBox28">
+              <Style TextAlign="Center">
+                <Font Size="10pt" Bold="False" Italic="True" />
+                <BorderStyle Default="Solid" />
+              </Style>
+            </TextBox>
+            <HtmlTextBox Width="19.596cm" Height="4.2cm" Left="0.1cm" Top="9.5cm" Value="&lt;br /&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; 6698 sayılı Kişisel Verilerin Korunması Kanunu kapsamında tarafıma gerekli bilgilendirme yapılmıştır. Bu doğrultuda, işlendiği belirtilen bana ve &lt;strong&gt;{Fields.CompanyNameForBond}&lt;/strong&gt; Okulunda öğrenim gören &lt;strong&gt;{Fields.IdNumber} &lt;/strong&gt;T.C. Kimlik Numaralı velisi/birinci derece yakını bulunduğum &lt;strong&gt;{Fields.FirstName} &lt;/strong&gt;&lt;strong&gt;{Fields.LastName} &lt;/strong&gt;adlı öğrenciye ait görsel ve işitsel kişisel verilerimiz; eğitim ve öğretim süreçleri kapsamında düzenlenen faaliyet/etkinliklerin kamu oyu ile paylaşımı ve tanıtımı amacıyla, öğrencimin öğrenim gördüğü eğitim kurumu dahil Bakanlığın merkez ve taşra teşkilat resmi internet siteleri ile sosyal medya hesaplarında paylaşılmasına;" Name="htmlTextBox3">
+              <Style TextAlign="Justify" />
+            </HtmlTextBox>
+          </Items>
+        </GroupFooterSection>
+      </GroupFooter>
+    </Group>
+    <Group Name="group1">
+      <GroupHeader>
+        <GroupHeaderSection Height="25.1cm" Name="groupHeaderSection1">
+          <Items>
+            <HtmlTextBox Width="19.596cm" Height="4.1cm" Left="0.2cm" Top="0cm" Value="&lt;strong&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; {Fields.CompanyNameForBond}&lt;/strong&gt;, Veri Sorumlusu olarak çalışanlar, çalışan adayları, veliler, öğrenciler ve öğrenci adaylarının kimlik bilgileri kapsamındaki ad, soyadı, yaş, cinsiyet, adres, telefon numarası, e-posta, medeni ve aile durumuna ilişkin bilgiler, uyruk, din, velayete ilişkin kararlar, çocuğunuzun ders notları, meslek ve eğitim durumu bilgileriniz, çalıştığınız yer,&amp;nbsp; öğrencinin kardeşlerine ilişkin bilgiler gibi bilgiler, iletişim bilgileri, sağlık bilgileri, boşanma kararları, nüfus kağıtlarınızın fotokopileri, sağlık raporlarınız, IP numaraları, medeni hal, ülke gibi demografik verilerinizin yanı sıra, çalışanlar için kurumuza ilişkin çalışma tarihçeniz, MEB teşvik mevzuatı çerçevesinde yapılan başvuru belgeleri (bodro, gelir beyanı, mali tablo vb), eğitim durumunuz, katıldığınız seminer ve iş içi eğitimlere ilişkin veriler ile kanuni yükümlülüklerimiz olan vergileme ve genel sigorta işlemleri için gerekli her tür bilgiyi hukuka uygun olarak toplamakta, işlemekte ve gerekli olması halinde aktarabilmektedir.&amp;nbsp;" Name="htmlTextBox6">
+              <Style TextAlign="Justify" />
+            </HtmlTextBox>
+            <HtmlTextBox Width="19.596cm" Height="2.2cm" Left="0.2cm" Top="4.2cm" Value="&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; Kişisel verileriniz; kanundan ve sözleşmeden doğan yasal sorumluluklarımızın yerine getirilebilmesi amacıyla web sitesi, web sitesinde yer alan sözleşmeler ile ön kayıt formu ve iletişim formu gibi formlar, tarafınızca sosyal medya kanalları ve arama motorları üzerinden doldurulan formlar, sosyal medya hesapları &lt;strong&gt;(facebook, instagram, twitter, linkedin, google plus, youtube, pinterest),&lt;/strong&gt;&amp;nbsp; elektronik postalar, mobil uygulamalar, dijital pazarlama kanalları ve çerezler gibi sözlü, yazılı ve elektronik ortamda sözlü ve yazılı olarak toplanabilir." Name="htmlTextBox13">
+              <Style TextAlign="Justify" />
+            </HtmlTextBox>
+            <HtmlTextBox Width="19.596cm" Height="3.7cm" Left="0.2cm" Top="6.5cm" Value="&lt;strong&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; {Fields.CompanyNameForBond}&lt;/strong&gt;, söz konusu kişisel verilerinizi sadece; öğrenci velilerimizin açık rızasına istinaden veya tabi olduğumuz mevzuat başta olmak üzere KVKK md. 5/f.2’de öngörülen diğer hallerde KVKK’da belirtilen güvenlik ve gizlilik esasları çerçevesinde yeterli önlemler alınmak kaydıyla okul faaliyetlerinin yürütülmesi, öğrencilerimiz ve velilerimize hizmetler, fırsat ve olanaklar sunulması ve hizmet kalitesinin artırılması amacıyla; grup şirketlerimiz, ana hissedarımız, doğrudan/dolaylı yurtiçi/yurtdışı iştiraklerimiz, faaliyetlerimizin gereği anlaşmalı olduğumuz kurumlar, S.M.Mali Müşavirimiz, çağrı merkezleri, Avukatlar, denetçiler, danışmanlar ve hizmet alınan diğer üçüncü kişilere, anlaşmalı reklam ajanslarına, iş ortaklarımız, denetim şirketleri veya yasal bir zorunluluk gereği bu verileri talep etmeye yetkili olan kamu kurum veya kuruluşları, bunlarla sınırlı olmamak üzere ilgili diğer otoriteler ile paylaşabilecektir." Name="htmlTextBox7">
+              <Style TextAlign="Justify" />
+            </HtmlTextBox>
+            <HtmlTextBox Width="19.596cm" Height="1.6cm" Left="0.2cm" Top="10.2cm" Value="&lt;p&gt;&lt;strong&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;{Fields.CompanyNameForBond}&lt;/strong&gt;, kişisel verilerinizi işleme amacı dışında kullanmayacak ve rızanız yahut ilgili mevzuatta öngörülen bir diğer sebep olmaksızın 3. kişilere aktarmayacak ve/veya ifşa etmeyecektir. Mevzuat gereği kamu kurum ve kuruluşları ve/veya yargı mercileri ile paylaşılması zorunlu olan bilgilere ilişkin okulumuzun hakkı saklıdır.&lt;/p&gt;&lt;p&gt;&lt;/p&gt;" Name="htmlTextBox8">
+              <Style TextAlign="Justify" />
+            </HtmlTextBox>
+            <TextBox Width="19.613cm" Height="0.6cm" Left="0.2cm" Top="11.9cm" Value="KANUNUN 11. MADDESİ GEREĞİ HAKLARINIZ" Name="textBox15">
+              <Style TextAlign="Justify">
+                <Font Name="Arial Narrow" Size="11pt" Bold="True" />
+              </Style>
+            </TextBox>
+            <TextBox Width="19.613cm" Height="5.2cm" Left="0.2cm" Top="12.5cm" Value="Kişisel verilerinizin işlenmesi ile ilgili vermiş olduğunuz her türlü onaydan tamamen veya kısmen feragat etme hakkınız bulunmaktadır. &#xD;&#xA;&#xD;&#xA;Ayrıca, &#xD;&#xA;&#xD;&#xA;a) Kişisel verilerinizin işlenip işlenmediğini öğrenme, işlenmişse amacına uygun kullanılıp kullanılmadığı hakkında bilgi talep etme, &#xD;&#xA;b) Kişisel verilerinizin yurt içinde veya yurt dışında aktarıldığı üçüncü kişileri bilme, &#xD;&#xA;c) Kişisel verilerinizin eksik veya yanlış işlenmiş olması halinde bunların düzeltilmesini isteme, &#xD;&#xA;ç) Kişisel verilerinizin düzeltilmesi, silinmesini veya yok edilmesini isteme, silinmesi ya da yok edilmesi halinde bu işlemlerin kişisel verilerin aktarıldığı üçüncü kişilere bildirilmesini isteme, &#xD;&#xA;d) Kişisel verilerinizin kanuna aykırı olarak işlenmesi sebebiyle zarara uğramanız hâlinde zararın giderilmesini talep etme haklarına sahipsiniz. &#xD;&#xA;" Name="textBox11">
+              <Style TextAlign="Justify">
+                <Font Name="Arial Narrow" Size="11pt" Bold="False" />
+              </Style>
+            </TextBox>
+            <HtmlTextBox Width="19.596cm" Height="1.6cm" Left="0.2cm" Top="17.7cm" Value="&lt;p&gt;&lt;strong&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; {Fields.CompanyNameForBond}'&lt;/strong&gt;nin&lt;strong&gt; &lt;/strong&gt;bu formdan ve mevzuattan doğan hakkı saklıdır. Makul olmayacak düzeyde zor olan istekleri reddetme hakkımızın saklı olduğunu, okulumuzca yapılacak masrafları KVKK’nın 13. Maddesinde belirtilen tarifeye göre tarafınızdan talep hakkımızın saklı olduğunu belirtmek isteriz. &lt;/p&gt;&lt;p&gt;&lt;/p&gt;" Name="htmlTextBox9">
+              <Style TextAlign="Justify" />
+            </HtmlTextBox>
+            <HtmlTextBox Width="19.596cm" Height="2.1cm" Left="0.2cm" Top="19.4cm" Value="&lt;p&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; Mevzuat gereğince,&amp;nbsp; okulumuzun çalışanları, öğrenci ve velileri ile gerçekleştirdiği işlemlere ilişkin kayıt ve belgeleri 10 yıl süre ile saklamasına dair yasal zorunluluk söz konusudur. Kişisel verilerinizin silinmesini ve yok edilmesini talep etmeniz halinde söz konusu 10 yıllık sürenin sonunda bu talebiniz yerine getirilecektir. Bu süre zarfında kişisel verileriniz okulumuz tarafından işlenmeyecek, ulusal ve uluslararası yasa, düzenleme ve sözleşmelerden kaynaklı zorunluluklar haricinde üçüncü kişiler ile paylaşılmayacaktır.&lt;/p&gt;&lt;p&gt;&lt;/p&gt;" Name="htmlTextBox12">
+              <Style TextAlign="Justify" />
+            </HtmlTextBox>
+            <HtmlTextBox Width="19.596cm" Height="2.5cm" Left="0.2cm" Top="21.5cm" Value="&lt;p&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; Bu kapsamda yapacağınız talepler 6698 Kişisel Verileri Koruma Kanunu kapsamında yazılı olmalıdır. Bunun için, kimliğinizi tespit edici belgeler ile birlikte, kullanmak istediğiniz hakkınıza yönelik açıklamalarınızı içeren başvuru formu ile &lt;strong&gt;{Fields.CompanyNameForBond} &lt;/strong&gt;Batı Sitesi Mah. 1819 Sokak No:7/B Yenimahalle/Ankara adresine kimliğinizi tespit edici belgeler ile bizzat elden iletebilir, noter kanalıyla veya KVKK’da belirtilen diğer yöntemler ile gönderebilirsiniz. Veri Sorumlusu &lt;strong&gt;{Fields.CompanyNameForBond}&lt;/strong&gt;’nin güncel bilgileri, her daim Veri Sorumluları Sicil Bilgi Sistemi (VERBİS) üzerinden edinilebilecektir. &lt;/p&gt;&lt;p&gt;&lt;/p&gt;" Name="htmlTextBox14">
+              <Style TextAlign="Justify" />
+            </HtmlTextBox>
+            <TextBox Width="6.07cm" Height="0.5cm" Left="12.9cm" Top="24.1cm" Value="= Fields.ParentName" Name="textBox38">
+              <Style>
+                <Font Size="10pt" Bold="True" Italic="True" />
+              </Style>
+            </TextBox>
+            <TextBox Width="6.07cm" Height="0.5cm" Left="0.132cm" Top="24.1cm" Value="Saygılarımızla" Name="textBox39">
+              <Style>
+                <Font Size="10pt" Bold="True" Italic="False" />
+              </Style>
+            </TextBox>
+          </Items>
+        </GroupHeaderSection>
+      </GroupHeader>
+      <GroupFooter>
+        <GroupFooterSection Height="24.8cm" Name="groupFooterSection1">
+          <Items>
+            <HtmlTextBox Width="19.596cm" Height="3.7cm" Left="0.213cm" Top="0.3cm" Value="&lt;p&gt;&lt;strong&gt;KİŞİSEL VERİLERİN KORUNMASI, İŞLENMESİ VE AKTARILMASINA İLİŞKİN VELİ AÇIK RIZA BEYANI.&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;p&gt;&lt;strong&gt;{Fields.CompanyNameForBond}&amp;nbsp;&lt;/strong&gt;tarafından, 6698 sayılı Kişisel Verilerin Korunması Kanunu (KVKK) uyarınca, &quot;Kişisel Verilerin Korunması, İşlenmesi ve Aktarılmasına İlişkin Aydınlatma Metni&quot; tarafıma verilmiş ve gerekli tüm bilgilendirmeler yapılmıştır. &lt;/p&gt;&lt;p&gt;Kanun kapsamında kişisel verilerim/velisi bulunduğum öğrencime ait tüm kişisel verilerin aydınlatma metni kapsamında kullanılabilmesine açık rıza gösteriyorum.&lt;/p&gt;" Name="htmlTextBox15">
+              <Style TextAlign="Justify" />
+            </HtmlTextBox>
+            <TextBox Width="6.07cm" Height="0.5cm" Left="0.213cm" Top="5cm" Value="Öğrenci Adı Soyadı                       :" Name="textBox10">
+              <Style>
+                <Font Size="10pt" Bold="False" Italic="True" />
+              </Style>
+            </TextBox>
+            <TextBox Width="6.07cm" Height="0.5cm" Left="0.213cm" Top="5.7cm" Value="Öğrenci TC. Numarası                   :" Name="textBox12">
+              <Style>
+                <Font Size="10pt" Bold="False" Italic="True" />
+              </Style>
+            </TextBox>
+            <TextBox Width="6.07cm" Height="0.5cm" Left="0.2cm" Top="7.9cm" Value="Öğrenci Baba Bilgileri" Name="textBox13">
+              <Style>
+                <Font Size="10pt" Bold="True" Italic="True" />
+              </Style>
+            </TextBox>
+            <TextBox Width="6.07cm" Height="0.5cm" Left="0.212cm" Top="8.6cm" Value="Ad Soyad                                      :" Name="textBox14">
+              <Style>
+                <Font Size="10pt" Bold="False" Italic="True" />
+              </Style>
+            </TextBox>
+            <TextBox Width="6.07cm" Height="0.5cm" Left="0.234cm" Top="9.3cm" Value="Tarih                                              :" Name="textBox16">
+              <Style>
+                <Font Size="10pt" Bold="False" Italic="True" />
+              </Style>
+            </TextBox>
+            <TextBox Width="6.07cm" Height="0.5cm" Left="0.234cm" Top="10.1cm" Value="İmza                                             :" Name="textBox20">
+              <Style>
+                <Font Size="10pt" Bold="False" Italic="True" />
+              </Style>
+            </TextBox>
+            <TextBox Width="6.07cm" Height="0.5cm" Left="0.234cm" Top="12.7cm" Value="Öğrenci Anne Bilgileri" Name="textBox17">
+              <Style>
+                <Font Size="10pt" Bold="True" Italic="True" />
+              </Style>
+            </TextBox>
+            <TextBox Width="6.07cm" Height="0.5cm" Left="0.234cm" Top="13.5cm" Value="Ad Soyad                                      :" Name="textBox18">
+              <Style>
+                <Font Size="10pt" Bold="False" Italic="True" />
+              </Style>
+            </TextBox>
+            <TextBox Width="6.07cm" Height="0.5cm" Left="0.234cm" Top="14.3cm" Value="Tarih                                              :" Name="textBox19">
+              <Style>
+                <Font Size="10pt" Bold="False" Italic="True" />
+              </Style>
+            </TextBox>
+            <TextBox Width="6.07cm" Height="0.5cm" Left="0.234cm" Top="15.1cm" Value="İmza                                             :" Name="textBox25">
+              <Style>
+                <Font Size="10pt" Bold="False" Italic="True" />
+              </Style>
+            </TextBox>
+            <TextBox Width="6.904cm" Height="0.5cm" Left="0.234cm" Top="17.6cm" Value="Eğer Öğrencinin Velisi Başka Biri İse" Name="textBox21">
+              <Style>
+                <Font Size="10pt" Bold="True" Italic="True" />
+              </Style>
+            </TextBox>
+            <TextBox Width="6.002cm" Height="0.5cm" Left="0.268cm" Top="18.5cm" Value="Ad Soyad                                      :" Name="textBox22">
+              <Style>
+                <Font Size="10pt" Bold="False" Italic="True" />
+              </Style>
+            </TextBox>
+            <TextBox Width="6.002cm" Height="0.5cm" Left="0.268cm" Top="19.3cm" Value="Yakınlık Derecesi                         :" Name="textBox23">
+              <Style>
+                <Font Size="10pt" Bold="False" Italic="True" />
+              </Style>
+            </TextBox>
+            <TextBox Width="6.002cm" Height="0.5cm" Left="0.268cm" Top="20.1cm" Value="Tarih                                              :" Name="textBox24">
+              <Style>
+                <Font Size="10pt" Bold="False" Italic="True" />
+              </Style>
+            </TextBox>
+            <TextBox Width="6.002cm" Height="0.5cm" Left="0.268cm" Top="20.9cm" Value="İmza                                             :" Name="textBox26">
+              <Style>
+                <Font Size="10pt" Bold="False" Italic="True" />
+              </Style>
+            </TextBox>
+            <TextBox Width="6.07cm" Height="0.5cm" Left="6.5cm" Top="5cm" Value="= Fields.FirstName + &quot; &quot; + Fields.LastName" Name="textBox6">
+              <Style>
+                <Font Size="10pt" Bold="False" Italic="True" />
+              </Style>
+            </TextBox>
+            <TextBox Width="6.07cm" Height="0.5cm" Left="6.5cm" Top="5.7cm" Value="= Fields.IdNumber" Format="" Name="textBox29">
+              <Style>
+                <Font Size="10pt" Bold="False" Italic="True" />
+              </Style>
+            </TextBox>
+            <TextBox Width="6.07cm" Height="0.5cm" Left="6.5cm" Top="8.6cm" Value="= Fields.FatherName" Name="textBox30">
+              <Style>
+                <Font Size="10pt" Bold="False" Italic="True" />
+              </Style>
+            </TextBox>
+            <TextBox Width="6.07cm" Height="0.5cm" Left="6.5cm" Top="13.5cm" Value="= Fields.MotherName" Name="textBox31">
+              <Style>
+                <Font Size="10pt" Bold="False" Italic="True" />
+              </Style>
+            </TextBox>
+            <TextBox Width="6.07cm" Height="0.5cm" Left="6.5cm" Top="18.5cm" Value="= Fields.ParentName" Name="textBox32">
+              <Style>
+                <Font Size="10pt" Bold="False" Italic="True" />
+              </Style>
+            </TextBox>
+            <TextBox Width="6.07cm" Height="0.5cm" Left="6.5cm" Top="19.3cm" Value="= Fields.ParentKinship" Name="textBox33">
+              <Style>
+                <Font Size="10pt" Bold="False" Italic="True" />
+              </Style>
+            </TextBox>
+            <TextBox Width="6.07cm" Height="0.5cm" Left="6.5cm" Top="9.3cm" Value="= Format('{0:dd/MM/yyyy}', Today())" Format="{0:d}" Name="textBox34">
+              <Style>
+                <Font Size="10pt" Bold="False" Italic="True" />
+              </Style>
+            </TextBox>
+            <TextBox Width="6.07cm" Height="0.5cm" Left="6.5cm" Top="14.3cm" Value="= Format('{0:dd/MM/yyyy}', Today())" Format="{0:d}" Name="textBox35">
+              <Style>
+                <Font Size="10pt" Bold="False" Italic="True" />
+              </Style>
+            </TextBox>
+            <TextBox Width="6.07cm" Height="0.5cm" Left="6.5cm" Top="20.1cm" Value="= Format('{0:dd/MM/yyyy}', Today())" Format="{0:d}" Name="textBox36">
+              <Style>
+                <Font Size="10pt" Bold="False" Italic="True" />
+              </Style>
+            </TextBox>
+          </Items>
+        </GroupFooterSection>
+      </GroupFooter>
+    </Group>
+  </Groups>
+  <ReportParameters>
+    <ReportParameter Name="wwwRootPath" AutoRefresh="True">
+      <Value>
+        <String>= Parameters.wwwRootPath.Value</String>
+      </Value>
+    </ReportParameter>
+    <ReportParameter Name="cs" AutoRefresh="True">
+      <Value>
+        <String>= Parameters.cs.Value</String>
+      </Value>
+    </ReportParameter>
+    <ReportParameter Name="schoolID" Type="Integer" AutoRefresh="True">
+      <Value>
+        <String>= Parameters.schoolID.Value</String>
+      </Value>
+    </ReportParameter>
+    <ReportParameter Name="studentID" Type="Integer" AutoRefresh="True">
+      <Value>
+        <String>= Parameters.studentID.Value</String>
+      </Value>
+    </ReportParameter>
+  </ReportParameters>
+  <Bindings>
+    <Binding Path="DataSource.ConnectionString" Expression="= Parameters.cs.Value" />
+  </Bindings>
+</Report>

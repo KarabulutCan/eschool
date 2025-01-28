@@ -1,0 +1,1238 @@
+﻿@model ESCHOOL.ViewModels.StudentViewModel
+@{
+    System.Globalization.CultureInfo.CurrentCulture = System.Globalization.CultureInfo.CreateSpecificCulture(@Model.SelectedCulture);
+    System.Globalization.CultureInfo.CurrentUICulture = System.Globalization.CultureInfo.CreateSpecificCulture(@Model.SelectedCulture);
+    var culture = System.Globalization.CultureInfo.CurrentCulture.ToString();
+}
+@addTagHelper *, Kendo.Mvc
+
+@{
+    var messages = new Dictionary<string, string>() { { "custom", "Please choose another Start Time." } };
+    var rules = new Dictionary<string, string>() { { "custom", "customFunction" } };
+}
+<!--#region head -->
+<head>
+    <style>
+        html {
+            font-size: 13px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+    </style>
+    <title></title>
+    <link href="https://kendo.cdn.telerik.com/2021.2.616/styles/kendo.common.min.css" rel="stylesheet" />
+    <link rel="stylesheet" id="skin-css" href="@TempData["theme"]" />
+    <link rel="stylesheet" id="skin-css" href="@TempData["themeMobile"]" />
+    <script src="https://kendo.cdn.telerik.com/2021.2.616/js/jquery.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2021.2.616/js/kendo.all.min.js"></script>
+
+    <script src="@Url.Content("~/telerik/2021.2.616/js//cultures/kendo.culture." + culture + ".min.js")"></script>
+    <script src="@Url.Content("~/telerik/2021.2.616/js//messages/kendo.messages." + culture + ".min.js")"></script>
+
+    <script type="text/javascript">
+        kendo.culture("@culture");
+    </script>
+</head>
+<!--#endregion -->
+<body data-spy="scroll" data-target=".navbar">
+    @if (ViewBag.IsSuccess == true)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>@ESCHOOL.Resources.Resource.Warning</strong>@ESCHOOL.Resources.Resource.ValidationError<br />
+            <a asp-contoller="M250Student" asp-action="CancellationProcedures" asp-route-id="@Model.StudentID">@ESCHOOL.Resources.Resource.ClickToContinue</a>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
+
+    <form id="M250Student" asp-controller="M250Student" asp-action="CancellationProcedures" asp-route-id="@Model.StudentID" enctype="multipart/form-data" method="post">
+        <div class="demo-section k-content fixed-top wide">
+            <div id="toolbarMenu"></div>
+        </div>
+        <br />
+        <script id="template" type="text/x-kendo-template">
+            <span class="k-textbox k-grid-search k-display-flex">
+                <input autocomplete="off" placeholder=@ESCHOOL.Resources.Resource.Search class="k-input">
+                <span class="k-input-icon">
+                    <span class="k-icon k-i-search"></span>
+                </span>
+            </span>
+        </script>
+
+
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <!--#region hidden -->
+        @*Geri dönüşlerde null olmaması için*@
+        <input type="hidden" asp-for="@Model.Student.StudentID" id="studentid" />
+        <input type="hidden" asp-for="@Model.Student.StudentNumber" />
+        <input type="hidden" asp-for="@Model.StudentID" />
+        <input type="hidden" asp-for="@Model.UserID" />
+        <input type="hidden" asp-for="@Model.Student.SchoolID" />
+        <input type="hidden" asp-for="@Model.SchoolID" />
+        <input type="hidden" asp-for="@Model.Student.SiblingID" />
+        <input type="hidden" asp-for="@Model.StudentTemp.BankID" />
+        <input type="hidden" asp-for="@Model.Period" id="periodID" />
+        <input type="hidden" asp-for="@Model.SelectedCulture" />
+        <input type="hidden" asp-for="@TempData["studentID"]" id="studentID" />
+        <input type="hidden" asp-for="@Model.PSerialNumber.PSerialNumberID" />
+        <input type="hidden" asp-for="@Model.SchoolID" ]" id="ViewUserlId" />
+
+        <input type="hidden" id="resultAmount" />
+        <input type="hidden" id="resultID" />
+        <input type="hidden" id="resultOnOff" value="false" />
+        <input type="hidden" id="totalins" />
+        <!--#endregion -->
+        <br /> <br />
+        <!--#region image, name. Top -->
+        <div class="row" style="padding-left:30px;padding-right:28px;">
+            <div class="row k-content" style="border: thin solid rgb(120,120,120); padding-left:20px; padding-top:10px; padding-bottom:10px;">
+                <div class="col order-1 col-md-2 ra-well-title card-header top-left">
+                    <div class="card" style="height:8rem; width: 8rem;">
+                        <img id="imgpreviewStudent" name="imgStudent" src="@("~/Upload/Students/"+Model.Student.StudentPicture)" asp-append-version="true" class="img-fluid img-thumbnail" />
+                    </div>
+                </div>
+
+                <div class="col order-2 col-md-3 ra-well-title card-header top-left verticalLine">
+                    <div class="row">
+                        <div class="col">
+                            <label class="card-title">@ESCHOOL.Resources.Resource.FirstName</label>
+                            <input asp-for="Student.FirstName" class="k-textbox" style="font-weight: bold; width: 100%; height: 26px;" maxlength="30" readonly />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <label class="card-title">@ESCHOOL.Resources.Resource.LastName</label>
+                            <input asp-for="Student.LastName" class="k-textbox" style="font-weight: bold; width: 100%; height: 26px;" maxlength="30" readonly />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <label class="card-title">@ESCHOOL.Resources.Resource.Classroom</label>
+                            <input asp-for="Student.ClassroomID" id="classroomDropDown" class="classroomDropDown" style="font-weight: bold; width: 100%; height: 26px;" readonly />
+                        </div>
+                    </div>
+                </div>
+
+                <section class="col order-3 col-md-4 verticalLine">
+                    <div class="ra-well-title card-header top-left" style="height:180px">
+                        <h5 class="ra-well-title card-header top-left" style="height: 30px; padding-top: 0;"> <kbd>  @ESCHOOL.Resources.Resource.DebtAndCollectionStatus</kbd></h5>
+                        <div id="Payments">
+                            <div id="gridPayments"></div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="col order-4 col-md-3">
+                    <div class="ra-well-title card-header top-left" style="height:180px">
+                        <h5 class="ra-well-title card-header top-left" style="height: 30px; padding-top: 0;"> <kbd>  @ESCHOOL.Resources.Resource.SerialNumbers</kbd></h5>
+                        <div id="serialNumbers">
+                            <div id="gridSerialNumbers"></div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        <!--#endregion -->
+        <hr />
+        <!--#region panelbarHelp1 -->
+        <ul id="panelbarHelp1" style="display: none;">
+            <li>
+                <span class="k-link">@ESCHOOL.Resources.Resource.CancellationMsgHed</span>
+                <div class="container-fluid">
+                    <div>
+                        <div class="container-flued">
+                            <div class="card-body">
+                                <h6 class="card-title">@ESCHOOL.Resources.Resource.CancellationMsg100</h6>
+                                <h6 class="card-title">@ESCHOOL.Resources.Resource.CancellationMsg101</h6>
+                                <h6 class="card-title">@ESCHOOL.Resources.Resource.CancellationMsg102</h6>
+                                <h6 class="card-title">@ESCHOOL.Resources.Resource.CancellationMsg103</h6>
+                                <h6 class="card-title">@ESCHOOL.Resources.Resource.CancellationMsg104</h6>
+                            </div>
+                        </div>
+                    </div>
+
+                    <style>
+                        #panelbarHelp1 {
+                            width: 100%;
+                            /*     max-width: none;*/
+                            margin: 0 auto;
+                        }
+                    </style>
+
+                    <script>
+                        $(document).ready(function () {
+                            $("#panelbarHelp1").kendoPanelBar({
+                                expandMode: "multiple"
+                            });
+                        });
+                    </script>
+                </div>
+            </li>
+        </ul>
+        <!--#endregion -->
+        <!--#region panelbarTop -->
+        
+        <ul id="panelbarTop">
+            <li class="k-state-active">
+                <span class="k-link k-state-selected">@ESCHOOL.Resources.Resource.FeeStatus</span>
+                <div id="exampleTop">
+
+                    <row class="row">
+                        <div id="feeTop" style="width:545px; padding-left:20px;">
+                            <div id="gridFeesTop" style="height: 225px;"></div>
+                        </div>
+
+                        <div id="installmentTop" style="width:555px; padding-left:5px;">
+
+                            <div id="gridInstallmentTop" style="height: 225px;"></div>
+                            <style>
+                                #gridInstallmentTop td {
+                                    padding: 4px;
+                                }
+                            </style>
+@*                            <div class="col" style=" font-weight: bold;">
+                                <label asp-for="StudentTemp.CashPayment" class="control-label"></label>
+                                <input asp-for="StudentTemp.CashPayment" id="cashPayment" class="k-textbox" style="font-weight:bold; width:130px;" readonly />
+                                &nbsp;
+                                <label asp-for="StudentTemp.SubTotal" class="control-label"></label>
+                                <input asp-for="StudentTemp.SubTotal" id="subTotalTop" style="font-weight: bold; width: 130px;" readonly />
+                            </div>*@
+                        </div>
+
+                    </row>
+                    <style>
+                        #panelbarTop {
+                            width: 100%;
+                            /*     max-width: none;*/
+                            margin: 0 auto;
+                        }
+                    </style>
+
+                    <script>
+                        $(document).ready(function () {
+                            $("#panelbarTop").kendoPanelBar({
+                                expandMode: "multiple"
+                            });
+                        });
+
+                    </script>
+                </div>
+            </li>
+        </ul>
+        
+        <!--#endregion -->
+        <div style="padding-left:16px;padding-right:14px;">
+        <div class="row  k-content">
+            <!--#region accounting -->
+            <div class="col order-5 col-md-7 k-card-body" style="border: thin solid rgb(120,120,120); padding-left:20px; padding-top:10px; padding-bottom:10px;">
+                <div class="row">
+                    <div class="row centerAlign" style="font-size:small;">
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <div class="custom-control custom-radio">
+                            <input type="radio" asp-for="StudentTemp.CancellationOption" class="k-radio" id="CustomR1" value="true" />
+                            <label class="k-radio-label" for="CustomR1" style="font-weight:bold">@ESCHOOL.Resources.Resource.Cancellation</label>
+                        </div>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <div class="custom-control custom-radio">
+                            <input type="radio" asp-for="StudentTemp.CancellationOption" class="k-radio" id="CustomR2" value="false" />
+                                <label class="k-radio-label" for="CustomR2" style="font-weight:bold">@ESCHOOL.Resources.Resource.CancellationOnFollow_up</label>
+                        </div>
+                    </div>
+                </div>
+                <hr />
+
+                @*CREDIT*@
+                <div class="row">
+                    <div class="col col-md-5">
+                        <h5><label class="control-label">@ESCHOOL.Resources.Resource.CreditorAccount </label></h5>
+                    </div>
+                    <div class="col col-md-3">
+                        <h5><label class="control-label">@ESCHOOL.Resources.Resource.Amount</label></h5>
+                    </div>
+                    <div class="col col-md-2">
+                        <button type="button" id="okButton" onclick="okCheck()" style="width:80px" disabled>@ESCHOOL.Resources.Resource.Okey</button>
+                    </div>
+                    <div class="col col-md-2">
+                        <button type="button" id="saveButton" onclick="okClick()" style="width:80px" disabled>@ESCHOOL.Resources.Resource.Submit</button>
+                    </div>
+                </div>
+
+                @*CREDIT INPUT*@
+                <div class="row">
+                    <div class="col col-md-5">
+                        <input id="creditAccounting" asp-for="StudentTemp.CancelCreditNoID" style="width: 100%;" />
+                    </div>
+                    <div class="col col-md-3">
+                        <input id="creditAmount" asp-for="StudentTemp.CancelCredit" class="k-textbox" style="width: 100px;" min="0" onfocus="accountOnfocus()" />
+                    </div>
+                </div>
+
+                @*DEBT*@
+                <br />
+                <div class="row">
+                    <div class="col col-md-5">
+                        <h5><label class="control-label">@ESCHOOL.Resources.Resource.DebtorAccount</label></h5>
+                    </div>
+                    <div class="col col-md-3">
+                    </div>
+                    <div class="col col-md-4">
+                        <h5><label class="control-label">@ESCHOOL.Resources.Resource.CancelDate</label></h5>
+                    </div>
+                </div>
+                @*DEBT INPUT*@
+                <div class="row">
+                    <div class="col col-md-5">
+                        <input id="debtAcounting" asp-for="StudentTemp.CancelDebtNoID" style="width: 100%;" />
+                    </div>
+                    <div class="col col-md-3">
+                        <input id="debtAmount" asp-for="StudentTemp.CancelDebt" class="k-textbox" style="width: 100px;" min="0" onfocus="accountOnfocus()" />
+                    </div>
+                    <div class="col col-md-4">
+                        <input asp-for="StudentTemp.CancelDate" class="form-control" id="cancelDate" style="width: 100%;" />
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col col-md-12">
+                        <h5><label class="control-label">@ESCHOOL.Resources.Resource.AboutCancellation</label></h5>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col col-md-12">
+                        <textarea asp-for="StudentTemp.AboutCancellation" class="k-textbox" style="width: 100%; height:100px;" text-wrap="normal" type="text" maxlength="500"></textarea>
+                    </div>
+                </div>
+            </div>
+            <!--#endregion -->
+            <!--#region help -->
+            <div class="col order-6 col-md-5" style="border: thin solid rgb(120,120,120); padding-left:20px; padding-top:10px; padding-bottom:10px;">
+                <div id="General2">
+                    <div class="container-fluid">
+                        <p></p>
+                        <h3>@ESCHOOL.Resources.Resource.CancelExampleMsg1</h3>
+                        <div>
+                            <div class="container-flued">
+                                <div class="card-body">
+                                    <p class="card-title">@ESCHOOL.Resources.Resource.CancelExampleMsg2</p>
+                                    <p class="card-title">@ESCHOOL.Resources.Resource.CancelExampleMsg3</p>
+                                    <p class="card-title">&nbsp;@ESCHOOL.Resources.Resource.CancelExampleMsg4</p>
+                                    <p class="card-title">@ESCHOOL.Resources.Resource.CancelExampleMsg5</p>
+                                    <p class="card-title">@ESCHOOL.Resources.Resource.CancelExampleMsg6</p>
+                                    <p class="card-title">@ESCHOOL.Resources.Resource.CancelExampleMsg7</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--#endregion -->
+        </div>
+        </div>
+        <style>
+            .k-tabstrip > .k-content {
+                padding: 15px;
+            }
+        </style>
+        <!--#region combo, button, vertical, horizontal -->
+        <script>
+            $(document).ready(function (e) {
+                if (debtAcounting.value > 0)
+                    valueID = debtAcounting.value
+                else valueID = @Model.SchoolInfo.RefundDebtAccountID
+                    $("#debtAcounting").kendoMultiColumnComboBox({
+                        dataTextField: "accountCode",
+                        dataValueField: "accountCodeID",
+                        value: valueID,
+                        height: 400,
+                        columns: [
+                            { field: "accountCode", title: getByCulture('@culture', 'accountingCode'), width: 200 },
+                            { field: "accountCodeName", title: getByCulture('@culture', 'accountingCodeName'), width: 400 },
+                        ],
+
+                        footerTemplate: getByCulture('@culture', 'total') + ' #: instance.dataSource.total() # ' + getByCulture('@culture', 'itemsfound'),
+                        filter: "contains",
+                        filterFields: ["accountCode", "accountCodeName"],
+                        dataSource: {
+                            dataType: "json",
+                            transport: {
+                                read: {
+                                    dataType: "json",
+                                    url: "/M250Student/AccountCodes/" + "@Model.Period",
+                                }
+                            }
+                        }
+                    });
+            });
+
+            $(document).ready(function () {
+                if (creditAccounting.value > 0)
+                    valueID = creditAccounting.value
+                else valueID = @Model.SchoolInfo.RefundAccountNoID1
+                    $("#creditAccounting").kendoMultiColumnComboBox({
+                        dataTextField: "accountCode",
+                        dataValueField: "accountCodeID",
+                        value: valueID,
+                        height: 400,
+                        columns: [
+                            { field: "accountCode", title: getByCulture('@culture', 'accountingCode'), width: 200 },
+                            { field: "accountCodeName", title: getByCulture('@culture', 'accountingCodeName'), width: 400 },
+                        ],
+
+                        footerTemplate: getByCulture('@culture', 'total') + ' #: instance.dataSource.total() # ' + getByCulture('@culture', 'itemsfound'),
+                        filter: "contains",
+                        filterFields: ["accountCode", "accountCodeName"],
+                        dataSource: {
+                            dataType: "json",
+                            transport: {
+                                read: {
+                                    dataType: "json",
+                                    url: "/M250Student/AccountCodes/" + "@Model.Period",
+                                }
+                            }
+                        }
+                    });
+            });
+        </script>
+
+        <script>
+            $(function () {
+                $("#InstallmentButtons").kendoButtonGroup({
+                    index: 2,
+                });
+            });
+        </script>
+
+        <script>
+            $(document).ready(function () {
+                $("#vertical").kendoSplitter({
+                    orientation: "vertical",
+                    panes: [
+                        { collapsible: false },
+                        { collapsible: false, size: "100px" },
+                        { collapsible: false, resizable: false, size: "100px" }
+                    ]
+                });
+
+                $("#horizontal").kendoSplitter({
+                    panes: [
+                        { collapsible: true, size: "620px" },
+                        { collapsible: false },
+                        { collapsible: true }
+                    ]
+                });
+            });
+        </script>
+        <!--#endregion -->
+        <!--#region style -->
+        <style>
+            #grid .k-grid-toolbar {
+                padding: .6em 1.3em .6em .4em;
+            }
+
+            .k-splitter .k-ghost-splitbar {
+                background-color: green;
+            }
+
+            #vertical {
+                height: 1200px;
+                margin: 0 auto;
+            }
+
+            .critical {
+                background-color: #fdd;
+                color: black;
+            }
+
+            .warning {
+                background-color: #fda;
+                color: black;
+            }
+
+            .ok {
+                background-color: #ced;
+                color: black;
+            }
+
+            .critical2 {
+                color: #fdd;
+            }
+
+            .warning2 {
+                color: #fda;
+            }
+
+            .ok2 {
+                color: #ced;
+            }
+
+            .k-upload-status {
+                display: none;
+            }
+
+            .ui-datepicker.ui-datepicker-inline {
+                width: 100% !important;
+            }
+
+            .toolbar {
+                float: right;
+            }
+
+            .customer-name {
+                display: inline-block;
+                vertical-align: middle;
+                line-height: 32px;
+                padding-left: 3px;
+            }
+
+            .k-grid td {
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                padding: 0px;
+            }
+
+            .k-grid-content {
+                max-height: 450px;
+            }
+
+            form label {
+                font-weight: bold;
+                font-size: 12px;
+            }
+
+            .k-header {
+                font-weight: bold !important;
+                font-size: 12px;
+            }
+            .verticalLine {
+                /* border-right-width: 5px; solid black;*/
+                border-right: 1px solid gray;
+            }
+
+            .classroomDropDown.k-combobox .k-select {
+                display: none;
+            }
+
+
+            #gridPayments.k-grid .k-state-selected {
+                background-color: #ced;
+                 color: #000000;
+            }
+
+            #gridPayments.k-grid .k-alt.k-state-selected {
+                background-color: #fdd;
+                 color: #000000;
+            }
+
+        </style>
+        <!--#endregion -->
+    </form>
+
+    <!--#region dictionary -->
+    <script>
+        var dictionary =
+        {
+            'tr-TR': {
+                select: 'Seç',
+                accountingCode: 'Muhasebe Kodu',
+                accountingCodeName: 'Muhasebe Adı',
+                total: 'Toplam',
+                itemsfound: 'öğe bulundu.',
+                nopay: 'Bu öğrenciden tahsilat yapılmamış, İade işlemi yapamazsınız. ',
+                overpayment: 'İade edeceğiniz tutar, Ödenen toplam tutardan fazla olamaz.',
+                titleMsg: 'Kullanıcı Mesajı:',
+                msgOk: 'Tamam',
+            },
+
+            'en-US': {
+                select: 'Select',
+                accountingCode: 'Accounting Code',
+                accountingCodeName: 'Accounting Name',
+                total: "Total",
+                itemsfound: 'Items found',
+                nopay: 'No collection has been made from this student, You cannot make a refund.',
+                overpayment: 'The amount you want to refund, It cannot be more than the total amount paid.',
+                titleMsg: 'User message:',
+                msgOk: 'OK',
+            },
+        }
+        function getByCulture(culture, word) {
+            return dictionary[culture][word]
+        }
+    </script>
+    <!--#endregion -->
+    <!--#region grid fees Top -->
+    <script>
+        var record = 0;
+        var schoolID = "@Model.SchoolID";
+        var studentid = parseInt(document.getElementById('studentid').value);
+        $(document).ready(function () {
+            var crudServiceBaseUrl = "/M250Student/",
+                dataSource = new kendo.data.DataSource({
+                    transport: {
+                        read: {
+                            url: crudServiceBaseUrl + "SchoolDebtDataRead/" + "@Model.UserID" + "/" + studentid,
+                            dataType: "json",
+                        },
+                        update: {
+                            url: function (options) {
+                                var url = crudServiceBaseUrl + "SchoolDebtDataUpdate/" + options.models[0].id;
+                                return url;
+                            },
+                            type: "post",
+                            dataType: "json"
+                        },
+                        parameterMap: function (options, operation) {
+                            if (operation !== "read" && options.models) {
+                                return { models: kendo.stringify(options.models) };
+                            }
+                        }
+                    },
+                    batch: true,
+                    schema: {
+                        model: {
+                            id: "studentDebtID",
+                            fields: {
+                                viewModelId: { editable: false, type: "number" },
+                                studentID: { editable: false, type: "number" },
+                                schoolFeeID: { editable: false, type: "number" },
+                                period: { editable: false, type: "string" },
+                                feeName: { editable: false, type: "string" },
+                                selectFee: { type: "boolean" },
+                                selectDiscount: { type: "boolean" },
+                                unitPrice: { editable: true, type: "number" },
+                                discount: { editable: true, type: "number" },
+                                amount: { editable: true, type: "number" },
+                                isList: { editable: true, type: "boolean" }
+                            }
+                        }
+                    },
+
+                    aggregate: [{ field: "feeName", aggregate: "count" },
+                    { field: "unitPrice", aggregate: "sum" },
+                    { field: "discount", aggregate: "sum" },
+                    { field: "amount", aggregate: "sum" }]
+
+                });
+
+            $("#gridFeesTop").kendoGrid({
+                dataSource: dataSource,
+                pageable: false,
+                resizable: true,
+                ajax: true,
+                selectable: 'row',
+                persistSelection: false,
+
+                columns: [
+                    { field: "feeName", title: "@ESCHOOL.Resources.Resource.FeeName", width: "135px", aggregates: ["count"], footerTemplate: "#=count#", template: "#=feeName#" },
+                    { field: "unitPrice", title: "@ESCHOOL.Resources.Resource.Amount", aggregates: ["sum"], template: "#if(unitPrice === 0){#  #}else{# #=kendo.toString(unitPrice, 'n')# #}#", footerTemplate: "<div style='text-align: right'>#= kendo.toString(data.unitPrice.sum,'n') # </div>", width: "100px", attributes: { style: "text-align:right" } },
+                    { field: "discount", title: "@ESCHOOL.Resources.Resource.Discount", aggregates: ["sum"], template: "#if(discount === 0){#  #}else{# #=kendo.toString(discount, 'n')# #}#", footerTemplate: "<div style='text-align: right'>#= kendo.toString(data.discount.sum,'n') # </div>", width: "90px", attributes: { style: "text-align:right" } },
+                    { field: "amount", title: "@ESCHOOL.Resources.Resource.RegistrationFee", aggregates: ["sum"], template: "#if(unitPrice === 0){#  #}else{# #=kendo.toString(amount = unitPrice - discount, 'n')# #}#", footerTemplate: "<div style='text-align: right'>#= kendo.toString(data.unitPrice.sum - data.discount.sum,'n') # </div>", attributes: { style: "text-align:right" }, width: "100px" },
+                    { field: "isList", width: "60px", title: "@ESCHOOL.Resources.Resource.List", template: "<input  #if (isList) { # checked='checked' # } # type='checkbox' disabled />", attributes: { style: "text-align:center" } },
+                    { command: "edit", width: "200px" }
+                ],
+                editable: "inline",
+                save: function (e) {
+                    var Item = e.model;
+                    var fee = Item.unitPrice - Item.discount;
+                    e.model.amount = fee;
+                },
+
+                //dataBound: function () {
+                //    createSwitch(this.tbody.find(".customClass"));
+                //    total = $("#gridFeesTop").data().kendoGrid.dataSource.aggregates().amount.sum;
+                //    document.getElementById('totalins').value = total;
+
+                //    var cashpayment = parseFloat(document.getElementById("cashPayment1").value);
+                //    if (isNaN(cashpayment)) cashpayment = 0;
+                //    installmentAmount = parseInt((total - cashpayment));
+                //    document.getElementById('installmentTotal1').value = installmentAmount;
+                //    var cashpayment = parseFloat(document.getElementById("cashPayment2").value);
+
+                //    if (isNaN(cashpayment)) cashpayment = 0;
+                //    installmentAmount = parseInt((total - cashpayment));
+                //    document.getElementById('installmentTotal2').value = installmentAmount;
+
+                //    var cashpayment = parseFloat(document.getElementById("cashPayment3").value);
+                //    if (isNaN(cashpayment)) cashpayment = 0;
+                //    installmentAmount = parseInt((total - cashpayment));
+                //    document.getElementById('installmentTotal3').value = installmentAmount;
+                //}
+            });
+
+            function createSwitch(element) {
+                element.kendoMobileSwitch({
+                    onLabel: '<i class="fas fa-check"></i>',
+                    offLabel: '<i class="fas fa-toggle-off"></i>',
+                    change: onClickA
+                });
+            }
+
+            function onClickA(e) {
+                var checked = e.checked;
+                if (checked) {
+                    ExpandDiscount();
+                    $("#gridDiscount").data("kendoGrid").dataSource.read();
+                }
+                else {
+                    CollepsDiscount();
+                }
+            }
+
+            function customEditor(container, options) {
+                $('<input type="checkbox" name="' + options.field + '"/>')
+                    .appendTo(container)
+                    .kendoMobileSwitch({
+                        onLabel: '<i class="fas fa-check"></i>',
+                        offLabel: '<i class="fas fa-toggle-off"></i>'
+                    });
+            }
+        });
+
+    </script>
+    <!--#endregion -->
+    <!--#region grid installment Top -->
+    <script>
+        var record = 0;
+        $(document).ready(function () {
+            var crudServiceBaseUrl = "/M240Student/",
+                dataSource = new kendo.data.DataSource({
+                    transport: {
+                        read: {
+                            url: crudServiceBaseUrl + "InstallmentDataRead/" + "@Model.UserID" + "/" + "@Model.StudentID",
+                            dataType: "json",
+
+                        },
+
+                        parameterMap: function (options, operation) {
+                            if (operation !== "read" && options.models) {
+                                return { models: kendo.stringify(options.models) };
+                            }
+                        }
+                    },
+
+                    batch: true,
+                    schema: {
+                        model: {
+                            id: "viewModelId",
+                            fields: {
+                                id: { editable: false, nullable: false, type: "number" },
+                                studentInstallment: {
+                                    defaultValue: {
+                                        studentInstallmentID: 1,
+                                        schoolID: 1,
+                                        studentID: 1,
+                                        period: ' ',
+                                        installmentDate: { type: "date" },
+                                        installmentNo: 0,
+                                        categoryID: { CategoryID: 85, CategoryName: "Banka" },
+                                        installmentAmount: 0,
+                                        bankID: 0,
+                                        checkCardNo: 0,
+                                        previousPayment: 0,
+                                        feeName: '',
+                                        isPrint: 0,
+                                        status: 0,
+                                        statusCategoryID: 0,
+                                        accountReceiptNo: 0,
+                                        paymentDate: { type: "date" },
+                                        explanation: ' ',
+                                        checkBankName: ' ',
+                                        checkNo: 0,
+                                        drawer: 0,
+                                        endorser: 0,
+                                    }
+                                },
+                                parameter2: {
+                                    categoryID: 0,
+                                    categorySubID: 0,
+                                    categoryName: '',
+                                    categoryLevel: '',
+                                    sortOrder: 0,
+                                    isActive: true
+                                }
+                            }
+                        }
+                    },
+                    aggregate: [{ field: "studentInstallment.categoryID", aggregate: "count" },
+                    { field: "studentInstallment.installmentAmount", aggregate: "sum" },
+                    { field: "studentInstallment.previousPayment", aggregate: "sum" }
+                    ]
+                });
+
+            var first = 1;
+            var grid = $("#gridInstallmentTop").kendoGrid({
+                dataSource: dataSource,
+                navigatable: true,
+                pageable: false,
+                resizable: true,
+                selectable: 'row',
+                persistSelection: true,
+
+                columns: [
+                    "id",
+                    { title: "#", template: "#= ++record #", width: 40, locked: true },
+                    { field: "studentInstallment.categoryID", title: "@ESCHOOL.Resources.Resource.Type", width: "100px", template: "#=parameter2.categoryName#", aggregates: ["count"], footerTemplate: "#=count#" },
+                    { field: "studentInstallment.installmentNo", title: "@ESCHOOL.Resources.Resource.Number", width: "70px", template: "#=studentInstallment.installmentNo#" },
+                    { field: "studentInstallment.installmentDate", title: "@ESCHOOL.Resources.Resource.PaymentDate", width: "100px", format: "{0:dd.MM.yyyy}", template: '#= kendo.toString(kendo.parseDate(studentInstallment.installmentDate), "dd/MM/yyyy")#' },
+                    { field: "studentInstallment.installmentAmount", title: "@ESCHOOL.Resources.Resource.Amount", width: "90px", aggregates: ["sum"], template: "#if(studentInstallment.installmentAmount === 0){#  #}else{# #=kendo.toString(studentInstallment.installmentAmount, 'n')# #}#", footerTemplate: "<div style='text-align: right'>#: kendo.toString(sum,'n') # </div>", attributes: { style: "text-align:right" } },
+                    { field: "studentInstallment.StatusCategoryID", title: "@ESCHOOL.Resources.Resource.Status", width: "80px", template: "#=parameter3.categoryName#" },
+                    { field: "studentInstallment.feeName", title: "@ESCHOOL.Resources.Resource.FeeName", width: "50px", template: "#=studentInstallment.feeName#" },
+                    { field: "studentInstallment.bankID", title: "@ESCHOOL.Resources.Resource.Bank", width: "200px", template: "#= (studentInstallment.bankID == 0) ? ' ' : bank.bankName #" },
+                    { field: "studentInstallment.checkBankName", title: "@ESCHOOL.Resources.Resource.CheckBank", width: "50px", template: "#=studentInstallment.checkBankName#" },
+                    { field: "studentInstallment.drawer", title: "@ESCHOOL.Resources.Resource.Drawer", width: "50px", template: "#=studentInstallment.drawer#" },
+                    { field: "studentInstallment.endorser", title: "@ESCHOOL.Resources.Resource.Endorser", width: "50px", template: "#=studentInstallment.endorser#" },
+                    { field: "studentInstallment.explanation", title: "@ESCHOOL.Resources.Resource.Explanation", width: "50px", template: "#=studentInstallment.explanation#" },
+                    { field: "studentInstallment.previousPayment", title: "@ESCHOOL.Resources.Resource.PreviousPayment", width: "90px", aggregates: ["sum"], template: "#if(studentInstallment.previousPayment === 0){#  #}else{# #=kendo.toString(studentInstallment.previousPayment, 'n')# #}#", footerTemplate: "<div style='text-align: right'>#: kendo.toString(sum,'n') # </div>", attributes: { style: "text-align:right" } },
+                ],
+
+                dataBound: function (e) {
+                    var isPayment = false;
+                    var rows = e.sender.tbody.children();
+                    for (var j = 0; j < rows.length; j++) {
+
+                        var row = $(rows[j]);
+                        var dataItem = e.sender.dataItem(row);
+
+                        var amount = dataItem.get("studentInstallment.installmentAmount");
+                        var payment = dataItem.get("studentInstallment.previousPayment");
+
+                        var cell = row.children();
+                        if ('@TempData["color"]' == "#222")
+                            cell.addClass(getColorClass2(amount, payment));
+                        else
+                            cell.addClass(getColorClass(amount, payment));
+                        if (payment > 0) isPayment = true;
+                    }
+                },
+                dataBinding: function (e) {
+                    var grid = $("#gridInstallmentTop").data("kendoGrid");
+                    if (e.items.length != 0) {
+                        if (e.items[0].studentInstallment.feeName != "") grid.showColumn(7)
+                        else grid.hideColumn(7);
+                    }
+                },
+            });
+        });
+
+        function getColorClass(amount, payment) {
+            if (amount == payment) {
+                return "critical";
+            }
+            else if (payment > 0) {
+                return "ok";
+            }
+        }
+        function getColorClass2(amount, payment) {
+            if (amount == payment) {
+                return "critical2";
+            }
+            else if (payment > 0) {
+                return "ok2";
+            }
+        }
+    </script>
+    <!--#endregion -->
+    <!--#region grid payments -->
+    <script>
+        $(document).ready(function () {
+            var crudServiceBaseUrl = "/M240Student/",
+                dataSource = new kendo.data.DataSource({
+                    transport: {
+                        read: {
+                            url: crudServiceBaseUrl + "PaymentsDataRead/" + "@Model.UserID" + "/" + "@Model.StudentID",
+                            dataType: "json"
+                        },
+                        parameterMap: function (options, operation) {
+                            if (operation !== "read" && options.models) {
+                                return { models: kendo.stringify(options.models) };
+                            }
+                        }
+                    },
+                    batch: true,
+                    schema: {
+                        model: {
+                            id: "viewModelId",
+                            fields: {
+                                viewModelId: { editable: false, type: "number" },
+                                name: { editable: false, type: "string" },
+                                serialNo: {
+                                    editable: false, type: "number"
+                                }
+
+                            }
+                        }
+                    }
+                });
+
+            $("#gridPayments").kendoGrid({
+                dataSource: dataSource,
+                pageable: false,
+                resizable: true,
+                height: 140,
+                selectable: "multiple, row",
+                ajax: true,
+                columns: [
+                    { field: "name", width: "100px", height: "10px", headerAttributes: { style: "display: none" }, template: '<span style="font-weight: bolder;">#= name #</span>' },
+                    { field: "payment", width: "60px", height: "10px", headerAttributes: { style: "display: none" }, template: "#if(payment === 0){#  #}else{# #=kendo.toString(payment, 'n0')# #}#", format: "# \%" },
+                ],
+                dataBound: function () {
+                    let grid = this;
+                    grid.select("tr:eq(4), tr:eq(5)");
+                },
+            });
+        })
+
+    </script>
+    <!--#endregion -->
+    <!--#region grid proccess serial number -->
+    <script>
+        $(document).ready(function () {
+            schoolID = @Model.SchoolID;
+            var crudServiceBaseUrl = "/M250Student/",
+                dataSource = new kendo.data.DataSource({
+                    transport: {
+                        read: {
+                            url: crudServiceBaseUrl + "SerialNumbersDataRead/" + "@Model.UserID",
+                            dataType: "json"
+                        },
+                        parameterMap: function (options, operation) {
+                            if (operation !== "read" && options.models) {
+                                return { models: kendo.stringify(options.models) };
+                            }
+                        }
+                    },
+                    batch: true,
+                    schema: {
+                        model: {
+                            id: "viewModelId",
+                            fields: {
+                                viewModelId: { editable: false, type: "number" },
+                                name: { editable: false, type: "string" },
+                                serialNo: {
+                                    editable: false, type: "number"
+                                }
+
+                            }
+                        }
+                    }
+                });
+
+            $("#gridSerialNumbers").kendoGrid({
+                dataSource: dataSource,
+                pageable: false,
+                resizable: true,
+                height: 140,
+                selectable: 'row',
+                ajax: true,
+                columns: [
+                    { field: "name", width: "90px", height: "10px", headerAttributes: { style: "display: none" }, template: '<span style="font-weight: bolder;">#= name #</span>' },
+                    { field: "serialNo", width: "60px", height: "10px", template: "#=serialNo#", headerAttributes: { style: "display: none" } },
+                ],
+                editable: "inline",
+            });
+        })
+
+    </script>
+    <!--#endregion -->
+    <!--#region script buttons, text body -->
+    <script>
+        var ID, btn, odd = 0, even = 0, result, i, j, z, tcTotal = 0;
+        function myFunction(e) {
+            btn = e.id;
+            if (btn == "btn1") { IDT = "#id1", ID1 = "id1" }
+            else
+                if (btn == "btn2") { IDT = "#id2", ID1 = "id2" }
+                else
+                    if (btn == "btn3") { IDT = "#id3", ID1 = "id3" }
+                    else
+                        if (btn == "btn4") { IDT = "#id4", ID1 = "id4" }
+                        else { IDT = "#id5", ID1 = "id5" }
+
+            ID = document.querySelector(IDT);
+
+            odd = 0, even = 0, tcTotal = 0
+            for (i = 0; i < 9; i += 2) {
+                odd += Number(ID.value[i]);
+            }
+            odd *= 7;
+            for (j = 1; j < 8; j += 2) {
+                even += Number(ID.value[j]);
+            }
+            result = Math.abs(odd - even);
+            for (z = 0; z < 10; z++) {
+                tcTotal += Number(ID.value[z]);
+            }
+            if (ID.value.length !== 11) {
+                idFalse()
+            }
+            else
+                if (result % 10 != Number(ID.value[9])) {
+                    idFalse()
+                } else if (tcTotal % 10 != Number(ID.value[10])) {
+                    idFalse()
+                } else {
+                    idTrue()
+                }
+        };
+
+        function idFalse() {
+            document.getElementById(ID1).style.color = "white";
+            document.getElementById(ID1).style.backgroundColor = "red";
+        };
+        function idTrue() {
+            document.getElementById(ID1).style.color = "white";
+            document.getElementById(ID1).style.backgroundColor = "green";
+        };
+
+        function IdChange(e) {
+            document.getElementById(e.id).innerHTML = '<i class = "fa fa-spinner fa-spin"></i>@ESCHOOL.Resources.Resource.IdControl';
+        };
+        function IdChangeOld(e) {
+            document.getElementById(e.id).innerHTML = '<i class = "fa fa-bell"></i>@ESCHOOL.Resources.Resource.IdNumber';
+        };
+
+        function IdReset(e) {
+            btn = e.id;
+            if (btn == "btn1") ID1 = "id1"
+            else if (btn == "btn2") ID1 = "id2"
+            else if (btn == "btn3") ID1 = "id3"
+            else if (btn == "btn4") ID1 = "id4"
+            else if (btn == "btn5") ID1 = "id5"
+            document.getElementById(ID1).style.color = "black";
+            document.getElementById(ID1).style.backgroundColor = "white";
+        };
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            $('body').kendoTooltip({
+                filter: '[title]:not([title=""])',
+                autoHide: true,
+                position: "top",
+                animation: {
+                    open: {
+                        effects: "zoom",
+                        duration: 150
+                    }
+                }
+            });
+        });
+    </script>
+    <!--#endregion -->
+    <!--#region toolbar -->
+    <style>
+        #logoId img {
+            width: 60px;
+        }
+    </style>
+    <script>
+        $(document).ready(function () {
+            var schoolID = ('@TempData["schoolID"]');
+            $("#toolbarMenu").kendoToolBar({
+                items: [
+                    {
+                        template: "<img src='../Upload/Images/Logo.png' class='user-image' style='width:60px;'/>",
+                        overflow: "never",
+                    },
+                    { template: "<h4 style='padding-left:20px;'>@ESCHOOL.Resources.Resource.Canceling</h4>" },
+                    { type: "spacer" },
+
+                    { type: "button", id: "help", text: "@ESCHOOL.Resources.Resource.Help", icon: "help" },
+
+                    { type: "button", id: "submit", text: "@ESCHOOL.Resources.Resource.Submit", icon: "save", enable: false },
+                    { type: "separator" },
+
+                    { type: "button", id: "back", text: "@ESCHOOL.Resources.Resource.Back", attributes: { style: "float: right" }, icon: "rewind" },
+                    { type: "separator" },
+
+                    { type: "button", id: "exit", text: "@ESCHOOL.Resources.Resource.Exit", attributes: { style: "float: right; margin-top: .4em;" }, icon: "logout" },
+                    { type: "separator" },
+                ],
+                click: function (e) {
+                    if (e.id == "submit") {
+                        $("form").submit();
+                    }
+
+                    if (e.id == "exit")
+                        window.location.replace("/Home/index?userID=@Model.UserID");
+                    if (e.id == "back")
+                        window.location.replace("/M210Student/AddOrEditStudent?studentID=" + @Model.StudentID + "&userID=@Model.UserID");
+
+                    if (e.id == "help")
+                        var myWindow = $("#panelbarHelp1").show();
+                    var panelBar = $("#panelbarHelp1").data("kendoPanelBar");
+                    panelBar.select(panelBar.element.children("li").eq(0));
+                    panelBar._selected[0].style.display = 'block';
+                    var item = panelBar.select();
+                    panelBar.expand(item);
+                }
+            });
+            if ("@Model.IsPermission" == 'False') permissionsControl();
+        });
+
+        function accountOnfocus() {
+            $("#okButton").data("kendoButton").enable(true);
+        }
+
+        function okCheck() {
+            $("#saveButton").data("kendoButton").enable(true);
+            var toolbar = $("#toolbarMenu").data("kendoToolBar");
+            toolbar.enable("#submit", true);
+        }
+
+        function okClick() {
+            $("form").submit();
+        }
+    </script>
+    <!--#endregion -->
+</body>
+
+<div id="alert"></div>
+<script>
+    function permissionsControl() {
+        msg = getByCulture('@culture', 'msgOk');
+        showAlert(msg);
+    };
+    function showAlert(message) {
+        msg = getByCulture('@culture', 'titleMsg');
+        $("#alert").kendoAlert({
+            title: msg,
+            content: "<strong>@ESCHOOL.Resources.Resource.PermissionMsg</strong>",
+            messages: {
+                okText: message
+            },
+            actions: [{
+                text: "#: messages.okText #",
+                action: function (e) {
+                    window.location.replace("/Home/index?userID=@Model.UserID");
+                }
+            }]
+        }).data("kendoAlert").open();
+    };
+</script>
+
+<!--#region scripts textbos, date, button -->
+<script>
+    $(document).ready(function () {
+        $("#textbox").kendoTextBox({
+            placeholder: "Name..."
+        });
+    });
+</script>
+<script>
+    $("#cancelDate").kendoDatePicker({
+        format: "dd/MM/yyyy"
+
+    });
+    $("#okButton").kendoButton({
+        icon: "check",
+        backgroundColor: "red"
+    });
+    $("#saveButton").kendoButton({
+        icon: "save",
+        backgroundColor: "blue"
+    });
+</script>
+@*<script>
+    $(document).ready(function () {
+        $("#subTotalTop").kendoNumericTextBox({
+            format: "n",
+            decimals: 2,
+            spinners: false
+        });
+    });
+</script>*@
+<!--#endregion -->
+<!--#region combo -->
+<script>
+    $(document).ready(function () {
+        $("#classroomDropDown").kendoComboBox({
+            optionLabel: { classroomName: getByCulture('@culture', 'select'), classroomID: "0" },
+            dataTextField: "classroomName",
+            dataValueField: "classroomID",
+            filter: "contains",
+
+            dataSource: {
+                transport: {
+                    read: {
+                        dataType: "json",
+                        url: "/M250Student/ClassroomCombo/" + "@Model.UserID",
+                    }
+                }
+            }
+        });
+    });
+
+    $(document).ready(function () {
+        $("#paymentDropDown").kendoDropDownList({
+            dataTextField: "categoryName",
+            dataValueField: "categoryID",
+            value: "@Model.SchoolInfo.DefaultPaymentTypeCategoryID",
+            dataSource: {
+                transport: {
+                    read: {
+                        dataType: "json",
+                        url: "/M250Student/PaymentTypeCombo"
+                    }
+                }
+            }
+        });
+    });
+
+    $(document).ready(function () {
+        $("#bankNameDropDown").kendoDropDownList({
+            optionLabel: { bankName: getByCulture('@culture', 'select'), bankID: "0" },
+            index: "@Model.SchoolInfo.DefaultBankID",
+            dataTextField: "bankName",
+            dataValueField: "bankID",
+            dataSource: {
+                transport: {
+                    read: {
+                        dataType: "json",
+                        url: "/M250Student/BankNameCombo?schoolID=" + "@Model.SchoolID",
+                    }
+                }
+            },
+        });
+    });
+
+</script>
+<!--#endregion -->
+<!--#region upload -->
+<script>
+    var previewingStudent = function (event) {
+        var result = document.getElementById("imgpreviewStudent")
+        result.src = URL.createObjectURL(event.target.files[0]);
+    };
+
+    $(document).ready(function () {
+        $("#imgfileStudent").kendoUpload({
+            async: {
+                removeUrl: "remove",
+                autoUpload: true
+            },
+            localization: {
+                select: '<i class="fa fa-upload"></i>'
+            },
+            showFileList: false
+        });
+    });
+
+</script>
+
+<script>
+    $(document).ready(function () {
+        $('#M230Student').submit(function () {
+            $('#M230Student').find("[required=\"required\"]").attr("required", false);
+            $(".needValidation").attr("required", true);
+        });
+
+        var validator = $("#M230Student").kendoValidator().data("kendoValidator"),
+            status = $(".status");
+    });
+</script>
+<script>
+    window.history.replaceState('', '', window.location.pathname);
+</script>
+<!--#endregion -->
